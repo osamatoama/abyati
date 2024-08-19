@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enums\OrderCompletionStatus;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -27,7 +28,11 @@ return new class extends Migration
             $table->string('date_timezone')->nullable();
             $table->foreignId('status_id')->nullable()->constrained('order_statuses');
             $table->string('status_name')->nullable();
+            $table->string('completion_status')->default(OrderCompletionStatus::PENDING);
+            $table->string('shipment_type')->nullable();
+            $table->text('amounts')->nullable();
             $table->text('customer')->nullable();
+            $table->text('address')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

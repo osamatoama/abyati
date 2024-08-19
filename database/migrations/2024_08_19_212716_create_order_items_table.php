@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\OrderItemCompletionStatus;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -23,8 +24,8 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained();
             $table->string('name')->nullable();
             $table->integer('quantity')->default(0);
-            $table->decimal('total', 20, 5)->default(0);
-            $table->string('currency')->nullable();
+            $table->string('completion_status')->default(OrderItemCompletionStatus::PENDING);
+            $table->text('amounts')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

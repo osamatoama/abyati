@@ -19,7 +19,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('user_id')->constrained();
-            $table->unsignedTinyInteger('provider_type');
+            $table->string('provider_type');
             $table->unsignedBigInteger('provider_id');
             $table->string('name');
             $table->string('mobile');

@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Models;
+
+use App\Models\User;
+use App\Enums\StoreProviderType;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+class Store extends Model
+{
+    use HasFactory;
+
+    /**
+     * Config
+     */
+    protected $fillable = [
+        'user_id',
+        'provider_type',
+        'provider_id',
+        'name',
+        'mobile',
+        'email',
+        'domain',
+    ];
+
+    protected $casts = [
+        'provider_type' => StoreProviderType::class,
+    ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: User::class,
+            foreignKey: 'user_id',
+            ownerKey: 'id',
+        );
+    }
+
+    public function coupons(): BelongsToMany
+    {
+        return $this->belongsToMany(Coupon::class, 'coupon_store');
+    }
+
+    public function orderStatuses(): HasMany
+    {
+        return $this->hasMany(OrderStatus::class, 'store_id');
+    }
+
+    public function paymentTerm(): HasOne
+    {
+        return $this->hasOne(PaymentTerm::class, 'store_id');
+    }
+
+    public function scopeSalla(Builder $query, ?int $providerId = null): Builder
+    {
+        return $query->where(
+            column: 'provider_type',
+            operator: '=',
+            value: StoreProviderType::SALLA,
+        )->when(
+            value: $providerId !== null,
+            callback: fn (Builder $query): Builder => $query->where(
+                column: 'provider_id',
+                operator: '=',
+                value: $providerId,
+            ),
+        );
+    }
+}

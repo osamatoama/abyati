@@ -19,7 +19,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('user_id')->constrained();
-            $table->unsignedTinyInteger('provider_type');
+            $table->string('provider_type');
             $table->string('access_token');
             $table->string('refresh_token');
             $table->timestamp('expired_at')->nullable();
