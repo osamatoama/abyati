@@ -22,7 +22,6 @@ return new class extends Migration
             $table->foreignId('store_id')->constrained();
             $table->string('name');
             $table->string('sku')->nullable();
-            $table->string('barcode')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

@@ -123,4 +123,18 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Superadmin Account
+    |--------------------------------------------------------------------------
+    |
+    | Superadmin Account Credentials
+    |
+    */
+    'superadmin' => [
+        'email' => env('SUPERADMIN_EMAIL', 'admin@asq-affiliate.com'),
+
+        'password' => env('SUPERADMIN_PASSWORD', 'password'),
+    ],
 ];

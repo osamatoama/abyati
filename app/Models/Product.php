@@ -18,7 +18,6 @@ class Product extends Model
         'store_id',
         'name',
         'sku',
-        'barcode',
     ];
 
     protected $casts = [
