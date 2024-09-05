@@ -2,12 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ProductController;
 // use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\EmployeeController;
 // use App\Http\Controllers\Admin\Settings\DomainSettingController;
 // use App\Http\Controllers\Admin\Settings\ReturnSettingController;
 // use App\Http\Controllers\Admin\Settings\WebsiteSettingController;
@@ -19,6 +17,12 @@ Route::get('/', HomeController::class)->name('home');
 
 // Products
 Route::resource('products', ProductController::class)->only('index', 'show');
+
+// Branches
+Route::prefix('branches')->as('branches.')->group(function () {
+    Route::put('{branch}/toggle-active', [BranchController::class, 'toggleActive'])->name('toggle_active');
+});
+Route::resource('branches', BranchController::class)->only('index', 'show');
 
 // Orders
 // Route::prefix('orders')->as('orders.')->group(function () {

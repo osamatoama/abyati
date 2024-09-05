@@ -76,4 +76,20 @@ return [
             'unlimited_quantity' => 'غير محدودة',
         ],
     ],
+
+    'branches' => [
+        'title' => 'الفروع',
+
+        'attributes' => [
+            'id' => 'المعرف',
+            'name' => 'الاسم',
+            'related_order_status' => 'حالة الطلب المرتبطة بالفرع',
+            'active' => 'مفعل',
+        ],
+
+        'messages' => [
+            'activated' => 'تم تفعيل الفرع',
+            'deactivated' => 'تم إلغاء تفعيل الفرع',
+        ],
+    ],
 ];

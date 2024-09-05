@@ -76,4 +76,20 @@ return [
             'unlimited_quantity' => 'Unlimited',
         ],
     ],
+
+    'branches' => [
+        'title' => 'Branches',
+
+        'attributes' => [
+            'id' => 'ID',
+            'name' => 'Name',
+            'related_order_status' => 'Related order status',
+            'active' => 'Active',
+        ],
+
+        'messages' => [
+            'activated' => 'Branch activated',
+            'deactivated' => 'Branch deactivated',
+        ],
+    ],
 ];
