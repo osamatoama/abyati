@@ -1,0 +1,31 @@
+/* .action-btn .btn-text {
+    display: none;
+}
+
+.action-btn:hover .btn-text {
+    display: inline;
+} */
+
+.actions-th {
+    width: 25%;
+}
+
+.action-btn {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.action-btn .btn-text {
+    display: inline-block;
+    visibility:hidden;
+    transform: translateX(20px);
+    max-width:0;
+    transition: max-width .5s;
+}
+
+.action-btn:hover .btn-text {
+    max-width:200px;
+    visibility:visible;
+    transform: translateX(0);
+     transition: max-width 1.5s, visibility 1.4s, transform .4s;
+}
