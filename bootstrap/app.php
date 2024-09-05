@@ -15,6 +15,12 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->prefix('webhooks')
                 ->name('webhooks.')
                 ->group(base_path('routes/webhooks/routes.php'));
+
+            Route::prefix('admin')
+                ->middleware(['web', 'localize'])
+                ->group(function () {
+                    Route::group([], base_path('routes/admin/routes.php'));
+                });
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
