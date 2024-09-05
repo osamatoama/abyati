@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
 use App\Http\Controllers\Controller;
-use App\Datatables\Client\ProductIndex;
+use App\Datatables\Admin\ProductIndex;
 use App\Http\Controllers\Concerns\Authorizable;
 
 class ProductController extends Controller
@@ -13,14 +13,13 @@ class ProductController extends Controller
 
     protected $permissionName = 'products';
 
-
     public function index(): mixed
     {
         if (request()->expectsJson()) {
             return app(ProductIndex::class)->render();
         }
 
-        return view('client.products.index');
+        return view('admin.pages.products.index');
     }
 
     public function show(Product $product)

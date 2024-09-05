@@ -128,6 +128,11 @@ class User extends Authenticatable
         );
     }
 
+    public function isSuperAdmin()
+    {
+        return $this->id == 1;
+    }
+
     protected function isAdmin(): Attribute
     {
         return Attribute::make(

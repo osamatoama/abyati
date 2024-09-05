@@ -1,22 +1,22 @@
-@extends('client.layouts.master')
+@extends('admin.layouts.master')
 
-@section('title', __('products.title'))
+@section('title', __('admin.products.title'))
 
 @section('content')
     <div class="card">
         <div class="card-body">
             <table id="results-table" class="table table-hover table-row-bordered gy-5 gs-7"
-                data-url="{{ route('client.products.index')}}"
+                data-url="{{ route('admin.products.index')}}"
             >
                 <thead>
                     <tr class="fw-semibold fs-6 text-gray-800">
-                        <th>{{ __('products.attributes.id') }}</th>
-                        <th>{{ __('products.attributes.salla_id') }}</th>
-                        <th>{{ __('products.attributes.image') }}</th>
-                        <th>{{ __('products.attributes.name') }}</th>
-                        <th>{{ __('products.attributes.sku') }}</th>
-                        <th>{{ __('products.attributes.quantity') }}</th>
-                        <th>{{ __('products.attributes.price') }}</th>
+                        <th>{{ __('admin.products.attributes.id') }}</th>
+                        <th>{{ __('admin.products.attributes.salla_id') }}</th>
+                        <th>{{ __('admin.products.attributes.image') }}</th>
+                        <th>{{ __('admin.products.attributes.name') }}</th>
+                        <th>{{ __('admin.products.attributes.sku') }}</th>
+                        {{-- <th>{{ __('admin.products.attributes.quantity') }}</th>
+                        <th>{{ __('admin.products.attributes.price') }}</th> --}}
                     </tr>
                 </thead>
             </table>

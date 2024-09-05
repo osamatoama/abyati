@@ -25,7 +25,7 @@
         @empty
             <tr class="border-top">
                 <td colspan="4" class="text-center">
-                    {{ __('general.no_data_found') }}
+                    {{ __('globals.no_data_found') }}
                 </td>
             </tr>
         @endforelse

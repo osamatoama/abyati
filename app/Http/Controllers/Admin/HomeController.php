@@ -24,6 +24,6 @@ class HomeController extends Controller
         // }
 
 
-        return view('client.home.index', compact('statistics'));
+        return view('admin.pages.home.index', compact('statistics'));
     }
 }

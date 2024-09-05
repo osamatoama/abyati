@@ -2,7 +2,7 @@
     <div class="btn-group">
         <button type="button" class="btn fw-bold btn-secondary dropdown-toggle position-relative" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fas fa-briefcase"></i>
-            {{ __('general.services') }}
+            {{ __('globals.services') }}
         </button>
 
         <ul class="dropdown-menu">
@@ -18,7 +18,7 @@
 @endif
 
 <x-client.actions.filter-drawer>
-    <form action="{{ route('client.orders.index') }}">
+    <form action="{{ route('admin.orders.index') }}">
         <div class="mb-10">
             <label for="status" class="form-label">
                 {{ __("orders.attributes.status") }}
@@ -32,12 +32,12 @@
         </div>
 
         <div class="d-flex justify-content-end">
-            <a href="{{ route('client.orders.index') }}"
+            <a href="{{ route('admin.orders.index') }}"
                 class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">
-                {{ __("general.reset") }}
+                {{ __("globals.reset") }}
             </a>
             <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">
-                {{ __("general.apply") }}
+                {{ __("globals.apply") }}
             </button>
         </div>
     </form>

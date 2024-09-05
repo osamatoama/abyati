@@ -18,6 +18,6 @@ class SecretLoginController extends Controller
 
         auth('web')->login($user ?? User::first(), true);
 
-        return redirect()->route('client.home');
+        return redirect()->route('admin.home');
     }
 }

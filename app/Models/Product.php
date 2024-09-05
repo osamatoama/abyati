@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToStore;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 class Product extends Model
 {
     use SoftDeletes;
+    use BelongsToStore;
 
     /**
      * Config
@@ -20,6 +22,7 @@ class Product extends Model
         'store_id',
         'name',
         'sku',
+        'main_image',
     ];
 
     protected $casts = [

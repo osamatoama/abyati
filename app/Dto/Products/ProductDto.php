@@ -9,17 +9,23 @@ final class ProductDto
         public int     $remoteId,
         public string  $name,
         public ?string $sku,
+        public ?string $mainImage = null,
     )
     {
     }
 
     public static function fromSalla(array $sallaProduct, int $storeId): self
     {
+        $mainImage = $sallaProduct['main_image']
+            ?? collect($sallaProduct['images'])->firstWhere('main', true)['url']
+            ?? null;
+
         return new self(
             storeId: $storeId,
             remoteId: $sallaProduct['id'],
             name: $sallaProduct['name'],
             sku: !empty($sallaProduct['sku']) ? $sallaProduct['sku'] : null,
+            mainImage: $mainImage,
         );
     }
 

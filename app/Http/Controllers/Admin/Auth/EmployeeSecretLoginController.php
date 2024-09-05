@@ -18,6 +18,6 @@ class EmployeeSecretLoginController extends Controller
 
         auth('employee')->login($employee, true);
 
-        return redirect()->route('client.home');
+        return redirect()->route('admin.home');
     }
 }

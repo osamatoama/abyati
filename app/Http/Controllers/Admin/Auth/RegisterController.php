@@ -17,7 +17,7 @@ class RegisterController extends Controller
      */
     public function showForm()
     {
-        return view('client.auth.register');
+        return view('admin.auth.register');
     }
 
     /**
@@ -28,6 +28,6 @@ class RegisterController extends Controller
     {
         (new SystemRegisterService)->handle($request->validated());
 
-        return redirect()->route('client.home');
+        return redirect()->route('admin.home');
     }
 }

@@ -5,8 +5,8 @@
         {data: 'image', name: 'image', orderable: false, searchable: false},
         {data: 'name', name: 'name', orderable: false, searchable: true},
         {data: 'sku', name: 'sku', orderable: false, searchable: true},
-        {data: 'quantity', name: 'quantity', orderable: true, searchable: true},
-        {data: 'price', name: 'price', orderable: true, searchable: false},
+        // {data: 'quantity', name: 'quantity', orderable: true, searchable: true},
+        // {data: 'price', name: 'price', orderable: true, searchable: false},
     ], $('#results-table').data('url'), '#results-table', [[0, 'desc']], {
         buttons: [
             'excel'

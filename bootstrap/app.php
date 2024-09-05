@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\Localize;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -17,7 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->group(base_path('routes/webhooks/routes.php'));
 
             Route::prefix('admin')
-                ->middleware(['web', 'localize'])
+                ->name('admin.')
+                ->middleware(['web', Localize::class])
                 ->group(function () {
                     Route::group([], base_path('routes/admin/routes.php'));
                 });

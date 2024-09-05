@@ -8,7 +8,7 @@
         {data: 'items_count', name: 'items_count', orderable: false, searchable: false},
         {data: 'total', name: 'total', orderable: true, searchable: false},
         {data: 'actions', name: 'actions', orderable: false, searchable: false},
-    ], '{{ route('client.orders.index' ,['status' => request('status')])}}',
+    ], '{{ route('admin.orders.index' ,['status' => request('status')])}}',
         '#results-table',
         [[2, 'desc']],
         {

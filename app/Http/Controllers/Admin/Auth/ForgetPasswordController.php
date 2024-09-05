@@ -23,7 +23,7 @@ class ForgetPasswordController extends Controller
      */
     public function showForgetFrom()
     {
-        return view('client.auth.forgot-password');
+        return view('admin.auth.forgot-password');
     }
 
     /**
@@ -53,7 +53,7 @@ class ForgetPasswordController extends Controller
      */
     public function showResetForm(Request $request)
     {
-        return view('client.auth.reset-password', [
+        return view('admin.auth.reset-password', [
             'request' => $request,
         ]);
     }

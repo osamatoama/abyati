@@ -22,6 +22,7 @@ final class ProductService
                 values: [
                     'name' => $productDto->name,
                     'sku' => $productDto->sku,
+                    'main_image' => $productDto->mainImage,
                 ],
             );
     }
@@ -37,6 +38,7 @@ final class ProductService
                 values: [
                     'name' => $productDto->name,
                     'sku' => $productDto->sku,
+                    'main_image' => $productDto->mainImage,
                 ],
             );
     }

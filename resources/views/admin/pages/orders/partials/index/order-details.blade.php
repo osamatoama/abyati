@@ -121,7 +121,7 @@
                                             @endif
 
                                             @if($item->trashed())
-                                                <span class="badge badge-danger ms-1">{{ __('general.deleted') }}</span>
+                                                <span class="badge badge-danger ms-1">{{ __('globals.deleted') }}</span>
                                             @endif
                                         </div>
                                     </div>
@@ -240,7 +240,7 @@
                         @empty
                             <tr class="border-top">
                                 <td colspan="4" class="text-center">
-                                    {{ __('general.no_data_found') }}
+                                    {{ __('globals.no_data_found') }}
                                 </td>
                             </tr>
                         @endforelse

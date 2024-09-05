@@ -31,7 +31,7 @@ class ResetPasswordController extends Controller
             'success' => true,
             'message' => __('account.messages.password_reset'),
             'data' => [
-                'redirect' => route('client.login'),
+                'redirect' => route('admin.login'),
             ],
         ]);
     }

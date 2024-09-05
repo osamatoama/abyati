@@ -13,7 +13,7 @@ class ProductIndex extends Datatable
      */
     public function query()
     {
-        return Product::query()->mine();
+        return Product::query();
     }
 
     /**
@@ -46,12 +46,12 @@ class ProductIndex extends Datatable
             'sku' => function (Product $product) {
                 return view('admin.pages.products.partials.index.cols.sku', compact('product'));
             },
-            'quantity' => function (Product $product) {
-                return view('admin.pages.products.partials.index.cols.quantity', compact('product'));
-            },
-            'price' => function (Product $product) {
-                return view('admin.pages.products.partials.index.cols.price', compact('product'));
-            },
+            // 'quantity' => function (Product $product) {
+            //     return view('admin.pages.products.partials.index.cols.quantity', compact('product'));
+            // },
+            // 'price' => function (Product $product) {
+            //     return view('admin.pages.products.partials.index.cols.price', compact('product'));
+            // },
         ];
     }
 
