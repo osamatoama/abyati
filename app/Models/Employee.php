@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 // use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 // class Employee extends Authenticatable implements FilamentUser
@@ -21,6 +22,7 @@ class Employee extends Authenticatable
      * Config
      */
     protected $fillable = [
+        'branch_id',
         'name',
         'email',
         'phone',
@@ -40,6 +42,15 @@ class Employee extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+
+    /**
+     * Relations
+     */
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function orders(): HasMany

@@ -19,7 +19,7 @@ class Branch extends Model
      */
     protected $fillable = [
         'store_id',
-        'status_id',
+        'related_order_status_id',
         'name',
         'active',
     ];
@@ -31,8 +31,11 @@ class Branch extends Model
     /**
      * Relationships
      */
-    public function status(): BelongsTo
+    public function relatedOrderStatus(): BelongsTo
     {
-        return $this->belongsTo(OrderStatus::class);
+        return $this->belongsTo(
+            related: OrderStatus::class,
+            foreignKey: 'related_order_status_id',
+        );
     }
 }
