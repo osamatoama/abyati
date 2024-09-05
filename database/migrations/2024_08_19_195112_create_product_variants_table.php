@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->string('sku')->nullable();
             $table->string('barcode')->nullable();
+            $table->unsignedInteger('stock_quantity')->nullable();
+            $table->boolean('unlimited_quantity')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

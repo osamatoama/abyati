@@ -2,4 +2,4 @@
 
 namespace App\Services\Salla;
 
-abstract readonly class Client {}
+abstract class Client {}

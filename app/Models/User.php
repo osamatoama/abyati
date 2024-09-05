@@ -118,11 +118,30 @@ class User extends Authenticatable
         );
     }
 
+    public function scopeMerchant(Builder $query): Builder
+    {
+        return $this->scopeRole(
+            query: $query,
+            roles: [
+                UserRole::MERCHANT->asModel(),
+            ],
+        );
+    }
+
     protected function isAdmin(): Attribute
     {
         return Attribute::make(
             get: fn (mixed $value, array $attributes): bool => $this->hasRole(
                 roles: UserRole::ADMIN->asModel(),
+            ),
+        );
+    }
+
+    protected function isMerchant(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes): bool => $this->hasRole(
+                roles: UserRole::MERCHANT->asModel(),
             ),
         );
     }

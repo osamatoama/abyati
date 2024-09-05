@@ -3,7 +3,7 @@
 namespace App\Services\Orders;
 
 use App\Models\Order;
-use App\Dto\ProductDto;
+use App\Dto\Products\ProductDto;
 use App\Dto\Orders\OrderDto;
 use App\Enums\Queues\BatchName;
 use App\Dto\Orders\OrderItemDto;

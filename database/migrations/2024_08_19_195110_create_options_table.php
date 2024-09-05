@@ -16,6 +16,7 @@ return new class extends Migration
 
             $table->string('remote_id')->nullable()->index();
             $table->foreignId('store_id')->constrained();
+            $table->foreignId('product_id')->constrained();
             $table->string('name');
 
             $table->timestamps();

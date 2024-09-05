@@ -2,9 +2,10 @@
 
 namespace App\Services\Products;
 
-use App\Dto\ProductDto;
 use App\Models\Product;
+use App\Dto\Products\ProductDto;
 use App\Services\Concerns\HasInstance;
+use App\Services\Products\OptionService;
 
 final class ProductService
 {
@@ -42,11 +43,31 @@ final class ProductService
 
     public function saveSallaProduct(array $sallaProduct, int $storeId): Product
     {
-        return $this->updateOrCreate(
+        $product = $this->updateOrCreate(
             productDto: ProductDto::fromSalla(
                 sallaProduct: $sallaProduct,
                 storeId: $storeId,
             ),
         );
+
+        foreach ($sallaProduct['options'] as $option) {
+            OptionService::instance()
+                ->saveSallaOption(
+                    sallaOption: $option,
+                    storeId: $storeId,
+                    productId: $product->id,
+                );
+        }
+
+        foreach ($sallaProduct['skus'] as $sku) {
+            ProductVariantService::instance()
+                ->saveSallaProductVariant(
+                    sallaSku: $sku,
+                    storeId: $storeId,
+                    productId: $product->id,
+                );
+        }
+
+        return $product;
     }
 }

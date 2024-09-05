@@ -24,7 +24,7 @@ class PullProductJob implements ShouldQueue
         public readonly int $storeId,
         public readonly array $data,
     ) {
-        //
+        $this->maxAttempts = 1;
     }
 
     /**
