@@ -18,4 +18,12 @@ enum OrderCompletionStatus: string
     case QUANTITY_ISSUES = 'quantity_issues';
 
     case COMPLETED = 'completed';
+
+    /**
+     * Methods
+     */
+    public function trans()
+    {
+        return __("admin.orders.completion_statuses.{$this->value}");
+    }
 }

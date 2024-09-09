@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\OrderCompletionStatus;
+
 return [
 
     'auth' => [
@@ -133,19 +135,6 @@ return [
 
     'orders' => [
         'title' => 'Orders',
-        'allOrders' => 'View all orders',
-        'sliderView' => 'Slider view',
-        'close' => 'Close',
-        'toNextStep' => 'To Next Step',
-        'updateStatus' => 'Update status',
-        'addOrderNote' => 'Add order note',
-        'editOrderNote' => 'Edit order note',
-        'addOrderItemNote' => 'Add item note',
-        'editOrderItemNote' => 'Edit item note',
-        'saveNote' => 'Save Note',
-        'note' => 'Note',
-        'shipments' => 'Shipments',
-        'pickup' => 'Pickup',
         'order_#' => 'Order ',
         'details' => 'Order Details',
         'calculations' => 'Calculations',
@@ -176,6 +165,8 @@ return [
             'cash_on_delivery' => 'COD fees',
             'tax' => 'Tax',
             'total' => 'Total',
+            'completion_status' => 'Completion Status',
+            'employee' => 'Employee',
         ],
 
         'items' => [
@@ -250,6 +241,13 @@ return [
                 'non_existing_order_charge' => 'Your credit will be decremented according to number of pulled orders',
                 'existing_order_charge' => 'If an order was already exist. then no points will be decremented for it',
             ],
+        ],
+
+        'completion_statuses' => [
+            OrderCompletionStatus::PENDING->value => 'Pending',
+            OrderCompletionStatus::PROCESSING->value => 'Processing',
+            OrderCompletionStatus::QUANTITY_ISSUES->value => 'Quantity Issues',
+            OrderCompletionStatus::COMPLETED->value => 'Completed',
         ],
     ],
 ];

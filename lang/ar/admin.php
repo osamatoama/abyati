@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\OrderCompletionStatus;
+
 return [
 
     'auth' => [
@@ -134,19 +136,6 @@ return [
 
     'orders' => [
         'title' => 'الطلبات',
-        'allOrders' => 'مشاهدة جميع الطلبات',
-        'sliderView' => 'العرض الأفقي',
-        'close' => 'إغلاق',
-        'toNextStep' => 'إلى الخطوة التالية',
-        'updateStatus' => 'تحديث الحالة',
-        'addOrderNote' => 'إضافة ملاحظة',
-        'editOrderNote' => 'تعديل الملاحظة',
-        'addOrderItemNote' => 'إضافة ملاحظة للمنتج',
-        'editOrderItemNote' => 'تعديل ملاحظة المنتج',
-        'saveNote' => 'حفظ الملاحظة',
-        'note' => 'ملاحظة',
-        'shipments' => 'الشحنات',
-        'pickup' => 'الاستلام',
         'order_#' => 'طلب ',
         'details' => 'تفاصيل الطلب',
         'calculations' => 'الحسابات',
@@ -177,6 +166,8 @@ return [
             'cash_on_delivery' => 'رسوم الدفع عند الاستلام',
             'tax' => 'الضريبة',
             'total' => 'إجمالي الطلب',
+            'completion_status' => 'حالة التنفيذ',
+            'employee' => 'الموظف',
         ],
 
         'items' => [
@@ -249,6 +240,13 @@ return [
                 'non_existing_order_charge' => 'سيتم خصم نقاط من الرصيد حسب عدد الطلبات التي يتم سحبها',
                 'existing_order_charge' => 'في حال كان الطلب موجوداً بالفعل على المنصة لا يتم خصم نقاط من الرصيد',
             ],
+        ],
+
+        'completion_statuses' => [
+            OrderCompletionStatus::PENDING->value => 'قيد الانتظار',
+            OrderCompletionStatus::PROCESSING->value => 'قيد التنفيذ',
+            OrderCompletionStatus::QUANTITY_ISSUES->value => 'مشاكل كميات',
+            OrderCompletionStatus::COMPLETED->value => 'مكتمل',
         ],
     ],
 ];

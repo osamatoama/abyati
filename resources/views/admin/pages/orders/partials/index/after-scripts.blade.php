@@ -1,16 +1,18 @@
 <script>
     let dataTable = helpers.plugins.datatables.init([
-        {data: 'reference_id', name: 'reference_id', orderable: true, searchable: true},
-        {data: 'store', name: 'store', orderable: true, searchable: false},
-        {data: 'customer', name: 'customer', orderable: true, searchable: false},
+        {data: 'reference_id', name: 'reference_id', orderable: false, searchable: true},
+        {data: 'store', name: 'store', orderable: false, searchable: false},
+        {data: 'customer', name: 'customer', orderable: false, searchable: false},
         {data: 'date', name: 'date', orderable: true, searchable: false},
-        {data: 'status', name: 'status_name', orderable: true, searchable: true},
+        {data: 'status', name: 'status_name', orderable: false, searchable: true},
+        {data: 'completion_status', name: 'completion_status', orderable: false, searchable: true},
+        {data: 'employee', name: 'employee', orderable: false, searchable: true},
         {data: 'items_count', name: 'items_count', orderable: false, searchable: false},
         {data: 'total', name: 'total', orderable: true, searchable: false},
         {data: 'actions', name: 'actions', orderable: false, searchable: false},
-    ], '{{ route('admin.orders.index' ,['status' => request('status')])}}',
+    ], $('#results-table').data('url'),
         '#results-table',
-        [[2, 'desc']],
+        [[3, 'desc']],
         {
             buttons: [
                 'excel'

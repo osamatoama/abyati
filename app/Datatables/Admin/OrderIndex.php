@@ -15,6 +15,10 @@ class OrderIndex extends Datatable
     {
         return Order::query()
             ->filter()
+            ->with([
+                'store',
+                'employee',
+            ])
             ->withCount([
                 'items'
             ]);
@@ -30,6 +34,9 @@ class OrderIndex extends Datatable
         return [
             'store' => function (Order $order) {
                 return view('admin.pages.orders.partials.index.cols.store', compact('order'));
+            },
+            'employee' => function (Order $order) {
+                return view('admin.pages.orders.partials.index.cols.employee', compact('order'));
             },
             'total' => function (Order $order) {
                 return view('admin.pages.orders.partials.index.cols.total', compact('order'));
@@ -54,6 +61,9 @@ class OrderIndex extends Datatable
             },
             'status' => function (Order $order) {
                 return view('admin.pages.orders.partials.index.cols.status', compact('order'));
+            },
+            'completion_status' => function (Order $order) {
+                return view('admin.pages.orders.partials.index.cols.completion_status', compact('order'));
             },
             'customer' => function (Order $order) {
                 return view('admin.pages.orders.partials.index.cols.customer', compact('order'));

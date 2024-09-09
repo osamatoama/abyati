@@ -14,7 +14,10 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="results-table" class="table table-hover table-row-bordered gy-5 gs-7">
+                <table
+                    id="results-table" class="table table-hover table-row-bordered gy-5 gs-7"
+                    data-url="{{ route('admin.orders.index', ['status' => request('status')]) }}"
+                >
                     <thead>
                         <tr class="fw-semibold fs-6 text-gray-800">
                             <th>{{ __('admin.orders.attributes.order_number') }}</th>
@@ -22,6 +25,8 @@
                             <th>{{ __('admin.orders.attributes.customer') }}</th>
                             <th>{{ __('admin.orders.attributes.date') }}</th>
                             <th>{{ __('admin.orders.attributes.status') }}</th>
+                            <th>{{ __('admin.orders.attributes.completion_status') }}</th>
+                            <th>{{ __('admin.orders.attributes.employee') }}</th>
                             <th>{{ __('admin.orders.attributes.items_count') }}</th>
                             <th>{{ __('admin.orders.attributes.total') }}</th>
                             <th></th>
