@@ -8,7 +8,7 @@
 
 <div>
     <button id="filter-button" class="btn {{ $btnSize }} btn-secondary">
-        <i class="fas fa-filter"></i> {{ __('general.filters') }}
+        <i class="fas fa-filter"></i> {{ __('globals.filters') }}
     </button>
 
     <div id="filter-menu" class="bg-white"
@@ -21,7 +21,7 @@
                 <div class="card-title">
                     <div class="d-flex justify-content-center flex-column me-3">
                         <a href="#" class="fs-4 fw-bold text-gray-900 text-hover-primary me-1 lh-1">
-                            <i class="fas fa-filter"></i> {{ __("general.filters") }}
+                            <i class="fas fa-filter"></i> {{ __("globals.filters") }}
                         </a>
                     </div>
                 </div>

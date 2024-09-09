@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Support;
 use App\Models\Employee;
 use Illuminate\Support\Arr;
+use App\Services\Utils\Core;
 use App\Services\Utils\Locale;
 use Illuminate\Support\Number;
 use Illuminate\Support\Facades\DB;
@@ -37,6 +38,15 @@ if (! function_exists('formatPercentage')) {
         );
 
         return $formattedAmount . '%';
+    }
+}
+
+if (!function_exists('core')) {
+    function core(): Core
+    {
+        app()->singletonIf(Core::class);
+
+        return app(Core::class);
     }
 }
 

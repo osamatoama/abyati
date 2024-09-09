@@ -3,7 +3,7 @@
     'action' => null,
     'jsClass' => 'restore-row-button',
     'showTooltip' => true,
-    'tooltip' => __('buttons.general.crud.restore'),
+    'tooltip' => __('buttons.globals.crud.restore'),
 ])
 
 @php

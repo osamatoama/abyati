@@ -94,10 +94,10 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        {{ __('general.close') }}
+                        {{ __('globals.close') }}
                     </button>
                     <button type="submit" class="btn btn-primary">
-                        {{ __('general.save') }}
+                        {{ __('globals.save') }}
                     </button>
                 </div>
             </form>

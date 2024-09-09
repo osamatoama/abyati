@@ -35,7 +35,7 @@
 
         <a href="#" id="{{ $id }}-clear-all" class="badge badge-light-danger my-3 me-5">
             <i class="fa-solid fa-xmark me-1"></i>
-            @lang("general.clear_all")
+            @lang("globals.clear_all")
         </a>
     </div>
 </div>

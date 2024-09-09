@@ -131,4 +131,124 @@ return [
             'force_delete' => 'تم الحذف نهائياً بنجاح',
         ],
     ],
+
+    'orders' => [
+        'title' => 'الطلبات',
+        'allOrders' => 'مشاهدة جميع الطلبات',
+        'sliderView' => 'العرض الأفقي',
+        'close' => 'إغلاق',
+        'toNextStep' => 'إلى الخطوة التالية',
+        'updateStatus' => 'تحديث الحالة',
+        'addOrderNote' => 'إضافة ملاحظة',
+        'editOrderNote' => 'تعديل الملاحظة',
+        'addOrderItemNote' => 'إضافة ملاحظة للمنتج',
+        'editOrderItemNote' => 'تعديل ملاحظة المنتج',
+        'saveNote' => 'حفظ الملاحظة',
+        'note' => 'ملاحظة',
+        'shipments' => 'الشحنات',
+        'pickup' => 'الاستلام',
+        'order_#' => 'طلب ',
+        'details' => 'تفاصيل الطلب',
+        'calculations' => 'الحسابات',
+
+        'attributes' => [
+            'id' => 'المعرف',
+            'salla_id' => 'معرف سلة',
+            'referenceId' => 'الرقم المرجعي',
+            'store' => 'المتجر',
+            'order_number' => 'رقم الطلب',
+            'info' => 'معلومات الطلب',
+            'admin_url' => 'رابط التحكم',
+            'customer_url' => 'رابط العميل',
+            'items' => 'المنتجات',
+            'items_count' => 'عدد المنتجات',
+            'date' => 'التاريخ',
+            'status' => 'الحالة',
+            'internalStatus' => 'الحالة الداخلية',
+            'tags' => 'الوسوم',
+            'note' => 'الملاحظة',
+            'customerName' => 'اسم العميل',
+            'city' => 'المدينة',
+            'paymentMethod' => 'وسيلة الدفع',
+            'payment_method' => 'وسيلة الدفع',
+            'customer' => 'العميل',
+            'sub_total' => 'مجموع المنتجات',
+            'shipping_cost' => 'رسوم الشحن',
+            'cash_on_delivery' => 'رسوم الدفع عند الاستلام',
+            'tax' => 'الضريبة',
+            'total' => 'إجمالي الطلب',
+        ],
+
+        'items' => [
+            'attributes' => [
+                'product' => 'المنتج',
+                'quantity' => 'الكمية',
+                'unit_price' => 'سعر القطعة',
+                'total' => 'الإجمالي',
+            ],
+        ],
+
+        'history' => [
+            'title' => 'سجل الطلب',
+
+            'attributes' => [
+                'status' => 'الحالة',
+                'note' => 'الوصف',
+                'date' => 'التاريخ',
+            ],
+        ],
+
+        'address' => [
+            'title' => 'العنوان',
+
+            'attributes' => [
+                'city' => 'المدينة',
+                'country' => 'الدولة',
+                'shipping_address' => 'عنوان الشحن',
+                'pickup_address' => 'عنوان الاستلام',
+            ],
+        ],
+
+        'messages' => [
+            'created' => 'تم الإضافة بنجاح',
+            'updated' => 'تم التعديل بنجاح',
+            'tagDeleted' => 'تم حذف الوسم بنجاح',
+            'statusUpdated' => 'تم تحديث حالة الطلب بنجاح',
+            'noteUpdated' => 'تم تحديث الملاحظة بنجاح',
+            'pull_started' => 'جاري سحب الطلبات',
+            'no_shipping_address' => 'لا يوجد عنوان شحن لهذا الطلب',
+        ],
+
+        'alerts' => [
+            'shipping_bills_for_pickup_shipments' => 'لا يمكن إصدار بوليصات شحن لهذا الطلب لأن نوع الشحن: استلام من الفرع',
+            'shipping_bills_for_not_shippable' => 'لا يمكن إصدار بوليصات شحن لهذا الطلب لأنه لا يتطلب شحن',
+        ],
+
+        'pull_alert' => [
+            'title' => 'سحب الطلبات',
+            'body' => 'يمكنك انتظار الطلبات الجديدة أو سحب عدد من الطلبات السابقة',
+            'button' => 'خيارات السحب',
+        ],
+
+        'pull_form' => [
+            'pull' => 'سحب',
+            'pull_orders' => 'سحب الطلبات',
+            'orders_count' => 'عدد الطلبات',
+            'to_date' => 'السحب إلى',
+            'date' => 'التاريخ',
+            'from_date' => 'البداية',
+            'to_date' => 'النهاية',
+
+            'errors' => [
+                'from_date_should_be_before_now' => 'تاريخ البداية يجب أن يكون تاريخا سابقا أو مطابقا لتاريخ اليوم.',
+                'to_date_should_be_before_now' => 'تاريخ النهاية يجب أن يكون تاريخا سابقا أو مطابقا لتاريخ اليوم.',
+                'to_date_should_be_after_from_date' => 'تاريخ النهاية يجب أن يكون تاريخا لاحقا أو مطابقا لتاريخ البداية.',
+            ],
+
+            'notes' => [
+                'non_existing_order_charge' => 'سيتم خصم نقاط من الرصيد حسب عدد الطلبات التي يتم سحبها',
+                'existing_order_charge' => 'في حال كان الطلب موجوداً بالفعل على المنصة لا يتم خصم نقاط من الرصيد',
+            ],
+        ],
+    ],
 ];

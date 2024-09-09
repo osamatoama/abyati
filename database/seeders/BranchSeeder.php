@@ -19,7 +19,6 @@ class BranchSeeder extends Seeder
                 'store_id' => $store->id,
                 'name' => 'الرياض',
             ], [
-                'related_order_status_id' => null,
                 'active' => true,
             ]);
 
@@ -27,7 +26,6 @@ class BranchSeeder extends Seeder
                 'store_id' => $store->id,
                 'name' => 'تبوك',
             ], [
-                'related_order_status_id' => null,
                 'active' => true,
             ]);
         }

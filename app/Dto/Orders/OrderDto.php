@@ -2,9 +2,8 @@
 
 namespace App\Dto\Orders;
 
-use App\Models\Coupon;
 use Illuminate\Support\Carbon;
-use App\Services\Currencies\CurrencyConverter;
+use App\Enums\Salla\OrderAddressType;
 use App\Services\Salla\Merchant\SallaMerchantService;
 
 final class OrderDto
@@ -13,73 +12,42 @@ final class OrderDto
         public int     $remoteId,
         public int     $referenceId,
         public int     $storeId,
-        public int     $couponId,
-        public ?int    $marketerId,
+        // public int     $branchId,
+        // public ?int    $employeeId,
         public ?Carbon $date,
-        public ?string $dateTimezone,
         public ?int    $statusId,
         public ?string $statusName,
-        public ?float  $subTotal,
-        public ?float  $shippingCost,
-        public ?float  $cashOnDelivery,
-        public ?float  $tax,
-        public float   $discount,
-        public ?float  $discountedShipping,
-        public ?float  $total,
-        public ?string $currency,
-        public ?float  $commission,
-        // public bool    $isPaymentDue,
-        // public bool    $isCommissionPaid,
+        // public ?string $completionStatus,
+        public ?string $shipmentType,
+        public ?array  $amounts,
+        public ?array  $customer,
+        public ?array  $address,
     )
     {
+        //
     }
 
     public static function fromSalla(array $sallaOrder, int $storeId, int $statusId): self
     {
-        $sallaOrderDiscounts = $sallaOrder['amounts']['discounts'];
+        $shipmentType = $sallaOrder['shipments'][0]['type'] ?? null;
 
-        $sallaCouponDiscount = collect($sallaOrderDiscounts)
-            ->whereNotNull('code')
-            ->first();
-
-        $coupon = null;
-
-        if ($sallaCouponDiscount['code'] ?? false) {
-            $coupon = Coupon::findByCode($sallaCouponDiscount['code']);
-        }
-
-        $subTotal = $sallaOrder['amounts']['sub_total']['amount'] ?? null;
-        $shippingCost = $sallaOrder['amounts']['shipping_cost']['amount'] ?? null;
-        $cashOnDelivery = $sallaOrder['amounts']['cash_on_delivery']['amount'] ?? null;
-        $tax = $sallaOrder['amounts']['tax']['amount']['amount'] ?? null;
-        $discount = $sallaCouponDiscount['discount'] ?? 0;
-        $discountedShipping = $sallaCouponDiscount['discounted_shipping'] ?? null;
-        $total = $sallaOrder['amounts']['total']['amount'] ?? null;
-        $fromCurrency = $sallaOrder['currency'] ?? $sallaOrder['amounts']['total']['currency'] ?? null;
+        $address = ($shipmentType == OrderAddressType::PICKUP->value)
+            ? ($sallaOrder['shipping']['pickup_address'] ?? null)
+            : ($sallaOrder['shipping']['address'] ?? null);
 
         return new self(
             remoteId: $sallaOrder['id'],
             referenceId: $sallaOrder['reference_id'],
             storeId: $storeId,
-            couponId: $coupon?->id,
-            marketerId: $coupon?->marketer_id,
             date: !empty($sallaOrder['date']['date']) ? SallaMerchantService::parseDate(
                 date: $sallaOrder['date'],
             ) : null,
-            dateTimezone: $sallaOrder['date']['timezone'] ?? null,
             statusId: $statusId,
             statusName: $sallaOrder['status']['name'] ?? null,
-            subTotal: CurrencyConverter::convertToSar($subTotal, $fromCurrency),
-            shippingCost: CurrencyConverter::convertToSar($shippingCost, $fromCurrency),
-            cashOnDelivery: CurrencyConverter::convertToSar($cashOnDelivery, $fromCurrency),
-            tax: CurrencyConverter::convertToSar($tax, $fromCurrency),
-            discount: CurrencyConverter::convertToSar($discount, $fromCurrency),
-            discountedShipping: CurrencyConverter::convertToSar($discountedShipping, $fromCurrency),
-            total: CurrencyConverter::convertToSar($total, $fromCurrency),
-            currency: CurrencyConverter::SAR_CODE,
-            commission: null,
-            // isPaymentDue: false,
-            // isCommissionPaid: false,
+            shipmentType: $shipmentType,
+            amounts: $sallaOrder['amounts'] ?? null,
+            customer: $sallaOrder['customer'] ?? null,
+            address: $address,
         );
     }
 }

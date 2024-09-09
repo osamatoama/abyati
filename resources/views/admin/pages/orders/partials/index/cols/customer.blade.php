@@ -1,1 +1,1 @@
-{{ filled($order->customer?->name) ? $order->customer?->name : '---' }}
+{{ $order->customer_name ?? '---' }}

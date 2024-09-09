@@ -2,8 +2,8 @@
 
 namespace App\Services\Orders;
 
-use App\Dto\Orders\OrderItemDto;
 use App\Models\OrderItem;
+use App\Dto\Orders\OrderItemDto;
 use App\Services\Concerns\HasInstance;
 
 final class OrderItemService
@@ -22,8 +22,7 @@ final class OrderItemService
                     'product_id' => $orderItemDto->productId,
                     'name' => $orderItemDto->name,
                     'quantity' => $orderItemDto->quantity,
-                    'total' => $orderItemDto->total,
-                    'currency' => $orderItemDto->currency,
+                    'amounts' => $orderItemDto->amounts,
                 ],
             );
     }

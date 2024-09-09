@@ -1,26 +1,27 @@
 <?php
 
-namespace App\Console\Commands\Orders;
+namespace App\Console\Commands\Salla;
 
 use App\Models\Store;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Bus;
 use App\Jobs\Salla\Pull\Orders\PullOrdersJob;
 
-class DailySyncOrders extends Command
+class SallaPullOrders extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:daily-sync-orders';
+    protected $signature = 'salla:pull-orders';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Sync salla orders daily.';
+    protected $description = 'Pull orders data from Salla API';
 
     /**
      * Execute the console command.
@@ -28,19 +29,22 @@ class DailySyncOrders extends Command
     public function handle()
     {
         $stores = Store::get();
+        $jobs = [];
 
-        foreach ($stores as $i => $store) {
+        foreach ($stores as $store) {
+            $this->info("Queueing pulls for store $store->id:");
+
             $store->load(
                 relations: ['user.sallaToken'],
             );
 
-            PullOrdersJob::dispatch(
+            $jobs[] = new PullOrdersJob(
                 accessToken: $store->user->sallaToken->access_token,
                 storeId: $store->id,
-                filters: [
-                    'from_date' => now('utc')->subDays(1)->format('Y-m-d'),
-                ],
-            )->delay(now('utc')->addMinutes(1 * $i));
+            );
+            $this->line('Orders');
         }
+
+        Bus::chain($jobs)->dispatch();
     }
 }

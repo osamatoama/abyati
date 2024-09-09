@@ -25,7 +25,6 @@ class PullOrdersJob implements ShouldQueue
         public readonly string $accessToken,
         public readonly int    $storeId,
         public readonly array  $filters = [],
-        public readonly bool   $hasMarketingCouponOnly = false,
     )
     {
         $this->maxAttempts = 5;
@@ -68,7 +67,6 @@ class PullOrdersJob implements ShouldQueue
                 //     page: $page,
                 //     response: $page === 1 ? $response : null,
                 //     filters: $this->filters,
-                //     hasMarketingCouponOnly: $this->hasMarketingCouponOnly,
                 // );
 
                 dispatch(new PullOrdersPerPageJob(
@@ -77,7 +75,6 @@ class PullOrdersJob implements ShouldQueue
                     page: $page,
                     response: $page === 1 ? $response : null,
                     filters: $this->filters,
-                    hasMarketingCouponOnly: $this->hasMarketingCouponOnly,
                 ));
             }
 

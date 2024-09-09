@@ -14,11 +14,7 @@ class OrderIndex extends Datatable
     public function query()
     {
         return Order::query()
-            ->mine()
             ->filter()
-            ->with([
-                'customer' => fn($q) => $q->select('id', 'first_name', 'last_name'),
-            ])
             ->withCount([
                 'items'
             ]);
@@ -32,11 +28,14 @@ class OrderIndex extends Datatable
     protected function addColumns(): array
     {
         return [
-            'actions' => function ($order) {
-                return view('admin.pages.orders.partials.index.cols.actions', compact('order'));
+            'store' => function (Order $order) {
+                return view('admin.pages.orders.partials.index.cols.store', compact('order'));
             },
-            'customer' => function ($order) {
-                return view('admin.pages.orders.partials.index.cols.customer', compact('order'));
+            'total' => function (Order $order) {
+                return view('admin.pages.orders.partials.index.cols.total', compact('order'));
+            },
+            'actions' => function (Order $order) {
+                return view('admin.pages.orders.partials.index.cols.actions', compact('order'));
             },
         ];
     }
@@ -47,17 +46,17 @@ class OrderIndex extends Datatable
     public function editColumns(): array
     {
         return [
-            'reference_id' => function ($order) {
+            'reference_id' => function (Order $order) {
                 return view('admin.pages.orders.partials.index.cols.reference_id', compact('order'));
             },
-            'date' => function ($order) {
+            'date' => function (Order $order) {
                 return view('admin.pages.orders.partials.index.cols.date', compact('order'));
             },
-            'status' => function ($order) {
+            'status' => function (Order $order) {
                 return view('admin.pages.orders.partials.index.cols.status', compact('order'));
             },
-            'payment_method' => function ($order) {
-                return view('admin.pages.orders.partials.index.cols.payment_method', compact('order'));
+            'customer' => function (Order $order) {
+                return view('admin.pages.orders.partials.index.cols.customer', compact('order'));
             },
         ];
     }

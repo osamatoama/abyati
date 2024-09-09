@@ -3,7 +3,7 @@
     'action' => null,
     'jsClass' => 'delete-row-button',
     'showTooltip' => true,
-    'tooltip' => __('buttons.general.crud.delete'),
+    'tooltip' => __('buttons.globals.crud.delete'),
     'disabled' => false,
 ])
 

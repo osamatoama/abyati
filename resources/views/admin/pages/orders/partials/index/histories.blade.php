@@ -1,9 +1,9 @@
 <table class="table">
     <thead class="fw-bold">
         <tr>
-            <th>{{ __('orders.history.attributes.status') }}</th>
-            <th>{{ __('orders.history.attributes.note') }}</th>
-            <th>{{ __('orders.history.attributes.date') }}</th>
+            <th>{{ __('admin.orders.history.attributes.status') }}</th>
+            <th>{{ __('admin.orders.history.attributes.note') }}</th>
+            <th>{{ __('admin.orders.history.attributes.date') }}</th>
         </tr>
     </thead>
 

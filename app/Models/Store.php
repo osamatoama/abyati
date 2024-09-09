@@ -6,11 +6,9 @@ use App\Models\User;
 use App\Enums\StoreProviderType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Store extends Model
 {
@@ -42,19 +40,9 @@ class Store extends Model
         );
     }
 
-    public function coupons(): BelongsToMany
-    {
-        return $this->belongsToMany(Coupon::class, 'coupon_store');
-    }
-
     public function orderStatuses(): HasMany
     {
         return $this->hasMany(OrderStatus::class, 'store_id');
-    }
-
-    public function paymentTerm(): HasOne
-    {
-        return $this->hasOne(PaymentTerm::class, 'store_id');
     }
 
     public function scopeSalla(Builder $query, ?int $providerId = null): Builder

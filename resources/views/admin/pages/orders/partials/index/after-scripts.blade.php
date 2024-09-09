@@ -1,10 +1,10 @@
 <script>
     let dataTable = helpers.plugins.datatables.init([
         {data: 'reference_id', name: 'reference_id', orderable: true, searchable: true},
+        {data: 'store', name: 'store', orderable: true, searchable: false},
         {data: 'customer', name: 'customer', orderable: true, searchable: false},
         {data: 'date', name: 'date', orderable: true, searchable: false},
         {data: 'status', name: 'status_name', orderable: true, searchable: true},
-        {data: 'payment_method', name: 'payment_method', orderable: false, searchable: false},
         {data: 'items_count', name: 'items_count', orderable: false, searchable: false},
         {data: 'total', name: 'total', orderable: true, searchable: false},
         {data: 'actions', name: 'actions', orderable: false, searchable: false},

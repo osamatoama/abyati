@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
 use App\Models\OrderStatus;
+use App\Datatables\Admin\OrderIndex;
 use App\Http\Controllers\Controller;
-use App\Datatables\Client\OrderIndex;
 use App\Http\Controllers\Concerns\Authorizable;
 use App\Http\Requests\Admin\SetupPullOrdersRequest;
 use App\Jobs\Salla\Pull\Orders\SallaPullOrdersWithLimitJob;
@@ -22,10 +22,10 @@ class OrderController extends Controller
             return app(OrderIndex::class)->render();
         }
 
-        $statuses = OrderStatus::mine()->get();
+        $statuses = OrderStatus::get();
         $statusesForUpdate = $statuses->where('source', 'salla');
 
-        return view('client.orders.index', compact('statuses', 'statusesForUpdate'));
+        return view('admin.pages.orders.index', compact('statuses', 'statusesForUpdate'));
     }
 
     public function show(Order $order)
@@ -48,7 +48,7 @@ class OrderController extends Controller
             'success' => true,
             'message' => 'fetched successfully',
             'data' => [
-                'title' => __('orders.details'),
+                'title' => __('admin.orders.details'),
                 'html' => view('admin.pages.orders.partials.index.order-details', compact('order'))->render(),
             ],
         ]);
@@ -68,7 +68,7 @@ class OrderController extends Controller
 
     //     return response()->json([
     //         'success' => true,
-    //         'message' => __('orders.messages.pull_started'),
+    //         'message' => __('admin.orders.messages.pull_started'),
     //         'data' => [],
     //     ]);
     // }
@@ -81,7 +81,7 @@ class OrderController extends Controller
             'success' => true,
             'message' => 'fetched successfully',
             'data' => [
-                'title' => __('orders.history.title') . ' #' . $order->reference_id,
+                'title' => __('admin.orders.history.title') . ' #' . $order->reference_id,
                 'html' => view('admin.pages.orders.partials.index.histories', compact('histories'))->render(),
             ],
         ]);

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ProductController;
@@ -31,7 +32,7 @@ Route::resource('branches', BranchController::class)->only('index', 'show');
 
 //     Route::get('{order}/histories', [OrderController::class, 'histories'])->name('histories.index');
 // });
-// Route::resource('orders', OrderController::class)->only('index', 'show');
+Route::resource('orders', OrderController::class)->only('index', 'show');
 
 // Employees
 Route::prefix('employees')->as('employees.')->group(function () {

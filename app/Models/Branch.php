@@ -6,7 +6,7 @@ use App\Models\Concerns\Activatable;
 use App\Models\Concerns\BelongsToStore;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Branch extends Model
 {
@@ -19,7 +19,6 @@ class Branch extends Model
      */
     protected $fillable = [
         'store_id',
-        'related_order_status_id',
         'name',
         'active',
     ];
@@ -31,11 +30,13 @@ class Branch extends Model
     /**
      * Relationships
      */
-    public function relatedOrderStatus(): BelongsTo
+    public function orderStatuses(): BelongsToMany
     {
-        return $this->belongsTo(
+        return $this->belongsToMany(
             related: OrderStatus::class,
-            foreignKey: 'related_order_status_id',
+            table: 'branch_order_statuses',
+            foreignPivotKey: 'branch_id',
+            relatedPivotKey: 'order_status_id',
         );
     }
 }

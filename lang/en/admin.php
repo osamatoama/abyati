@@ -130,4 +130,126 @@ return [
             'force_delete' => 'The Employee has been permanently deleted successfully!',
         ],
     ],
+
+    'orders' => [
+        'title' => 'Orders',
+        'allOrders' => 'View all orders',
+        'sliderView' => 'Slider view',
+        'close' => 'Close',
+        'toNextStep' => 'To Next Step',
+        'updateStatus' => 'Update status',
+        'addOrderNote' => 'Add order note',
+        'editOrderNote' => 'Edit order note',
+        'addOrderItemNote' => 'Add item note',
+        'editOrderItemNote' => 'Edit item note',
+        'saveNote' => 'Save Note',
+        'note' => 'Note',
+        'shipments' => 'Shipments',
+        'pickup' => 'Pickup',
+        'order_#' => 'Order ',
+        'details' => 'Order Details',
+        'calculations' => 'Calculations',
+
+        'attributes' => [
+            'id' => 'ID',
+            'salla_id' => 'Salla ID',
+            'referenceId' => 'Ref ID',
+            'order_number' => 'Order No.',
+            'store' => 'Store',
+            'info' => 'Info',
+            'admin_url' => 'Admin URL',
+            'customer_url' => 'Customer URL',
+            'items' => 'Items',
+            'items_count' => 'Items count',
+            'date' => 'Date',
+            'status' => 'Status',
+            'internalStatus' => 'Internal Order Status',
+            'tags' => 'Tags',
+            'note' => 'Note',
+            'customerName' => 'Customer name',
+            'city' => 'City',
+            'paymentMethod' => 'Payment method',
+            'payment_method' => 'Payment method',
+            'customer' => 'Customer',
+            'sub_total' => 'Subtotal',
+            'shipping_cost' => 'Shipping fees',
+            'cash_on_delivery' => 'COD fees',
+            'tax' => 'Tax',
+            'total' => 'Total',
+        ],
+
+        'items' => [
+            'attributes' => [
+                'product' => 'Product',
+                'quantity' => 'Quantity',
+                'unit_price' => 'Unit Price',
+                'total' => 'Total',
+            ],
+        ],
+
+        'history' => [
+            'title' => 'Order History',
+
+            'attributes' => [
+                'status' => 'Status',
+                'note' => 'Description',
+                'date' => 'Date',
+            ],
+        ],
+
+        'address' => [
+            'title' => 'Address',
+
+            'attributes' => [
+                'city' => 'City',
+                'country' => 'Country',
+                'shipping_address' => 'Shipping Address',
+                'pickup_address' => 'Pickup Address',
+            ],
+        ],
+
+        'messages' => [
+            'created' => 'The Order has been created successfully!',
+            'updated' => 'The Order has been updated successfully!',
+            'deleted' => 'The Order has been deleted successfully!',
+            'tagDeleted' => 'Tag deleted successfully!',
+            'statusUpdated' => 'Order status has been updated successfully!',
+            'noteUpdated' => 'Order note has been updated successfully',
+            'pull_started' => 'Pulling orders started',
+            'no_shipping_address' => 'No Shipping address for this order',
+        ],
+
+
+        'alerts' => [
+            'shipping_bills_for_pickup_shipments' => "Can't generate shipping bills for this order because shipment type is: store pickup",
+            'shipping_bills_for_not_shippable' => "Can't generate shipping bills for this order because it doesn't require shipping",
+        ],
+
+        'pull_alert' => [
+            'title' => 'Pull orders',
+            'body' => 'You can wait for upcoming orders or pull from previous a maximum of :count orders',
+            'button' => 'pull options',
+        ],
+
+        'pull_form' => [
+            'pull' => 'Pull',
+            'pull_orders' => 'Pull Orders',
+            'orders_count' => 'orders count',
+            'to_date' => 'pull to',
+            'date' => 'Date',
+            'from_date' => 'Start',
+            'to_date' => 'End',
+
+            'errors' => [
+                'from_date_should_be_before_now' => 'Start date should be before or equal to today.',
+                'to_date_should_be_before_now' => 'End date should be before or equal to today.',
+                'to_date_should_be_after_from_date' => 'End date should be after or equal to start date.',
+            ],
+
+            'notes' => [
+                'non_existing_order_charge' => 'Your credit will be decremented according to number of pulled orders',
+                'existing_order_charge' => 'If an order was already exist. then no points will be decremented for it',
+            ],
+        ],
+    ],
 ];

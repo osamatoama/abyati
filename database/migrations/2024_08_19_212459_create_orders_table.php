@@ -25,7 +25,6 @@ return new class extends Migration
             $table->foreignId('branch_id')->nullable()->constrained();
             $table->foreignId('employee_id')->nullable()->constrained();
             $table->dateTime('date')->nullable();
-            $table->string('date_timezone')->nullable();
             $table->foreignId('status_id')->nullable()->constrained('order_statuses');
             $table->string('status_name')->nullable();
             $table->string('completion_status')->default(OrderCompletionStatus::PENDING);

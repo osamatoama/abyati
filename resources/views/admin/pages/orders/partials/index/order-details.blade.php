@@ -40,14 +40,14 @@
                 @if(filled($order->admin_url))
                     <div class="d-flex align-items-center gap-2">
                         <i class="fas fa-link"></i>
-                        <a href="{{ $order->admin_url }}" class="text-muted text-hover-primary">{{ __('orders.attributes.admin_url') }}</a>
+                        <a href="{{ $order->admin_url }}" class="text-muted text-hover-primary">{{ __('admin.orders.attributes.admin_url') }}</a>
                     </div>
                 @endif
 
                 @if(filled($order->admin_url))
                     <div class="d-flex align-items-center gap-2">
                         <i class="fas fa-up-right-from-square"></i>
-                        <a href="{{ $order->admin_url }}" class="text-muted text-hover-primary">{{ __('orders.attributes.customer_url') }}</a>
+                        <a href="{{ $order->admin_url }}" class="text-muted text-hover-primary">{{ __('admin.orders.attributes.customer_url') }}</a>
                     </div>
                 @endif
             </div>
@@ -57,35 +57,35 @@
             <li class="nav-item" role="presentation">
                 <a class="nav-link text-active-primary d-flex align-items-center pb-4 active" data-bs-toggle="tab" href="#order-details-items" aria-selected="true" role="tab">
                     <i class="fas fa-cart-shopping fs-4 me-2"></i>
-                    {{ __('orders.attributes.items') }}
+                    {{ __('admin.orders.attributes.items') }}
                 </a>
             </li>
 
             <li class="nav-item" role="presentation">
                 <a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#order-details-customer" aria-selected="true" role="tab">
                     <i class="fas fa-user fs-4 me-2"></i>
-                    {{ __('orders.attributes.customer') }}
+                    {{ __('admin.orders.attributes.customer') }}
                 </a>
             </li>
 
             <li class="nav-item" role="presentation">
                 <a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#order-details-calculations" aria-selected="true" role="tab">
                     <i class="fas fa-calculator fs-4 me-2"></i>
-                    {{ __('orders.calculations') }}
+                    {{ __('admin.orders.calculations') }}
                 </a>
             </li>
 
             <li class="nav-item" role="presentation">
                 <a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#order-details-history" aria-selected="true" role="tab">
                     <i class="fas fa-clock-rotate-left fs-4 me-2"></i>
-                    {{ __('orders.history.title') }}
+                    {{ __('admin.orders.history.title') }}
                 </a>
             </li>
 
             <li class="nav-item" role="presentation">
                 <a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#order-details-address" aria-selected="true" role="tab">
                     <i class="fas fa-location-dot fs-4 me-2"></i>
-                    {{ $order->address?->isPickup() ? __('orders.address.attributes.pickup_address') : __('orders.address.attributes.shipping_address') }}
+                    {{ $order->address?->isPickup() ? __('admin.orders.address.attributes.pickup_address') : __('admin.orders.address.attributes.shipping_address') }}
                 </a>
             </li>
         </ul>
@@ -95,10 +95,10 @@
                 <table class="table table-row-bordered">
                     <thead>
                         <tr>
-                            <th>{{ __('orders.items.attributes.product') }}</th>
-                            <th>{{ __('orders.items.attributes.quantity') }}</th>
-                            <th>{{ __('orders.items.attributes.unit_price') }}</th>
-                            <th>{{ __('orders.items.attributes.total') }}</th>
+                            <th>{{ __('admin.orders.items.attributes.product') }}</th>
+                            <th>{{ __('admin.orders.items.attributes.quantity') }}</th>
+                            <th>{{ __('admin.orders.items.attributes.unit_price') }}</th>
+                            <th>{{ __('admin.orders.items.attributes.total') }}</th>
                         </tr>
                     </thead>
 
@@ -185,27 +185,27 @@
                 <table class="table fit-content-table">
                     <tbody>
                         <tr>
-                            <th class="fw-semibold">{{ __('orders.attributes.sub_total') }}</th>
+                            <th class="fw-semibold">{{ __('admin.orders.attributes.sub_total') }}</th>
                             <td>{{ round($order->sub_total, 2) . ' ' . lang("currency.$order->currency") }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('orders.attributes.shipping_cost') }}</th>
+                            <th class="fw-semibold">{{ __('admin.orders.attributes.shipping_cost') }}</th>
                             <td>{{ round($order->shipping_cost, 2) . ' ' . lang("currency.$order->currency") }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('orders.attributes.cash_on_delivery') }}</th>
+                            <th class="fw-semibold">{{ __('admin.orders.attributes.cash_on_delivery') }}</th>
                             <td>{{ round($order->cash_on_delivery, 2) . ' ' . lang("currency.$order->currency") }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('orders.attributes.tax') }}</th>
+                            <th class="fw-semibold">{{ __('admin.orders.attributes.tax') }}</th>
                             <td>{{ round($order->tax, 2) . ' ' . lang("currency.$order->currency") }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('orders.attributes.total') }}</th>
+                            <th class="fw-semibold">{{ __('admin.orders.attributes.total') }}</th>
                             <td>{{ round($order->total, 2) . ' ' . lang("currency.$order->currency") }}</td>
                         </tr>
                     </tbody>
@@ -216,9 +216,9 @@
                 <table class="table">
                     <thead class="fw-bold">
                         <tr>
-                            <th>{{ __('orders.history.attributes.status') }}</th>
-                            <th>{{ __('orders.history.attributes.note') }}</th>
-                            <th>{{ __('orders.history.attributes.date') }}</th>
+                            <th>{{ __('admin.orders.history.attributes.status') }}</th>
+                            <th>{{ __('admin.orders.history.attributes.note') }}</th>
+                            <th>{{ __('admin.orders.history.attributes.date') }}</th>
                         </tr>
                     </thead>
 
@@ -260,7 +260,7 @@
                     </p>
                 @else
                     <p class="text-muted">
-                        {{ __('orders.messages.no_shipping_address') }}
+                        {{ __('admin.orders.messages.no_shipping_address') }}
                     </p>
                 @endif
             </div>

@@ -28,7 +28,6 @@ class PullOrdersPerPageJob implements ShouldQueue
         public readonly int    $page = 1,
         public ?array          $response = null,
         public readonly array  $filters = [],
-        public readonly bool   $hasMarketingCouponOnly = false,
     )
     {
         $this->maxAttempts = 5;
@@ -67,25 +66,12 @@ class PullOrdersPerPageJob implements ShouldQueue
 
             $jobs = [];
             foreach ($this->response['data'] as $order) {
-                if ($this->hasMarketingCouponOnly) {
-                    if (empty($order['amounts']['discounts'])) {
-                        continue;
-                    }
-
-                    $couponDiscount = collect($order['amounts']['discounts'])
-                        ->whereNotNull('code')
-                        ->first();
-
-                    if ($couponDiscount === null) {
-                        continue;
-                    }
-
-                    $coupon = Coupon::findByCode($couponDiscount['code']);
-
-                    if ($coupon == null || ! $coupon->marketing_active) {
-                        continue;
-                    }
-                }
+                /**
+                 * TODO: Check statuses here
+                 */
+                // if (not allowed status) {
+                //     continue;
+                // }
 
                 // $jobs[] = new PullOrderJob(
                 //     accessToken: $this->accessToken,

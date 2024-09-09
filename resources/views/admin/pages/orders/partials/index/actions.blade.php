@@ -9,7 +9,7 @@
             @if(can('orders.edit'))
                 <li>
                     <a href="javascript:void(0)" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#pull-orders-modal">
-                        <i class="fas fa-download me-1"></i> <span class="me-3">{{ __('orders.pull_form.pull_orders') }}</span>
+                        <i class="fas fa-download me-1"></i> <span class="me-3">{{ __('admin.orders.pull_form.pull_orders') }}</span>
                     </a>
                 </li>
             @endif
@@ -21,10 +21,10 @@
     <form action="{{ route('admin.orders.index') }}">
         <div class="mb-10">
             <label for="status" class="form-label">
-                {{ __("orders.attributes.status") }}
+                {{ __("admin.orders.attributes.status") }}
             </label>
             <select class="form-select" id="status" name="status">
-                <option value="">{{ __("orders.attributes.status") }}</option>
+                <option value="">{{ __("admin.orders.attributes.status") }}</option>
                 @foreach($statuses as $key => $status)
                     <option value="{{$status->id}}" {{ request('status') == $status->id ? 'selected' : '' }}>{{$status->name}}</option>
                 @endforeach

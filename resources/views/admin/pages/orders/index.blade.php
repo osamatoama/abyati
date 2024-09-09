@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', __('orders.title'))
+@section('title', __('admin.orders.title'))
 
 @section('actions')
     @include('admin.pages.orders.partials.index.actions')
@@ -17,13 +17,13 @@
                 <table id="results-table" class="table table-hover table-row-bordered gy-5 gs-7">
                     <thead>
                         <tr class="fw-semibold fs-6 text-gray-800">
-                            <th>{{ __('orders.attributes.order_number') }}</th>
-                            <th>{{ __('orders.attributes.customer') }}</th>
-                            <th>{{ __('orders.attributes.date') }}</th>
-                            <th>{{ __('orders.attributes.status') }}</th>
-                            <th>{{ __('orders.attributes.payment_method') }}</th>
-                            <th>{{ __('orders.attributes.items_count') }}</th>
-                            <th>{{ __('orders.attributes.total') }}</th>
+                            <th>{{ __('admin.orders.attributes.order_number') }}</th>
+                            <th>{{ __('admin.orders.attributes.store') }}</th>
+                            <th>{{ __('admin.orders.attributes.customer') }}</th>
+                            <th>{{ __('admin.orders.attributes.date') }}</th>
+                            <th>{{ __('admin.orders.attributes.status') }}</th>
+                            <th>{{ __('admin.orders.attributes.items_count') }}</th>
+                            <th>{{ __('admin.orders.attributes.total') }}</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -38,7 +38,7 @@
 
     @include('admin.pages.orders.partials.index.modals.history')
 
-    <livewire:order.pull-orders-form />
+    <livewire:admin.orders.pull-orders-form />
 @endpush
 
 @push('afterScripts')

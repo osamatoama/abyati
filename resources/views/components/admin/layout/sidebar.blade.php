@@ -234,7 +234,7 @@
                             <span class="menu-icon">
                                 <i class="fa-solid fa-database fs-2"></i>
                             </span>
-                            <span class="menu-title">{{ __('general.store_data') }}</span>
+                            <span class="menu-title">{{ __('globals.store_data') }}</span>
                             <span class="menu-arrow"></span>
                         </span>
 
@@ -270,7 +270,7 @@
                                         <span class="menu-bullet">
                                             <span class="bullet bullet-dot"></span>
                                         </span>
-                                        <span class="menu-title">{{ __("orders.title") }}</span>
+                                        <span class="menu-title">{{ __("admin.orders.title") }}</span>
                                     </a>
                                 </div>
                             @endif
