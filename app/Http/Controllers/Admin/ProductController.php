@@ -40,7 +40,7 @@ class ProductController extends Controller
             'success' => true,
             'message' => 'fetched successfully',
             'data' => [
-                'title' => __('products.details'),
+                'title' => __('admin.products.details'),
                 'html' => view('admin.pages.products.partials.index.product-details', compact('product'))->render(),
             ],
         ]);

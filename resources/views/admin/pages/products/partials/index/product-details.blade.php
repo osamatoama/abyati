@@ -45,24 +45,24 @@
                     </div>
                 @endif
 
-                <div class="d-flex align-items-center gap-2">
+                {{-- <div class="d-flex align-items-center gap-2">
                     <i class="fas fa-store"></i>
                     <a href="#" class="text-muted text-hover-primary">{{ lang("products.statuses.$product->status") }}</a>
-                </div>
+                </div> --}}
 
-                @if(filled($product->admin_url))
+                {{-- @if(filled($product->admin_url))
                     <div class="d-flex align-items-center gap-2">
                         <i class="fas fa-link"></i>
-                        <a href="{{ $product->admin_url }}" class="text-muted text-hover-primary">{{ __('products.attributes.admin_url') }}</a>
+                        <a href="{{ $product->admin_url }}" class="text-muted text-hover-primary">{{ __('admin.products.attributes.admin_url') }}</a>
                     </div>
-                @endif
+                @endif --}}
 
-                @if(filled($product->admin_url))
+                {{-- @if(filled($product->admin_url))
                     <div class="d-flex align-items-center gap-2">
                         <i class="fas fa-up-right-from-square"></i>
-                        <a href="{{ $product->admin_url }}" class="text-muted text-hover-primary">{{ __('products.attributes.customer_url') }}</a>
+                        <a href="{{ $product->admin_url }}" class="text-muted text-hover-primary">{{ __('admin.products.attributes.customer_url') }}</a>
                     </div>
-                @endif
+                @endif --}}
             </div>
         </div>
 
@@ -70,14 +70,14 @@
             <li class="nav-item" role="presentation">
                 <a class="nav-link text-active-primary d-flex align-items-center pb-4 active" data-bs-toggle="tab" href="#product-details-price" aria-selected="true" role="tab">
                     <i class="fas fa-coins fs-4 me-2"></i>
-                    {{ __('products.attributes.price') }}
+                    {{ __('admin.products.attributes.price') }}
                 </a>
             </li>
 
             <li class="nav-item" role="presentation">
                 <a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#product-details-variants" aria-selected="true" role="tab">
                     <i class="fas fa-box-open fs-4 me-2"></i>
-                    {{ __('products.attributes.variants') }}
+                    {{ __('admin.products.attributes.variants') }}
                 </a>
             </li>
         </ul>
@@ -87,29 +87,29 @@
                 <table class="table fit-content-table">
                     <tbody>
                         <tr>
-                            <th class="fw-semibold">{{ __('products.attributes.price') }}</th>
+                            <th class="fw-semibold">{{ __('admin.products.attributes.price') }}</th>
                             <td>{{ round($product->price) . ' ' . lang("currency.$product->currency") }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('products.attributes.regular_price') }}</th>
+                            <th class="fw-semibold">{{ __('admin.products.attributes.regular_price') }}</th>
                             <td>{{ round($product->regular_price) . ' ' . lang("currency.$product->currency") }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('products.attributes.sale_price') }}</th>
+                            <th class="fw-semibold">{{ __('admin.products.attributes.sale_price') }}</th>
                             <td>{{ round($product->sale_price) . ' ' . lang("currency.$product->currency") }}</td>
                         </tr>
 
                         @if($product->sale_end)
                             <tr>
-                                <th class="fw-semibold">{{ __('products.attributes.sale_end') }}</th>
+                                <th class="fw-semibold">{{ __('admin.products.attributes.sale_end') }}</th>
                                 <td>{{  $product->sale_end->format('Y-m-d') }}</td>
                             </tr>
                         @endif
 
                         <tr>
-                            <th class="fw-semibold">{{ __('products.attributes.with_tax') }}</th>
+                            <th class="fw-semibold">{{ __('admin.products.attributes.with_tax') }}</th>
                             <td>{!! boolToYesNoSymbol($product->with_tax) !!}</td>
                         </tr>
                     </tbody>
@@ -121,10 +121,11 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>{{ __('products.attributes.variant') }}</th>
-                                <th>{{ __('products.attributes.sku') }}</th>
-                                <th>{{ __('products.attributes.quantity') }}</th>
-                                <th>{{ __('products.attributes.price') }}</th>
+                                <th>{{ __('admin.products.attributes.variant') }}</th>
+                                <th>{{ __('admin.products.attributes.sku') }}</th>
+                                <th>{{ __('admin.products.attributes.barcode') }}</th>
+                                <th>{{ __('admin.products.attributes.quantity') }}</th>
+                                <th>{{ __('admin.products.attributes.price') }}</th>
                             </tr>
                         </thead>
 
@@ -142,9 +143,12 @@
                                         {{ filled($variant->sku) ? $variant->sku : '---' }}
                                     </td>
                                     <td>
+                                        {{ filled($variant->barcode) ? $variant->barcode : '---' }}
+                                    </td>
+                                    <td>
                                         @if($product->unlimited_quantity)
                                             <span class="badge badge-warning">
-                                                {{ __('products.messages.unlimited_quantity') }}
+                                                {{ __('admin.products.messages.unlimited_quantity') }}
                                             </span>
                                         @else
                                             {{ $variant->stock_quantity }}
@@ -159,7 +163,7 @@
                     </table>
                 @else
                     <p class="text-muted">
-                        {{ __('products.messages.no_variants') }}
+                        {{ __('admin.products.messages.no_variants') }}
                     </p>
                 @endif
             </div>

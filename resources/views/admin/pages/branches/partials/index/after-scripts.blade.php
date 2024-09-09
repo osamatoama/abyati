@@ -7,7 +7,7 @@
     ], $('#results-table').data('url'), '#results-table', [[0, 'desc']], {
         buttons: [],
         createdRow: function (row, data, dataIndex) {
-            $(row).addClass('product-row cursor-pointer')
+            $(row).addClass('branch-row cursor-pointer')
         }
     })
 
@@ -17,19 +17,25 @@
         let el = $(this)
 
         axios.post(el.data('url'), generateFormData('PUT'))
-        .then((res) => {
-            successToast(res.data.message)
-        })
-        .catch((error) => {
-            errorToast(getTranslation('somethingWrong'))
-            reloadDatatable(dataTable)
-        })
+            .then((res) => {
+                successToast(res.data.message)
+            })
+            .catch((error) => {
+                errorToast(getTranslation('somethingWrong'))
+                reloadDatatable(dataTable)
+            })
     })
 
-    const productRowClass = '#results-table .product-row'
+    const branchRowClass = '#results-table .branch-row'
     const showProductModal = $('#show-modal')
 
-    $(document).on('click', productRowClass, function() {
+    $(document).on('click', branchRowClass, function(e) {
+        console.log(e.target)
+
+        if (e.target.classList.contains('toggle-active-row-button')) {
+            return
+        }
+
         const el = $(this)
         const idWrapper = el.find('.id-wrapper')
 

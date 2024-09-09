@@ -73,6 +73,17 @@
                     </a>
                 </div>
 
+                <div class="menu-item">
+                    <a @class(['menu-link', 'active' => request()->routeIs('admin.employees.*')]) href="{{ route('admin.employees.index') }}"
+                    >
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-users fs-2"></i>
+                        </span>
+                            <span class="menu-title">
+                        {{ __('admin.employees.title') }}
+                        </span>
+                    </a>
+                </div>
 
                 {{-- @if(can("roles.show") or can("employees.show"))
                     <div data-kt-menu-trigger="click"

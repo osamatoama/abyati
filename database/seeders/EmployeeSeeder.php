@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Branch;
 use App\Models\Employee;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Arr;
 use Illuminate\Database\Seeder;
 
 class EmployeeSeeder extends Seeder
@@ -13,8 +14,11 @@ class EmployeeSeeder extends Seeder
      */
     public function run(): void
     {
+        $branchIds = Branch::pluck('id')->toArray();
+
         foreach (range(1, 10) as $i) {
             Employee::create([
+                'branch_id' => Arr::random($branchIds),
                 'name' => 'موظف ' . $i,
                 'email' => 'employee-' . $i . '@abyati.com',
                 'password' => '123456',

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\EmployeeController;
 // use App\Http\Controllers\Admin\SettingController;
 // use App\Http\Controllers\Admin\Settings\DomainSettingController;
 // use App\Http\Controllers\Admin\Settings\ReturnSettingController;
@@ -32,13 +33,11 @@ Route::resource('branches', BranchController::class)->only('index', 'show');
 // });
 // Route::resource('orders', OrderController::class)->only('index', 'show');
 
-// Route::prefix('employees')->as('employees.')->group(function () {
-//     Route::put('{employee}/toggle-active', [EmployeeController::class, 'toggleActive'])->name('toggle_active');
-//     Route::get('trash', [EmployeeController::class, 'trash'])->name('trash');
-//     Route::put('{employee}/restore', [EmployeeController::class, 'restore'])->name('restore');
-//     Route::delete('{employee}/force-delete', [EmployeeController::class, 'forceDestroy'])->name('force-destroy');
-// });
-// Route::resource('employees', EmployeeController::class)->except(['create', 'show', 'edit']);
+// Employees
+Route::prefix('employees')->as('employees.')->group(function () {
+    Route::put('{employee}/toggle-active', [EmployeeController::class, 'toggleActive'])->name('toggle_active');
+});
+Route::resource('employees', EmployeeController::class)->except(['create', 'show', 'edit']);
 
 // Route::prefix('roles')->as('roles.')->group(function () {
 //     Route::get('trash', [RoleController::class, 'trash'])->name('trash');

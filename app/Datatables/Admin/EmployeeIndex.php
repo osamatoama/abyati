@@ -11,9 +11,8 @@ class EmployeeIndex extends Datatable
     {
         return Employee::query()
             ->with([
-                'roles'
-            ])
-            ->mine();
+                'branch' => fn($q) => $q->select('id', 'name'),
+            ]);
     }
 
 
@@ -24,13 +23,9 @@ class EmployeeIndex extends Datatable
     protected function addColumns()
     {
         return [
-            'action' => function ($data) {
-                return view('client.employees.partials.index.cols.actions', compact('data'));
+            'action' => function (Employee $employee) {
+                return view('admin.pages.employees.partials.index.cols.actions', compact('employee'));
             },
-            'role' => function ($data) {
-                return $data->roles->first()->{"name_" . locale()->current()};
-            },
-
         ];
     }
 
@@ -40,11 +35,14 @@ class EmployeeIndex extends Datatable
     public function editColumns()
     {
         return [
-            'phone' => function ($data) {
-                return view('client.employees.partials.index.cols.phone', compact('data'));
+            'branch' => function (Employee $employee) {
+                return view('admin.pages.employees.partials.index.cols.branch', compact('employee'));
             },
-            'active' => function ($data) {
-                return view('client.employees.partials.index.cols.active', compact('data'));
+            'phone' => function (Employee $employee) {
+                return view('admin.pages.employees.partials.index.cols.phone', compact('employee'));
+            },
+            'active' => function (Employee $employee) {
+                return view('admin.pages.employees.partials.index.cols.active', compact('employee'));
             },
         ];
     }

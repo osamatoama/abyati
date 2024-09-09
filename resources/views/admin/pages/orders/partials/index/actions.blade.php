@@ -17,7 +17,7 @@
     </div>
 @endif
 
-<x-client.actions.filter-drawer>
+<x-admin.actions.filter-drawer>
     <form action="{{ route('admin.orders.index') }}">
         <div class="mb-10">
             <label for="status" class="form-label">
@@ -41,4 +41,4 @@
             </button>
         </div>
     </form>
-</x-client.actions.filter-drawer>
+</x-admin.actions.filter-drawer>
