@@ -6,8 +6,8 @@ class OrderFilter extends BaseFilters
 {
     protected $filters = [
         'status',
-        'fromDate',
-        'toDate',
+        'from_date',
+        'to_date',
     ];
 
     protected function status($value)

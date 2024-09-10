@@ -5,17 +5,23 @@ namespace App\Livewire\Admin\Orders;
 use Carbon\Carbon;
 use App\Models\Store;
 use Livewire\Component;
+use Livewire\Attributes\Url;
 use Livewire\Attributes\Locked;
-use App\Jobs\Salla\Pull\Orders\PullOrdersJob;
 
-class PullOrdersForm extends Component
+class FilterOrders extends Component
 {
-    public ?string $store_id = '';
+    #[Url]
+    public ?array $store_ids = [];
+
+    #[Url]
+    public array $completion_statuses = [];
 
     public $date;
 
+    #[Url]
     public $from_date = '';
 
+    #[Url]
     public $to_date = '';
 
     #[Locked]
@@ -24,42 +30,31 @@ class PullOrdersForm extends Component
     public function mount()
     {
         $this->stores = Store::pluck('name', 'id')->toArray();
+        $this->dispatch('order-filters-mounted');
     }
 
     public function render()
     {
-        return view('livewire.admin.orders.pull-orders-form');
+        return view('livewire.admin.orders.filter-orders');
     }
 
-    public function pullOrders()
+    public function apply()
     {
-        /**
-         * TODO: add flight request to Salla to get number of orders
-         */
-        $store = Store::find($this->store_id);
-        [$this->from_date, $this->to_date] = core()->getDateFromFlatpickrRange($this->date);
+        // $validated = $this->validate();
 
-        $validated = $this->validate();
-        $filters['from_date'] = Carbon::parse($validated['from_date'])->format('d-m-Y');
-        $filters['to_date'] = Carbon::parse($validated['to_date'])->addDay()->format('d-m-Y');
+        ['from' => $fromData, 'to' => $toDate] = core()->getDateFromFlatpickrRange($this->date);
+        $this->from_date = Carbon::parse($fromData)->format('Y-m-d');
+        $this->to_date = Carbon::parse($toDate)->format('Y-m-d');
 
-        $store->load(
-            relations: ['user.sallaToken'],
-        );
-
-        dispatch(new PullOrdersJob(
-            accessToken: $store->user->sallaToken->access_token,
-            storeId: $store->id,
-            filters: $filters,
-        ));
-
-        $this->dispatch('pull-orders-started', __('admin.orders.messages.pull_started'));
+        $this->dispatch('order-filters-applied', [
+            'refresh_url' => route('admin.orders.index', $this->getQueryParams()),
+        ]);
     }
 
     protected function rules()
     {
         return [
-            'store_id' => ['required', 'exists:stores,id'],
+            // 'store_id' => ['required', 'exists:stores,id'],
             'from_date' => ['required', 'date', 'before_or_equal:today'],
             'to_date' => ['required', 'date', 'before_or_equal:today', 'after_or_equal:from_date'],
         ];
@@ -68,7 +63,7 @@ class PullOrdersForm extends Component
     protected function validationAttributes()
     {
         return [
-            'store_id' => __('admin.orders.pull_form.store'),
+            // 'store_id' => __('admin.orders.pull_form.store'),
             'from_date' => __('admin.orders.pull_form.from_date'),
             'to_date' => __('admin.orders.pull_form.to_date'),
         ];
@@ -81,5 +76,17 @@ class PullOrdersForm extends Component
             'to_date.before_or_equal' => __('admin.orders.pull_form.errors.to_date_should_be_before_now'),
             'to_date.after_or_equal' => __('admin.orders.pull_form.errors.to_date_should_be_after_from_date'),
         ];
+    }
+
+    private function getQueryParams(): array
+    {
+        $params = [
+            'store_ids' => $this->store_ids,
+            'completion_statuses' => $this->completion_statuses,
+            'from_date' => $this->from_date,
+            'to_date' => $this->to_date,
+        ];
+
+        return array_filter($params, fn($param) => !empty($param));
     }
 }

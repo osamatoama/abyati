@@ -16,7 +16,7 @@
             <div class="table-responsive">
                 <table
                     id="results-table" class="table table-hover table-row-bordered gy-5 gs-7"
-                    data-url="{{ route('admin.orders.index', ['status' => request('status')]) }}"
+                    data-url="{{ route('admin.orders.index', query()) }}"
                 >
                     <thead>
                         <tr class="fw-semibold fs-6 text-gray-800">

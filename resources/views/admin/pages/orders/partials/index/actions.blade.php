@@ -18,27 +18,5 @@
 @endif
 
 <x-admin.actions.filter-drawer>
-    <form action="{{ route('admin.orders.index') }}">
-        <div class="mb-10">
-            <label for="status" class="form-label">
-                {{ __("admin.orders.attributes.status") }}
-            </label>
-            <select class="form-select" id="status" name="status">
-                <option value="">{{ __("admin.orders.attributes.status") }}</option>
-                @foreach($statuses as $key => $status)
-                    <option value="{{$status->id}}" {{ request('status') == $status->id ? 'selected' : '' }}>{{$status->name}}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="d-flex justify-content-end">
-            <a href="{{ route('admin.orders.index') }}"
-                class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">
-                {{ __("globals.reset") }}
-            </a>
-            <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">
-                {{ __("globals.apply") }}
-            </button>
-        </div>
-    </form>
+    <livewire:admin.orders.filter-orders />
 </x-admin.actions.filter-drawer>

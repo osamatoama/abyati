@@ -26,7 +26,7 @@
                         <label for="update-form-branch_id" class="col-md-2 form-label form-control-lg">{{ __('admin.employees.attributes.branch') }}</label>
                         <div class="col-md-10">
                             <select name="branch_id" id="update-form-branch_id" class="form-control">
-                                <option selected disabled> {{ __("globals.select") }}</option>
+                                <option selected disabled> {{ __('globals.select') }}</option>
                                 @foreach($branches as $branchId => $branchName)
                                     <option value="{{ $branchId }}">{{ $branchName }}</option>
                                 @endforeach

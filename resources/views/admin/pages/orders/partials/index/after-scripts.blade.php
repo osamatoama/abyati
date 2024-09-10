@@ -26,6 +26,10 @@
         }
     );
 
+    Livewire.on('order-filters-applied', (params) => {
+        $('#results-table').DataTable().ajax.url(params[0].refresh_url).load()
+        reloadDatatable(dataTable)
+    })
 
     const orderRowClass = '#results-table .order-row'
     const showOrderModal = $('#show-modal')

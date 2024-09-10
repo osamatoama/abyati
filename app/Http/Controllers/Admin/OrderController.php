@@ -22,10 +22,7 @@ class OrderController extends Controller
             return app(OrderIndex::class)->render();
         }
 
-        $statuses = OrderStatus::get();
-        $statusesForUpdate = $statuses->where('source', 'salla');
-
-        return view('admin.pages.orders.index', compact('statuses', 'statusesForUpdate'));
+        return view('admin.pages.orders.index');
     }
 
     public function show(Order $order)

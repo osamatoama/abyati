@@ -10,10 +10,27 @@
                 </div>
 
                 <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-12 mb-5">
+                            <label class="form-label">{{ __('admin.orders.pull_form.store') }}</label>
+
+                            <select class="form-control" wire:model="store_id">
+                                <option value="" selected disabled> {{ __('globals.select_store') }}</option>
+                                @foreach($stores as $storeId => $storeName)
+                                    <option value="{{ $storeId }}">{{ $storeName }}</option>
+                                @endforeach
+                            </select>
+
+                            @error('store_id') <span class="form-input-error text-danger d-none"></span> @enderror
+                        </div>
+                    </div>
+
                     <div class="form-group row" wire:ignore>
                         <div class="col-12 mb-5">
                             <label class="form-label">{{ __('admin.orders.pull_form.date') }}</label>
-                            <input type="text" class="form-control" id="pull-orders-form-date" wire:model.defer="date" />
+
+                            <input type="text" class="form-control" id="pull-orders-form-date" wire:model="date" />
+
                             @error('from_date') <span class="form-input-error text-danger">{{ $message }}</span> @enderror
                             @error('to_date') <span class="form-input-error text-danger">{{ $message }}</span> @enderror
                         </div>

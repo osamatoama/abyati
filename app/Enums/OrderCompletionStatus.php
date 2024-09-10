@@ -26,4 +26,15 @@ enum OrderCompletionStatus: string
     {
         return __("admin.orders.completion_statuses.{$this->value}");
     }
+
+    public static function toSelectArray()
+    {
+        $options = [];
+
+        foreach (self::values() as $value) {
+            $options[$value] = __("admin.orders.completion_statuses.{$value}");
+        }
+
+        return $options;
+    }
 }

@@ -230,6 +230,7 @@ return [
             'date' => 'Date',
             'from_date' => 'Start',
             'to_date' => 'End',
+            'store' => 'Store',
 
             'errors' => [
                 'from_date_should_be_before_now' => 'Start date should be before or equal to today.',

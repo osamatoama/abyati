@@ -5,6 +5,7 @@ return [
     'select' => 'Choose',
     'select_date' => 'Select date',
     'select_date_range' => 'Select date range',
+    'select_store' => 'Select store',
     'select_all' => 'Select all',
     'clear_all' => 'Clear all',
     'You will not be able to change this afterwards' => 'You will not be able to change this afterwards',
