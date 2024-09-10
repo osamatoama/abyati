@@ -42,9 +42,9 @@ class FilterOrders extends Component
     {
         // $validated = $this->validate();
 
-        ['from' => $fromData, 'to' => $toDate] = core()->getDateFromFlatpickrRange($this->date);
-        $this->from_date = Carbon::parse($fromData)->format('Y-m-d');
-        $this->to_date = Carbon::parse($toDate)->format('Y-m-d');
+        ['from' => $fromDate, 'to' => $toDate] = core()->getDateFromFlatpickrRange($this->date);
+        $this->from_date = !empty(trim($fromDate)) ? Carbon::parse($fromDate)->format('Y-m-d') : null;
+        $this->to_date = !empty(trim($toDate)) ? Carbon::parse($toDate)->format('Y-m-d') : null;
 
         $this->dispatch('order-filters-applied', [
             'refresh_url' => route('admin.orders.index', $this->getQueryParams()),
@@ -80,13 +80,21 @@ class FilterOrders extends Component
 
     private function getQueryParams(): array
     {
-        $params = [
+        $filters = [
             'store_ids' => $this->store_ids,
             'completion_statuses' => $this->completion_statuses,
             'from_date' => $this->from_date,
             'to_date' => $this->to_date,
         ];
 
-        return array_filter($params, fn($param) => !empty($param));
+        $params = [];
+
+        foreach ($filters as $key => $value) {
+            if (! empty($value)) {
+                $params[$key] = $value;
+            }
+        }
+
+        return $params;
     }
 }

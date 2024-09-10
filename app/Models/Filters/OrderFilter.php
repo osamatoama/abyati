@@ -8,6 +8,10 @@ class OrderFilter extends BaseFilters
         'status',
         'from_date',
         'to_date',
+        'store_id',
+        'store_ids',
+        'completion_status',
+        'completion_statuses',
     ];
 
     protected function status($value)
@@ -28,6 +32,34 @@ class OrderFilter extends BaseFilters
     {
         return $this->builder->when($value, function ($query) use ($value) {
             $query->whereDate('orders.date', '<=', $value);
+        });
+    }
+
+    protected function storeId($value)
+    {
+        return $this->builder->when($value, function ($query) use ($value) {
+            $query->where('orders.store_id', $value);
+        });
+    }
+
+    protected function storeIds($value)
+    {
+        return $this->builder->when($value, function ($query) use ($value) {
+            $query->whereIn('orders.store_id', $value);
+        });
+    }
+
+    protected function completionStatus($value)
+    {
+        return $this->builder->when($value, function ($query) use ($value) {
+            $query->where('orders.completion_status', $value);
+        });
+    }
+
+    protected function completionStatuses($value)
+    {
+        return $this->builder->when($value, function ($query) use ($value) {
+            $query->whereIn('orders.completion_status', $value);
         });
     }
 }
