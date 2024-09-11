@@ -166,6 +166,7 @@ return [
             'tax' => 'Tax',
             'total' => 'Total',
             'completion_status' => 'Completion Status',
+            'assign_status' => 'Assign Status',
             'employee' => 'Employee',
         ],
 
@@ -208,6 +209,7 @@ return [
             'noteUpdated' => 'Order note has been updated successfully',
             'pull_started' => 'Pulling orders started',
             'no_shipping_address' => 'No Shipping address for this order',
+            'employee_assigned' => 'Employee assigned to the order',
         ],
 
 
@@ -249,6 +251,12 @@ return [
             OrderCompletionStatus::PROCESSING->value => 'Processing',
             OrderCompletionStatus::QUANTITY_ISSUES->value => 'Quantity Issues',
             OrderCompletionStatus::COMPLETED->value => 'Completed',
+        ],
+
+        'assign_statuses' =>[
+            'all' => 'All',
+            'assigned' => 'Assigned',
+            'not_assigned' => 'Not Assigned',
         ],
     ],
 ];

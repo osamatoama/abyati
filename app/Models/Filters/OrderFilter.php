@@ -12,6 +12,9 @@ class OrderFilter extends BaseFilters
         'store_ids',
         'completion_status',
         'completion_statuses',
+        'is_assigned',
+        'employee_id',
+        'employee_ids',
     ];
 
     protected function status($value)
@@ -60,6 +63,33 @@ class OrderFilter extends BaseFilters
     {
         return $this->builder->when($value, function ($query) use ($value) {
             $query->whereIn('orders.completion_status', $value);
+        });
+    }
+
+    protected function isAssigned($value)
+    {
+        if ($value === 'true') {
+            return $this->builder->whereNotNull('orders.employee_id');
+        }
+
+        if ($value === 'false') {
+            return $this->builder->whereNull('orders.employee_id');
+        }
+
+        return $this->builder;
+    }
+
+    protected function employeeId($value)
+    {
+        return $this->builder->when($value, function ($query) use ($value) {
+            $query->where('orders.employee_id', $value);
+        });
+    }
+
+    protected function employeeIds($value)
+    {
+        return $this->builder->when($value, function ($query) use ($value) {
+            $query->whereIn('orders.employee_id', $value);
         });
     }
 }

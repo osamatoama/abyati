@@ -5,16 +5,20 @@ namespace App\Livewire\Admin\Orders;
 use Carbon\Carbon;
 use App\Models\Store;
 use Livewire\Component;
+use App\Models\Employee;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Locked;
 
 class FilterOrders extends Component
 {
-    #[Url]
-    public ?array $store_ids = [];
+    #[Locked]
+    public array $stores = [];
+
+    #[Locked]
+    public array $employees = [];
 
     #[Url]
-    public array $completion_statuses = [];
+    public ?array $store_ids = [];
 
     public $date;
 
@@ -24,12 +28,20 @@ class FilterOrders extends Component
     #[Url]
     public $to_date = '';
 
-    #[Locked]
-    public array $stores = [];
+    #[Url]
+    public array $completion_statuses = [];
+
+    #[Url]
+    public ?string $is_assigned = '';
+
+    #[Url]
+    public ?array $employee_ids = [];
 
     public function mount()
     {
         $this->stores = Store::pluck('name', 'id')->toArray();
+        $this->employees = Employee::pluck('name', 'id')->toArray();
+
         $this->dispatch('order-filters-mounted');
     }
 
@@ -82,9 +94,11 @@ class FilterOrders extends Component
     {
         $filters = [
             'store_ids' => $this->store_ids,
+            'employee_ids' => $this->employee_ids,
             'completion_statuses' => $this->completion_statuses,
             'from_date' => $this->from_date,
             'to_date' => $this->to_date,
+            'is_assigned' => $this->is_assigned,
         ];
 
         $params = [];

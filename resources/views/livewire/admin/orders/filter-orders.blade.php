@@ -8,7 +8,7 @@
             @endforeach
         </select>
 
-        @error('store_ids') <span class="form-input-error text-danger d-none"></span> @enderror
+        @error('store_ids') <span class="form-input-error text-danger"></span> @enderror
     </div>
 
     <div class="mb-10" wire:ignore>
@@ -31,7 +31,31 @@
             @endforeach
         </select>
 
-        @error('completion_statuses') <span class="form-input-error text-danger d-none"></span> @enderror
+        @error('completion_statuses') <span class="form-input-error text-danger"></span> @enderror
+    </div>
+
+    <div class="mb-10">
+        <label class="form-label">{{ __('admin.orders.attributes.assign_status') }}</label>
+
+        <select wire:model="is_assigned" class="form-control">
+            <option value="">{{ __('admin.orders.assign_statuses.all') }}</option>
+            <option value="true">{{ __('admin.orders.assign_statuses.assigned') }}</option>
+            <option value="false">{{ __('admin.orders.assign_statuses.not_assigned') }}</option>
+        </select>
+
+        @error('is_assigned') <span class="form-input-error text-danger"></span> @enderror
+    </div>
+
+    <div class="mb-10" wire:ignore>
+        <label class="form-label">{{ __('admin.orders.attributes.employee') }}</label>
+
+        <select id="filter-employee_ids" class="form-control" data-control="select2" data-placeholder="{{ __('globals.select_employee') }}" multiple>
+            @foreach($employees as $employeeId => $employeeName)
+                <option value="{{ $employeeId }}">{{ $employeeName }}</option>
+            @endforeach
+        </select>
+
+        @error('employee_ids') <span class="form-input-error text-danger"></span> @enderror
     </div>
 
     <div class="d-flex justify-content-end">
@@ -63,6 +87,7 @@
         Livewire.on('order-filters-mounted', (event) => {
             setTimeout(() => {
                 $('#filter-store_ids').val(@this.get('store_ids')).trigger('change')
+                $('#filter-employee_ids').val(@this.get('employee_ids')).trigger('change')
                 $('#filter-completion_statuses').val(@this.get('completion_statuses')).trigger('change')
             }, 1000);
         })
@@ -73,6 +98,10 @@
 
         $('#filter-completion_statuses').on('change', function() {
             @this.set('completion_statuses', $('#filter-completion_statuses').val())
+        })
+
+        $('#filter-employee_ids').on('change', function() {
+            @this.set('employee_ids', $('#filter-employee_ids').val())
         })
     </script>
 @endscript

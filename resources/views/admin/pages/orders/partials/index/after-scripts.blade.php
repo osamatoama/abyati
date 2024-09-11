@@ -14,9 +14,7 @@
         '#results-table',
         [[3, 'desc']],
         {
-            buttons: [
-                'excel'
-            ],
+            buttons: [],
             drawCallback: function(settings) {
                 enableTooltips()
             },
@@ -31,29 +29,37 @@
         reloadDatatable(dataTable)
     })
 
+    Livewire.on('order-employee-assigned', (params) => {
+        successToast(params[0].message)
+    })
+
     const orderRowClass = '#results-table .order-row'
     const showOrderModal = $('#show-modal')
 
-    $(document).on('click', orderRowClass, function() {
-        const el = $(this)
-        const idWrapper = el.find('.id-wrapper')
+    // $(document).on('click', orderRowClass, function(e) {
+    //     const el = $(this)
+    //     const idWrapper = el.find('.id-wrapper')
 
-        el.addClass('tr-overlay')
+    //     if (e.target.tagName === 'SELECT') {
+    //         return
+    //     }
 
-        axios.get(idWrapper.data('show-url'))
-            .then((res) => {
-                showOrderModal.find('.modal-title').text(res.data.data.title)
-                showOrderModal.find('.modal-body').html(res.data.data.html)
-                openModal(showOrderModal)
-            })
-            .catch((error) => {
-                errorToast(getTranslation('somethingWrong'))
-                enableElement(el)
-            })
-            .then(() => {
-                el.removeClass('tr-overlay')
-            })
-    })
+    //     el.addClass('tr-overlay')
+
+    //     axios.get(idWrapper.data('show-url'))
+    //         .then((res) => {
+    //             showOrderModal.find('.modal-title').text(res.data.data.title)
+    //             showOrderModal.find('.modal-body').html(res.data.data.html)
+    //             openModal(showOrderModal)
+    //         })
+    //         .catch((error) => {
+    //             errorToast(getTranslation('somethingWrong'))
+    //             enableElement(el)
+    //         })
+    //         .then(() => {
+    //             el.removeClass('tr-overlay')
+    //         })
+    // })
 
 
     const showHistoryBtnClass = '.show-history-btn'

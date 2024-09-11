@@ -167,6 +167,7 @@ return [
             'tax' => 'الضريبة',
             'total' => 'إجمالي الطلب',
             'completion_status' => 'حالة التنفيذ',
+            'assign_status' => 'حالة الإسناد',
             'employee' => 'الموظف',
         ],
 
@@ -208,6 +209,7 @@ return [
             'noteUpdated' => 'تم تحديث الملاحظة بنجاح',
             'pull_started' => 'جاري سحب الطلبات',
             'no_shipping_address' => 'لا يوجد عنوان شحن لهذا الطلب',
+            'employee_assigned' => 'تم تعيين الموظف للطلب',
         ],
 
         'alerts' => [
@@ -248,6 +250,12 @@ return [
             OrderCompletionStatus::PROCESSING->value => 'قيد التنفيذ',
             OrderCompletionStatus::QUANTITY_ISSUES->value => 'مشاكل كميات',
             OrderCompletionStatus::COMPLETED->value => 'مكتمل',
+        ],
+
+        'assign_statuses' =>[
+            'all' => 'الكل',
+            'assigned' => 'مسند',
+            'not_assigned' => 'غير مسند',
         ],
     ],
 ];

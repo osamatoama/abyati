@@ -6,6 +6,7 @@ return [
     'select_date' => 'اختر التاريخ',
     'select_date_range' => 'اختر المدة',
     'select_store' => 'اختر المتجر',
+    'select_employee' => 'اختر الموظف',
     'select_all' => 'اختيار الكل',
     'clear_all' => 'إلغاء الكل',
     'You will not be able to change this afterwards' => 'لن تتمكن من تغيير هذا بعد ذلك',
