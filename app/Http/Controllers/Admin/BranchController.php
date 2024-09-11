@@ -23,28 +23,9 @@ class BranchController extends Controller
         return view('admin.pages.branches.index');
     }
 
-    public function show(Product $product)
+    public function show(Branch $branch)
     {
-        // $product->load([
-        //     'variants' => function ($query) {
-        //         $query->select('*');
-        //     },
-        //     'variants.optionValues' => function ($query) {
-        //         return $query->select('option_values.id', 'option_values.option_id', 'name');
-        //     },
-        //     'variants.optionValues.option' => function ($query) {
-        //         return $query->select('options.id', 'name');
-        //     },
-        // ]);
-
-        // return response()->json([
-        //     'success' => true,
-        //     'message' => 'fetched successfully',
-        //     'data' => [
-        //         'title' => __('products.details'),
-        //         'html' => view('admin.pages.products.partials.index.product-details', compact('product'))->render(),
-        //     ],
-        // ]);
+        return view('admin.pages.branches.show', compact('branch'));
     }
 
     public function toggleActive(Branch $branch)

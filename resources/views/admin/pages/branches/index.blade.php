@@ -12,7 +12,6 @@
                     <tr class="fw-semibold fs-6 text-gray-800">
                         <th>{{ __('admin.branches.attributes.id') }}</th>
                         <th>{{ __('admin.branches.attributes.name') }}</th>
-                        <th>{{ __('admin.branches.attributes.related_order_status') }}</th>
                         <th>{{ __('admin.branches.attributes.active') }}</th>
                     </tr>
                 </thead>
@@ -20,10 +19,6 @@
         </div>
     </div>
 @endsection
-
-@push('modals')
-    @include('admin.pages.branches.partials.index.modals.show')
-@endpush
 
 @push('afterScripts')
     @include('admin.pages.branches.partials.index.after-scripts')

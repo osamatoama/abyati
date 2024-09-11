@@ -2,7 +2,6 @@
     const dataTable = helpers.plugins.datatables.init([
         {data: 'id', name: 'id', orderable: true, searchable: true},
         {data: 'name', name: 'name', orderable: false, searchable: true},
-        {data: 'related_order_status_id', name: 'related_order_status_id', orderable: false, searchable: false},
         {data: 'active', name: 'active', orderable: false, searchable: false},
     ], $('#results-table').data('url'), '#results-table', [[0, 'desc']], {
         buttons: [],
@@ -41,18 +40,12 @@
 
         el.addClass('tr-overlay')
 
-        axios.get(idWrapper.data('show-url'))
-            .then((res) => {
-                showProductModal.find('.modal-title').text(res.data.data.title)
-                showProductModal.find('.modal-body').html(res.data.data.html)
-                openModal(showProductModal)
-            })
-            .catch((error) => {
-                errorToast(getTranslation('somethingWrong'))
-                enableElement(el)
-            })
-            .then(() => {
-                el.removeClass('tr-overlay')
-            })
+        try {
+            window.location.href = idWrapper.data('show-url')
+        } catch (error) {
+            errorToast(getTranslation('somethingWrong'))
+            enableElement(el)
+            el.removeClass('tr-overlay')
+        }
     })
 </script>

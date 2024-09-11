@@ -18,7 +18,6 @@ return new class extends Migration
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('store_id')->constrained();
             $table->string('name');
             $table->boolean('active')->default(1);
 

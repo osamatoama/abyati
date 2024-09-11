@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('branch_order_statuses', function (Blueprint $table) {
             $table->foreignId('branch_id')->constrained('branches');
+            $table->foreignId('store_id')->constrained('stores');
             $table->foreignId('order_status_id')->constrained('order_statuses');
         });
     }

@@ -87,10 +87,16 @@ return [
             'id' => 'ID',
             'name' => 'Name',
             'related_order_status' => 'Related order status',
+            'related_order_statuses' => 'Related order statuses',
             'active' => 'Active',
         ],
 
+        'actions' => [
+            'edit_branch' => 'Edit Branch',
+        ],
+
         'messages' => [
+            'updated' => 'Branch updated',
             'activated' => 'Branch activated',
             'deactivated' => 'Branch deactivated',
         ],

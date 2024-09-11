@@ -87,10 +87,16 @@ return [
             'id' => 'المعرف',
             'name' => 'الاسم',
             'related_order_status' => 'حالة الطلب المرتبطة بالفرع',
+            'related_order_statuses' => 'حالات الطلب المرتبطة بالفرع',
             'active' => 'مفعل',
         ],
 
+        'actions' => [
+            'edit_branch' => 'تعديل الفرع',
+        ],
+
         'messages' => [
+            'updated' => 'تم تعديل الفرع',
             'activated' => 'تم تفعيل الفرع',
             'deactivated' => 'تم إلغاء تفعيل الفرع',
         ],

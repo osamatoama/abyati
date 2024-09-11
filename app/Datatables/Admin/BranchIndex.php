@@ -38,9 +38,6 @@ class BranchIndex extends Datatable
             'name' => function (Branch $branch) {
                 return view('admin.pages.branches.partials.index.cols.name', compact('branch'));
             },
-            'related_order_status_id' => function (Branch $branch) {
-                return view('admin.pages.branches.partials.index.cols.related_order_status_id', compact('branch'));
-            },
             'active' => function (Branch $branch) {
                 return view('admin.pages.branches.partials.index.cols.active', compact('branch'));
             },
@@ -53,9 +50,7 @@ class BranchIndex extends Datatable
     protected function filterColumns(): array
     {
         return [
-            'salla_id' => function ($query, $keyword) {
-                $query->where('remote_id', 'LIKE', "%$keyword%");
-            },
+            //
         ];
     }
 }

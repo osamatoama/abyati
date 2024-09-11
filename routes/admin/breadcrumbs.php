@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Branch;
 use App\Models\Order;
 use App\Models\SmsProvider;
 use App\Models\ReturnRequest;
@@ -18,6 +19,11 @@ Breadcrumbs::for('admin.home', function ($trail) {
 Breadcrumbs::for('admin.branches.index', function ($trail) {
     $trail->parent('admin.home');
     $trail->push(__('admin.branches.title'), route('admin.branches.index'));
+});
+
+Breadcrumbs::for('admin.branches.show', function ($trail, Branch $branch) {
+    $trail->parent('admin.branches.index');
+    $trail->push($branch->name, route('admin.branches.show', $branch->id));
 });
 
 //customers
