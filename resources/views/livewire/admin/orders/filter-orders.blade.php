@@ -59,8 +59,7 @@
     </div>
 
     <div class="d-flex justify-content-end">
-        <a href="{{ route('admin.orders.index') }}"
-            class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">
+        <a wire:click="resetFilters" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">
             {{ __("globals.reset") }}
         </a>
         <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">
@@ -90,6 +89,12 @@
                 $('#filter-employee_ids').val(@this.get('employee_ids')).trigger('change')
                 $('#filter-completion_statuses').val(@this.get('completion_statuses')).trigger('change')
             }, 1000);
+        })
+
+        Livewire.on('order-filters-reset', (event) => {
+            $('#filter-store_ids').val(null).trigger('change')
+            $('#filter-employee_ids').val(null).trigger('change')
+            $('#filter-completion_statuses').val(null).trigger('change')
         })
 
         $('#filter-store_ids').on('change', function() {

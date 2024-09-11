@@ -59,7 +59,25 @@ class FilterOrders extends Component
         $this->to_date = !empty(trim($toDate)) ? Carbon::parse($toDate)->format('Y-m-d') : null;
 
         $this->dispatch('order-filters-applied', [
-            'refresh_url' => route('admin.orders.index', $this->getQueryParams()),
+            'filters' => $this->getFilters(),
+            'refresh_url' => route('admin.orders.index', $this->getFilters()),
+        ]);
+    }
+
+    public function resetFilters()
+    {
+        $this->reset([
+            'store_ids',
+            'from_date',
+            'to_date',
+            'completion_statuses',
+            'is_assigned',
+            'employee_ids',
+        ]);
+
+        $this->dispatch('order-filters-reset', [
+            'filters' => [],
+            'refresh_url' => route('admin.orders.index'),
         ]);
     }
 
@@ -90,7 +108,7 @@ class FilterOrders extends Component
         ];
     }
 
-    private function getQueryParams(): array
+    private function getFilters(): array
     {
         $filters = [
             'store_ids' => $this->store_ids,

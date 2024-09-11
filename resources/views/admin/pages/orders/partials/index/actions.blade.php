@@ -1,6 +1,8 @@
+<livewire:admin.orders.export-orders />
+
 @if(can('orders.edit'))
     <div class="btn-group">
-        <button type="button" class="btn fw-bold btn-secondary dropdown-toggle position-relative" data-bs-toggle="dropdown" aria-expanded="false">
+        <button type="button" class="btn btn-secondary fw-semibold dropdown-toggle position-relative" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fas fa-briefcase"></i>
             {{ __('globals.services') }}
         </button>

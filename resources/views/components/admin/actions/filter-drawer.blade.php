@@ -7,7 +7,7 @@
 @endphp
 
 <div>
-    <button id="filter-button" class="btn {{ $btnSize }} btn-secondary">
+    <button id="filter-button" class="btn {{ $btnSize }} btn-secondary fw-semibold">
         <i class="fas fa-filter"></i> {{ __('globals.filters') }}
     </button>
 

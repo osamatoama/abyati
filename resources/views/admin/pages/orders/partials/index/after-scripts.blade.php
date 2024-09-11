@@ -29,6 +29,11 @@
         reloadDatatable(dataTable)
     })
 
+    Livewire.on('order-filters-reset', (params) => {
+        $('#results-table').DataTable().ajax.url(params[0].refresh_url).load()
+        reloadDatatable(dataTable)
+    })
+
     Livewire.on('order-employee-assigned', (params) => {
         successToast(params[0].message)
     })

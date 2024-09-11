@@ -27,11 +27,12 @@ Route::prefix('branches')->as('branches.')->group(function () {
 Route::resource('branches', BranchController::class)->only('index', 'show');
 
 // Orders
-// Route::prefix('orders')->as('orders.')->group(function () {
-//     Route::post('pull/setup', [OrderController::class, 'setupPull'])->name('pull.setup');
+Route::prefix('orders')->as('orders.')->group(function () {
+    // Route::post('pull/setup', [OrderController::class, 'setupPull'])->name('pull.setup');
 
-//     Route::get('{order}/histories', [OrderController::class, 'histories'])->name('histories.index');
-// });
+    // Route::get('{order}/histories', [OrderController::class, 'histories'])->name('histories.index');
+    Route::get('export', [OrderController::class, 'export'])->name('export');
+});
 Route::resource('orders', OrderController::class)->only('index', 'show');
 
 // Employees

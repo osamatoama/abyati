@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
-use App\Models\OrderStatus;
 use App\Datatables\Admin\OrderIndex;
+use App\Exports\Admin\OrdersExport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Concerns\Authorizable;
-use App\Http\Requests\Admin\SetupPullOrdersRequest;
-use App\Jobs\Salla\Pull\Orders\SallaPullOrdersWithLimitJob;
 
 class OrderController extends Controller
 {
@@ -70,17 +69,27 @@ class OrderController extends Controller
     //     ]);
     // }
 
-    public function histories(Order $order)
-    {
-        $histories = $order->histories()->orderBy('date')->get();
+    // public function histories(Order $order)
+    // {
+    //     $histories = $order->histories()->orderBy('date')->get();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'fetched successfully',
-            'data' => [
-                'title' => __('admin.orders.history.title') . ' #' . $order->reference_id,
-                'html' => view('admin.pages.orders.partials.index.histories', compact('histories'))->render(),
-            ],
-        ]);
+    //     return response()->json([
+    //         'success' => true,
+    //         'message' => 'fetched successfully',
+    //         'data' => [
+    //             'title' => __('admin.orders.history.title') . ' #' . $order->reference_id,
+    //             'html' => view('admin.pages.orders.partials.index.histories', compact('histories'))->render(),
+    //         ],
+    //     ]);
+    // }
+
+    public function export()
+    {
+        return Excel::download(
+            export: new OrdersExport(
+                query: app(OrderIndex::class)->query()
+            ),
+            fileName: getExcelFileName('orders'),
+        );
     }
 }
