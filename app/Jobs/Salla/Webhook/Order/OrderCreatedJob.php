@@ -34,13 +34,7 @@ class OrderCreatedJob implements ShouldQueue, WebhookEvent
     public function handle(): void
     {
         try {
-            $store = Store::query()
-                ->where(
-                    column: 'salla_id',
-                    operator: '=',
-                    value: $this->merchantId,
-                )
-                ->first();
+            $store = Store::query()->salla(providerId: $this->merchantId)->first();
 
             if ($store === null) {
                 return;
@@ -50,6 +44,7 @@ class OrderCreatedJob implements ShouldQueue, WebhookEvent
                 ->saveSallaOrder(
                     sallaOrder: $this->data,
                     storeId: $store->id,
+                    accessToken: $store->user->sallaToken->access_token,
                 );
         } catch (Exception $exception) {
             $this->handleException(

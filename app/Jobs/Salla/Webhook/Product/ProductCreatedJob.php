@@ -34,13 +34,7 @@ class ProductCreatedJob implements ShouldQueue, WebhookEvent
     public function handle(): void
     {
         try {
-            $store = Store::query()
-                ->where(
-                    column: 'salla_id',
-                    operator: '=',
-                    value: $this->merchantId,
-                )
-                ->first();
+            $store = Store::query()->salla(providerId: $this->merchantId)->first();
 
             if ($store === null) {
                 return;
