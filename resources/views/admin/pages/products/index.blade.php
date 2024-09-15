@@ -2,6 +2,10 @@
 
 @section('title', __('admin.products.title'))
 
+@section('actions')
+    @include('admin.pages.products.partials.index.actions')
+@endsection
+
 @section('content')
     <div class="card">
         <div class="card-body">

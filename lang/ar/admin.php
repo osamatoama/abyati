@@ -38,6 +38,7 @@ return [
         'attributes' => [
             'id' => 'المعرف',
             'salla_id' => 'معرف سلة',
+            'store' => 'المتجر',
             'image' => 'الصورة',
             'name' => 'الاسم',
             'sku' => 'SKU',

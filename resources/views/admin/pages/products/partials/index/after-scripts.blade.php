@@ -8,12 +8,20 @@
         // {data: 'quantity', name: 'quantity', orderable: true, searchable: true},
         // {data: 'price', name: 'price', orderable: true, searchable: false},
     ], $('#results-table').data('url'), '#results-table', [[0, 'desc']], {
-        buttons: [
-            'excel'
-        ],
+        buttons: [],
         createdRow: function (row, data, dataIndex) {
             $(row).addClass('product-row cursor-pointer')
         }
+    })
+
+    Livewire.on('product-filters-applied', (params) => {
+        $('#results-table').DataTable().ajax.url(params[0].refresh_url).load()
+        reloadDatatable(dataTable)
+    })
+
+    Livewire.on('product-filters-reset', (params) => {
+        $('#results-table').DataTable().ajax.url(params[0].refresh_url).load()
+        reloadDatatable(dataTable)
     })
 
     const productRowClass = '#results-table .product-row'

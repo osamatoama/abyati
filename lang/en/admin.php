@@ -38,6 +38,7 @@ return [
         'attributes' => [
             'id' => 'ID',
             'salla_id' => 'Salla ID',
+            'store' => 'Store',
             'image' => 'Image',
             'name' => 'Name',
             'sku' => 'SKU',
