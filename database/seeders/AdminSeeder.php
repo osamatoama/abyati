@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Enums\UserRole;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class AdminSeeder extends Seeder
 {
@@ -14,16 +13,15 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()
-            ->create(
-                attributes: [
-                    'name' => 'Admin',
-                    'email' => config('app.superadmin.email'),
-                    'password' => config('app.superadmin.password'),
-                ],
-            )
-            ->assignRole(
-                role: UserRole::ADMIN->asModel(),
-            );
+        $admin = User::firstOrCreate([
+            'email' => config('app.superadmin.email'),
+        ], [
+            'name' => 'Admin',
+            'password' => config('app.superadmin.password'),
+        ]);
+
+        $admin->assignRole(
+            role: UserRole::ADMIN->asModel(),
+        );
     }
 }
