@@ -2,21 +2,25 @@
 
 namespace App\Jobs\Salla\Webhook\App\Store;
 
-use App\Enums\StoreProviderType;
-use App\Enums\UserRole;
-use App\Jobs\Concerns\InteractsWithException;
-use App\Models\Store;
-use App\Models\User;
-use App\Services\Salla\OAuth\SallaOAuthService;
 use Exception;
+use App\Models\User;
+use App\Models\Store;
+use App\Enums\UserRole;
+use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
+use App\Enums\StoreProviderType;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Bus;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Salla\OAuth2\Client\Provider\SallaUser;
+use App\Jobs\Concerns\InteractsWithException;
+use App\Jobs\Salla\Pull\Orders\PullOrdersJob;
+use App\Services\Salla\OAuth\SallaOAuthService;
+use App\Jobs\Salla\Pull\Products\PullProductsJob;
+use App\Jobs\Salla\Pull\OrderStatuses\PullOrderStatusesJob;
 
 class AuthorizeJob implements ShouldQueue
 {
@@ -62,7 +66,7 @@ class AuthorizeJob implements ShouldQueue
                     return $this->createStore(user: $user, resourceOwner: $resourceOwner);
                 });
 
-                // $this->dispatchJobs(user: $user, store: $store);
+                $this->dispatchJobs(user: $user, store: $store);
             } catch (Exception $e) {
                 $this->fail(exception: $e);
 
@@ -102,26 +106,6 @@ class AuthorizeJob implements ShouldQueue
 
         $user = $userData['user'];
 
-        /*$user->notify(instance: new UserCreatedUsingSallaWebhook(
-            email: $email,
-            password: $userData['password'],
-        ));*/
-
-        // SendCreatedUserCredentialsViaWhatsappToMerchantJob::dispatch(
-        //     mobile: $resourceOwner->getMobile(),
-        //     email: $email,
-        //     password: $userData['password'],
-        // );
-
-        /**
-         * TEMP
-         */
-        // Mail::to(users: ['kareemmfouad.dev@gmail.com', 'altoama@outlook.com', 'abdelrahman.tarek@valinteca.com'])
-        //     ->send(mailable: new UserCreatedUsingSallaWebhook(email: $email, password: $userData['password']));
-        /**
-         * END TEMP
-         */
-
         return $user;
     }
 
@@ -153,68 +137,25 @@ class AuthorizeJob implements ShouldQueue
         ]);
     }
 
-    // protected function dispatchJobs(User $user, Store $store): void
-    // {
-    //     PullStoreDataJob::dispatch(
-    //         accessToken: $user->sallaToken->access_token,
-    //         storeId: $store->id,
-    //     );
+    protected function dispatchJobs(User $user, Store $store): void
+    {
+        $jobs = [];
 
-    //     SendCreatedStoreDataViaWhatsappToAdminsJob::dispatch(
-    //         userId: $user->id,
-    //         storeId: $store->id,
-    //         name: $store->name,
-    //         mobile: $store->mobile,
-    //         domain: $store->domain,
-    //     );
+        $jobs[] = new PullProductsJob(
+            accessToken: $user->sallaToken->access_token,
+            storeId: $user->store->id,
+        );
 
-    //     return;
-    //     $sendStoreDataBatch = Bus::batch(new SendCreatedStoreDataViaWhatsappToAdminsJob(
-    //         userId: $user->id,
-    //         storeId: $store->id,
-    //         name: $store->name,
-    //         mobile: $store->mobile,
-    //         domain: $store->domain,
-    //     ));
+        $jobs[] = new PullOrderStatusesJob(
+            accessToken: $user->sallaToken->access_token,
+            storeId: $user->store->id,
+        );
 
-    //     $orderStatusBatch = Bus::batch(new SallaPullOrderStatusesJob(
-    //         accessToken: $user->sallaToken->access_token,
-    //         storeId: $user->store->id,
-    //     ))->name(name: "salla.pull.order-statuses:{$store->id}");
+        $jobs[] = new PullOrdersJob(
+            accessToken: $user->sallaToken->access_token,
+            storeId: $user->store->id,
+        );
 
-    //     $ordersBatch = Bus::batch(new SallaPullOrdersJob(
-    //         accessToken: $user->sallaToken->access_token,
-    //         storeId: $user->store->id,
-    //     ))->name(name: "salla.pull.orders:{$store->id}");
-
-    //     $orderHistoriesBatch = Bus::batch(new SallaPullOrdersHistoriesJob(
-    //         accessToken: $user->sallaToken->access_token,
-    //         storeId: $user->store->id,
-    //     ))->name(name: "salla.pull.order-histories:{$store->id}");
-
-    //     $couponsBatch = Bus::batch(new SallaPullCouponsJob(
-    //         accessToken: $user->sallaToken->access_token,
-    //         storeId: $user->store->id
-    //     ))->name(name: "salla.pull.coupons:{$store->id}");
-
-    //     $reviewsBatch = Bus::batch(new SallaPullReviewsJob(
-    //         accessToken: $user->sallaToken->access_token,
-    //         storeId: $user->store->id
-    //     ))->name(name: "salla.pull.reviews:{$store->id}");
-
-    //     $abandonedCartsBatch = Bus::batch(new SallaPullAbandonedCartsJob(
-    //         accessToken: $user->sallaToken->access_token,
-    //         storeId: $user->store->id
-    //     ))->name(name: "salla.pull.abandoned-carts:{$store->id}");
-
-    //     Bus::chain([
-    //         $sendStoreDataBatch,
-    //         $orderStatusBatch,
-    //         $ordersBatch,
-    //         $orderHistoriesBatch,
-    //         $couponsBatch,
-    //         $reviewsBatch,
-    //         $abandonedCartsBatch,
-    //     ])->dispatch();
-    // }
+        Bus::chain($jobs)->dispatch();
+    }
 }
