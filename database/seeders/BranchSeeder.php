@@ -14,20 +14,16 @@ class BranchSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (Store::all() as $store) {
-            Branch::updateOrCreate([
-                'store_id' => $store->id,
-                'name' => 'الرياض',
-            ], [
-                'active' => true,
-            ]);
+        Branch::firstOrCreate([
+            'name' => 'الرياض',
+        ], [
+            'active' => true,
+        ]);
 
-            Branch::updateOrCreate([
-                'store_id' => $store->id,
-                'name' => 'تبوك',
-            ], [
-                'active' => true,
-            ]);
-        }
+        Branch::firstOrCreate([
+            'name' => 'تبوك',
+        ], [
+            'active' => true,
+        ]);
     }
 }
