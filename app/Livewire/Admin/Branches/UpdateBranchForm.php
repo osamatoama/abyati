@@ -60,6 +60,7 @@ class UpdateBranchForm extends Component
 
         $this->dispatch('branch-updated', [
             'message' => __('admin.branches.messages.updated'),
+            'redirect_url' => route('admin.branches.index'),
         ]);
     }
 
