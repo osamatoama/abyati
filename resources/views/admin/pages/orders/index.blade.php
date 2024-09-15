@@ -11,6 +11,8 @@
 @endpush
 
 @section('content')
+    <livewire:admin.orders.order-tabs />
+
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
