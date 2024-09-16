@@ -109,6 +109,7 @@ return [
     'orders' => [
         'title' => 'الطلبات',
         'order_#' => 'طلب ',
+        'process_order_#' => 'تجهيز طلب #:id',
         'details' => 'تفاصيل الطلب',
         'calculations' => 'الحسابات',
 
@@ -148,6 +149,7 @@ return [
                 'product' => 'المنتج',
                 'variant' => 'الخيارات',
                 'quantity' => 'الكمية',
+                'executed_quantity' => 'الكمية المؤكدة',
                 'unit_price' => 'سعر القطعة',
                 'total' => 'الإجمالي',
             ],
@@ -183,6 +185,13 @@ return [
             'pull_started' => 'جاري سحب الطلبات',
             'no_shipping_address' => 'لا يوجد عنوان شحن لهذا الطلب',
             'employee_assigned' => 'تم تعيين الموظف للطلب',
+            'assigned' => 'تم إسناد الطلب',
+            'item_executed' => 'تم تجهيز المنتج',
+        ],
+
+        'errors' => [
+            'cannot_process' => 'لا يمكنك تجهيز هذا الطلب',
+            'invalid_barcode' => 'الباركود غير صحيح',
         ],
 
         'alerts' => [
@@ -230,6 +239,12 @@ return [
             'assigned' => 'مسند',
             'assigned_to_me' => 'مسند لي',
             'not_assigned' => 'غير مسند',
+        ],
+
+        'actions' => [
+            'assign' => 'إسناد',
+            'process' => 'تجهيز',
+            'scan_item' => 'تأكيد',
         ],
     ],
 

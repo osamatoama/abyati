@@ -7,7 +7,10 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\Employee\OrdersExport;
 use App\Datatables\Employee\OrderIndex;
+use App\Enums\OrderCompletionStatus;
 use App\Http\Controllers\Concerns\Authorizable;
+use App\Http\Requests\Employee\Order\AssignRequest;
+use Throwable;
 
 class OrderController extends Controller
 {
@@ -46,6 +49,36 @@ class OrderController extends Controller
                 'html' => view('employee.pages.orders.partials.index.order-details', compact('order'))->render(),
             ],
         ]);
+    }
+
+    public function assign(AssignRequest $request, Order $order)
+    {
+        try {
+            $order->assignTo($request->employee_id);
+
+            $order->executionHistories()->create([
+                'employee_id' => $request->employee_id,
+                'status' => OrderCompletionStatus::PROCESSING,
+            ]);
+        } catch (Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => __('globals.errors.something_went_wrong'),
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => __('employee.orders.messages.assigned'),
+            'data' => [],
+        ]);
+    }
+
+    public function process(Order $order)
+    {
+        abort_unless($order->isAssignedToMe(), 403, __('employee.orders.errors.cannot_process'));
+
+        return view('employee.pages.orders.process', compact('order'));
     }
 
     // public function setupPull(SetupPullOrdersRequest $request)

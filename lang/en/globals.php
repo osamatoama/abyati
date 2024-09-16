@@ -82,6 +82,7 @@ return [
             'title' => 'You have unistalled the app',
             'description' => 'We will restore your data when you reinstall the app',
         ],
+        'something_went_wrong' => 'Something went wrong',
     ],
     'optional' => 'Optional',
 ];

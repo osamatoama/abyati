@@ -45,6 +45,12 @@
         const el = $(this)
         const idWrapper = el.find('.id-wrapper')
 
+        console.log(e.target)
+
+        if (e.target.closest('.actions-wrapper')) {
+            return;
+        }
+    
         if (e.target.tagName === 'SELECT') {
             return
         }
@@ -79,6 +85,26 @@
                 showHistoryModal.find('.modal-title').text(response.data.data.title)
                 showHistoryModal.find('.modal-body').html(response.data.data.html)
                 openModal(showHistoryModal)
+            })
+    })
+
+    const assignBtnClass = '.assign-btn'
+
+    $(document).on('click', assignBtnClass, function(e) {
+        e.preventDefault()
+        const el = $(this)
+        disableElement(el)
+
+        axios.post(el.data('action'))
+            .then((response) => {
+                successToast(response?.data?.message || getTranslation('updatedSuccessfully'))
+                reloadDatatable(dataTable)
+            })
+            .catch((error) => {
+                errorToast(getTranslation('somethingWrong'))
+            })
+            .then(() => {
+                enableElement(el)
             })
     })
 </script>

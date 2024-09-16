@@ -8,6 +8,7 @@ use App\Dto\Orders\OrderDto;
 use App\Dto\Products\ProductDto;
 use App\Dto\Orders\OrderItemDto;
 use App\Dto\Orders\OrderStatusDto;
+use App\Enums\OrderCompletionStatus;
 // use App\Services\Queues\BatchService;
 use App\Services\Concerns\HasInstance;
 use App\Services\Products\ProductService;
@@ -58,6 +59,12 @@ final class OrderService
                     ->id,
             ),
         );
+
+        if (! $order->executionHistories()->exists()) {
+            $order->executionHistories()->create([
+                'status' => OrderCompletionStatus::PENDING,
+            ]);
+        }
 
         foreach ($sallaOrder['items'] as $item) {
             OrderItemService::instance()

@@ -109,6 +109,7 @@ return [
     'orders' => [
         'title' => 'Orders',
         'order_#' => 'Order ',
+        'process_order_#' => 'Process Order #:id',
         'details' => 'Order Details',
         'calculations' => 'Calculations',
 
@@ -148,6 +149,7 @@ return [
                 'product' => 'Product',
                 'variant' => 'Variant',
                 'quantity' => 'Quantity',
+                'executed_quantity' => 'Executed Quantity',
                 'unit_price' => 'Unit Price',
                 'total' => 'Total',
             ],
@@ -184,8 +186,14 @@ return [
             'pull_started' => 'Pulling orders started',
             'no_shipping_address' => 'No Shipping address for this order',
             'employee_assigned' => 'Employee assigned to the order',
+            'assigned' => 'Order assigned successfully',
+            'item_executed' => 'Item executed successfully',
         ],
 
+        'errors' => [
+            'cannot_process' => 'You are not allowed to process this order',
+            'invalid_barcode' => 'Invalid barcode',
+        ],
 
         'alerts' => [
             'shipping_bills_for_pickup_shipments' => "Can't generate shipping bills for this order because shipment type is: store pickup",
@@ -232,6 +240,12 @@ return [
             'assigned' => 'Assigned',
             'assigned_to_me' => 'Assigned To Me',
             'not_assigned' => 'Not Assigned',
+        ],
+
+        'actions' => [
+            'assign' => 'Assign',
+            'process' => 'Process',
+            'scan_item' => 'Confirm',
         ],
     ],
 

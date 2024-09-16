@@ -23,6 +23,7 @@ class OrderItem extends Model
         'variant_id',
         'name',
         'quantity',
+        'executed_quantity',
         'completion_status',
         'amounts',
     ];
@@ -132,5 +133,20 @@ class OrderItem extends Model
     public function isCompleted(): bool
     {
         return $this->completion_status === OrderItemCompletionStatus::COMPLETED;
+    }
+
+    public function isExecuted(): bool
+    {
+        return $this->executed_quantity == $this->quantity;
+    }
+
+    public function isNotExecuted(): bool
+    {
+        return $this->executed_quantity == 0;
+    }
+
+    public function isPartiallyExecuted(): bool
+    {
+        return $this->executed_quantity > 0 && $this->executed_quantity < $this->quantity;
     }
 }

@@ -8,7 +8,7 @@ use App\Enums\OrderCompletionStatus;
 use App\Models\Concerns\BelongsToStore;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Concerns\BelongsToEmployee;
+use App\Models\Concerns\AssignableToEmployee;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,7 +19,7 @@ class Order extends Model
     use Filterable;
     use SoftDeletes;
     use BelongsToStore;
-    use BelongsToEmployee;
+    use AssignableToEmployee;
 
     /**
      * Config
@@ -64,6 +64,11 @@ class Order extends Model
             ->withTrashed();
     }
 
+    public function executionHistories(): HasMany
+    {
+        return $this->hasMany(OrderExecutionHistory::class);
+    }
+
     /**
      * Scopes
      */
@@ -85,21 +90,6 @@ class Order extends Model
     public function scopeCompleted(Builder $query)
     {
         return $query->where('completion_status', OrderCompletionStatus::COMPLETED);
-    }
-
-    public function scopeAssigned(Builder $query)
-    {
-        return $query->whereNotNull('employee_id');
-    }
-
-    public function scopeAssignedTo(Builder $query, $employeeId)
-    {
-        return $query->where('employee_id', $employeeId);
-    }
-
-    public function scopeNotAssigned(Builder $query)
-    {
-        return $query->whereNull('employee_id');
     }
 
     /**
