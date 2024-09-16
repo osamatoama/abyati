@@ -11,20 +11,26 @@
             </div>
         </div>
 
-        @foreach($stores as $store)
-            <div class="form-group mt-3 row">
-                <label class="col-md-2 form-label form-control-lg">{{ $store->name }}</label>
-                <div class="col-md-10">
-                    <select class="form-control" wire:model="order_statuses.{{ $store->id }}">
-                        <option value="" disabled> {{ __('globals.select') }}</option>
+        <div class="py-5">
+            <h3 class="mb-5">
+                {{ __('admin.branches.attributes.related_order_status') }}
+            </h3>
 
-                        @foreach($store->orderStatuses as $orderStatus)
-                            <option value="{{ $orderStatus->id }}">{{ $orderStatus->name }}</option>
-                        @endforeach
-                    </select>
+            @foreach($stores as $store)
+                <div class="form-group mt-3 row">
+                    <label class="col-md-2 form-label form-control-lg">{{ $store->name }}</label>
+                    <div class="col-md-10">
+                        <select class="form-control" wire:model="order_statuses.{{ $store->id }}">
+                            <option value="" disabled> {{ __('globals.select') }}</option>
+
+                            @foreach($store->orderStatuses as $orderStatus)
+                                <option value="{{ $orderStatus->id }}">{{ $orderStatus->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
 
         <div>
             <button type="button" class="btn btn-secondary">

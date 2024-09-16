@@ -3,8 +3,8 @@
 namespace App\Jobs\Salla\Webhook\Order;
 
 use Exception;
-use App\Models\Store;
 use App\Models\Order;
+use App\Models\Store;
 use Illuminate\Bus\Queueable;
 use App\Services\Orders\OrderService;
 use Illuminate\Queue\SerializesModels;
@@ -14,7 +14,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Jobs\Concerns\InteractsWithException;
 
-class OrderCreatedJob implements ShouldQueue, WebhookEvent
+class OrderUpdatedJob implements ShouldQueue, WebhookEvent
 {
     use Dispatchable, InteractsWithException, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -46,7 +46,7 @@ class OrderCreatedJob implements ShouldQueue, WebhookEvent
                 ->where('remote_id', $this->data['id'])
                 ->first();
 
-            if ($order) {
+            if (! $order) {
                 return;
             }
 

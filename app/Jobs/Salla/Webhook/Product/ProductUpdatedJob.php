@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Jobs\Salla\Webhook\Order;
+namespace App\Jobs\Salla\Webhook\Product;
 
 use Exception;
 use App\Models\Store;
-use App\Models\Order;
 use Illuminate\Bus\Queueable;
-use App\Services\Orders\OrderService;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Services\Products\ProductService;
 use App\Jobs\Salla\Contracts\WebhookEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Jobs\Concerns\InteractsWithException;
 
-class OrderCreatedJob implements ShouldQueue, WebhookEvent
+class ProductUpdatedJob implements ShouldQueue, WebhookEvent
 {
     use Dispatchable, InteractsWithException, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -41,20 +40,10 @@ class OrderCreatedJob implements ShouldQueue, WebhookEvent
                 return;
             }
 
-            $order = Order::query()
-                ->forStore($store)
-                ->where('remote_id', $this->data['id'])
-                ->first();
-
-            if ($order) {
-                return;
-            }
-
-            OrderService::instance()
-                ->saveSallaOrder(
-                    sallaOrder: $this->data,
+            ProductService::instance()
+                ->saveSallaProduct(
+                    sallaProduct: $this->data,
                     storeId: $store->id,
-                    accessToken: $store->user->sallaToken->access_token,
                 );
         } catch (Exception $exception) {
             $this->handleException(
