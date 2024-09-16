@@ -26,4 +26,14 @@ final class Products implements Support
             ],
         );
     }
+
+    /**
+     * @throws SallaMerchantException
+     */
+    public function details(string $id): array
+    {
+        return $this->client->get(
+            url: "{$this->service->baseUrl}/products/{$id}"
+        );
+    }
 }

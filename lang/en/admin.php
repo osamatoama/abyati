@@ -25,6 +25,9 @@ return [
         ],
     ],
 
+    'account' => [
+        'title' => 'My Account',
+    ],
 
     'home' => [
         'title' => 'Home',
@@ -180,6 +183,7 @@ return [
         'items' => [
             'attributes' => [
                 'product' => 'Product',
+                'variant' => 'Variant',
                 'quantity' => 'Quantity',
                 'unit_price' => 'Unit Price',
                 'total' => 'Total',
@@ -264,6 +268,20 @@ return [
             'all' => 'All',
             'assigned' => 'Assigned',
             'not_assigned' => 'Not Assigned',
+        ],
+    ],
+
+    'customers' => [
+        'attributes' => [
+            'id' => 'ID',
+            'name' => 'Name',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'mobile' => 'Mobile',
+            'email' => 'Email',
+            'city' => 'City',
+            'country' => 'Country',
+            'currency' => 'Currency',
         ],
     ],
 ];

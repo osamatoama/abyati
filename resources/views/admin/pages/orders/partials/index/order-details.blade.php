@@ -85,7 +85,7 @@
             <li class="nav-item" role="presentation">
                 <a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#order-details-address" aria-selected="true" role="tab">
                     <i class="fas fa-location-dot fs-4 me-2"></i>
-                    {{ $order->address?->isPickup() ? __('admin.orders.address.attributes.pickup_address') : __('admin.orders.address.attributes.shipping_address') }}
+                    {{ $order->isPickup() ? __('admin.orders.address.attributes.pickup_address') : __('admin.orders.address.attributes.shipping_address') }}
                 </a>
             </li>
         </ul>
@@ -145,17 +145,17 @@
                 <table class="table fit-content-table">
                     <tbody>
                         <tr>
-                            <th class="fw-semibold">{{ __('customers.attributes.name') }}</th>
+                            <th class="fw-semibold">{{ __('admin.customers.attributes.name') }}</th>
                             <td>{{ $order->customer->name }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('customers.attributes.email') }}</th>
+                            <th class="fw-semibold">{{ __('admin.customers.attributes.email') }}</th>
                             <td>{{ $order->customer->email ?? '---' }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('customers.attributes.mobile') }}</th>
+                            <th class="fw-semibold">{{ __('admin.customers.attributes.mobile') }}</th>
                             <td>
                                 <span dir="ltr">
                                     {{ $order->customer->phone ?? '---' }}
@@ -164,17 +164,17 @@
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('customers.attributes.city') }}</th>
+                            <th class="fw-semibold">{{ __('admin.customers.attributes.city') }}</th>
                             <td>{{ $order->customer->city ?? '---' }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('customers.attributes.country') }}</th>
+                            <th class="fw-semibold">{{ __('admin.customers.attributes.country') }}</th>
                             <td>{{ $order->customer->country ?? '---' }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('customers.attributes.currency') }}</th>
+                            <th class="fw-semibold">{{ __('admin.customers.attributes.currency') }}</th>
                             <td>{{ $order->customer->currency ?? '---' }}</td>
                         </tr>
                     </tbody>
@@ -249,10 +249,10 @@
             </div>
 
             <div class="tab-pane fade" id="order-details-address" role="tabpanel">
-                @if($order->address)
+                @if($order->address['shipping_address'] ?? false)
                     <p class="fs-6">
                         {!!
-                            str($order->address->shipping_address)
+                            str($order->address['shipping_address'])
                                 ->replace('،,', ',')
                                 ->replace(',,', ',')
                                 ->replace(['،', ','], '<br>')

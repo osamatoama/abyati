@@ -20,6 +20,7 @@ final class OrderItemService
                 ],
                 values: [
                     'product_id' => $orderItemDto->productId,
+                    'variant_id' => $orderItemDto->variantId,
                     'name' => $orderItemDto->name,
                     'quantity' => $orderItemDto->quantity,
                     'amounts' => $orderItemDto->amounts,

@@ -143,7 +143,7 @@
                         <!--end::Menu separator-->
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
-                            <a href="{{ route('admin.account.index') }}" class="menu-link px-5">{{ __('account.title') }}</a>
+                            <a href="{{ route('admin.account.index') }}" class="menu-link px-5">{{ __('admin.account.title') }}</a>
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu separator-->

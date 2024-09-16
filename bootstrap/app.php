@@ -23,6 +23,13 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->group(function () {
                     Route::group([], base_path('routes/admin/routes.php'));
                 });
+
+            Route::prefix('employee')
+                ->name('employee.')
+                ->middleware(['web', Localize::class])
+                ->group(function () {
+                    Route::group([], base_path('routes/employee/routes.php'));
+                });
         },
     )
     ->withMiddleware(function (Middleware $middleware) {

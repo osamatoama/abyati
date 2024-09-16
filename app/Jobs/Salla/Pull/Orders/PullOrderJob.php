@@ -2,15 +2,17 @@
 
 namespace App\Jobs\Salla\Pull\Orders;
 
-use App\Jobs\Concerns\InteractsWithBatches;
-use App\Jobs\Concerns\InteractsWithException;
-use App\Services\Orders\OrderService;
 use Exception;
 use Illuminate\Bus\Queueable;
+use App\Services\Orders\OrderService;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use App\Jobs\Concerns\InteractsWithBatches;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use App\Jobs\Concerns\InteractsWithException;
+use App\Services\Salla\Merchant\SallaMerchantService;
+use App\Services\Salla\Merchant\SallaMerchantException;
 
 class PullOrderJob implements ShouldQueue
 {
@@ -33,9 +35,30 @@ class PullOrderJob implements ShouldQueue
     public function handle(): void
     {
         try {
+            $response = SallaMerchantService::withToken(
+                accessToken: $this->accessToken,
+            )->orders()->details(
+                id: $this->data['id'],
+            );
+        } catch (SallaMerchantException $exception) {
+            $this->handleException(
+                exception: SallaMerchantException::withLines(
+                    exception: $exception,
+                    lines: [
+                        'Exception while pulling order details from salla',
+                        "Store: {$this->storeId}",
+                        "Order ID: {$this->data['id']}",
+                    ],
+                ),
+            );
+
+            return;
+        }
+
+        try {
             OrderService::instance()
                 ->saveSallaOrder(
-                    sallaOrder: $this->data,
+                    sallaOrder: $response['data'],
                     storeId: $this->storeId,
                     accessToken: $this->accessToken,
                 );

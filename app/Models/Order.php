@@ -87,6 +87,20 @@ class Order extends Model
         return $query->where('completion_status', OrderCompletionStatus::COMPLETED);
     }
 
+    public function scopeAssigned(Builder $query)
+    {
+        return $query->whereNotNull('employee_id');
+    }
+
+    public function scopeAssignedTo(Builder $query, $employeeId)
+    {
+        return $query->where('employee_id', $employeeId);
+    }
+
+    public function scopeNotAssigned(Builder $query)
+    {
+        return $query->whereNull('employee_id');
+    }
 
     /**
      * Attributes
@@ -137,5 +151,10 @@ class Order extends Model
     public function isCompleted(): bool
     {
         return $this->completion_status === OrderCompletionStatus::COMPLETED;
+    }
+
+    public function isPickup(): bool
+    {
+        return $this->shipment_type === 'pickup';
     }
 }

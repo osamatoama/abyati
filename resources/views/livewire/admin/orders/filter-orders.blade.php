@@ -39,8 +39,8 @@
 
         <select wire:model="is_assigned" class="form-control">
             <option value="">{{ __('admin.orders.assign_statuses.all') }}</option>
-            <option value="true">{{ __('admin.orders.assign_statuses.assigned') }}</option>
-            <option value="false">{{ __('admin.orders.assign_statuses.not_assigned') }}</option>
+            <option value="1">{{ __('admin.orders.assign_statuses.assigned') }}</option>
+            <option value="0">{{ __('admin.orders.assign_statuses.not_assigned') }}</option>
         </select>
 
         @error('is_assigned') <span class="form-input-error text-danger"></span> @enderror

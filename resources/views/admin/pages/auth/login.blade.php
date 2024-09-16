@@ -50,7 +50,7 @@
         {{--        </div>--}}
         <div class="d-grid mb-10">
             <button type="submit" class="btn btn-primary">
-                {{ __("admin.admin.auth.sign_in") }}
+                {{ __("admin.auth.sign_in") }}
             </button>
         </div>
     </form>

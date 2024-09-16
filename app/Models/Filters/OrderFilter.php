@@ -68,11 +68,15 @@ class OrderFilter extends BaseFilters
 
     protected function isAssigned($value)
     {
-        if ($value === 'true') {
+        if ($value === '1') {
+            if (auth('employee')->check()) {
+                return $this->builder->where('orders.employee_id', auth('employee')->id());
+            }
+
             return $this->builder->whereNotNull('orders.employee_id');
         }
 
-        if ($value === 'false') {
+        if ($value === '0') {
             return $this->builder->whereNull('orders.employee_id');
         }
 

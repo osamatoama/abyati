@@ -21,13 +21,8 @@ class ResetPasswordRequest extends FormRequest
      */
     public function rules(): array
     {
-        $guard = 'web';
-        if (auth()->user() instanceof Employee) {
-            $guard = 'employee';
-        }
-
         return [
-            'current_password' => ['required', "current_password:$guard"],
+            'current_password' => ['required', "current_password:admin"],
             'new_password' => ['required',
                 "not_in:$this->current_password",
                 Password::min(8)

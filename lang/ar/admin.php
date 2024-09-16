@@ -25,6 +25,9 @@ return [
         ],
     ],
 
+    'account' => [
+        'title' => 'حسابي',
+    ],
 
     'home' => [
         'title' => 'الرئيسية',
@@ -181,6 +184,7 @@ return [
         'items' => [
             'attributes' => [
                 'product' => 'المنتج',
+                'variant' => 'الخيارات',
                 'quantity' => 'الكمية',
                 'unit_price' => 'سعر القطعة',
                 'total' => 'الإجمالي',
@@ -263,6 +267,20 @@ return [
             'all' => 'الكل',
             'assigned' => 'مسند',
             'not_assigned' => 'غير مسند',
+        ],
+    ],
+
+    'customers' => [
+        'attributes' => [
+            'id' => 'المعرف',
+            'name' => 'الاسم',
+            'first_name' => 'الاسم الاول',
+            'last_name' => 'الاسم الاخير',
+            'mobile' => 'رقم الهاتف',
+            'email' => 'البريد الالكتروني',
+            'city' => 'المدينة',
+            'country' => 'الدولة',
+            'currency' => 'العملة',
         ],
     ],
 ];

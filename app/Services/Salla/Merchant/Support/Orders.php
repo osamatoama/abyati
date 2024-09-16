@@ -32,4 +32,15 @@ final class Orders implements Support
             ),
         );
     }
+
+    /**
+     * @throws SallaMerchantException
+     */
+    public function details(string $id, array $filters = []): array
+    {
+        return $this->client->get(
+            url: "{$this->service->baseUrl}/orders/{$id}",
+            query: $filters,
+        );
+    }
 }
