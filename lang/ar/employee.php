@@ -152,6 +152,11 @@ return [
                 'executed_quantity' => 'الكمية المؤكدة',
                 'unit_price' => 'سعر القطعة',
                 'total' => 'الإجمالي',
+                'employee_note' => 'الملاحظة',
+            ],
+
+            'alerts' => [
+                'transfer_to_support' => 'سيتم إشعار فريق الدعم بوجود مشكلة كميات في هذا المنتج. تأكد من عدم توافر الكمية المطلوبة قبل التحويل.',
             ],
         ],
 
@@ -187,16 +192,12 @@ return [
             'employee_assigned' => 'تم تعيين الموظف للطلب',
             'assigned' => 'تم إسناد الطلب',
             'item_executed' => 'تم تجهيز المنتج',
+            'item_transferred_to_support' => 'تم تحويل المنتج لفريق الدعم',
         ],
 
         'errors' => [
             'cannot_process' => 'لا يمكنك تجهيز هذا الطلب',
             'invalid_barcode' => 'الباركود غير صحيح',
-        ],
-
-        'alerts' => [
-            'shipping_bills_for_pickup_shipments' => 'لا يمكن إصدار بوليصات شحن لهذا الطلب لأن نوع الشحن: استلام من الفرع',
-            'shipping_bills_for_not_shippable' => 'لا يمكن إصدار بوليصات شحن لهذا الطلب لأنه لا يتطلب شحن',
         ],
 
         'pull_alert' => [
@@ -245,6 +246,8 @@ return [
             'assign' => 'إسناد',
             'process' => 'تجهيز',
             'scan_item' => 'تأكيد',
+            'transfer' => 'تحويل',
+            'transfer_to_support' => 'تحويل لفريق الدعم',
         ],
     ],
 

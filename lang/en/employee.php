@@ -152,6 +152,11 @@ return [
                 'executed_quantity' => 'Executed Quantity',
                 'unit_price' => 'Unit Price',
                 'total' => 'Total',
+                'employee_note' => 'Note',
+            ],
+
+            'alerts' => [
+                'transfer_to_support' => 'Support team will be notified about quantity issues in this item. Make sure the required quantity is not available before transferring.',
             ],
         ],
 
@@ -188,6 +193,7 @@ return [
             'employee_assigned' => 'Employee assigned to the order',
             'assigned' => 'Order assigned successfully',
             'item_executed' => 'Item executed successfully',
+            'item_transferred_to_support' => 'Item transferred to support successfully',
         ],
 
         'errors' => [
@@ -246,6 +252,8 @@ return [
             'assign' => 'Assign',
             'process' => 'Process',
             'scan_item' => 'Confirm',
+            'transfer' => 'Transfer',
+            'transfer_to_support' => 'Transfer to support',
         ],
     ],
 

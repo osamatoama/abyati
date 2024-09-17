@@ -85,4 +85,5 @@ return [
         'something_went_wrong' => 'حدث خطأ أثناء العملية',
     ],
     'optional' => 'اختياري',
+    'alert' => 'تنبيه',
 ];

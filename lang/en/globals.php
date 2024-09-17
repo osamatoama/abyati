@@ -85,4 +85,5 @@ return [
         'something_went_wrong' => 'Something went wrong',
     ],
     'optional' => 'Optional',
+    'alert' => 'Alert',
 ];

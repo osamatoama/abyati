@@ -12,7 +12,7 @@ class ProcessOrder extends Component
     #[Locked]
     public Order $order;
 
-    #[On('order-item-executed')]
+    #[On('order-item-executed', 'order-item-transferred')]
     public function render()
     {
         $executedItems = $this->order->items->filter(fn ($item) => $item->isExecuted());

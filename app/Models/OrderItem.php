@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\OrderItemCompletionStatus;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItem extends Model
@@ -54,6 +55,18 @@ class OrderItem extends Model
     public function variant(): BelongsTo
     {
         return $this->belongsTo(ProductVariant::class);
+    }
+
+    public function notes(): HasMany
+    {
+        return $this->hasMany(OrderItemNote::class);
+    }
+
+    public function employeeNote()
+    {
+        return $this->hasOne(OrderItemNote::class)
+            ->where('author_type', Employee::class)
+            ->latestOfMany();
     }
 
     /**

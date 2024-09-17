@@ -4,9 +4,9 @@ namespace App\Livewire\Employee\Orders;
 
 use Livewire\Component;
 use App\Models\OrderItem;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Locked;
 use App\Enums\OrderItemCompletionStatus;
-use Illuminate\Validation\Rule;
 
 class ScanOrderItem extends Component
 {
