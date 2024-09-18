@@ -97,14 +97,14 @@
                     </a>
                 </div>
 
-                {{-- @if(can("roles.show") or can("employees.show"))
+                @if(can("roles.show") or can("roles.show"))
                     <div data-kt-menu-trigger="click"
-                         class="menu-item menu-accordion {{ (request()->routeIs("admin.employees.*") or request()->routeIs("admin.roles.*")) ? " hover show " : "" }}">
+                         class="menu-item menu-accordion {{ (request()->routeIs("admin.roles.*") or request()->routeIs("admin.roles.*")) ? " hover show " : "" }}">
                         <span class="menu-link">
                             <span class="menu-icon">
                                 <i class="fa-solid fa-user fs-2"></i>
                             </span>
-                            <span class="menu-title">{{ __("employees.management") }}</span>
+                            <span class="menu-title">{{ __('admin.management.title') }}</span>
                             <span class="menu-arrow"></span>
                         </span>
 
@@ -116,25 +116,13 @@
                                         <span class="menu-bullet">
                                             <span class="bullet bullet-dot"></span>
                                         </span>
-                                        <span class="menu-title">{{ __("roles.title") }}</span>
-                                    </a>
-                                </div>
-                            @endif
-
-                            @if(can("employees.show"))
-                                <div class="menu-item">
-                                    <a class="menu-link {{ request()->routeIs("admin.employees.*") ? "active" : "" }}"
-                                       href="{{ route("admin.employees.index") }}">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">{{ __("employees.title") }}</span>
+                                        <span class="menu-title">{{ __('admin.roles.title') }}</span>
                                     </a>
                                 </div>
                             @endif
                         </div>
                     </div>
-                @endif --}}
+                @endif
 
                 {{-- @if(true)
                     <div class="menu-item">

@@ -61,45 +61,6 @@
                     </a>
                 </div>
 
-                {{-- @if(can("roles.show") or can("employees.show"))
-                    <div data-kt-menu-trigger="click"
-                         class="menu-item menu-accordion {{ (request()->routeIs("employee.employees.*") or request()->routeIs("employee.roles.*")) ? " hover show " : "" }}">
-                        <span class="menu-link">
-                            <span class="menu-icon">
-                                <i class="fa-solid fa-user fs-2"></i>
-                            </span>
-                            <span class="menu-title">{{ __("employees.management") }}</span>
-                            <span class="menu-arrow"></span>
-                        </span>
-
-                        <div class="menu-sub menu-sub-accordion">
-                            @if(can("roles.show"))
-                                <div class="menu-item">
-                                    <a class="menu-link {{ request()->routeIs("employee.roles.*") ? "active" : "" }}"
-                                       href="{{ route("employee.roles.index") }}">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">{{ __("roles.title") }}</span>
-                                    </a>
-                                </div>
-                            @endif
-
-                            @if(can("employees.show"))
-                                <div class="menu-item">
-                                    <a class="menu-link {{ request()->routeIs("employee.employees.*") ? "active" : "" }}"
-                                       href="{{ route("employee.employees.index") }}">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">{{ __("employees.title") }}</span>
-                                    </a>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                @endif --}}
-
                 {{-- @if(true)
                     <div class="menu-item">
                         <a @class(['menu-link', 'active' => request()->routeIs('employee.reports.*')])

@@ -138,8 +138,8 @@ return [
             'activated' => 'The Employee has been activated successfully',
             'deactivated' => 'The Employee has been deactivated successfully',
             'should_have_no_relations' => "You can't perform this action, because this employee has related order status updates. Deactivate the employee instead.",
-            'restored' => 'The Employee has been restored successfully!',
-            'force_delete' => 'The Employee has been permanently deleted successfully!',
+            'restored' => 'The Employee has been restored successfully',
+            'force_delete' => 'The Employee has been permanently deleted successfully',
         ],
     ],
 
@@ -212,11 +212,11 @@ return [
         ],
 
         'messages' => [
-            'created' => 'The Order has been created successfully!',
-            'updated' => 'The Order has been updated successfully!',
-            'deleted' => 'The Order has been deleted successfully!',
-            'tagDeleted' => 'Tag deleted successfully!',
-            'statusUpdated' => 'Order status has been updated successfully!',
+            'created' => 'The Order has been created successfully',
+            'updated' => 'The Order has been updated successfully',
+            'deleted' => 'The Order has been deleted successfully',
+            'tagDeleted' => 'Tag deleted successfully',
+            'statusUpdated' => 'Order status has been updated successfully',
             'noteUpdated' => 'Order note has been updated successfully',
             'pull_started' => 'Pulling orders started',
             'no_shipping_address' => 'No Shipping address for this order',
@@ -283,5 +283,31 @@ return [
             'country' => 'Country',
             'currency' => 'Currency',
         ],
+    ],
+
+    'management' => [
+        'title' => 'Management',
+    ],
+
+    'roles' => [
+        'title' => 'Roles',
+        'actions' => 'Actions',
+
+        'action' => [
+            'edit' => 'Edit Role',
+            'create' => 'Add Role',
+        ],
+
+        'attributes' => [
+            'id' => 'ID',
+            'name' => 'Name',
+            'permissions' => 'Permissions',
+        ],
+
+        'messages' => [
+            'created' => 'The role has been created successfully',
+            'updated' => 'The role has been updated successfully',
+            'deleted' => 'The role has been deleted successfully',
+        ]
     ],
 ];

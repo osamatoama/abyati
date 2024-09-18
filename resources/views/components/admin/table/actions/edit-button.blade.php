@@ -3,7 +3,7 @@
     'url' => null,
     'jsClass' => 'edit-row-button',
     'showTooltip' => true,
-    'tooltip' => __('buttons.globals.crud.edit'),
+    'tooltip' => __('globals.edit'),
 ])
 
 @php

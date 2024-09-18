@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Database\Seeder;
 
@@ -13,52 +12,32 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        return;
-
         $permissions = [
-            // Marketers
-            'view_marketers',
-            'create_marketers',
-            'update_marketers',
-            'delete_marketers',
-
-            // Products
-            'view_products',
-
-            // Order Statuses
-            'view_order_statuses',
-
-            // Payment Terms
-            'view_payment_terms',
-            'update_payment_terms',
-
-            // Orders
-            'view_orders',
-
-            // Coupons
-            'view_coupons',
-            'update_coupons',
-
-            // Payments
-            'view_payments',
-            'create_payments',
-            'update_payments',
-            'delete_payments',
+            'branches' => ['show', 'add', 'edit', 'delete'],
+            'products' => ['show'],
+            'roles' => ['show', 'add', 'edit', 'delete'],
+            'orders' => ['show', 'assign', 'pull', 'export'],
+            'employees' => ['show', 'add', 'edit', 'delete'],
         ];
 
-        foreach ($permissions as $permission) {
-            Permission::firstOrCreate([
-                'name' => $permission,
-                'guard_name' => 'admin',
-            ], []);
+        $permissionNames = [];
+
+        foreach ($permissions as $tag => $actions) {
+            foreach ($actions as $action) {
+                $permissionNames[] = "$tag.$action";
+
+                if (! Permission::where('name', "$tag.$action")->first()) {
+                    Permission::create(
+                        [
+                            'tag' => $tag,
+                            'name' => "$tag.$action",
+                            'guard_name' => 'admin',
+                        ]
+                    );
+                }
+            }
         }
 
-        Permission::whereNotIn('name', $permissions)->delete();
-
-        $adminRole = Role::where('name', 'admin')->first();
-
-        if ($adminRole) {
-            $adminRole->syncPermissions(Permission::all());
-        }
+        Permission::whereNotIn('name', $permissionNames)->delete();
     }
 }

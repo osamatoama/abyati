@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\AccountController;
@@ -41,12 +42,8 @@ Route::prefix('employees')->as('employees.')->group(function () {
 });
 Route::resource('employees', EmployeeController::class)->except(['create', 'show', 'edit']);
 
-// Route::prefix('roles')->as('roles.')->group(function () {
-//     Route::get('trash', [RoleController::class, 'trash'])->name('trash');
-//     Route::put('{role}/restore', [RoleController::class, 'restore'])->name('restore');
-//     Route::delete('{role}/force-delete', [RoleController::class, 'forceDestroy'])->name('force-destroy');
-// });
-// Route::resource('roles', RoleController::class)->except('show');
+// Role
+Route::resource('roles', RoleController::class)->except('show');
 
 Route::prefix('reports')->as('reports.')->group(function () {
 });

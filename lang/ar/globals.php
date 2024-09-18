@@ -2,6 +2,10 @@
 
 return [
 
+    'add' => 'إضافة',
+    'edit' => 'تعديل',
+    'delete' => 'حذف',
+
     'select' => 'اختر',
     'select_date' => 'اختر التاريخ',
     'select_date_range' => 'اختر المدة',

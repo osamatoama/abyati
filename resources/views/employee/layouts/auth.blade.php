@@ -86,7 +86,7 @@
     axios.defaults.headers.common['X-CSRF-Token'] = $('meta[name="_token"]').attr('content')
 </script>
 <script src="{{ assetCustom('assets/main.js') }}?version=1.0.29"></script>
-<script src="{{ assetCustom('assets/helpers.js') }}?version=1.0.28"></script>
+<script src="{{ assetCustom('assets/helpers.js') }}?version=1.0.29"></script>
 @stack('scripts')
 </body>
 </html>

@@ -20,9 +20,7 @@ const helpers = {
                     processing: true,
                     serverSide: true,
                     dom: '<"d-flex justify-content-between"<"d-flex"<f><"ms-3"l>><B>>rt<"d-flex justify-content-between"ip>',
-                    buttons: [
-                        'pdf', 'excel'
-                    ],
+                    buttons: [],
                     order: order,
                     ajax: url,
                     columns: columns,

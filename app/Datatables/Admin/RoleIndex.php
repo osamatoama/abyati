@@ -2,14 +2,10 @@
 
 namespace App\Datatables\Admin;
 
-use App\Datatables\Datatable;
 use App\Models\Role;
+use App\Datatables\Datatable;
 use Illuminate\Database\Eloquent\Builder;
 
-/**
- * Class RoleIndex
- * @package App\Datatables\Client
- */
 class RoleIndex extends Datatable
 {
     /**
@@ -17,8 +13,7 @@ class RoleIndex extends Datatable
      */
     public function query()
     {
-        return Role::query()
-            ->mine();
+        return Role::query();
     }
 
 
@@ -30,10 +25,10 @@ class RoleIndex extends Datatable
     {
         return [
             'name' => function ($role) {
-                return view('client.roles.partials.index.cols.name', compact('role'));
+                return view('admin.pages.roles.partials.index.cols.name', compact('role'));
             },
             'action' => function ($role) {
-                return view('client.roles.partials.index.cols.actions', compact('role'));
+                return view('admin.pages.roles.partials.index.cols.actions', compact('role'));
             }
         ];
     }
