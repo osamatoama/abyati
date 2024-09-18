@@ -17,6 +17,7 @@ class PermissionSeeder extends Seeder
             'products' => ['show'],
             'roles' => ['show', 'add', 'edit', 'delete'],
             'orders' => ['show', 'assign', 'pull', 'export'],
+            'users' => ['show', 'add', 'edit', 'delete'],
             'employees' => ['show', 'add', 'edit', 'delete'],
         ];
 

@@ -120,6 +120,18 @@
                                     </a>
                                 </div>
                             @endif
+
+                            @if(can("users.show"))
+                                <div class="menu-item">
+                                    <a class="menu-link {{ request()->routeIs("admin.users.*") ? "active" : "" }}"
+                                       href="{{ route("admin.users.index") }}">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">{{ __('admin.users.title') }}</span>
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 @endif

@@ -48,16 +48,26 @@ Breadcrumbs::for('admin.roles.create', function ($trail) {
     $trail->push(__('admin.roles.action.create'), route('admin.roles.create'));
 });
 
-Breadcrumbs::for('admin.roles.trash', function ($trail) {
-    $trail->parent('admin.roles.index');
-    $trail->push(__('admin.roles.trash'), route('admin.roles.trash', request('role')));
-});
-
 Breadcrumbs::for('admin.roles.edit', function ($trail) {
     $trail->parent('admin.roles.index');
     $trail->push(__('admin.roles.action.edit'), route('admin.roles.edit', request('role')));
 });
 
+//Users
+Breadcrumbs::for('admin.users.index', function ($trail) {
+    $trail->parent('admin.home');
+    $trail->push(__('admin.users.title'), route('admin.users.index'));
+});
+
+Breadcrumbs::for('admin.users.create', function ($trail) {
+    $trail->parent('admin.users.index');
+    $trail->push(__('admin.users.action.create'), route('admin.users.create'));
+});
+
+Breadcrumbs::for('admin.users.edit', function ($trail) {
+    $trail->parent('admin.users.index');
+    $trail->push(__('admin.users.action.edit'), route('admin.users.edit', request('role')));
+});
 
 //employees
 Breadcrumbs::for('admin.employees.index', function ($trail) {

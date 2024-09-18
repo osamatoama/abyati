@@ -8,12 +8,9 @@ use App\Datatables\Admin\RoleIndex;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Concerns\Authorizable;
 use App\Http\Requests\Admin\Role\StoreRoleRequest;
+use App\Http\Requests\Admin\Role\DeleteRoleRequest;
 use App\Http\Requests\Admin\Role\UpdateRoleRequest;
 
-/**
- * Class RoleController
- * @package App\Http\Controllers\Client\Dashboard
- */
 class RoleController extends Controller
 {
     use Authorizable;
@@ -51,6 +48,8 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
+        abort_unless($role->isEditable(), 404);
+
         return view('admin.pages.roles.edit', compact('role'));
     }
 
@@ -66,14 +65,8 @@ class RoleController extends Controller
         return redirect()->route('admin.roles.index');
     }
 
-    public function destroy(Role $role)
+    public function destroy(DeleteRoleRequest $request, Role $role)
     {
-        if ($role->users()->count()) {
-            session()->flash('error', __('admin.roles.messages.roleIsUsed'));
-
-            return redirect()->route('admin.roles.index');
-        }
-
         $role->delete();
 
         session()->flash('success', __('admin.roles.messages.deleted'));

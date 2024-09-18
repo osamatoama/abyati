@@ -21,7 +21,7 @@ trait BelongsToUser
      */
     public function scopeMine($query)
     {
-        return $query->where('user_id', core()->currentUserId());
+        return $query->where('user_id', auth('admin')->id());
     }
 
     public function scopeForUser($query, string $userId)

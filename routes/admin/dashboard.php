@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\EmployeeController;
+
 // use App\Http\Controllers\Admin\SettingController;
 // use App\Http\Controllers\Admin\Settings\DomainSettingController;
 // use App\Http\Controllers\Admin\Settings\ReturnSettingController;
@@ -41,6 +43,12 @@ Route::prefix('employees')->as('employees.')->group(function () {
     Route::put('{employee}/toggle-active', [EmployeeController::class, 'toggleActive'])->name('toggle_active');
 });
 Route::resource('employees', EmployeeController::class)->except(['create', 'show', 'edit']);
+
+// Users
+Route::prefix('users')->as('users.')->group(function () {
+    Route::put('{user}/toggle-active', [UserController::class, 'toggleActive'])->name('toggle_active');
+});
+Route::resource('users', UserController::class)->except(['create', 'show', 'edit']);
 
 // Role
 Route::resource('roles', RoleController::class)->except('show');

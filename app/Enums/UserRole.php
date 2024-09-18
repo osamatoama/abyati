@@ -2,10 +2,13 @@
 
 namespace App\Enums;
 
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
+use App\Enums\Concerns\InteractsWithArrays;
 
 enum UserRole: string
 {
+    use InteractsWithArrays;
+
     case ADMIN = 'admin';
     case MERCHANT = 'merchant';
 

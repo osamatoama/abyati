@@ -3,6 +3,7 @@
 namespace App\Datatables\Admin;
 
 use App\Models\Role;
+use App\Enums\UserRole;
 use App\Datatables\Datatable;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -13,7 +14,8 @@ class RoleIndex extends Datatable
      */
     public function query()
     {
-        return Role::query();
+        return Role::query()
+            ->whereNotIn('name', UserRole::values());
     }
 
 

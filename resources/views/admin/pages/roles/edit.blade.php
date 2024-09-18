@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', __("roles.action.edit"))
+@section('title', __('admin.roles.action.edit'))
 
 @section('content')
     <div class="card">

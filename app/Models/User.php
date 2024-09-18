@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserRole;
 use App\Enums\StoreProviderType;
+use App\Models\Concerns\Activatable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,6 +18,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
+    use Activatable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +29,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'active',
     ];
 
     /**

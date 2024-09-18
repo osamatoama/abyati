@@ -19,6 +19,13 @@ return [
         'edit' => 'Edit',
         'delete' => 'Delete',
     ],
+    'users' => [
+        'title' => 'Users',
+        'show' => 'عرض',
+        'add' => 'إضافة',
+        'edit' => 'تعديل',
+        'delete' => 'حذف',
+    ],
     'employees' => [
         'title' => 'Employees',
         'show' => 'Show',

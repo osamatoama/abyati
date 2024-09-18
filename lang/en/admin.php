@@ -143,6 +143,37 @@ return [
         ],
     ],
 
+    'users' => [
+        'title' => 'Users',
+        'actions' => 'Actions',
+
+        'password_hint' => 'Use 8 or more characters with a mix of letters, numbers & symbols.',
+
+        'action' => [
+            'edit' => 'Edit User',
+            'create' => 'Create User',
+            'delete' => 'Delete User',
+        ],
+
+        'attributes' => [
+            'name' => 'Name',
+            'email' => 'Email',
+            'phone' => 'Phone',
+            'password' => 'Password',
+            'role' => 'Role',
+            'active' => 'Active',
+        ],
+
+        'messages' => [
+            'created' => 'The User has been created successfully',
+            'updated' => 'The User has been updated successfully',
+            'deleted' => 'The User has been deleted successfully',
+            'activated' => 'The User has been activated successfully',
+            'deactivated' => 'The User has been deactivated successfully',
+            'should_have_no_relations' => "You can't perform this action, because this user has related data. Deactivate the user instead.",
+        ],
+    ],
+
     'orders' => [
         'title' => 'Orders',
         'order_#' => 'Order ',
@@ -308,6 +339,10 @@ return [
             'created' => 'The role has been created successfully',
             'updated' => 'The role has been updated successfully',
             'deleted' => 'The role has been deleted successfully',
-        ]
+        ],
+
+        'errors' => [
+            'should_have_no_relations' => 'You cannot perform this action, because this role has related users',
+        ],
     ],
 ];
