@@ -29,6 +29,8 @@ class StoreController extends Controller
 
         $store->update($data);
 
+        cache()->forget(Store::CACHE_STORES_ID_COLORS_KEY);
+
         return response()->json([
             'success' => true,
             'message' => __('admin.stores.messages.updated'),

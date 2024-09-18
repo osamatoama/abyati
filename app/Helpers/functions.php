@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Store;
 use App\Models\Support;
 use App\Models\Employee;
 use Illuminate\Support\Arr;
@@ -283,5 +284,18 @@ if (! function_exists('trimFileName')) {
         $extension = pathinfo($fileName, PATHINFO_EXTENSION);
 
         return str($fileName)->limit(10) . '...' . $extension;
+    }
+}
+
+if (! function_exists('getStoreColor')) {
+    function getStoreIdColor(string $storeId): string
+    {
+        $colors = cache()->remember(
+            key: Store::CACHE_STORES_ID_COLORS_KEY,
+            ttl: 60 * 60,
+            callback: fn () => Store::pluck('id_color', 'id')->toArray()
+        );
+
+        return $colors[$storeId] ?? Store::DEFAULT_ID_COLOR;
     }
 }

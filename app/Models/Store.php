@@ -15,6 +15,13 @@ class Store extends Model
     use HasFactory;
 
     /**
+     * Constants
+     */
+    const DEFAULT_ID_COLOR = '#ffffff';
+
+    const CACHE_STORES_ID_COLORS_KEY = 'stores:id_colors';
+
+    /**
      * Config
      */
     protected $fillable = [
