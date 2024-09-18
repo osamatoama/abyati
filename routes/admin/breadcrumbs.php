@@ -15,6 +15,12 @@ Breadcrumbs::for('admin.home', function ($trail) {
     $trail->push(__('admin.home.title'), route('admin.home'));
 });
 
+// Stores
+Breadcrumbs::for('admin.stores.index', function ($trail) {
+    $trail->parent('admin.home');
+    $trail->push(__('admin.stores.title'), route('admin.stores.index'));
+});
+
 // Branches
 Breadcrumbs::for('admin.branches.index', function ($trail) {
     $trail->parent('admin.home');

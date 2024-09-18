@@ -50,6 +50,30 @@
                 </div>
 
                 <div class="menu-item">
+                    <a @class(['menu-link', 'active' => request()->routeIs('admin.stores.*')]) href="{{ route('admin.stores.index') }}"
+                    >
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-globe fs-2"></i>
+                        </span>
+                            <span class="menu-title">
+                        {{ __('admin.stores.title') }}
+                        </span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
+                    <a @class(['menu-link', 'active' => request()->routeIs('admin.branches.*')]) href="{{ route('admin.branches.index') }}"
+                    >
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-store fs-2"></i>
+                        </span>
+                            <span class="menu-title">
+                        {{ __('admin.branches.title') }}
+                        </span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
                     <a @class(['menu-link', 'active' => request()->routeIs('admin.products.*')]) href="{{ route('admin.products.index') }}"
                     >
                         <span class="menu-icon">
@@ -69,18 +93,6 @@
                         </span>
                             <span class="menu-title">
                         {{ __('admin.orders.title') }}
-                        </span>
-                    </a>
-                </div>
-
-                <div class="menu-item">
-                    <a @class(['menu-link', 'active' => request()->routeIs('admin.branches.*')]) href="{{ route('admin.branches.index') }}"
-                    >
-                        <span class="menu-icon">
-                            <i class="fa-solid fa-store fs-2"></i>
-                        </span>
-                            <span class="menu-title">
-                        {{ __('admin.branches.title') }}
                         </span>
                     </a>
                 </div>

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Product;
+use App\Models\Branch;
 use App\Http\Controllers\Controller;
 use App\Datatables\Admin\BranchIndex;
 use App\Http\Controllers\Concerns\Authorizable;
-use App\Models\Branch;
 
 class BranchController extends Controller
 {

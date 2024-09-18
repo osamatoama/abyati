@@ -84,6 +84,21 @@ return [
         ],
     ],
 
+    'stores' => [
+        'title' => 'المتاجر',
+
+        'attributes' => [
+            'name' => 'الاسم',
+            'domain' => 'النطاق',
+            'id_color' => 'اللون المميز',
+            'active' => 'مفعل',
+        ],
+
+        'messages' => [
+            'updated' => 'تم التعديل',
+        ],
+    ],
+
     'branches' => [
         'title' => 'الفروع',
 

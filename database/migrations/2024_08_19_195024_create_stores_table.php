@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('mobile');
             $table->string('email');
             $table->string('domain');
+            $table->string('id_color')->default('#ffffff');
 
             $table->timestamps();
         });

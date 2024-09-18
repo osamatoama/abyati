@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ProductController;
@@ -22,6 +23,12 @@ Route::get('/', HomeController::class)->name('home');
 
 // Products
 Route::resource('products', ProductController::class)->only('index', 'show');
+
+// Stores
+Route::prefix('stores')->as('stores.')->group(function () {
+    // Route::put('{branch}/toggle-active', [BranchController::class, 'toggleActive'])->name('toggle_active');
+});
+Route::resource('stores', StoreController::class)->only('index', 'update');
 
 // Branches
 Route::prefix('branches')->as('branches.')->group(function () {

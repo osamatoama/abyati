@@ -13,6 +13,7 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
+            'stores' => ['show', 'edit'],
             'branches' => ['show', 'add', 'edit', 'delete'],
             'products' => ['show'],
             'roles' => ['show', 'add', 'edit', 'delete'],

@@ -84,6 +84,21 @@ return [
         ],
     ],
 
+    'stores' => [
+        'title' => 'Stores',
+
+        'attributes' => [
+            'name' => 'Name',
+            'domain' => 'Domain',
+            'id_color' => 'Identifier Color',
+            'active' => 'Active',
+        ],
+
+        'messages' => [
+            'updated' => 'Updated successfully',
+        ],
+    ],
+
     'branches' => [
         'title' => 'Branches',
 

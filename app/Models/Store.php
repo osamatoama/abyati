@@ -25,6 +25,7 @@ class Store extends Model
         'mobile',
         'email',
         'domain',
+        'id_color',
     ];
 
     protected $casts = [
