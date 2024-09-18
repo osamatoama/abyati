@@ -147,4 +147,9 @@ class Order extends Model
     {
         return $this->shipment_type === 'pickup';
     }
+
+    public function isExecuted(): bool
+    {
+        return $this->items->every(fn(OrderItem $item) => $item->isExecuted());
+    }
 }

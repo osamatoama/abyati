@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\OrderItem;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Locked;
+use App\Enums\OrderCompletionStatus;
 use App\Enums\OrderItemCompletionStatus;
 
 class ScanOrderItem extends Component
@@ -44,6 +45,17 @@ class ScanOrderItem extends Component
             $this->item->update([
                 'completion_status' => OrderItemCompletionStatus::COMPLETED,
             ]);
+
+            if ($this->item->order->isExecuted()) {
+                $this->item->order->update([
+                    'completion_status' => OrderCompletionStatus::COMPLETED,
+                ]);
+
+                $this->item->order->executionHistories()->create([
+                    'employee_id' => auth('employee')->id(),
+                    'status' => OrderCompletionStatus::COMPLETED,
+                ]);
+            }
 
             $this->dispatch('order-item-executed', [
                 'order_item_id' => $this->item->id,

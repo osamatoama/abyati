@@ -9,7 +9,7 @@
         </button>
     @endif
 
-    @if($order->isAssignedToMe())
+    @if($order->isAssignedToMe() && ! $order->isExecuted())
         <a
             href="{{ route('employee.orders.process', $order) }}"
             class="process-btn btn btn-outline btn-outline-success btn-sm"
