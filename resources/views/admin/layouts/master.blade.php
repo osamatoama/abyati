@@ -5,6 +5,7 @@
     <title>@yield('title') | {{ siteTitle() }}</title>
     <meta charset="utf-8">
     <meta name="_token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="{{ siteTitle() }}">
     <meta name="keywords" content="{{ siteTitle() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +25,12 @@
         <link href="{{ assetCustom('assets/client/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ assetCustom('assets/client/css/custom.css') }}?version=1.0.21" rel="stylesheet" type="text/css">
     @endif
+
+    {{-- @vite('resources/js/app.js') --}}
+
+    <script>
+        {!! Vite::content('resources/js/app.js') !!}
+    </script>
 
     @livewireStyles
 

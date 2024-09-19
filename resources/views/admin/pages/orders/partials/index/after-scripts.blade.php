@@ -24,6 +24,11 @@
         }
     );
 
+    // window.Echo.channel(`private-test.broadcast.public`)
+    //     .listen('TestBroadcastPublicEvent', (e) => {
+    //         console.log(e);
+    //     });
+
     Livewire.on('order-filters-applied', (params) => {
         $('#results-table').DataTable().ajax.url(params[0].refresh_url).load()
         reloadDatatable(dataTable)
