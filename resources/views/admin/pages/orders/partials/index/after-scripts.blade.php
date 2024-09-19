@@ -1,4 +1,5 @@
-<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+{{-- <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script> --}}
+<script src="{{ asset('assets/client/plugins/custom/pusher/pusher.min.js') }}"></script>
 
 <script>
     let dataTable = helpers.plugins.datatables.init([

@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Broadcast;
 
 Broadcast::channel('order-assign-channel', function ($user) {
     return $user instanceof User || $user instanceof Employee;
-});
+}, ['guards' => ['admin', 'employee']]);
