@@ -3,9 +3,9 @@
      data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
         <a href="{{ route('admin.home') }}">
-            <img alt="Logo" src="{{ assetCustom('assets/client/media/logos/return-logo.png') }}"
+            <img alt="Logo" src="{{ assetCustom('assets/client/media/logos/logo.png') }}"
                  class="h-50px app-sidebar-logo-default">
-            <img alt="Logo" src="{{ assetCustom('assets/client/media/logos/return-logo-sm.png') }}"
+            <img alt="Logo" src="{{ assetCustom('assets/client/media/logos/logo-sm.png') }}"
                  class="h-30px app-sidebar-logo-minimize">
         </a>
         <!--begin::Sidebar toggle-->

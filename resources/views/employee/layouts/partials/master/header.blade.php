@@ -15,7 +15,7 @@
         <!--begin::Mobile logo-->
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
             <a href="{{ route('employee.home') }}" class="d-lg-none">
-                <img alt="Logo" src="{{ assetCustom('assets/client/media/logos/return-logo-sm.png') }}" class="h-30px">
+                <img alt="Logo" src="{{ assetCustom('assets/client/media/logos/logo-sm.png') }}" class="h-30px">
             </a>
         </div>
         <!--end::Mobile logo-->

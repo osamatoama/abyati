@@ -6,7 +6,7 @@ use App\Models\Store;
 use Illuminate\Console\Command;
 use App\Jobs\Salla\Pull\Orders\PullOrderJob;
 
-class SallaPullOrders extends Command
+class SallaPullOrder extends Command
 {
     /**
      * The name and signature of the console command.

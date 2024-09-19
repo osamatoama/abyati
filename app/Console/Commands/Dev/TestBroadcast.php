@@ -26,6 +26,6 @@ class TestBroadcast extends Command
      */
     public function handle()
     {
-        event(new TestBroadcastPublicEvent);
+        broadcast(new TestBroadcastPublicEvent);
     }
 }

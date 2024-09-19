@@ -1,3 +1,5 @@
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
 <script>
     let dataTable = helpers.plugins.datatables.init([
         {data: 'reference_id', name: 'reference_id', orderable: false, searchable: true},
@@ -24,10 +26,23 @@
         }
     );
 
-    // window.Echo.channel(`private-test.broadcast.public`)
-    //     .listen('TestBroadcastPublicEvent', (e) => {
+    // window.Echo.channel(`test-public-channel`)
+    //     .listen('test.public', (e) => {
     //         console.log(e);
     //     });
+
+    var pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {
+        cluster: '{{ config('broadcasting.connections.pusher.options.cluster') }}',
+        // forceTLS: true,
+    });
+
+    Pusher.logToConsole = ('{{ app()->environment() }}' != 'production') || ('{{ config('app.staging') }}' == 'testing');
+
+    var channel1 = pusher.subscribe('test-public-channel')
+    channel1.bind('test.public', function(data) {
+        console.log('test.public')
+        console.log(data)
+    })
 
     Livewire.on('order-filters-applied', (params) => {
         $('#results-table').DataTable().ajax.url(params[0].refresh_url).load()

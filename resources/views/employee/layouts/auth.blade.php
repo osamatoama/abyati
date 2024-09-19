@@ -6,7 +6,7 @@
     <meta name="description" content="{{ siteTitle() }}">
     <meta name="keywords" content="{{ siteTitle() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="{{ assetCustom('assets/client/media/logos/return-favicon.png') }}">
+    <link rel="shortcut icon" href="{{ assetCustom('assets/client/media/logos/favicon.webp') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700">
 
     @if(locale()->isRtl())
@@ -56,7 +56,7 @@
         <div class="d-flex flex-center w-lg-50 pt-15 pt-lg-0 px-10">
             <div class="d-flex flex-center flex-lg-start flex-column">
                 <a href="{{ route('employee.home') }}" class="mb-7">
-                    <img alt="Logo" src="{{ assetCustom('assets/client/media/logos/return-logo-300.png') }}">
+                    <img alt="Logo" src="{{ assetCustom('assets/client/media/logos/logo-300.png') }}">
                 </a>
                 {{--<h2 class="text-white fw-normal m-0">
                     Branding tools designed for your business

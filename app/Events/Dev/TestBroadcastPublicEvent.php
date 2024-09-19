@@ -3,14 +3,15 @@
 namespace App\Events\Dev;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-class TestBroadcastPublicEvent implements ShouldBroadcast
+class TestBroadcastPublicEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -30,12 +31,13 @@ class TestBroadcastPublicEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('test.broadcast.public'),
+            new Channel('test-public-channel'),
+            // new PrivateChannel('test.broadcast.public'),
         ];
     }
 
-    // public function broadcastAs(): string
-    // {
-    //     return 'test-broadcast-public';
-    // }
+    public function broadcastAs(): string
+    {
+        return 'test.public';
+    }
 }

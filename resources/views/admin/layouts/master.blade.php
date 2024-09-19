@@ -9,7 +9,7 @@
     <meta name="description" content="{{ siteTitle() }}">
     <meta name="keywords" content="{{ siteTitle() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="{{ assetCustom('assets/client/media/logos/return-favicon.png') }}">
+    <link rel="shortcut icon" href="{{ assetCustom('assets/client/media/logos/favicon.webp') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700">
 
     @stack('beforeStyles')
@@ -28,9 +28,9 @@
 
     {{-- @vite('resources/js/app.js') --}}
 
-    <script>
+    {{-- <script>
         {!! Vite::content('resources/js/app.js') !!}
-    </script>
+    </script> --}}
 
     @livewireStyles
 
