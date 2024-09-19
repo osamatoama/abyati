@@ -33,15 +33,16 @@
 
     var pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {
         cluster: '{{ config('broadcasting.connections.pusher.options.cluster') }}',
-        // forceTLS: true,
+        forceTLS: false,
+        authEndpoint: "/broadcasting/auth",
     });
 
     Pusher.logToConsole = ('{{ app()->environment() }}' != 'production') || ('{{ config('app.staging') }}' == 'testing');
 
-    var channel1 = pusher.subscribe('test-public-channel')
-    channel1.bind('test.public', function(data) {
-        console.log('test.public')
-        console.log(data)
+    var orderAssignChannel = pusher.subscribe('private-order-assign-channel')
+
+    orderAssignChannel.bind('order-assigned-event', function(data) {
+        reloadDatatable(dataTable)
     })
 
     Livewire.on('order-filters-applied', (params) => {

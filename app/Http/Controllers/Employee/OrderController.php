@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Employee;
 
+use Throwable;
 use App\Models\Order;
+use App\Enums\OrderCompletionStatus;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\Employee\OrdersExport;
 use App\Datatables\Employee\OrderIndex;
-use App\Enums\OrderCompletionStatus;
+use App\Events\Order\OrderAssignedEvent;
 use App\Http\Controllers\Concerns\Authorizable;
 use App\Http\Requests\Employee\Order\AssignRequest;
-use Throwable;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -53,13 +55,21 @@ class OrderController extends Controller
 
     public function assign(AssignRequest $request, Order $order)
     {
-        try {
-            $order->assignTo($request->employee_id);
+        /**
+         * TODO: REPLICATED CODE
+         */
 
-            $order->executionHistories()->create([
-                'employee_id' => $request->employee_id,
-                'status' => OrderCompletionStatus::PROCESSING,
-            ]);
+        try {
+            DB::transaction(function () use ($request, $order) {
+                $order->assignTo($request->employee_id);
+
+                $order->executionHistories()->create([
+                    'employee_id' => $request->employee_id,
+                    'status' => OrderCompletionStatus::PROCESSING,
+                ]);
+
+                event(new OrderAssignedEvent($order));
+            });
         } catch (Throwable $th) {
             return response()->json([
                 'success' => false,

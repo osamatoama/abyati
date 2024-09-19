@@ -8,6 +8,9 @@ use App\Models\Employee;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Locked;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use App\Enums\OrderCompletionStatus;
+use App\Events\Order\OrderAssignedEvent;
 
 class AssignEmployeeInput extends Component
 {
@@ -45,9 +48,19 @@ class AssignEmployeeInput extends Component
     {
         $this->validate();
 
-        $this->order->update([
-            'employee_id' => $this->employee_id,
-        ]);
+        /**
+         * TODO: REPLICATED CODE
+         */
+        DB::transaction(function () {
+            $this->order->assignTo($this->employee_id);
+
+            $this->order->executionHistories()->create([
+                'employee_id' => $this->employee_id,
+                'status' => OrderCompletionStatus::PROCESSING,
+            ]);
+
+            event(new OrderAssignedEvent($this->order));
+        });
 
         $this->dispatch('order-employee-assigned', [
             'message' => __('admin.orders.messages.employee_assigned'),
