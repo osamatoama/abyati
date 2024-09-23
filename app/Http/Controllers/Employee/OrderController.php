@@ -4,22 +4,17 @@ namespace App\Http\Controllers\Employee;
 
 use Throwable;
 use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 use App\Enums\OrderCompletionStatus;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\Employee\OrdersExport;
 use App\Datatables\Employee\OrderIndex;
 use App\Events\Order\OrderAssignedEvent;
-use App\Http\Controllers\Concerns\Authorizable;
 use App\Http\Requests\Employee\Order\AssignRequest;
-use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    use Authorizable;
-
-    protected $permissionName = 'orders';
-
     public function index(): mixed
     {
         if (request()->ajax() or request()->expectsJson()) {
