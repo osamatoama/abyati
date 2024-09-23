@@ -24,7 +24,8 @@
                         <tr class="fw-semibold fs-6 text-gray-800">
                             <th>{{ __('admin.orders.attributes.order_number') }}</th>
                             <th>{{ __('admin.orders.attributes.store') }}</th>
-                            <th>{{ __('admin.orders.attributes.customer') }}</th>
+                            <th>{{ __('admin.orders.attributes.branch') }}</th>
+                            {{-- <th>{{ __('admin.orders.attributes.customer') }}</th> --}}
                             <th>{{ __('admin.orders.attributes.date') }}</th>
                             <th>{{ __('admin.orders.attributes.status') }}</th>
                             <th>{{ __('admin.orders.attributes.completion_status') }}</th>

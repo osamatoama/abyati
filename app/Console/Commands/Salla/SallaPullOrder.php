@@ -13,7 +13,7 @@ class SallaPullOrder extends Command
      *
      * @var string
      */
-    protected $signature = 'salla:pull-orders {--store=} {--order=}';
+    protected $signature = 'salla:pull-order {--store=} {--order=}';
 
     /**
      * The console command description.

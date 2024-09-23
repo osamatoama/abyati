@@ -162,7 +162,7 @@
                             <th class="fw-semibold">{{ __('employee.customers.attributes.mobile') }}</th>
                             <td>
                                 <span dir="ltr">
-                                    {{ $order->customer['phone'] ?? '---' }}
+                                    {{ $order->customer_phone ?? '---' }}
                                 </span>
                             </td>
                         </tr>
@@ -190,27 +190,27 @@
                     <tbody>
                         <tr>
                             <th class="fw-semibold">{{ __('employee.orders.attributes.sub_total') }}</th>
-                            <td>{{ round($order->sub_total, 2) . ' ' . lang("currency.$order->currency") }}</td>
+                            <td>{{ round($order->amounts['sub_total']['amount'], 2) . ' ' . lang("currency.{$order->amounts['sub_total']['currency']}") }}</td>
                         </tr>
 
                         <tr>
                             <th class="fw-semibold">{{ __('employee.orders.attributes.shipping_cost') }}</th>
-                            <td>{{ round($order->shipping_cost, 2) . ' ' . lang("currency.$order->currency") }}</td>
+                            <td>{{ round($order->amounts['shipping_cost']['amount'], 2) . ' ' . lang("currency.{$order->amounts['shipping_cost']['currency']}") }}</td>
                         </tr>
 
                         <tr>
                             <th class="fw-semibold">{{ __('employee.orders.attributes.cash_on_delivery') }}</th>
-                            <td>{{ round($order->cash_on_delivery, 2) . ' ' . lang("currency.$order->currency") }}</td>
+                            <td>{{ round($order->amounts['cash_on_delivery']['amount'], 2) . ' ' . lang("currency.{$order->amounts['cash_on_delivery']['currency']}") }}</td>
                         </tr>
 
                         <tr>
                             <th class="fw-semibold">{{ __('employee.orders.attributes.tax') }}</th>
-                            <td>{{ round($order->tax, 2) . ' ' . lang("currency.$order->currency") }}</td>
+                            <td>{{ round($order->amounts['tax']['amount']['amount'], 2) . ' ' . lang("currency.{$order->amounts['tax']['amount']['currency']}") }}</td>
                         </tr>
 
                         <tr>
                             <th class="fw-semibold">{{ __('employee.orders.attributes.total') }}</th>
-                            <td>{{ round($order->total, 2) . ' ' . lang("currency.$order->currency") }}</td>
+                            <td>{{ round($order->amounts['total']['amount'], 2) . ' ' . lang("currency.{$order->amounts['total']['currency']}") }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -253,10 +253,10 @@
             </div>
 
             <div class="tab-pane fade" id="order-details-address" role="tabpanel">
-                @if($order->address['shipping_address'] ?? false)
+                @if($order->address['address_line'] ?? false)
                     <p class="fs-6">
                         {!!
-                            str($order->address['shipping_address'])
+                            str($order->address['address_line'])
                                 ->replace('،,', ',')
                                 ->replace(',,', ',')
                                 ->replace(['،', ','], '<br>')

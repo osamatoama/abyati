@@ -17,6 +17,7 @@ class OrderIndex extends Datatable
             ->filter()
             ->with([
                 'store',
+                'branch',
                 'employee',
             ])
             ->withCount([
@@ -34,6 +35,9 @@ class OrderIndex extends Datatable
         return [
             'store' => function (Order $order) {
                 return view('admin.pages.orders.partials.index.cols.store', compact('order'));
+            },
+            'branch' => function (Order $order) {
+                return view('admin.pages.orders.partials.index.cols.branch', compact('order'));
             },
             'employee' => function (Order $order) {
                 return view('admin.pages.orders.partials.index.cols.employee', compact('order'));

@@ -27,8 +27,6 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $order->load([
-            'customer',
-            'address',
             'items.product' => function ($query) {
                 $query->select('id', 'name', 'main_image');
             },
@@ -36,8 +34,8 @@ class OrderController extends Controller
                 $query->select('id');
             },
             'items.variant.optionValues.option',
-            'histories' => fn($q) => $q->orderBy('date'),
-            'histories.status' => fn($q) => $q->select('id', 'name'),
+            // 'histories' => fn($q) => $q->orderBy('date'),
+            // 'histories.status' => fn($q) => $q->select('id', 'name'),
         ]);
 
         return response()->json([

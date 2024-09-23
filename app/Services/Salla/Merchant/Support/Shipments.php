@@ -4,11 +4,10 @@ namespace App\Services\Salla\Merchant\Support;
 
 use App\Services\Salla\Merchant\Client;
 use App\Services\Salla\Merchant\Contracts\Support;
-use App\Services\Salla\Merchant\Enums\OrdersSort;
-use App\Services\Salla\Merchant\SallaMerchantException;
 use App\Services\Salla\Merchant\SallaMerchantService;
+use App\Services\Salla\Merchant\SallaMerchantException;
 
-final class Orders implements Support
+final class Shipments implements Support
 {
     public function __construct(
         protected SallaMerchantService $service,
@@ -18,14 +17,13 @@ final class Orders implements Support
     /**
      * @throws SallaMerchantException
      */
-    public function get(int $page = 1, OrdersSort $sort = OrdersSort::CREATED_AT_ASC, array $filters = []): array
+    public function get(int $page = 1, array $filters = []): array
     {
         return $this->client->get(
-            url: "{$this->service->baseUrl}/orders",
+            url: "{$this->service->baseUrl}/shipments",
             query: array_merge(
                 [
                     'page' => $page,
-                    'sort_by' => $sort->value,
                 ],
                 $filters
             ),
@@ -38,7 +36,7 @@ final class Orders implements Support
     public function details(string $id, array $filters = []): array
     {
         return $this->client->get(
-            url: "{$this->service->baseUrl}/orders/{$id}",
+            url: "{$this->service->baseUrl}/shipments/{$id}",
             query: $filters,
         );
     }

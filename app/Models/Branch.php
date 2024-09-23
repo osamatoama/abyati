@@ -37,4 +37,15 @@ class Branch extends Model
             )
             ->withPivot('store_id');
     }
+
+    public function stores(): BelongsToMany
+    {
+        return $this->belongsToMany(
+                related: Store::class,
+                table: 'branch_order_statuses',
+                foreignPivotKey: 'branch_id',
+                relatedPivotKey: 'store_id',
+            )
+            ->withPivot('order_status_id');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasJson;
 use App\Models\Concerns\Filterable;
 use App\Models\Filters\OrderFilter;
 use App\Enums\OrderCompletionStatus;
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Order extends Model
 {
+    use HasJson;
     use Filterable;
     use SoftDeletes;
     use BelongsToStore;
@@ -53,6 +55,11 @@ class Order extends Model
     /**
      * Relationships
      */
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
     public function status(): BelongsTo
     {
         return $this->belongsTo(OrderStatus::class);
@@ -109,6 +116,24 @@ class Order extends Model
                 }
 
                 return filled($name) ? $name : null;
+            },
+        );
+    }
+
+    public function customerPhone(): Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                $phone = '';
+                if (filled($this->customer['mobile_code'])) {
+                    $phone .= $this->customer['mobile_code'] ?? '';
+                }
+
+                if (filled($this->customer['mobile'])) {
+                    $phone .= $this->customer['mobile'] ?? '';
+                }
+
+                return filled($phone) ? $phone : null;
             },
         );
     }

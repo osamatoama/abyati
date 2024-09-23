@@ -2,6 +2,7 @@
 
 namespace App\Dto\Orders;
 
+use App\Models\Product;
 use App\Models\OptionValue;
 use Illuminate\Support\Arr;
 use App\Models\ProductVariant;
@@ -21,7 +22,25 @@ final class OrderItemDto
         //
     }
 
-    public static function fromSalla(array $sallaOrderItem, int $orderId, int $productId): self
+    public static function fromSalla(array $sallaOrderItem, int $orderId): self
+    {
+        $variant = ProductVariant::firstWhere('remote_id', $sallaOrderItem['product_sku_id'] ?? null);
+
+        $productId = $variant?->product_id
+            ?? Product::firstWhere('sku', $sallaOrderItem['sku'])?->id;
+
+        return new self(
+            remoteId: $sallaOrderItem['id'],
+            orderId: $orderId,
+            productId: $productId,
+            variantId: $variant?->id,
+            name: $sallaOrderItem['name'] ?? null,
+            quantity: $sallaOrderItem['quantity'] ?? 0,
+            amounts: $sallaOrderItem['amounts'] ?? null,
+        );
+    }
+
+    public static function fromSallaWebhook(array $sallaOrderItem, int $orderId, int $productId): self
     {
         $variantId = null;
 

@@ -10,6 +10,7 @@ return [
     'select_date' => 'اختر التاريخ',
     'select_date_range' => 'اختر المدة',
     'select_store' => 'اختر المتجر',
+    'select_branch' => 'اختر الفرع',
     'select_employee' => 'اختر الموظف',
     'select_all' => 'اختيار الكل',
     'clear_all' => 'إلغاء الكل',

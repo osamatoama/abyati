@@ -10,6 +10,8 @@ class OrderFilter extends BaseFilters
         'to_date',
         'store_id',
         'store_ids',
+        'branch_id',
+        'branch_ids',
         'completion_status',
         'completion_statuses',
         'is_assigned',
@@ -49,6 +51,20 @@ class OrderFilter extends BaseFilters
     {
         return $this->builder->when($value, function ($query) use ($value) {
             $query->whereIn('orders.store_id', $value);
+        });
+    }
+
+    protected function branchId($value)
+    {
+        return $this->builder->when($value, function ($query) use ($value) {
+            $query->where('orders.branch_id', $value);
+        });
+    }
+
+    protected function branchIds($value)
+    {
+        return $this->builder->when($value, function ($query) use ($value) {
+            $query->whereIn('orders.branch_id', $value);
         });
     }
 

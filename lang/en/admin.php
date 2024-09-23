@@ -223,6 +223,7 @@ return [
             'total' => 'Total',
             'completion_status' => 'Completion Status',
             'assign_status' => 'Assign Status',
+            'branch' => 'Branch',
             'employee' => 'Employee',
         ],
 

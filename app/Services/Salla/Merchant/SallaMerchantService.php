@@ -2,17 +2,19 @@
 
 namespace App\Services\Salla\Merchant;
 
-use App\Services\Salla\Merchant\Contracts\Support;
-use App\Services\Salla\Merchant\Support\AbandonedCarts;
-use App\Services\Salla\Merchant\Support\Coupons;
-use App\Services\Salla\Merchant\Support\Currencies;
-use App\Services\Salla\Merchant\Support\OrderHistories;
-use App\Services\Salla\Merchant\Support\Orders;
-use App\Services\Salla\Merchant\Support\OrderStatuses;
-use App\Services\Salla\Merchant\Support\Products;
-use App\Services\Salla\Merchant\Support\Reviews;
-use App\Services\Salla\SallaService;
 use Illuminate\Support\Carbon;
+use App\Services\Salla\SallaService;
+use App\Services\Salla\Merchant\Support\Orders;
+use App\Services\Salla\Merchant\Support\Coupons;
+use App\Services\Salla\Merchant\Support\Reviews;
+use App\Services\Salla\Merchant\Support\Products;
+use App\Services\Salla\Merchant\Contracts\Support;
+use App\Services\Salla\Merchant\Support\Shipments;
+use App\Services\Salla\Merchant\Support\Currencies;
+use App\Services\Salla\Merchant\Support\OrderItems;
+use App\Services\Salla\Merchant\Support\OrderStatuses;
+use App\Services\Salla\Merchant\Support\AbandonedCarts;
+use App\Services\Salla\Merchant\Support\OrderHistories;
 
 final class SallaMerchantService extends SallaService
 {
@@ -43,6 +45,13 @@ final class SallaMerchantService extends SallaService
         );
     }
 
+    public function orderItems(): OrderItems
+    {
+        return $this->resolve(
+            className: OrderItems::class,
+        );
+    }
+
     public function orderHistories(): OrderHistories
     {
         return $this->resolve(
@@ -54,6 +63,13 @@ final class SallaMerchantService extends SallaService
     {
         return $this->resolve(
             className: OrderStatuses::class,
+        );
+    }
+
+    public function shipments(): Shipments
+    {
+        return $this->resolve(
+            className: Shipments::class,
         );
     }
 

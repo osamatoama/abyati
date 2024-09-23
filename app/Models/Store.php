@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Store extends Model
 {
@@ -48,11 +49,39 @@ class Store extends Model
         );
     }
 
+    /**
+     * Relationships
+     */
     public function orderStatuses(): HasMany
     {
         return $this->hasMany(OrderStatus::class, 'store_id');
     }
 
+    public function branches(): BelongsToMany
+    {
+        return $this->belongsToMany(
+                related: Branch::class,
+                table: 'branch_order_statuses',
+                foreignPivotKey: 'store_id',
+                relatedPivotKey: 'branch_id',
+            )
+            ->withPivot('order_status_id');
+    }
+
+    public function branchOrderStatuses(): BelongsToMany
+    {
+        return $this->belongsToMany(
+                related: OrderStatus::class,
+                table: 'branch_order_statuses',
+                foreignPivotKey: 'store_id',
+                relatedPivotKey: 'order_status_id',
+            )
+            ->withPivot('branch_id');
+    }
+
+    /**
+     * Scopes
+     */
     public function scopeSalla(Builder $query, ?int $providerId = null): Builder
     {
         return $query->where(

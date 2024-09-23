@@ -29,8 +29,6 @@
     const showProductModal = $('#show-modal')
 
     $(document).on('click', branchRowClass, function(e) {
-        console.log(e.target)
-
         if (e.target.classList.contains('toggle-active-row-button')) {
             return
         }

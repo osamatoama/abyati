@@ -12,6 +12,18 @@
     </div>
 
     <div class="mb-10" wire:ignore>
+        <label class="form-label">{{ __('admin.orders.attributes.branch') }}</label>
+
+        <select id="filter-branch_ids" class="form-control" data-control="select2" data-placeholder="{{ __('globals.select_branch') }}" multiple>
+            @foreach($branches as $branchId => $branchName)
+                <option value="{{ $branchId }}">{{ $branchName }}</option>
+            @endforeach
+        </select>
+
+        @error('branch_ids') <span class="form-input-error text-danger"></span> @enderror
+    </div>
+
+    <div class="mb-10" wire:ignore>
         <div class="col-12 mb-5">
             <label class="form-label">{{ __('admin.orders.attributes.date') }}</label>
 
@@ -86,6 +98,7 @@
         Livewire.on('order-filters-mounted', (event) => {
             setTimeout(() => {
                 $('#filter-store_ids').val(@this.get('store_ids')).trigger('change')
+                $('#filter-branch_ids').val(@this.get('branch_ids')).trigger('change')
                 $('#filter-employee_ids').val(@this.get('employee_ids')).trigger('change')
                 $('#filter-completion_statuses').val(@this.get('completion_statuses')).trigger('change')
             }, 1000);
@@ -93,12 +106,17 @@
 
         Livewire.on('order-filters-reset', (event) => {
             $('#filter-store_ids').val(null).trigger('change')
+            $('#filter-branch_ids').val(null).trigger('change')
             $('#filter-employee_ids').val(null).trigger('change')
             $('#filter-completion_statuses').val(null).trigger('change')
         })
 
         $('#filter-store_ids').on('change', function() {
             @this.set('store_ids', $('#filter-store_ids').val())
+        })
+
+        $('#filter-branch_ids').on('change', function() {
+            @this.set('branch_ids', $('#filter-branch_ids').val())
         })
 
         $('#filter-completion_statuses').on('change', function() {

@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Orders;
 
 use Carbon\Carbon;
 use App\Models\Store;
+use App\Models\Branch;
 use Livewire\Component;
 use App\Models\Employee;
 use Livewire\Attributes\Url;
@@ -15,10 +16,16 @@ class FilterOrders extends Component
     public array $stores = [];
 
     #[Locked]
+    public array $branches = [];
+
+    #[Locked]
     public array $employees = [];
 
     #[Url]
     public ?array $store_ids = [];
+
+    #[Url]
+    public ?array $branch_ids = [];
 
     public $date;
 
@@ -40,6 +47,7 @@ class FilterOrders extends Component
     public function mount()
     {
         $this->stores = Store::pluck('name', 'id')->toArray();
+        $this->branches = Branch::pluck('name', 'id')->toArray();
         $this->employees = Employee::pluck('name', 'id')->toArray();
 
         $this->dispatch('order-filters-mounted');
@@ -68,6 +76,7 @@ class FilterOrders extends Component
     {
         $this->reset([
             'store_ids',
+            'branch_ids',
             'from_date',
             'to_date',
             'completion_statuses',

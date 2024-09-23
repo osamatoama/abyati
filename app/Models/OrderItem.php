@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasJson;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\OrderItemCompletionStatus;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItem extends Model
 {
+    use HasJson;
     use SoftDeletes;
 
     /**

@@ -23,4 +23,23 @@ Route::get('salla-products/{id}', function($id) {
     );
 });
 
+Route::get('salla-orders/{id}', function($id) {
+    return SallaMerchantService::withToken(
+        accessToken: Store::first()->user?->sallaToken?->access_token,
+    )->orders()->details(
+        id: $id,
+        filters: [
+            'format' => 'light',
+        ],
+    );
+});
+
+Route::get('salla-order-items/{id}', function($id) {
+    return SallaMerchantService::withToken(
+        accessToken: Store::first()->user?->sallaToken?->access_token,
+    )->orderItems()->get(
+        orderId: $id,
+    );
+});
+
 Route::get('test', [TestController::class, 'index']);

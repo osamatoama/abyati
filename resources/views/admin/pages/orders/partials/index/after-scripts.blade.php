@@ -5,7 +5,8 @@
     let dataTable = helpers.plugins.datatables.init([
         {data: 'reference_id', name: 'reference_id', orderable: false, searchable: true},
         {data: 'store', name: 'store', orderable: false, searchable: false},
-        {data: 'customer', name: 'customer', orderable: false, searchable: false},
+        {data: 'branch', name: 'branch', orderable: false, searchable: false},
+        // {data: 'customer', name: 'customer', orderable: false, searchable: false},
         {data: 'date', name: 'date', orderable: true, searchable: false},
         {data: 'status', name: 'status_name', orderable: false, searchable: true},
         {data: 'completion_status', name: 'completion_status', orderable: false, searchable: true},
@@ -63,31 +64,36 @@
     const orderRowClass = '#results-table .order-row'
     const showOrderModal = $('#show-modal')
 
-    // $(document).on('click', orderRowClass, function(e) {
-    //     const el = $(this)
-    //     const idWrapper = el.find('.id-wrapper')
+    $(document).on('click', orderRowClass, function(e) {
+        const el = $(this)
+        const idWrapper = el.find('.id-wrapper')
 
-    //     if (e.target.tagName === 'SELECT') {
-    //         return
-    //     }
+        console.log(e.target)
 
-    //     el.addClass('tr-overlay')
+        if (e.target.closest('.actions-wrapper')) {
+            return;
+        }
 
-    //     axios.get(idWrapper.data('show-url'))
-    //         .then((res) => {
-    //             showOrderModal.find('.modal-title').text(res.data.data.title)
-    //             showOrderModal.find('.modal-body').html(res.data.data.html)
-    //             openModal(showOrderModal)
-    //         })
-    //         .catch((error) => {
-    //             errorToast(getTranslation('somethingWrong'))
-    //             enableElement(el)
-    //         })
-    //         .then(() => {
-    //             el.removeClass('tr-overlay')
-    //         })
-    // })
+        if (e.target.tagName === 'SELECT') {
+            return
+        }
 
+        el.addClass('tr-overlay')
+
+        axios.get(idWrapper.data('show-url'))
+            .then((res) => {
+                showOrderModal.find('.modal-title').text(res.data.data.title)
+                showOrderModal.find('.modal-body').html(res.data.data.html)
+                openModal(showOrderModal)
+            })
+            .catch((error) => {
+                errorToast(getTranslation('somethingWrong'))
+                enableElement(el)
+            })
+            .then(() => {
+                el.removeClass('tr-overlay')
+            })
+    })
 
     const showHistoryBtnClass = '.show-history-btn'
     const showHistoryModal = $('#show-history-modal')

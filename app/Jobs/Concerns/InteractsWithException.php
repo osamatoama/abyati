@@ -6,7 +6,7 @@ use Exception;
 
 trait InteractsWithException
 {
-    public int $tries = 255;
+    public int $tries = 5;
 
     public ?int $maxAttempts = null;
 

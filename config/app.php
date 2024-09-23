@@ -135,7 +135,7 @@ return [
     |
     */
     'superadmin' => [
-        'email' => env('SUPERADMIN_EMAIL', 'admin@asq-affiliate.com'),
+        'email' => env('SUPERADMIN_EMAIL', 'admin@abyati.com'),
 
         'password' => env('SUPERADMIN_PASSWORD', 'password'),
     ],

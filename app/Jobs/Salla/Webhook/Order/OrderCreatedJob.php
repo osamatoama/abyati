@@ -3,16 +3,16 @@
 namespace App\Jobs\Salla\Webhook\Order;
 
 use Exception;
-use App\Models\Store;
 use App\Models\Order;
+use App\Models\Store;
 use Illuminate\Bus\Queueable;
-use App\Services\Orders\OrderService;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Jobs\Salla\Contracts\WebhookEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Jobs\Concerns\InteractsWithException;
+use App\Services\Orders\Webhooks\CreateOrderService;
 
 class OrderCreatedJob implements ShouldQueue, WebhookEvent
 {
@@ -50,8 +50,19 @@ class OrderCreatedJob implements ShouldQueue, WebhookEvent
                 return;
             }
 
-            OrderService::instance()
-                ->saveSallaOrder(
+            $pullOrderStatuses = $store->branchOrderStatuses
+                ->pluck('remote_original_id')
+                ->toArray();
+
+            if (
+                ! in_array($this->data['status']['id'] ?? null, $pullOrderStatuses->pluck('remote_original_id')->toArray())
+                && ! in_array($this->data['status']['customized']['id'] ?? null, $pullOrderStatuses->pluck('remote_id')->toArray())
+            ) {
+                return;
+            }
+
+            CreateOrderService::instance()
+                ->save(
                     sallaOrder: $this->data,
                     storeId: $store->id,
                     accessToken: $store->user->sallaToken->access_token,

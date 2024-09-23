@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Jobs\Salla\Pull\Orders;
+namespace App\Jobs\Salla\Pull\Shipments;
 
 use Exception;
-use App\Models\Coupon;
 use Illuminate\Bus\Queueable;
 use App\Enums\Queues\BatchName;
 use Illuminate\Queue\SerializesModels;
@@ -15,7 +14,7 @@ use App\Jobs\Concerns\InteractsWithException;
 use App\Services\Salla\Merchant\SallaMerchantService;
 use App\Services\Salla\Merchant\SallaMerchantException;
 
-class PullOrdersPerPageJob implements ShouldQueue
+class PullShipmentsPerPageJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithBatches, InteractsWithException, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -43,7 +42,7 @@ class PullOrdersPerPageJob implements ShouldQueue
                 try {
                     $this->response = SallaMerchantService::withToken(
                         accessToken: $this->accessToken,
-                    )->orders()->get(
+                    )->shipments()->get(
                         page: $this->page,
                         filters: $this->filters,
                     );
@@ -52,7 +51,7 @@ class PullOrdersPerPageJob implements ShouldQueue
                         exception: SallaMerchantException::withLines(
                             exception: $exception,
                             lines: [
-                                'Exception while pulling orders from salla',
+                                'Exception while pulling shipments from salla',
                                 "Store: {$this->storeId}",
                                 "Page: {$this->page}",
                             ],
@@ -64,7 +63,7 @@ class PullOrdersPerPageJob implements ShouldQueue
             }
 
             $jobs = [];
-            foreach ($this->response['data'] as $order) {
+            foreach ($this->response['data'] as $shipment) {
                 /**
                  * TODO: Check statuses here
                  */
@@ -78,10 +77,10 @@ class PullOrdersPerPageJob implements ShouldQueue
                 //     data: $order,
                 // );
 
-                dispatch(new PullOrderJob(
+                dispatch(new PullShipmentJob(
                     accessToken: $this->accessToken,
                     storeId: $this->storeId,
-                    data: $order,
+                    data: $shipment,
                 ));
 
                 // $this->addOrCreateBatch(

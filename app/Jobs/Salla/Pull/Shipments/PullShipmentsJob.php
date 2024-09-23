@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Jobs\Salla\Pull\Orders;
+namespace App\Jobs\Salla\Pull\Shipments;
 
 use Exception;
-use App\Models\Store;
 use Illuminate\Bus\Queueable;
 use App\Enums\Queues\BatchName;
 use Illuminate\Queue\SerializesModels;
@@ -15,7 +14,7 @@ use App\Jobs\Concerns\InteractsWithException;
 use App\Services\Salla\Merchant\SallaMerchantService;
 use App\Services\Salla\Merchant\SallaMerchantException;
 
-class PullOrdersJob implements ShouldQueue
+class PullShipmentsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithBatches, InteractsWithException, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -37,25 +36,20 @@ class PullOrdersJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            $store = Store::findOrFail($this->storeId);
-            $pullOrderStatuses = $store->branchOrderStatuses;
-
-            $filters = array_merge([
-                'status' => $pullOrderStatuses->pluck('remote_id')->toArray(),
-            ], $this->filters);
+            $service = SallaMerchantService::withToken(
+                accessToken: $this->accessToken,
+            );
 
             try {
-                $response = SallaMerchantService::withToken(
-                    accessToken: $this->accessToken,
-                )->orders()->get(
-                    filters: $filters,
+                $response = $service->shipments()->get(
+                    filters: $this->filters,
                 );
             } catch (SallaMerchantException $exception) {
                 $this->handleException(
                     exception: SallaMerchantException::withLines(
                         exception: $exception,
                         lines: [
-                            'Exception while pulling orders from salla',
+                            'Exception while pulling shipments from salla',
                             "Store: {$this->storeId}",
                         ],
                     ),
@@ -71,15 +65,15 @@ class PullOrdersJob implements ShouldQueue
                 //     storeId: $this->storeId,
                 //     page: $page,
                 //     response: $page === 1 ? $response : null,
-                //     filters: $filters,
+                //     filters: $this->filters,
                 // );
 
-                dispatch(new PullOrdersPerPageJob(
+                dispatch(new PullShipmentsPerPageJob(
                     accessToken: $this->accessToken,
                     storeId: $this->storeId,
                     page: $page,
                     response: $page === 1 ? $response : null,
-                    filters: $filters,
+                    filters: $this->filters,
                 ));
             }
 

@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Jobs\Salla\Pull\Orders;
+namespace App\Jobs\Salla\Pull\OrderItems;
 
 use Exception;
 use Illuminate\Bus\Queueable;
+use App\Dto\Orders\OrderItemDto;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Services\Orders\OrderItemService;
 use App\Jobs\Concerns\InteractsWithBatches;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Jobs\Concerns\InteractsWithException;
-use App\Services\Orders\Api\SyncOrderService;
 use App\Services\Salla\Merchant\SallaMerchantService;
 use App\Services\Salla\Merchant\SallaMerchantException;
 
-class PullOrderJob implements ShouldQueue
+class PullOrderItemsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithBatches, InteractsWithException, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -37,20 +38,17 @@ class PullOrderJob implements ShouldQueue
         try {
             $response = SallaMerchantService::withToken(
                 accessToken: $this->accessToken,
-            )->orders()->details(
-                id: $this->data['id'],
-                filters: [
-                    'format' => 'light',
-                ],
+            )->orderItems()->get(
+                orderId: $this->data['order_remote_id'],
             );
         } catch (SallaMerchantException $exception) {
             $this->handleException(
                 exception: SallaMerchantException::withLines(
                     exception: $exception,
                     lines: [
-                        'Exception while pulling order details from salla',
+                        'Exception while pulling order items from salla',
                         "Store: {$this->storeId}",
-                        "Order ID: {$this->data['id']}",
+                        "Order ID: {$this->data['order_remote_id']}",
                     ],
                 ),
             );
@@ -59,12 +57,15 @@ class PullOrderJob implements ShouldQueue
         }
 
         try {
-            SyncOrderService::instance()
-                ->save(
-                    sallaOrder: $response['data'],
-                    storeId: $this->storeId,
-                    accessToken: $this->accessToken,
-                );
+            foreach ($response['data'] ?? [] as $item) {
+                OrderItemService::instance()
+                    ->updateOrCreate(
+                        orderItemDto: OrderItemDto::fromSalla(
+                            sallaOrderItem: $item,
+                            orderId: $this->data['order_id'],
+                        ),
+                    );
+            }
         } catch (Exception $exception) {
             $this->handleException(
                 exception: $exception,

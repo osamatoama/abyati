@@ -224,6 +224,7 @@ return [
             'total' => 'إجمالي الطلب',
             'completion_status' => 'حالة التنفيذ',
             'assign_status' => 'حالة الإسناد',
+            'branch' => 'الفرع',
             'employee' => 'الموظف',
         ],
 

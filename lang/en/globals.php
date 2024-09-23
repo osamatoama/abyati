@@ -10,6 +10,7 @@ return [
     'select_date' => 'Select date',
     'select_date_range' => 'Select date range',
     'select_store' => 'Select store',
+    'select_branch' => 'Select branch',
     'select_employee' => 'Select employee',
     'select_all' => 'Select all',
     'clear_all' => 'Clear all',

@@ -40,14 +40,14 @@
                 @if(filled($order->admin_url))
                     <div class="d-flex align-items-center gap-2">
                         <i class="fas fa-link"></i>
-                        <a href="{{ $order->admin_url }}" class="text-muted text-hover-primary">{{ __('admin.orders.attributes.admin_url') }}</a>
+                        <a href="{{ $order->admin_url }}" class="text-muted text-hover-primary">{{ __('employee.orders.attributes.admin_url') }}</a>
                     </div>
                 @endif
 
-                @if(filled($order->admin_url))
+                @if(filled($order->customer_url))
                     <div class="d-flex align-items-center gap-2">
                         <i class="fas fa-up-right-from-square"></i>
-                        <a href="{{ $order->admin_url }}" class="text-muted text-hover-primary">{{ __('admin.orders.attributes.customer_url') }}</a>
+                        <a href="{{ $order->customer_url }}" class="text-muted text-hover-primary">{{ __('employee.orders.attributes.customer_url') }}</a>
                     </div>
                 @endif
             </div>
@@ -57,35 +57,35 @@
             <li class="nav-item" role="presentation">
                 <a class="nav-link text-active-primary d-flex align-items-center pb-4 active" data-bs-toggle="tab" href="#order-details-items" aria-selected="true" role="tab">
                     <i class="fas fa-cart-shopping fs-4 me-2"></i>
-                    {{ __('admin.orders.attributes.items') }}
+                    {{ __('employee.orders.attributes.items') }}
                 </a>
             </li>
 
             <li class="nav-item" role="presentation">
                 <a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#order-details-customer" aria-selected="true" role="tab">
                     <i class="fas fa-user fs-4 me-2"></i>
-                    {{ __('admin.orders.attributes.customer') }}
+                    {{ __('employee.orders.attributes.customer') }}
                 </a>
             </li>
 
             <li class="nav-item" role="presentation">
                 <a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#order-details-calculations" aria-selected="true" role="tab">
                     <i class="fas fa-calculator fs-4 me-2"></i>
-                    {{ __('admin.orders.calculations') }}
+                    {{ __('employee.orders.calculations') }}
                 </a>
             </li>
 
             <li class="nav-item" role="presentation">
                 <a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#order-details-history" aria-selected="true" role="tab">
                     <i class="fas fa-clock-rotate-left fs-4 me-2"></i>
-                    {{ __('admin.orders.history.title') }}
+                    {{ __('employee.orders.history.title') }}
                 </a>
             </li>
 
             <li class="nav-item" role="presentation">
                 <a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#order-details-address" aria-selected="true" role="tab">
                     <i class="fas fa-location-dot fs-4 me-2"></i>
-                    {{ $order->isPickup() ? __('admin.orders.address.attributes.pickup_address') : __('admin.orders.address.attributes.shipping_address') }}
+                    {{ $order->isPickup() ? __('employee.orders.address.attributes.pickup_address') : __('employee.orders.address.attributes.shipping_address') }}
                 </a>
             </li>
         </ul>
@@ -95,10 +95,11 @@
                 <table class="table table-row-bordered">
                     <thead>
                         <tr>
-                            <th>{{ __('admin.orders.items.attributes.product') }}</th>
-                            <th>{{ __('admin.orders.items.attributes.quantity') }}</th>
-                            <th>{{ __('admin.orders.items.attributes.unit_price') }}</th>
-                            <th>{{ __('admin.orders.items.attributes.total') }}</th>
+                            <th>{{ __('employee.orders.items.attributes.product') }}</th>
+                            <th>{{ __('employee.orders.items.attributes.variant') }}</th>
+                            <th>{{ __('employee.orders.items.attributes.quantity') }}</th>
+                            <th>{{ __('employee.orders.items.attributes.unit_price') }}</th>
+                            <th>{{ __('employee.orders.items.attributes.total') }}</th>
                         </tr>
                     </thead>
 
@@ -116,15 +117,18 @@
                                         <div>
                                             {{ $item->product->name }}
 
-                                            @if($item->variant?->optionValues?->isNotEmpty())
-                                                ({{ $item->variant->optionValues->map(fn($optionValue) => $optionValue->option->name . ': ' . $optionValue->name)->implode(' - ') }})
-                                            @endif
-
                                             @if($item->trashed())
                                                 <span class="badge badge-danger ms-1">{{ __('globals.deleted') }}</span>
                                             @endif
                                         </div>
                                     </div>
+                                </td>
+                                <td>
+                                    @if($item->variant?->optionValues?->isNotEmpty())
+                                        ({{ $item->variant->optionValues->map(fn($optionValue) => $optionValue->option->name . ': ' . $optionValue->name)->implode(' - ') }})
+                                    @else
+                                        ---
+                                    @endif
                                 </td>
                                 <td>
                                     {{ $item->quantity }}
@@ -145,37 +149,37 @@
                 <table class="table fit-content-table">
                     <tbody>
                         <tr>
-                            <th class="fw-semibold">{{ __('admin.customers.attributes.name') }}</th>
-                            <td>{{ $order->customer->name }}</td>
+                            <th class="fw-semibold">{{ __('employee.customers.attributes.name') }}</th>
+                            <td>{{ $order->customer_name }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('admin.customers.attributes.email') }}</th>
-                            <td>{{ $order->customer->email ?? '---' }}</td>
+                            <th class="fw-semibold">{{ __('employee.customers.attributes.email') }}</th>
+                            <td>{{ $order->customer['email'] ?? '---' }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('admin.customers.attributes.mobile') }}</th>
+                            <th class="fw-semibold">{{ __('employee.customers.attributes.mobile') }}</th>
                             <td>
                                 <span dir="ltr">
-                                    {{ $order->customer->phone ?? '---' }}
+                                    {{ $order->customer_phone ?? '---' }}
                                 </span>
                             </td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('admin.customers.attributes.city') }}</th>
-                            <td>{{ $order->customer->city ?? '---' }}</td>
+                            <th class="fw-semibold">{{ __('employee.customers.attributes.city') }}</th>
+                            <td>{{ $order->customer['city'] ?? '---' }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('admin.customers.attributes.country') }}</th>
-                            <td>{{ $order->customer->country ?? '---' }}</td>
+                            <th class="fw-semibold">{{ __('employee.customers.attributes.country') }}</th>
+                            <td>{{ $order->customer['country'] ?? '---' }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('admin.customers.attributes.currency') }}</th>
-                            <td>{{ $order->customer->currency ?? '---' }}</td>
+                            <th class="fw-semibold">{{ __('employee.customers.attributes.currency') }}</th>
+                            <td>{{ $order->customer['currency'] ?? '---' }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -185,28 +189,28 @@
                 <table class="table fit-content-table">
                     <tbody>
                         <tr>
-                            <th class="fw-semibold">{{ __('admin.orders.attributes.sub_total') }}</th>
-                            <td>{{ round($order->sub_total, 2) . ' ' . lang("currency.$order->currency") }}</td>
+                            <th class="fw-semibold">{{ __('employee.orders.attributes.sub_total') }}</th>
+                            <td>{{ round($order->amounts['sub_total']['amount'], 2) . ' ' . lang("currency.{$order->amounts['sub_total']['currency']}") }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('admin.orders.attributes.shipping_cost') }}</th>
-                            <td>{{ round($order->shipping_cost, 2) . ' ' . lang("currency.$order->currency") }}</td>
+                            <th class="fw-semibold">{{ __('employee.orders.attributes.shipping_cost') }}</th>
+                            <td>{{ round($order->amounts['shipping_cost']['amount'], 2) . ' ' . lang("currency.{$order->amounts['shipping_cost']['currency']}") }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('admin.orders.attributes.cash_on_delivery') }}</th>
-                            <td>{{ round($order->cash_on_delivery, 2) . ' ' . lang("currency.$order->currency") }}</td>
+                            <th class="fw-semibold">{{ __('employee.orders.attributes.cash_on_delivery') }}</th>
+                            <td>{{ round($order->amounts['cash_on_delivery']['amount'], 2) . ' ' . lang("currency.{$order->amounts['cash_on_delivery']['currency']}") }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('admin.orders.attributes.tax') }}</th>
-                            <td>{{ round($order->tax, 2) . ' ' . lang("currency.$order->currency") }}</td>
+                            <th class="fw-semibold">{{ __('employee.orders.attributes.tax') }}</th>
+                            <td>{{ round($order->amounts['tax']['amount']['amount'], 2) . ' ' . lang("currency.{$order->amounts['tax']['amount']['currency']}") }}</td>
                         </tr>
 
                         <tr>
-                            <th class="fw-semibold">{{ __('admin.orders.attributes.total') }}</th>
-                            <td>{{ round($order->total, 2) . ' ' . lang("currency.$order->currency") }}</td>
+                            <th class="fw-semibold">{{ __('employee.orders.attributes.total') }}</th>
+                            <td>{{ round($order->amounts['total']['amount'], 2) . ' ' . lang("currency.{$order->amounts['total']['currency']}") }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -216,14 +220,14 @@
                 <table class="table">
                     <thead class="fw-bold">
                         <tr>
-                            <th>{{ __('admin.orders.history.attributes.status') }}</th>
-                            <th>{{ __('admin.orders.history.attributes.note') }}</th>
-                            <th>{{ __('admin.orders.history.attributes.date') }}</th>
+                            <th>{{ __('employee.orders.history.attributes.status') }}</th>
+                            <th>{{ __('employee.orders.history.attributes.note') }}</th>
+                            <th>{{ __('employee.orders.history.attributes.date') }}</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @forelse ($order->histories as $history)
+                        @forelse ($order->histories ?? [] as $history)
                             <tr class="border-top">
                                 <td>{{ $history->status->name }}</td>
                                 <td>{{ filled($history->note) ? $history->note : '-----' }}</td>
@@ -249,10 +253,10 @@
             </div>
 
             <div class="tab-pane fade" id="order-details-address" role="tabpanel">
-                @if($order->address['shipping_address'] ?? false)
+                @if($order->address['address_line'] ?? false)
                     <p class="fs-6">
                         {!!
-                            str($order->address['shipping_address'])
+                            str($order->address['address_line'])
                                 ->replace('،,', ',')
                                 ->replace(',,', ',')
                                 ->replace(['،', ','], '<br>')
@@ -260,7 +264,7 @@
                     </p>
                 @else
                     <p class="text-muted">
-                        {{ __('admin.orders.messages.no_shipping_address') }}
+                        {{ __('employee.orders.messages.no_shipping_address') }}
                     </p>
                 @endif
             </div>
