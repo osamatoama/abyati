@@ -40,6 +40,10 @@ class PullOrdersJob implements ShouldQueue
             $store = Store::findOrFail($this->storeId);
             $pullOrderStatuses = $store->branchOrderStatuses;
 
+            if ($pullOrderStatuses->isEmpty()) {
+                return;
+            }
+
             $filters = array_merge([
                 'status' => $pullOrderStatuses->pluck('remote_id')->toArray(),
             ], $this->filters);
