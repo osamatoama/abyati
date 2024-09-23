@@ -5,8 +5,11 @@ namespace App\Services\Orders\Api;
 use App\Models\Order;
 use App\Dto\Orders\OrderDto;
 use App\Dto\Orders\OrderStatusDto;
+use Illuminate\Support\Facades\Bus;
 use App\Enums\OrderCompletionStatus;
 use App\Services\Concerns\HasInstance;
+use App\Events\Order\OrderCreatedEvent;
+use App\Events\Order\OrderUpdatedEvent;
 use App\Services\Orders\OrderStatusService;
 use App\Jobs\Salla\Pull\OrderItems\PullOrderItemsJob;
 use App\Jobs\Salla\Pull\Shipments\PullFirstOrderShipmentJob;
@@ -62,22 +65,30 @@ final class SyncOrderService
             ]);
         }
 
-        dispatch(new PullOrderItemsJob(
+        $jobs[] = new PullOrderItemsJob(
             accessToken: $accessToken,
             storeId: $storeId,
             data: [
                 'order_id' => $order->id,
                 'order_remote_id' => $order->remote_id,
             ],
-        ));
+        );
 
-        dispatch(new PullFirstOrderShipmentJob(
+        $jobs[] = new PullFirstOrderShipmentJob(
             accessToken: $accessToken,
             storeId: $storeId,
             data: [
                 'order_id' => $order->id,
                 'order_remote_id' => $order->remote_id,
             ],
-        ));
+        );
+
+        $jobs[] = function () use ($order) {
+            $order->wasRecentlyCreated
+                ? event(new OrderCreatedEvent($order))
+                : event(new OrderUpdatedEvent($order));
+        };
+
+        Bus::chain($jobs)->dispatch();
     }
 }

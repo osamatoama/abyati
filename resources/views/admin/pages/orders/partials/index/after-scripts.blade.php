@@ -41,11 +41,18 @@
 
     Pusher.logToConsole = ('{{ app()->environment() }}' != 'production') || ('{{ config('app.staging') }}' == 'testing');
 
-    var orderAssignChannel = pusher.subscribe('private-order-assign-channel')
+    pusher.subscribe('private-order-assign-channel')
+        .bind('order-assigned-event', function(data) {
+            reloadDatatable(dataTable)
+        })
 
-    orderAssignChannel.bind('order-assigned-event', function(data) {
-        reloadDatatable(dataTable)
-    })
+    pusher.subscribe('private-order-sync-channel')
+        .bind('order-created-event', function(data) {
+            reloadDatatable(dataTable)
+        })
+        .bind('order-updated-event', function(data) {
+            reloadDatatable(dataTable)
+        })
 
     Livewire.on('order-filters-applied', (params) => {
         $('#results-table').DataTable().ajax.url(params[0].refresh_url).load()

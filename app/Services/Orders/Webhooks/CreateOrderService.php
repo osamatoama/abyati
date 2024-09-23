@@ -8,6 +8,7 @@ use App\Dto\Orders\OrderItemDto;
 use App\Dto\Products\ProductDto;
 use App\Dto\Orders\OrderStatusDto;
 use App\Enums\OrderCompletionStatus;
+use App\Events\Order\OrderCreatedEvent;
 use App\Services\Concerns\HasInstance;
 use App\Services\Orders\OrderItemService;
 use App\Services\Products\ProductService;
@@ -76,5 +77,7 @@ final class CreateOrderService
                     ),
                 );
         }
+
+        event(new OrderCreatedEvent($order));
     }
 }

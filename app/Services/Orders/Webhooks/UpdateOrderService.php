@@ -8,6 +8,7 @@ use App\Dto\Orders\OrderItemDto;
 use App\Dto\Products\ProductDto;
 use App\Dto\Orders\OrderStatusDto;
 use App\Services\Concerns\HasInstance;
+use App\Events\Order\OrderUpdatedEvent;
 use App\Services\Orders\OrderItemService;
 use App\Services\Products\ProductService;
 use App\Services\Orders\OrderStatusService;
@@ -68,5 +69,7 @@ final class UpdateOrderService
                     ),
                 );
         }
+
+        event(new OrderUpdatedEvent($order));
     }
 }
