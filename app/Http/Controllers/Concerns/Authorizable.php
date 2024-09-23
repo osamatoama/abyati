@@ -25,7 +25,7 @@ trait Authorizable
      */
     public function callAction($method, $parameters)
     {
-        if (! auth('admin')->user()->isSuperAdmin()) {
+        if (! auth('admin')->user()?->isSuperAdmin()) {
             if ($ability = $this->getAbility($method)) {
                 $this->authorize($ability);
             }

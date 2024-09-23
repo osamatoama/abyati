@@ -23,7 +23,9 @@
                 enableTooltips()
             },
             createdRow: function (row, data, dataIndex) {
+                let rowBackgroundColor = $(row).find('.id-wrapper').attr('data-id-color')
                 $(row).addClass('order-row cursor-pointer')
+                $(row).css('background-color', rowBackgroundColor)
             }
         }
     );
