@@ -50,9 +50,7 @@ class OrderCreatedJob implements ShouldQueue, WebhookEvent
                 return;
             }
 
-            $pullOrderStatuses = $store->branchOrderStatuses
-                ->pluck('remote_original_id')
-                ->toArray();
+            $pullOrderStatuses = $store->branchOrderStatuses;
 
             if (
                 ! in_array($this->data['status']['id'] ?? null, $pullOrderStatuses->pluck('remote_original_id')->toArray())
