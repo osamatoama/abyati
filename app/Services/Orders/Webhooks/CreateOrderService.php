@@ -41,7 +41,7 @@ final class CreateOrderService
         }
 
         $order = $this->create(
-            orderDto: OrderDto::fromSalla(
+            orderDto: OrderDto::fromSallaWebhook(
                 sallaOrder: $sallaOrder,
                 storeId: $storeId,
                 statusId: OrderStatusService::instance()

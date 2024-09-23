@@ -26,6 +26,8 @@ final class UpdateOrderService
             'status_name' => $orderDto->statusName,
             'amounts' => $orderDto->amounts,
             'customer' => $orderDto->customer,
+            'shipment_type' => $orderDto->shipmentType,
+            'address' => $orderDto->address,
         ]);
 
         return $order;
@@ -35,7 +37,7 @@ final class UpdateOrderService
     {
         $order = $this->update(
             order: $order,
-            orderDto: OrderDto::fromSalla(
+            orderDto: OrderDto::fromSallaWebhook(
                 sallaOrder: $sallaOrder,
                 storeId: $storeId,
                 statusId: OrderStatusService::instance()
