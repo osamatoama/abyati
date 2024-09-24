@@ -201,6 +201,7 @@ return [
         'errors' => [
             'cannot_process' => 'You are not allowed to process this order',
             'invalid_barcode' => 'Invalid barcode',
+            'no_barcode_for_this_product' => 'No barcode for this product',
         ],
 
         'alerts' => [

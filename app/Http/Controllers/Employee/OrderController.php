@@ -114,7 +114,7 @@ class OrderController extends Controller
 
     public function process(Order $order)
     {
-        abort_unless($order->isAssignedToMe(), 403, __('employee.orders.errors.cannot_process'));
+        abort_unless($order->isBranchMine() && $order->isAssignedToMe(), 403, __('employee.orders.errors.cannot_process'));
 
         return view('employee.pages.orders.process', compact('order'));
     }

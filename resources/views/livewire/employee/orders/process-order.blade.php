@@ -81,35 +81,58 @@
                                         $variant = $item->variant;
                                     @endphp
 
-                                    <tr wire:key="to-execute-item-{{ $item->id }}">
-                                        <td>
-                                            <img src="{{ $product->main_image }}" alt="{{ $product->name }}" class="img-fluid" style="max-width: 50px;">
-                                        </td>
-                                        <td>{{ $product->name }}</td>
-                                        <td>
-                                            @if($variant?->optionValues?->isNotEmpty())
-                                                {{ $variant->optionValues->map(fn($optionValue) => $optionValue->option->name . ': ' . $optionValue->name)->implode(' - ') }}
-                                            @else
-                                                ---
-                                            @endif
-                                        </td>
-                                        <td>{{ $variant->barcode }}</td>
-                                        <td>
-                                            {{ $item->quantity }}
-                                        </td>
-                                        <td>
-                                            {{ $item->executed_quantity }}
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#scan-item-{{ $item->id }}-modal" wire:key="scan-{{ $item->id }}">
-                                                <i class="fas fa-barcode"></i> {{ __('employee.orders.actions.scan_item') }}
-                                            </button>
+                                    @if($variant && filled($variant->barcode))
+                                        <tr wire:key="to-execute-item-{{ $item->id }}">
+                                            <td>
+                                                <img src="{{ $product->main_image }}" alt="{{ $product->name }}" class="img-fluid" style="max-width: 50px;">
+                                            </td>
+                                            <td>{{ $product->name }}</td>
+                                            <td>
+                                                @if($variant?->optionValues?->isNotEmpty())
+                                                    {{ $variant->optionValues->map(fn($optionValue) => $optionValue->option->name . ': ' . $optionValue->name)->implode(' - ') }}
+                                                @else
+                                                    ---
+                                                @endif
+                                            </td>
+                                            <td>{{ $variant->barcode }}</td>
+                                            <td>
+                                                {{ $item->quantity }}
+                                            </td>
+                                            <td>
+                                                {{ $item->executed_quantity }}
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#scan-item-{{ $item->id }}-modal" wire:key="scan-{{ $item->id }}">
+                                                    <i class="fas fa-barcode"></i> {{ __('employee.orders.actions.scan_item') }}
+                                                </button>
 
-                                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#transfer-item-{{ $item->id }}-modal" wire:key="transfer-{{ $item->id }}">
-                                                <i class="fas fa-headphones"></i> {{ __('employee.orders.actions.transfer_to_support') }}
-                                            </button>
-                                        </td>
-                                    </tr>
+                                                <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#transfer-item-{{ $item->id }}-modal" wire:key="transfer-{{ $item->id }}">
+                                                    <i class="fas fa-headphones"></i> {{ __('employee.orders.actions.transfer_to_support') }}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @else
+                                        <tr>
+                                            <td>
+                                                <img src="{{ $product->main_image }}" alt="{{ $product->name }}" class="img-fluid" style="max-width: 50px;">
+                                            </td>
+                                            <td>{{ $product->name }}</td>
+                                            <td>
+                                                @if($variant?->optionValues?->isNotEmpty())
+                                                    {{ $variant->optionValues->map(fn($optionValue) => $optionValue->option->name . ': ' . $optionValue->name)->implode(' - ') }}
+                                                @else
+                                                    ---
+                                                @endif
+                                            </td>
+                                            <td colspan="4">
+                                                <div class="alert alert-danger text-danger text-center fw-bold">
+                                                    <p class="mb-0">
+                                                        {{ __('employee.orders.errors.no_barcode_for_this_product') }}
+                                                    </p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endif
 
                                     @push('modals')
                                         <livewire:employee.orders.scan-order-item :$item :key="'scan-' . $item->id" />

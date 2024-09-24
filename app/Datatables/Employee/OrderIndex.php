@@ -14,6 +14,7 @@ class OrderIndex extends Datatable
     public function query()
     {
         return Order::query()
+            ->branchMine()
             ->where(fn($q) =>
                 $q->notAssigned()
                     ->orWhere(fn($q) =>

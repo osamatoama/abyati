@@ -200,6 +200,7 @@ return [
         'errors' => [
             'cannot_process' => 'لا يمكنك تجهيز هذا الطلب',
             'invalid_barcode' => 'الباركود غير صحيح',
+            'no_barcode_for_this_product' => 'لا يوجد باركود لهذا المنتج',
         ],
 
         'pull_alert' => [

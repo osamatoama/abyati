@@ -12,7 +12,9 @@ class AssignRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->route('order')->isNotAssigned();
+        $order = $this->route('order');
+
+        return $order->isBranchMine() && $order->isNotAssigned();
     }
 
     protected function prepareForValidation(): void
