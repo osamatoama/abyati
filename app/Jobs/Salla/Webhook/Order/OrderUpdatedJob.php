@@ -57,25 +57,31 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
                 ->where('remote_id', $this->data['id'])
                 ->first();
 
-            // if (! $order) {
-            //     $pullOrderStatuses = $store->branchOrderStatuses;
+            if (! $order) {
+                logger()->notice('Order not found');
 
-            //     if (
-            //         ! in_array($this->data['status']['id'] ?? null, $pullOrderStatuses->pluck('remote_original_id')->toArray())
-            //         && ! in_array($this->data['status']['customized']['id'] ?? null, $pullOrderStatuses->pluck('remote_id')->toArray())
-            //     ) {
-            //         return;
-            //     }
+                $pullOrderStatuses = $store->branchOrderStatuses;
+
+                logger()->notice($pullOrderStatuses);
+
+                if (
+                    ! in_array($this->data['status']['id'] ?? null, $pullOrderStatuses->pluck('remote_original_id')->toArray())
+                    && ! in_array($this->data['status']['customized']['id'] ?? null, $pullOrderStatuses->pluck('remote_id')->toArray())
+                ) {
+                    logger()->notice("No status found");
+
+                    return;
+                }
     
-            //     CreateOrderService::instance()
-            //         ->save(
-            //             sallaOrder: $this->data,
-            //             storeId: $store->id,
-            //             accessToken: $store->user->sallaToken->access_token,
-            //         );
+                CreateOrderService::instance()
+                    ->save(
+                        sallaOrder: $this->data,
+                        storeId: $store->id,
+                        accessToken: $store->user->sallaToken->access_token,
+                    );
 
-            //     return;
-            // }
+                return;
+            }
 
             // UpdateOrderService::instance()
             //     ->save(
