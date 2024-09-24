@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Order;
 use App\Models\Store;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use App\Jobs\Concerns\HandleExceptions;
 use Illuminate\Queue\InteractsWithQueue;
@@ -42,7 +43,7 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
      */
     public function handle(): void
     {
-        // try {
+        try {
             $store = Store::query()->salla(providerId: $this->merchantId)->first();
 
             if ($store === null) {
@@ -74,29 +75,23 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
                 return;
             }
 
-            UpdateOrderService::instance()
-                ->save(
-                    order: $order,
-                    sallaOrder: $this->data,
-                    storeId: $store->id,
-                    accessToken: $store->user->sallaToken->access_token,
-                );
-        // } catch (Exception $exception) {
-        //     // $this->handleException(
-        //     //     exception: $exception,
-        //     // );
+            // UpdateOrderService::instance()
+            //     ->save(
+            //         order: $order,
+            //         sallaOrder: $this->data,
+            //         storeId: $store->id,
+            //         accessToken: $store->user->sallaToken->access_token,
+            //     );
+        } catch (Exception $exception) {
+            // $this->handleException(
+            //     exception: $exception,
+            // );
 
-        //     // throw $exception;
+            // throw $exception;
 
-        //     logger()->error(
-        //         message: 'Error in OrderUpdatedJob',
-        //         context: [
-        //             'exception' => $exception,
-        //             'data' => $this->data,
-        //         ],
-        //     );
+            Log::error($exception->getMessage());
 
-        //     $this->fail($exception);
-        // }
+            // $this->fail($exception);
+        }
     }
 }
