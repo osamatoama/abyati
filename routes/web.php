@@ -6,12 +6,9 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\LocaleController;
 use App\Services\Salla\Merchant\SallaMerchantService;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', 'employee');
 
-Route::redirect('login', 'admin/login')->name('login');
-
+Route::redirect('login', 'employee/login')->name('login');
 
 Route::get('locale/{locale?}', [LocaleController::class, 'change'])->name('locale.change');
 
