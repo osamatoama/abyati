@@ -96,7 +96,7 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
                 ],
             );
 
-            $this->fail();
+            $this->fail($exception);
         }
     }
 }
