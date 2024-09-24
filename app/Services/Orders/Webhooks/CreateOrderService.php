@@ -43,19 +43,6 @@ final class CreateOrderService
             return;
         }
 
-        logger()->notice(OrderDto::fromSallaWebhook(
-            sallaOrder: $sallaOrder,
-            storeId: $storeId,
-            statusId: OrderStatusService::instance()
-                ->firstOrCreate(
-                    orderStatusDto: OrderStatusDto::fromSallaOrder(
-                        sallaOrderStatus: $sallaOrder['status'],
-                        storeId: $storeId,
-                    ),
-                )
-                ->id,
-        ));
-
         $order = $this->create(
             orderDto: OrderDto::fromSallaWebhook(
                 sallaOrder: $sallaOrder,
