@@ -19,6 +19,8 @@ final class UpdateOrderService
 
     public function update(Order $order, OrderDto $orderDto): Order
     {
+        logger()->notice($orderDto->toArray());
+
         $order->update([
             'reference_id' => $orderDto->referenceId,
             'branch_id' => $orderDto->branchId,
