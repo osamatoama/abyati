@@ -19,6 +19,8 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $failOnTimeout = true;
+
     /**
      * Create a new job instance.
      */
@@ -27,7 +29,12 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
         public readonly int $merchantId,
         public readonly array $data,
     ) {
-        $this->tries = 1;
+        // $this->tries = 1;
+    }
+
+    public function tries(): int
+    {
+        return 1;
     }
 
     /**
@@ -88,6 +95,8 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
                     'data' => $this->data,
                 ],
             );
+
+            $this->fail();
         }
     }
 }
