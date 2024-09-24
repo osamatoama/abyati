@@ -38,8 +38,6 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
         try {
             $store = Store::query()->salla(providerId: $this->merchantId)->first();
 
-            logger()->notice($store);
-
             if ($store === null) {
                 return;
             }
@@ -48,8 +46,6 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
                 ->forStore($store)
                 ->where('remote_id', $this->data['id'])
                 ->first();
-
-            logger()->notice($order);
 
             if (! $order) {
                 $pullOrderStatuses = $store->branchOrderStatuses;
@@ -79,8 +75,11 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
                     accessToken: $store->user->sallaToken->access_token,
                 );
         } catch (Exception $exception) {
+            $this->appendExceptionToContext = true;
+
             $this->handleException(
                 exception: $exception,
+                fail: true,
             );
         }
     }
