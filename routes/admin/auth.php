@@ -6,13 +6,13 @@ use App\Http\Controllers\Admin\Auth\SecretLoginController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\Auth\EmployeeSecretLoginController;
 
-Route::middleware('guest')->group(function () {
+Route::middleware('guest:web,admin,employee')->group(function () {
     // Login
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'login']);
 });
 
-Route::middleware('auth:web,employee')->group(function () {
+Route::middleware('auth:admin')->group(function () {
     Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.reset');
 
     // Logout

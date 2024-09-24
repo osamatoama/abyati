@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use App\Http\Middleware\Localize;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -34,7 +35,17 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->redirectGuestsTo(function (Request $request) {
+            if ($request->routeIs('admin.*')) {
+                return route('admin.login');
+            }
+
+            if ($request->routeIs('employee.*')) {
+                return route('employee.login');
+            }
+
+            return url('/');
+        });
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

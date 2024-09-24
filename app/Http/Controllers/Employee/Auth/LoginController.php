@@ -8,8 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
-use App\Http\Requests\Employee\Auth\LoginRequest;
 use Illuminate\Contracts\Foundation\Application;
+use App\Http\Requests\Employee\Auth\LoginRequest;
 
 /**
  * Class LoginController
