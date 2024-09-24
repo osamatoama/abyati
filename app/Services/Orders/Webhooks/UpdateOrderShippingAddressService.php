@@ -24,7 +24,7 @@ final class UpdateOrderShippingAddressService
         return $order;
     }
 
-    public function save(Order $order, array $sallaOrder, int $storeId): void
+    public function handle(Order $order, array $sallaOrder, int $storeId): void
     {
         $order = $this->update(
             order: $order,

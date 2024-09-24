@@ -67,7 +67,7 @@ class OrderCreatedJob implements ShouldQueue, WebhookEvent
             }
 
             CreateOrderService::instance()
-                ->save(
+                ->handle(
                     sallaOrder: $this->data,
                     storeId: $store->id,
                     accessToken: $store->user->sallaToken->access_token,

@@ -51,7 +51,7 @@ class OrderShippingAddressUpdatedJob implements ShouldQueue, WebhookEvent
             }
 
             UpdateOrderShippingAddressService::instance()
-                ->save(
+                ->handle(
                     order: $order,
                     sallaOrder: $this->data,
                     storeId: $store->id,

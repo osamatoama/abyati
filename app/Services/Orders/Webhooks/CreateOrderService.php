@@ -35,11 +35,24 @@ final class CreateOrderService
         ]);
     }
 
-    public function save(array $sallaOrder, int $storeId, string $accessToken): void
+    public function handle(array $sallaOrder, int $storeId, string $accessToken): void
     {
         if (!isset($sallaOrder['status']['customized'])) {
             return;
         }
+
+        logger()->notice(OrderDto::fromSallaWebhook(
+            sallaOrder: $sallaOrder,
+            storeId: $storeId,
+            statusId: OrderStatusService::instance()
+                ->firstOrCreate(
+                    orderStatusDto: OrderStatusDto::fromSallaOrder(
+                        sallaOrderStatus: $sallaOrder['status'],
+                        storeId: $storeId,
+                    ),
+                )
+                ->id,
+        ));
 
         $order = $this->create(
             orderDto: OrderDto::fromSallaWebhook(

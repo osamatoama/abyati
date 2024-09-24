@@ -36,7 +36,7 @@ final class UpdateOrderService
         return $order;
     }
 
-    public function save(Order $order, array $sallaOrder, int $storeId, string $accessToken): void
+    public function handle(Order $order, array $sallaOrder, int $storeId, string $accessToken): void
     {
         $order = $this->update(
             order: $order,
