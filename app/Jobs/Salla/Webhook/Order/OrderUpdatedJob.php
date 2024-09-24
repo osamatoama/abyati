@@ -22,6 +22,8 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
 
     // public $failOnTimeout = true;
 
+    public int $tries = 2;
+
     /**
      * Create a new job instance.
      */
@@ -33,10 +35,10 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
         // $this->tries = 1;
     }
 
-    public function tries(): int
-    {
-        return 1;
-    }
+    // public function tries(): int
+    // {
+    //     return 1;
+    // }
 
     /**
      * Execute the job.
@@ -55,25 +57,25 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
                 ->where('remote_id', $this->data['id'])
                 ->first();
 
-            if (! $order) {
-                $pullOrderStatuses = $store->branchOrderStatuses;
+            // if (! $order) {
+            //     $pullOrderStatuses = $store->branchOrderStatuses;
 
-                if (
-                    ! in_array($this->data['status']['id'] ?? null, $pullOrderStatuses->pluck('remote_original_id')->toArray())
-                    && ! in_array($this->data['status']['customized']['id'] ?? null, $pullOrderStatuses->pluck('remote_id')->toArray())
-                ) {
-                    return;
-                }
+            //     if (
+            //         ! in_array($this->data['status']['id'] ?? null, $pullOrderStatuses->pluck('remote_original_id')->toArray())
+            //         && ! in_array($this->data['status']['customized']['id'] ?? null, $pullOrderStatuses->pluck('remote_id')->toArray())
+            //     ) {
+            //         return;
+            //     }
     
-                CreateOrderService::instance()
-                    ->save(
-                        sallaOrder: $this->data,
-                        storeId: $store->id,
-                        accessToken: $store->user->sallaToken->access_token,
-                    );
+            //     CreateOrderService::instance()
+            //         ->save(
+            //             sallaOrder: $this->data,
+            //             storeId: $store->id,
+            //             accessToken: $store->user->sallaToken->access_token,
+            //         );
 
-                return;
-            }
+            //     return;
+            // }
 
             // UpdateOrderService::instance()
             //     ->save(
@@ -90,6 +92,8 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
             // throw $exception;
 
             Log::error($exception->getMessage());
+
+            throw $exception;
 
             // $this->fail($exception);
         }
