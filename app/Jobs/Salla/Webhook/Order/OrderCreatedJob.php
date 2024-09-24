@@ -18,6 +18,8 @@ class OrderCreatedJob implements ShouldQueue, WebhookEvent
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    // public $failOnTimeout = true;
+
     /**
      * Create a new job instance.
      */
@@ -39,7 +41,7 @@ class OrderCreatedJob implements ShouldQueue, WebhookEvent
      */
     public function handle(): void
     {
-        try {
+        // try {
             $store = Store::query()->salla(providerId: $this->merchantId)->first();
 
             if ($store === null) {
@@ -70,20 +72,20 @@ class OrderCreatedJob implements ShouldQueue, WebhookEvent
                     storeId: $store->id,
                     accessToken: $store->user->sallaToken->access_token,
                 );
-        } catch (Exception $exception) {
-            // $this->handleException(
-            //     exception: $exception,
-            // );
+        // } catch (Exception $exception) {
+        //     // $this->handleException(
+        //     //     exception: $exception,
+        //     // );
 
-            logger()->error(
-                message: 'Error in OrderCreatedJob',
-                context: [
-                    'exception' => $exception,
-                    'data' => $this->data,
-                ],
-            );
+        //     logger()->error(
+        //         message: 'Error in OrderCreatedJob',
+        //         context: [
+        //             'exception' => $exception,
+        //             'data' => $this->data,
+        //         ],
+        //     );
 
-            $this->fail($exception);
-        }
+        //     $this->fail($exception);
+        // }
     }
 }
