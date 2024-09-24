@@ -19,6 +19,18 @@ final class UpdateOrderService
 
     public function update(Order $order, OrderDto $orderDto): Order
     {
+        logger()->notice('Updating order', [
+            'reference_id' => $orderDto->referenceId,
+            'branch_id' => $orderDto->branchId,
+            'date' => $orderDto->date,
+            'status_id' => $orderDto->statusId,
+            'status_name' => $orderDto->statusName,
+            'amounts' => $orderDto->amounts,
+            'customer' => $orderDto->customer,
+            'shipment_type' => $orderDto->shipmentType,
+            'address' => $orderDto->address,
+        ]);
+
         $order->update([
             'reference_id' => $orderDto->referenceId,
             'branch_id' => $orderDto->branchId,
@@ -36,8 +48,6 @@ final class UpdateOrderService
 
     public function save(Order $order, array $sallaOrder, int $storeId, string $accessToken): void
     {
-        logger()->notice("UpdateOrderService@save");
-
         $order = $this->update(
             order: $order,
             orderDto: OrderDto::fromSallaWebhook(
