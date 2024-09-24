@@ -451,6 +451,12 @@ function copyToClipboard(content) {
     }
 }
 
+function copyToClipboardWithSuccessToast(content) {
+    copyToClipboard(content)
+
+    successToast(getTranslation('copiedToClipboard'))
+}
+
 function unsecuredCopyToClipboard(content) {
     var tempTextarea = $('<textarea>')
     $('body').append(tempTextarea)
