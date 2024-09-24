@@ -554,3 +554,23 @@ function updateChart(config) {
 
     chart.update()
 }
+
+function playVoiceNotification(id) {
+    var audio = document.getElementById(id)
+
+    audio.play()
+}
+
+function playSpeechSynthesisNotification(message, lang = 'en-US') {
+    if ('speechSynthesis' in window) {
+        const speech = new SpeechSynthesisUtterance(message)
+
+        speech.lang = lang
+        speech.rate = 1
+        speech.pitch = 1
+
+        window.speechSynthesis.speak(speech)
+    } else {
+        console.log("Speech Synthesis not supported in this browser.")
+    }
+}

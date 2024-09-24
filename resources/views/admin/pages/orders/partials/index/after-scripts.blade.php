@@ -1,6 +1,4 @@
 {{-- <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script> --}}
-<script src="{{ asset('assets/client/plugins/custom/pusher/pusher.min.js') }}"></script>
-
 <script>
     let dataTable = helpers.plugins.datatables.init([
         {data: 'reference_id', name: 'reference_id', orderable: false, searchable: true},
@@ -35,27 +33,6 @@
     //         console.log(e);
     //     });
 
-    var pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {
-        cluster: '{{ config('broadcasting.connections.pusher.options.cluster') }}',
-        forceTLS: false,
-        authEndpoint: "/broadcasting/auth",
-    });
-
-    Pusher.logToConsole = ('{{ app()->environment() }}' != 'production') || ('{{ config('app.staging') }}' == 'testing');
-
-    pusher.subscribe('private-order-assign-channel')
-        .bind('order-assigned-event', function(data) {
-            reloadDatatable(dataTable)
-        })
-
-    pusher.subscribe('private-order-sync-channel')
-        .bind('order-created-event', function(data) {
-            reloadDatatable(dataTable)
-        })
-        .bind('order-updated-event', function(data) {
-            reloadDatatable(dataTable)
-        })
-
     Livewire.on('order-filters-applied', (params) => {
         $('#results-table').DataTable().ajax.url(params[0].refresh_url).load()
         reloadDatatable(dataTable)
@@ -83,7 +60,7 @@
             return;
         }
 
-        if (e.target.tagName === 'SELECT') {
+        if (e.target.tagName === 'SELECT' || e.target.classList.contains('select2-selection')) {
             return
         }
 

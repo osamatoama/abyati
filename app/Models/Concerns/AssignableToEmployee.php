@@ -76,4 +76,11 @@ trait AssignableToEmployee
 
         $this->save();
     }
+
+    public function unassign(): void
+    {
+        $this->employee_id = null;
+
+        $this->save();
+    }
 }

@@ -192,8 +192,10 @@ return [
             'no_shipping_address' => 'No Shipping address for this order',
             'employee_assigned' => 'Employee assigned to the order',
             'assigned' => 'Order assigned successfully',
+            'unassigned' => 'Order unassigned successfully',
             'item_executed' => 'Item executed successfully',
             'item_transferred_to_support' => 'Item transferred to support successfully',
+            'unassign_confirm' => 'Order will be unassigned from you and returned to the list',
         ],
 
         'errors' => [
@@ -250,10 +252,15 @@ return [
 
         'actions' => [
             'assign' => 'Assign',
+            'unassign' => 'Unassign',
             'process' => 'Process',
             'scan_item' => 'Confirm',
             'transfer' => 'Transfer',
             'transfer_to_support' => 'Transfer to support',
+        ],
+
+        'notifications' => [
+            'order_assigned_to_you' => 'Order #:id has been assigned to you',
         ],
     ],
 

@@ -20,6 +20,7 @@ Route::prefix('orders')->as('orders.')->group(function () {
 
     // Route::get('{order}/histories', [OrderController::class, 'histories'])->name('histories.index');
     Route::post('{order}/assign', [OrderController::class, 'assign'])->name('assign');
+    Route::post('{order}/unassign', [OrderController::class, 'unassign'])->name('unassign');
     Route::get('{order}/process', [OrderController::class, 'process'])->name('process');
     Route::get('export', [OrderController::class, 'export'])->name('export');
 });

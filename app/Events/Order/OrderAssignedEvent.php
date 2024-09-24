@@ -18,7 +18,10 @@ class OrderAssignedEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public Order $order)
+    public function __construct(
+        public Order $order,
+        public bool $selfAssign = false,
+    )
     {
         //
     }
@@ -38,5 +41,15 @@ class OrderAssignedEvent implements ShouldBroadcast
     public function broadcastAs(): string
     {
         return 'order-assigned-event';
+    }
+
+    public function broadcastWith(): array
+    {
+        return [
+            'reference_id' => $this->order->reference_id,
+            'employee_id' => $this->order->employee_id,
+            'self_assign' => $this->selfAssign,
+            'message' => __('employee.orders.notifications.order_assigned_to_you', ['id' => $this->order->reference_id]),
+        ];
     }
 }

@@ -53,7 +53,7 @@
             return;
         }
 
-        if (e.target.tagName === 'SELECT') {
+        if (e.target.tagName === 'SELECT' || e.target.classList.contains('select2-selection')) {
             return
         }
 
@@ -108,5 +108,38 @@
             .then(() => {
                 enableElement(el)
             })
+    })
+
+    const unassignBtnClass = '.unassign-btn'
+
+    $(document).on('click', unassignBtnClass, function(e) {
+        e.preventDefault()
+        const el = $(this)
+        disableElement(el)
+
+        Swal.fire({
+            title: getTranslation('areYouSure'),
+            text: el.data('confirm-message'),
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: getTranslation('discard'),
+            confirmButtonText: el.data('confirm-title')
+        }).then(function (result) {
+            if (result.value) {
+                axios.post(el.data('action'))
+                    .then((response) => {
+                        successToast(response?.data?.message || getTranslation('updatedSuccessfully'))
+                        reloadDatatable(dataTable)
+                    })
+                    .catch((error) => {
+                        errorToast(getTranslation('somethingWrong'))
+                    })
+                    .then(() => {
+                        enableElement(el)
+                    })
+            } else {
+                enableElement(el)
+            }
+        })
     })
 </script>

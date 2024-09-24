@@ -11,7 +11,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\Employee\OrdersExport;
 use App\Datatables\Employee\OrderIndex;
 use App\Events\Order\OrderAssignedEvent;
+use App\Events\Order\OrderUnassignedEvent;
 use App\Http\Requests\Employee\Order\AssignRequest;
+use App\Http\Requests\Employee\Order\UnassignRequest;
 
 class OrderController extends Controller
 {
@@ -63,7 +65,10 @@ class OrderController extends Controller
                     'status' => OrderCompletionStatus::PROCESSING,
                 ]);
 
-                event(new OrderAssignedEvent($order));
+                event(new OrderAssignedEvent(
+                    order: $order,
+                    selfAssign: true,
+                ));
             });
         } catch (Throwable $th) {
             return response()->json([
@@ -75,6 +80,34 @@ class OrderController extends Controller
         return response()->json([
             'success' => true,
             'message' => __('employee.orders.messages.assigned'),
+            'data' => [],
+        ]);
+    }
+
+    public function unassign(UnassignRequest $request, Order $order)
+    {
+        /**
+         * TODO: REPLICATED CODE
+         */
+
+        try {
+            DB::transaction(function () use ($order) {
+                $order->unassign();
+
+                event(new OrderUnassignedEvent(
+                    order: $order,
+                ));
+            });
+        } catch (Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => __('globals.errors.something_went_wrong'),
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => __('employee.orders.messages.unassigned'),
             'data' => [],
         ]);
     }

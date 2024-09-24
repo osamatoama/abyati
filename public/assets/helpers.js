@@ -117,8 +117,8 @@ const helpers = {
             ar: "تأكيد الربط",
         },
         discard: {
-            en: "Cancel",
-            ar: "إلغاء",
+            en: "Discard",
+            ar: "تراجع",
         },
         yes: {
             en: "Yes",

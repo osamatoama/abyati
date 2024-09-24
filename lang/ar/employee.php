@@ -191,8 +191,10 @@ return [
             'no_shipping_address' => 'لا يوجد عنوان شحن لهذا الطلب',
             'employee_assigned' => 'تم تعيين الموظف للطلب',
             'assigned' => 'تم إسناد الطلب',
+            'unassigned' => 'تم إلغاء إسناد الطلب',
             'item_executed' => 'تم تجهيز المنتج',
             'item_transferred_to_support' => 'تم تحويل المنتج لفريق الدعم',
+            'unassign_confirm' => 'سيتم إلغاء إسناد الطلب منك وإعادة الطلب إلى القائمة',
         ],
 
         'errors' => [
@@ -244,10 +246,15 @@ return [
 
         'actions' => [
             'assign' => 'إسناد',
+            'unassign' => 'إلغاء الإسناد',
             'process' => 'تجهيز',
             'scan_item' => 'تأكيد',
             'transfer' => 'تحويل',
             'transfer_to_support' => 'تحويل لفريق الدعم',
+        ],
+
+        'notifications' => [
+            'order_assigned_to_you' => 'تم إسناد طلب رقم :id لك',
         ],
     ],
 

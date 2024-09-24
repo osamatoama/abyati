@@ -39,4 +39,11 @@ class OrderCreatedEvent implements ShouldBroadcast
     {
         return 'order-created-event';
     }
+
+    public function broadcastWith(): array
+    {
+        return [
+            'reference_id' => $this->order->reference_id,
+        ];
+    }
 }

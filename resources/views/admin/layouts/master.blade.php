@@ -137,12 +137,16 @@
 <script src="{{ assetCustom('assets/client/js/scripts.bundle.js') }}"></script>
 <script src="{{ assetCustom('assets/client/plugins/custom/datatables/datatables.bundle.js') }}"></script>
 <script src="{{ assetCustom('assets/client/js/custom/axios.min.js') }}"></script>
+<script src="{{ asset('assets/client/plugins/custom/pusher/pusher.min.js') }}"></script>
+
 <script>
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
     axios.defaults.headers.common['X-CSRF-Token'] = $('meta[name="_token"]').attr('content')
 </script>
-<script src="{{ assetCustom('assets/main.js') }}?version=1.0.29"></script>
-<script src="{{ assetCustom('assets/helpers.js') }}?version=1.0.29"></script>
+<script src="{{ assetCustom('assets/main.js') }}?version=1.0.30"></script>
+<script src="{{ assetCustom('assets/helpers.js') }}?version=1.0.30"></script>
+
+@include('admin.layouts.partials.notifications')
 
 @livewireScripts
 

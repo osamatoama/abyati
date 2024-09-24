@@ -39,4 +39,11 @@ class OrderUnassignedEvent implements ShouldBroadcast
     {
         return 'order-unassigned-event';
     }
+
+    public function broadcastWith(): array
+    {
+        return [
+            'reference_id' => $this->order->reference_id,
+        ];
+    }
 }
