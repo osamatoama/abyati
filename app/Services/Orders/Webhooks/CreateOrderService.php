@@ -78,6 +78,6 @@ final class CreateOrderService
                 );
         }
 
-        event(new OrderCreatedEvent($order));
+        // event(new OrderCreatedEvent($order));
     }
 }
