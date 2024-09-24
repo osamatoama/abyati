@@ -19,7 +19,7 @@ final class UpdateOrderService
 
     public function update(Order $order, OrderDto $orderDto): Order
     {
-        logger()->notice($orderDto->toArray());
+        logger()->notice((array)$orderDto);
 
         $order->update([
             'reference_id' => $orderDto->referenceId,
