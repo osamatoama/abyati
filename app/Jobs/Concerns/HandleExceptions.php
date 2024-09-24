@@ -6,13 +6,13 @@ use Exception;
 
 trait HandleExceptions
 {
-    public int $tries               = 10;
-    public bool $logWhenFail        = true;
+    public int $tries = 2;
+    public bool $logWhenFail = true;
     public int $secondsBetweenTries = 30;
 
     protected function handleException(?Exception $exception = null): void
     {
-        if ($this->attempts() < ($this->tries - 8)) {
+        if ($this->attempts() < $this->tries) {
             $this->release(
                 now()->addSeconds(
                     $this->tryAfterInSeconds(),
