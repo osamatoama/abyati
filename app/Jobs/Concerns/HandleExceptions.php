@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\Traits;
+namespace App\Jobs\Concerns;
 
 use Exception;
 
