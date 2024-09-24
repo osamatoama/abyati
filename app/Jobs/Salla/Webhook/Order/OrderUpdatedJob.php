@@ -17,7 +17,7 @@ use App\Services\Orders\Webhooks\UpdateOrderService;
 
 class OrderUpdatedJob implements ShouldQueue, WebhookEvent
 {
-    use Dispatchable, HandleExceptions, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.
@@ -35,7 +35,7 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
      */
     public function handle(): void
     {
-        // try {
+        try {
             $store = Store::query()->salla(providerId: $this->merchantId)->first();
 
             if ($store === null) {
@@ -74,12 +74,20 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
                     storeId: $store->id,
                     accessToken: $store->user->sallaToken->access_token,
                 );
-        // } catch (Exception $exception) {
-        //     // $this->handleException(
-        //     //     exception: $exception,
-        //     // );
+        } catch (Exception $exception) {
+            // $this->handleException(
+            //     exception: $exception,
+            // );
 
-        //     throw $exception;
-        // }
+            // throw $exception;
+
+            logger()->error(
+                message: 'Error in OrderUpdatedJob',
+                context: [
+                    'exception' => $exception,
+                    'data' => $this->data,
+                ],
+            );
+        }
     }
 }
