@@ -75,9 +75,11 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
                     accessToken: $store->user->sallaToken->access_token,
                 );
         } catch (Exception $exception) {
-            $this->handleException(
-                exception: $exception,
-            );
+            // $this->handleException(
+            //     exception: $exception,
+            // );
+
+            throw $exception;
         }
     }
 }
