@@ -12,10 +12,10 @@ final class OrderShippingAddressUpdatedEvent implements WebhookEvent
         logger()->notice("Event: {$event}");
         logger()->notice($data);
 
-        OrderShippingAddressUpdatedJob::dispatch(
-            event: $event,
-            merchantId: $merchantId,
-            data: $data,
-        );
+        // OrderShippingAddressUpdatedJob::dispatch(
+        //     event: $event,
+        //     merchantId: $merchantId,
+        //     data: $data,
+        // );
     }
 }
