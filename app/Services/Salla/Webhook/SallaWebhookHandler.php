@@ -8,6 +8,7 @@ use App\Services\Salla\Webhook\Events\Order\OrderUpdatedEvent;
 use App\Services\Salla\Webhook\Events\Product\ProductCreatedEvent;
 use App\Services\Salla\Webhook\Events\Product\ProductUpdatedEvent;
 use App\Services\Salla\Webhook\Events\App\Store\AppStoreAuthorizeEvent;
+use App\Services\Salla\Webhook\Events\Order\OrderShippingAddressUpdatedEvent;
 
 final class SallaWebhookHandler
 {
@@ -29,10 +30,11 @@ final class SallaWebhookHandler
     {
         (match ($event) {
             'app.store.authorize' => new AppStoreAuthorizeEvent(),
-            'order.created' => new OrderCreatedEvent(),
-            'order.updated' => new OrderUpdatedEvent(),
             'product.created' => new ProductCreatedEvent(),
             'product.updated' => new ProductUpdatedEvent(),
+            'order.created' => new OrderCreatedEvent(),
+            'order.updated' => new OrderUpdatedEvent(),
+            'order.shipping.address.updated' => new OrderShippingAddressUpdatedEvent(),
             default => new UnknownEvent(),
         })(
             event: $event,
