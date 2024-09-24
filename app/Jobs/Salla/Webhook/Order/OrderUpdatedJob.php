@@ -35,7 +35,7 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
      */
     public function handle(): void
     {
-        try {
+        // try {
             $store = Store::query()->salla(providerId: $this->merchantId)->first();
 
             if ($store === null) {
@@ -74,12 +74,12 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
                     storeId: $store->id,
                     accessToken: $store->user->sallaToken->access_token,
                 );
-        } catch (Exception $exception) {
-            // $this->handleException(
-            //     exception: $exception,
-            // );
+        // } catch (Exception $exception) {
+        //     // $this->handleException(
+        //     //     exception: $exception,
+        //     // );
 
-            throw $exception;
-        }
+        //     throw $exception;
+        // }
     }
 }
