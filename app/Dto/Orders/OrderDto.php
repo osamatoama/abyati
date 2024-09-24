@@ -53,6 +53,10 @@ final class OrderDto
 
     public static function fromSallaWebhook(array $sallaOrder, int $storeId, int $statusId): self
     {
+        $store = Store::findOrFail($storeId);
+
+        $branch = $store->branches()->wherePivot('order_status_id', $statusId)->first();
+
         $shipmentType = $sallaOrder['shipments'][0]['type'] ?? null;
 
         $address = ($shipmentType == OrderAddressType::PICKUP->value)
@@ -63,6 +67,7 @@ final class OrderDto
             remoteId: $sallaOrder['id'],
             referenceId: $sallaOrder['reference_id'],
             storeId: $storeId,
+            branchId: $branch?->id,
             date: !empty($sallaOrder['date']['date']) ? SallaMerchantService::parseDate(
                 date: $sallaOrder['date'],
             ) : null,
