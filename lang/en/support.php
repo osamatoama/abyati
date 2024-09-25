@@ -152,7 +152,7 @@ return [
                 'executed_quantity' => 'Executed Quantity',
                 'unit_price' => 'Unit Price',
                 'total' => 'Total',
-                'employee_note' => 'Note',
+                'employee_note' => 'Employee Note',
             ],
 
             'alerts' => [

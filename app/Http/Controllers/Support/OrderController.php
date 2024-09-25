@@ -50,107 +50,12 @@ class OrderController extends Controller
         ]);
     }
 
-    public function assign(AssignRequest $request, Order $order)
-    {
-        /**
-         * TODO: REPLICATED CODE
-         */
-
-        try {
-            DB::transaction(function () use ($request, $order) {
-                $order->assignTo($request->support_id);
-
-                $order->executionHistories()->create([
-                    'support_id' => $request->support_id,
-                    'status' => OrderCompletionStatus::PROCESSING,
-                ]);
-
-                event(new OrderAssignedEvent(
-                    order: $order,
-                    selfAssign: true,
-                ));
-            });
-        } catch (Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'message' => __('globals.errors.something_went_wrong'),
-            ], 500);
-        }
-
-        return response()->json([
-            'success' => true,
-            'message' => __('support.orders.messages.assigned'),
-            'data' => [],
-        ]);
-    }
-
-    public function unassign(UnassignRequest $request, Order $order)
-    {
-        /**
-         * TODO: REPLICATED CODE
-         */
-
-        try {
-            DB::transaction(function () use ($order) {
-                $order->unassign();
-
-                event(new OrderUnassignedEvent(
-                    order: $order,
-                ));
-            });
-        } catch (Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'message' => __('globals.errors.something_went_wrong'),
-            ], 500);
-        }
-
-        return response()->json([
-            'success' => true,
-            'message' => __('support.orders.messages.unassigned'),
-            'data' => [],
-        ]);
-    }
-
     public function process(Order $order)
     {
-        abort_unless($order->isBranchMine() && $order->isAssignedToMe(), 403, __('support.orders.errors.cannot_process'));
+        // abort_unless($order->isBranchMine() && $order->isAssignedToMe(), 403, __('support.orders.errors.cannot_process'));
 
         return view('support.pages.orders.process', compact('order'));
     }
-
-    // public function setupPull(SetupPullOrdersRequest $request)
-    // {
-    //     $data = $request->validated();
-
-    //     dispatch(new SallaPullOrdersWithLimitJob(
-    //         user: currentUser(),
-    //         limit: $data['orders_count'],
-    //         filters: ['to_date' => $data['to_date']],
-    //     ));
-
-    //     currentUser()->installation?->markModuleAsPulled('orders');
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'message' => __('support.orders.messages.pull_started'),
-    //         'data' => [],
-    //     ]);
-    // }
-
-    // public function histories(Order $order)
-    // {
-    //     $histories = $order->histories()->orderBy('date')->get();
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'message' => 'fetched successfully',
-    //         'data' => [
-    //             'title' => __('support.orders.history.title') . ' #' . $order->reference_id,
-    //             'html' => view('support.pages.orders.partials.index.histories', compact('histories'))->render(),
-    //         ],
-    //     ]);
-    // }
 
     public function export()
     {

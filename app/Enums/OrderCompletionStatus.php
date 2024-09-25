@@ -37,4 +37,17 @@ enum OrderCompletionStatus: string
 
         return $options;
     }
+
+    public static function employeeCases()
+    {
+        return self::cases();
+    }
+
+    public static function supportCases()
+    {
+        return array_filter(
+            array: self::cases(),
+            callback: fn ($case) => in_array($case->name, ['QUANTITY_ISSUES', 'COMPLETED']),
+        );
+    }
 }

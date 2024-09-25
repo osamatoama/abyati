@@ -24,23 +24,27 @@ class OrderTabs extends Component
     {
         $hasSingleActiveTab = count($this->filters['completion_statuses'] ?? []) == 1;
 
+        $ordersQuery = Order::whereHas('executionHistories', function ($q) {
+                $q->where('status', OrderCompletionStatus::QUANTITY_ISSUES);
+            });
+
         $tabs = [
             'all' => [
                 'title' =>__('globals.all'),
                 'url' => route('support.orders.index'),
                 // 'active' => empty($this->filters['completion_statuses'][0] ?? []),
                 'active' => 0,
-                'count' => Order::count(),
+                'count' => (clone $ordersQuery)->count(),
             ],
         ];
 
-        foreach (OrderCompletionStatus::cases() as $status) {
+        foreach (OrderCompletionStatus::supportCases() as $status) {
             $tabs[$status->value] = [
                 'title' => $status->trans(),
                 'url' => route('support.orders.index') . '?completion_statuses[0]=' . $status->value,
                 // 'active' => $hasSingleActiveTab && ($this->filters['completion_statuses'][0] ?? null === $status->value),
                 'active' => 0,
-                'count' => Order::where('completion_status', $status)->count(),
+                'count' => (clone $ordersQuery)->where('completion_status', $status)->count(),
             ];
         }
 

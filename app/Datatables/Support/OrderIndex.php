@@ -4,6 +4,7 @@ namespace App\Datatables\Support;
 
 use App\Models\Order;
 use App\Datatables\Datatable;
+use App\Enums\OrderCompletionStatus;
 use Illuminate\Database\Eloquent\Builder;
 
 class OrderIndex extends Datatable
@@ -21,6 +22,9 @@ class OrderIndex extends Datatable
             //             $q->assignedTo(auth('support')->id())
             //         )
             // )
+            ->whereHas('executionHistories', function ($q) {
+                $q->where('status', OrderCompletionStatus::QUANTITY_ISSUES);
+            })
             ->filter()
             ->with([
                 'store',

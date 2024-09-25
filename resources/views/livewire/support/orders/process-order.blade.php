@@ -165,6 +165,7 @@
                                 <th class="fw-bold">{{ __('support.products.attributes.barcode') }}</th>
                                 <th class="fw-bold">{{ __('support.orders.items.attributes.quantity') }}</th>
                                 <th class="fw-bold">{{ __('support.orders.items.attributes.executed_quantity') }}</th>
+                                <th class="fw-bold">{{ __('support.orders.items.attributes.employee_note') }}</th>
                             </thead>
 
                             <tbody>
@@ -192,6 +193,9 @@
                                         </td>
                                         <td>
                                             {{ $item->executed_quantity }}
+                                        </td>
+                                        <td>
+                                            {{ filled($item->employee_note) ? $item->employee_note : '---' }}
                                         </td>
                                     </tr>
                                 @endforeach

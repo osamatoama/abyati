@@ -3,11 +3,12 @@
 namespace App\Livewire\Employee\Orders;
 
 use Livewire\Component;
+use App\Models\Employee;
 use App\Models\OrderItem;
 use Livewire\Attributes\Locked;
 use Illuminate\Support\Facades\DB;
+use App\Enums\OrderCompletionStatus;
 use App\Enums\OrderItemCompletionStatus;
-use App\Models\Employee;
 
 class TransferOrderItemToSupport extends Component
 {
@@ -32,6 +33,15 @@ class TransferOrderItemToSupport extends Component
         DB::transaction(function () {
             $this->item->update([
                 'completion_status' => OrderItemCompletionStatus::QUANTITY_ISSUES,
+            ]);
+
+            $this->item->order->update([
+                'status' => OrderCompletionStatus::QUANTITY_ISSUES,
+            ]);
+
+            $this->item->order->executionHistories()->create([
+                'employee_id' => auth('employee')->id(),
+                'status' => OrderCompletionStatus::QUANTITY_ISSUES,
             ]);
 
             if (filled($this->employee_note)) {

@@ -109,7 +109,7 @@ return [
     'orders' => [
         'title' => 'الطلبات',
         'order_#' => 'طلب ',
-        'process_order_#' => 'تجهيز طلب #:id',
+        'process_order_#' => 'معالجة طلب #:id',
         'details' => 'تفاصيل الطلب',
         'calculations' => 'الحسابات',
 
@@ -152,7 +152,7 @@ return [
                 'executed_quantity' => 'الكمية المؤكدة',
                 'unit_price' => 'سعر القطعة',
                 'total' => 'الإجمالي',
-                'employee_note' => 'الملاحظة',
+                'employee_note' => 'ملاحظة الموظف',
             ],
 
             'alerts' => [
@@ -248,7 +248,7 @@ return [
         'actions' => [
             'assign' => 'إسناد',
             'unassign' => 'إلغاء الإسناد',
-            'process' => 'تجهيز',
+            'process' => 'معالجة',
             'scan_item' => 'تأكيد',
             'transfer' => 'تحويل',
             'transfer_to_support' => 'تحويل لفريق الدعم',
