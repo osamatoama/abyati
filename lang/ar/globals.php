@@ -48,6 +48,7 @@ return [
     'export_all' => 'كل النتائج',
     'export_filtered' => 'نتائج التصفية',
     'reset' => 'اعادة',
+    'reset_filters' => 'إلغاء التصفية',
     'apply' => 'تطبيق',
     'data' => 'البيانات',
     'store_data' => 'بيانات المتجر',

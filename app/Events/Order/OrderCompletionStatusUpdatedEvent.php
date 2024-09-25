@@ -11,14 +11,16 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class OrderUpdatedEvent implements ShouldBroadcast
+class OrderCompletionStatusUpdatedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(public Order $order)
+    public function __construct(
+        public Order $order,
+    )
     {
         //
     }
@@ -37,7 +39,7 @@ class OrderUpdatedEvent implements ShouldBroadcast
 
     public function broadcastAs(): string
     {
-        return 'order-updated-event';
+        return 'order-completion-status-updated-event';
     }
 
     public function broadcastWith(): array

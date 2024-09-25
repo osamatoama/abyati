@@ -34,6 +34,8 @@ class FilterProducts extends Component
     {
         $this->validate();
 
+        logError('product-filters-applied');
+
         $this->dispatch('product-filters-applied', [
             'filters' => $this->getFilters(),
             'refresh_url' => route('admin.products.index', $this->getFilters()),

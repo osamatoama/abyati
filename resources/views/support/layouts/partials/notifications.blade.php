@@ -17,30 +17,21 @@
 
     Pusher.logToConsole = ('{{ app()->environment() }}' != 'production') || ('{{ config('app.staging') }}' == 'testing')
 
-    pusher.subscribe('private-order-assign-channel')
-        .bind('order-assigned-event', function(data) {
-            if (data.self_assign == false && data.support_id == authSupportId) {
-                successToast(data.message)
-                playVoiceNotification('cashier-voice-notification')
-            }
-
-            if (dataTable) {
-                reloadDatatable(dataTable)
-            }
-        })
-        .bind('order-unassigned-event', function(data) {
-            if (dataTable) {
-                reloadDatatable(dataTable)
-            }
-        })
-
     pusher.subscribe('private-order-sync-channel')
-        .bind('order-created-event', function(data) {
+        .bind('order-updated-event', function(data) {
+            if(! (['quantity_issues', 'completed']).includes(data.status)) {
+                return
+            }
+
             if (dataTable) {
                 reloadDatatable(dataTable)
             }
         })
-        .bind('order-updated-event', function(data) {
+        .bind('order-completion-status-updated-event', function(data) {
+            if(! (['quantity_issues', 'completed']).includes(data.status)) {
+                return
+            }
+
             if (dataTable) {
                 reloadDatatable(dataTable)
             }

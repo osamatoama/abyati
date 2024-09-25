@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'stores' => [
+        'title' => 'الفروع',
+        'show' => 'عرض',
+        'edit' => 'تعديل',
+    ],
     'orders' => [
         'title' => 'الطلبات',
         'show' => 'عرض',

@@ -12,12 +12,9 @@
     </div>
 
     <div class="d-flex justify-content-end">
-        <a wire:click="resetFilters" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">
-            {{ __("globals.reset") }}
+        <a wire:click="resetFilters" class="btn btn-sm btn-light-danger btn-active-danger me-2" data-kt-menu-dismiss="true">
+            {{ __("globals.reset_filters") }}
         </a>
-        <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">
-            {{ __("globals.apply") }}
-        </button>
     </div>
 </form>
 
@@ -35,6 +32,7 @@
 
         $('#filter-store_ids').on('change', function() {
             @this.set('store_ids', $('#filter-store_ids').val())
+            @this.apply()
         })
     </script>
 @endscript

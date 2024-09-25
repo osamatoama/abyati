@@ -9,7 +9,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <table id="results-table" class="table table-striped table-row-bordered gy-5 gs-7">
+            <table id="results-table" class="table table-hover table-row-bordered gy-5 gs-7">
                 <thead>
                     <tr class="fw-semibold fs-6 text-gray-800">
                         <th>#</th>

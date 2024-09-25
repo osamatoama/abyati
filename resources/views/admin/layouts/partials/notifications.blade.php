@@ -40,4 +40,9 @@
                 reloadDatatable(dataTable)
             }
         })
+        .bind('order-completion-status-updated-event', function(data) {
+            if (dataTable) {
+                reloadDatatable(dataTable)
+            }
+        })
 </script>

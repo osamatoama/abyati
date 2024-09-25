@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\Filterable;
+use App\Models\Filters\ProductFilter;
 use App\Models\Concerns\BelongsToStore;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,6 +15,7 @@ class Product extends Model
 {
     use SoftDeletes;
     use BelongsToStore;
+    use Filterable;
 
     /**
      * Config
@@ -30,6 +33,7 @@ class Product extends Model
         'store_id' => 'integer',
     ];
 
+    protected $filter = ProductFilter::class;
 
     /**
      * Relations

@@ -49,6 +49,7 @@ return [
     'export_all' => 'All results',
     'export_filtered' => 'Filter results',
     'reset' => 'Reset',
+    'reset_filters' => 'Reset Filters',
     'apply' => 'Apply',
     'data' => 'Data',
     'store_data' => 'Store Data',

@@ -44,6 +44,7 @@ class OrderCreatedEvent implements ShouldBroadcast
     {
         return [
             'reference_id' => $this->order->reference_id,
+            'status' => $this->order->status->value,
         ];
     }
 }

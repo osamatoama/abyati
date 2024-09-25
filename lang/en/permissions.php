@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'stores' => [
+        'title' => 'Stores',
+        'show' => 'Show',
+        'edit' => 'Edit',
+    ],
     'orders' => [
         'title' => 'Orders',
         'show' => 'Show',

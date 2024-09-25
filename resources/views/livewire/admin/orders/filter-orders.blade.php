@@ -72,7 +72,7 @@
 
     <div class="d-flex justify-content-end">
         <a wire:click="resetFilters" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">
-            {{ __("globals.reset") }}
+            {{ __("globals.reset_filters") }}
         </a>
         <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">
             {{ __("globals.apply") }}

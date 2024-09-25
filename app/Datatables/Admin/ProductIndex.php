@@ -13,7 +13,8 @@ class ProductIndex extends Datatable
      */
     public function query()
     {
-        return Product::query();
+        return Product::query()
+            ->filter();
     }
 
     /**
@@ -22,6 +23,9 @@ class ProductIndex extends Datatable
     protected function addColumns(): array
     {
         return [
+            'store' => function (Product $product) {
+                return view('admin.pages.products.partials.index.cols.store', compact('product'));
+            },
             'image' => function (Product $product) {
                 return view('admin.pages.products.partials.index.cols.image', compact('product'));
             },
@@ -37,8 +41,8 @@ class ProductIndex extends Datatable
             'id' => function (Product $product) {
                 return view('admin.pages.products.partials.index.cols.id', compact('product'));
             },
-            'salla_id' => function (Product $product) {
-                return view('admin.pages.products.partials.index.cols.salla-id', compact('product'));
+            'remote_id' => function (Product $product) {
+                return view('admin.pages.products.partials.index.cols.remote_id', compact('product'));
             },
             'name' => function (Product $product) {
                 return view('admin.pages.products.partials.index.cols.name', compact('product'));
@@ -46,12 +50,6 @@ class ProductIndex extends Datatable
             'sku' => function (Product $product) {
                 return view('admin.pages.products.partials.index.cols.sku', compact('product'));
             },
-            // 'quantity' => function (Product $product) {
-            //     return view('admin.pages.products.partials.index.cols.quantity', compact('product'));
-            // },
-            // 'price' => function (Product $product) {
-            //     return view('admin.pages.products.partials.index.cols.price', compact('product'));
-            // },
         ];
     }
 
@@ -61,7 +59,7 @@ class ProductIndex extends Datatable
     protected function filterColumns(): array
     {
         return [
-            'salla_id' => function ($query, $keyword) {
+            'remote_id' => function ($query, $keyword) {
                 $query->where('remote_id', 'LIKE', "%$keyword%");
             },
         ];
