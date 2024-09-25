@@ -10,12 +10,12 @@ trait Filterable
     /**
      * Apply all relevant thread filters.
      */
-    public function scopeFilter($query, BaseFilters $filters = null)
+    public function scopeFilter($query, BaseFilters $filters = null, $appendedFilters = [])
     {
         if (!$filters) {
             $filters = App::make($this->filter);
         }
 
-        return $filters->apply($query);
+        return $filters->apply($query, $appendedFilters);
     }
 }

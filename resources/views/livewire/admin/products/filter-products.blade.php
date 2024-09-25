@@ -13,7 +13,7 @@
 
     <div class="d-flex justify-content-end">
         <a wire:click="resetFilters" class="btn btn-sm btn-light-danger btn-active-danger me-2" data-kt-menu-dismiss="true">
-            {{ __("globals.reset_filters") }}
+            {{ __('globals.reset_filters') }}
         </a>
     </div>
 </form>

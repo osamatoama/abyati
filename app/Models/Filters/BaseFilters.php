@@ -46,12 +46,13 @@ abstract class BaseFilters
      * @param \Illuminate\Database\Eloquent\Builder $builder
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function apply($builder)
+    public function apply($builder, $appendedFilters = [])
     {
         $this->builder = $builder;
         foreach ($this->getFilters() as $filter) {
-            $value = $this->request->query($filter);
-            if ($this->request->has($filter)) {
+            $value = $this->request->query($filter) ?? $appendedFilters[$filter] ?? null;
+            
+            if ($this->request->has($filter) || isset($appendedFilters[$filter])) {
                 $methodName = Str::camel($filter);
             } else {
                 $methodName = 'default' . Str::studly($filter);

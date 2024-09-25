@@ -37,7 +37,7 @@
     <div class="mb-10">
         <label class="form-label">{{ __('support.orders.attributes.assign_status') }}</label>
 
-        <select wire:model="is_assigned" class="form-control">
+        <select wire:model="is_assigned" wire:change="apply" class="form-control">
             <option value="">{{ __('support.orders.assign_statuses.all') }}</option>
             <option value="1">{{ __('support.orders.assign_statuses.assigned_to_me') }}</option>
             <option value="0">{{ __('support.orders.assign_statuses.not_assigned') }}</option>
@@ -48,11 +48,8 @@
 
     <div class="d-flex justify-content-end">
         <a wire:click="resetFilters" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">
-            {{ __("globals.reset_filters") }}
+            {{ __('globals.reset_filters') }}
         </a>
-        <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">
-            {{ __("globals.apply") }}
-        </button>
     </div>
 </form>
 
@@ -83,12 +80,18 @@
             $('#filter-completion_statuses').val(null).trigger('change')
         })
 
+        $('#filter-date').on('change', function() {
+            @this.apply()
+        })
+
         $('#filter-store_ids').on('change', function() {
             @this.set('store_ids', $('#filter-store_ids').val())
+            @this.apply()
         })
 
         $('#filter-completion_statuses').on('change', function() {
             @this.set('completion_statuses', $('#filter-completion_statuses').val())
+            @this.apply()
         })
     </script>
 @endscript

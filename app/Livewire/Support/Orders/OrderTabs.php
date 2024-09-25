@@ -24,7 +24,11 @@ class OrderTabs extends Component
     {
         $hasSingleActiveTab = count($this->filters['completion_statuses'] ?? []) == 1;
 
-        $ordersQuery = Order::whereHas('executionHistories', function ($q) {
+        $ordersQuery = Order::query()
+            ->filter(
+                appendedFilters: $this->filters
+            )
+            ->whereHas('executionHistories', function ($q) {
                 $q->where('status', OrderCompletionStatus::QUANTITY_ISSUES);
             });
 

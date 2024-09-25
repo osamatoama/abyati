@@ -24,7 +24,11 @@ class OrderTabs extends Component
     {
         $hasSingleActiveTab = count($this->filters['completion_statuses'] ?? []) == 1;
 
-        $ordersQuery = Order::branchMine()
+        $ordersQuery = Order::query()
+            ->filter(
+                appendedFilters: $this->filters
+            )
+            ->branchMine()
             ->where(fn($q) =>
                 $q->notAssigned()
                     ->orWhere(fn($q) =>
