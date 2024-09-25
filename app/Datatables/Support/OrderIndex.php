@@ -14,17 +14,17 @@ class OrderIndex extends Datatable
     public function query()
     {
         return Order::query()
-            ->branchMine()
-            ->where(fn($q) =>
-                $q->notAssigned()
-                    ->orWhere(fn($q) =>
-                        $q->assignedTo(auth('support')->id())
-                    )
-            )
+            // ->branchMine()
+            // ->where(fn($q) =>
+            //     $q->notAssigned()
+            //         ->orWhere(fn($q) =>
+            //             $q->assignedTo(auth('support')->id())
+            //         )
+            // )
             ->filter()
             ->with([
                 'store',
-                'support',
+                'employee',
             ])
             ->withCount([
                 'items'
@@ -42,8 +42,8 @@ class OrderIndex extends Datatable
             'store' => function (Order $order) {
                 return view('support.pages.orders.partials.index.cols.store', compact('order'));
             },
-            'support' => function (Order $order) {
-                return view('support.pages.orders.partials.index.cols.support', compact('order'));
+            'employee' => function (Order $order) {
+                return view('support.pages.orders.partials.index.cols.employee', compact('order'));
             },
             'total' => function (Order $order) {
                 return view('support.pages.orders.partials.index.cols.total', compact('order'));

@@ -32,6 +32,13 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->group(function () {
                     Route::group([], base_path('routes/employee/routes.php'));
                 });
+
+            Route::prefix('support')
+                ->name('support.')
+                ->middleware(['web', Localize::class])
+                ->group(function () {
+                    Route::group([], base_path('routes/support/routes.php'));
+                });
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
@@ -42,6 +49,10 @@ return Application::configure(basePath: dirname(__DIR__))
 
             if ($request->routeIs('employee.*')) {
                 return route('employee.login');
+            }
+
+            if ($request->routeIs('support.*')) {
+                return route('support.login');
             }
 
             return url('/');
