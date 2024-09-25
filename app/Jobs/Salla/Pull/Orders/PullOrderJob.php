@@ -9,14 +9,14 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Jobs\Concerns\InteractsWithBatches;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Jobs\Concerns\InteractsWithException;
+use App\Jobs\Concerns\HandleExceptions;
 use App\Services\Orders\Api\SyncOrderService;
 use App\Services\Salla\Merchant\SallaMerchantService;
 use App\Services\Salla\Merchant\SallaMerchantException;
 
 class PullOrderJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithBatches, InteractsWithException, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithBatches, HandleExceptions, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.

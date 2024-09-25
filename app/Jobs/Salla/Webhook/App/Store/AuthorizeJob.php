@@ -16,7 +16,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Salla\OAuth2\Client\Provider\SallaUser;
-use App\Jobs\Concerns\InteractsWithException;
+use App\Jobs\Concerns\HandleExceptions;
 use App\Jobs\Salla\Pull\Orders\PullOrdersJob;
 use App\Services\Salla\OAuth\SallaOAuthService;
 use App\Jobs\Salla\Pull\Products\PullProductsJob;
@@ -24,7 +24,7 @@ use App\Jobs\Salla\Pull\OrderStatuses\PullOrderStatusesJob;
 
 class AuthorizeJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithException, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, HandleExceptions, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.

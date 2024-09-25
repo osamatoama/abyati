@@ -3,7 +3,7 @@
 namespace App\Jobs\Salla\Pull\OrderStatuses;
 
 use App\Jobs\Concerns\InteractsWithBatches;
-use App\Jobs\Concerns\InteractsWithException;
+use App\Jobs\Concerns\HandleExceptions;
 use App\Services\Orders\OrderStatusService;
 use Exception;
 use Illuminate\Bus\Queueable;
@@ -14,7 +14,7 @@ use Illuminate\Queue\SerializesModels;
 
 class PullOrderStatusJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithBatches, InteractsWithException, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithBatches, HandleExceptions, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.

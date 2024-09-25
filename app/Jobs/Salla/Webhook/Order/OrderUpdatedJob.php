@@ -6,7 +6,6 @@ use Exception;
 use App\Models\Order;
 use App\Models\Store;
 use Illuminate\Bus\Queueable;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use App\Jobs\Concerns\HandleExceptions;
 use Illuminate\Queue\InteractsWithQueue;
@@ -18,11 +17,7 @@ use App\Services\Orders\Webhooks\UpdateOrderService;
 
 class OrderUpdatedJob implements ShouldQueue, WebhookEvent
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    // public $failOnTimeout = true;
-
-    public int $tries = 2;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, HandleExceptions;
 
     /**
      * Create a new job instance.
@@ -32,13 +27,8 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
         public readonly int $merchantId,
         public readonly array $data,
     ) {
-        // $this->tries = 1;
+        $this->maxAttempts = 1;
     }
-
-    // public function tries(): int
-    // {
-    //     return 1;
-    // }
 
     /**
      * Execute the job.
@@ -66,7 +56,7 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
                 ) {
                     return;
                 }
-    
+
                 CreateOrderService::instance()
                     ->handle(
                         sallaOrder: $this->data,
@@ -85,17 +75,9 @@ class OrderUpdatedJob implements ShouldQueue, WebhookEvent
                     accessToken: $store->user->sallaToken->access_token,
                 );
         } catch (Exception $exception) {
-            // $this->handleException(
-            //     exception: $exception,
-            // );
-
-            // throw $exception;
-
-            Log::error($exception->getMessage());
-
-            throw $exception;
-
-            // $this->fail($exception);
+            $this->handleException(
+                exception: $exception,
+            );
         }
     }
 }

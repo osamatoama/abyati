@@ -4,7 +4,7 @@ namespace App\Jobs\Salla\Pull\Products;
 
 use App\Enums\Queues\BatchName;
 use App\Jobs\Concerns\InteractsWithBatches;
-use App\Jobs\Concerns\InteractsWithException;
+use App\Jobs\Concerns\HandleExceptions;
 use App\Services\Salla\Merchant\SallaMerchantException;
 use App\Services\Salla\Merchant\SallaMerchantService;
 use Exception;
@@ -16,7 +16,7 @@ use Illuminate\Queue\SerializesModels;
 
 class PullProductsJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithBatches, InteractsWithException, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithBatches, HandleExceptions, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.

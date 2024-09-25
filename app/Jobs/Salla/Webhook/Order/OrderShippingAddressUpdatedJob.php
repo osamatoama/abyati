@@ -11,12 +11,12 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Jobs\Salla\Contracts\WebhookEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Jobs\Concerns\InteractsWithException;
+use App\Jobs\Concerns\HandleExceptions;
 use App\Services\Orders\Webhooks\UpdateOrderShippingAddressService;
 
 class OrderShippingAddressUpdatedJob implements ShouldQueue, WebhookEvent
 {
-    use Dispatchable, InteractsWithException, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, HandleExceptions, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.
