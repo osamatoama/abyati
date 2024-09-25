@@ -59,9 +59,7 @@ final class OrderDto
 
         $shipmentType = $sallaOrder['shipments'][0]['type'] ?? null;
 
-        $address = ($shipmentType == OrderAddressType::PICKUP->value)
-            ? ($sallaOrder['shipping']['pickup_address'] ?? null)
-            : ($sallaOrder['shipping']['address'] ?? null);
+        $address = $sallaOrder['shipments'][0]['ship_to'] ?? null;
 
         return new self(
             remoteId: $sallaOrder['id'],
