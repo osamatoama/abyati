@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\EmployeeController;
 
 // use App\Http\Controllers\Admin\SettingController;
@@ -50,6 +51,12 @@ Route::prefix('employees')->as('employees.')->group(function () {
     Route::put('{employee}/toggle-active', [EmployeeController::class, 'toggleActive'])->name('toggle_active');
 });
 Route::resource('employees', EmployeeController::class)->except(['create', 'show', 'edit']);
+
+// Supports
+Route::prefix('supports')->as('supports.')->group(function () {
+    Route::put('{support}/toggle-active', [SupportController::class, 'toggleActive'])->name('toggle_active');
+});
+Route::resource('supports', SupportController::class)->except(['create', 'show', 'edit']);
 
 // Users
 Route::prefix('users')->as('users.')->group(function () {

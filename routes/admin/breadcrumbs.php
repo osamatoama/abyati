@@ -81,19 +81,10 @@ Breadcrumbs::for('admin.employees.index', function ($trail) {
     $trail->push(__('admin.employees.title'), route('admin.employees.index'));
 });
 
-Breadcrumbs::for('admin.employees.create', function ($trail) {
-    $trail->parent('admin.employees.index');
-    $trail->push(__('admin.employees.action.create'), route('admin.employees.create'));
-});
-
-Breadcrumbs::for('admin.employees.edit', function ($trail) {
-    $trail->parent('admin.employees.index');
-    $trail->push(__('admin.employees.action.edit'), route('admin.employees.edit', request('employee')));
-});
-
-Breadcrumbs::for('admin.employees.trash', function ($trail) {
-    $trail->parent('admin.employees.index');
-    $trail->push(__('admin.tags.trash'), route('admin.employees.trash', request('employee')));
+//supports
+Breadcrumbs::for('admin.supports.index', function ($trail) {
+    $trail->parent('admin.home');
+    $trail->push(__('admin.supports.title'), route('admin.supports.index'));
 });
 
 //tags

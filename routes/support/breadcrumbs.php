@@ -4,57 +4,36 @@ use App\Models\Order;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
 /**
- * Employee Breadcrumbs
+ * Support Breadcrumbs
  */
-Breadcrumbs::for('employee.home', function ($trail) {
-    $trail->push(__('employee.home.title'), route('employee.home'));
-});
-
-//roles
-Breadcrumbs::for('employee.roles.index', function ($trail) {
-    $trail->parent('employee.home');
-    $trail->push(__('employee.roles.title'), route('employee.roles.index'));
-});
-
-Breadcrumbs::for('employee.roles.create', function ($trail) {
-    $trail->parent('employee.roles.index');
-    $trail->push(__('employee.roles.action.create'), route('employee.roles.create'));
-});
-
-Breadcrumbs::for('employee.roles.trash', function ($trail) {
-    $trail->parent('employee.roles.index');
-    $trail->push(__('employee.roles.trash'), route('employee.roles.trash', request('role')));
-});
-
-Breadcrumbs::for('employee.roles.edit', function ($trail) {
-    $trail->parent('employee.roles.index');
-    $trail->push(__('employee.roles.action.edit'), route('employee.roles.edit', request('role')));
+Breadcrumbs::for('support.home', function ($trail) {
+    $trail->push(__('support.home.title'), route('support.home'));
 });
 
 //orders
-Breadcrumbs::for('employee.orders.index', function ($trail) {
-    $trail->parent('employee.home');
-    $trail->push(__('employee.orders.title'), route('employee.orders.index'));
+Breadcrumbs::for('support.orders.index', function ($trail) {
+    $trail->parent('support.home');
+    $trail->push(__('support.orders.title'), route('support.orders.index'));
 });
 
-Breadcrumbs::for('employee.orders.show', function ($trail, Order $order) {
-    $trail->parent('employee.orders.index');
-    $trail->push(__('employee.orders.order_#') . $order->id, '#');
+Breadcrumbs::for('support.orders.show', function ($trail, Order $order) {
+    $trail->parent('support.orders.index');
+    $trail->push(__('support.orders.order_#') . $order->id, '#');
 });
 
-Breadcrumbs::for('employee.orders.process', function ($trail, Order $order) {
-    $trail->parent('employee.orders.index');
-    $trail->push(__('employee.orders.process_order_#', ['id' => $order->reference_id]));
+Breadcrumbs::for('support.orders.process', function ($trail, Order $order) {
+    $trail->parent('support.orders.index');
+    $trail->push(__('support.orders.process_order_#', ['id' => $order->reference_id]));
 });
 
 //Account
-Breadcrumbs::for('employee.account.index', function ($trail) {
-    $trail->parent('employee.home');
-    $trail->push(__('employee.account.title'), route('employee.account.index'));
+Breadcrumbs::for('support.account.index', function ($trail) {
+    $trail->parent('support.home');
+    $trail->push(__('support.account.title'), route('support.account.index'));
 });
 
 // Reports
-Breadcrumbs::for('employee.reports.index', function ($trail) {
-    $trail->parent('employee.home');
-    $trail->push(__('employee.reports.title'), route('employee.reports.index'));
+Breadcrumbs::for('support.reports.index', function ($trail) {
+    $trail->parent('support.home');
+    $trail->push(__('support.reports.title'), route('support.reports.index'));
 });

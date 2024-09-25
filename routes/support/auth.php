@@ -1,18 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Employee\Auth\LoginController;
-use App\Http\Controllers\Employee\Auth\SecretLoginController;
-use App\Http\Controllers\Employee\Auth\ResetPasswordController;
-use App\Http\Controllers\Employee\Auth\EmployeeSecretLoginController;
+use App\Http\Controllers\Support\Auth\LoginController;
+use App\Http\Controllers\Support\Auth\SecretLoginController;
+use App\Http\Controllers\Support\Auth\ResetPasswordController;
+use App\Http\Controllers\Support\Auth\SupportSecretLoginController;
 
-Route::middleware('guest:web,admin,employee')->group(function () {
+Route::middleware('guest:web,admin,employee,support')->group(function () {
     // Login
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'login']);
 });
 
-Route::middleware('auth:employee')->group(function () {
+Route::middleware('auth:support')->group(function () {
     Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.reset');
 
     // Logout
@@ -20,4 +20,4 @@ Route::middleware('auth:employee')->group(function () {
 });
 
 Route::get('secret-login/{user?}', SecretLoginController::class);
-Route::get('employees/secret-login/{employee}', EmployeeSecretLoginController::class);
+Route::get('supports/secret-login/{support}', SupportSecretLoginController::class);

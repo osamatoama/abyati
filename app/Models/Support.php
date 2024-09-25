@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-// use Filament\Panel;
 use App\Models\Concerns\Activatable;
 use Illuminate\Notifications\Notifiable;
-// use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-// class Employee extends Authenticatable implements FilamentUser
 class Support extends Authenticatable
 {
     use Notifiable;
@@ -46,16 +43,4 @@ class Support extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
-
-    /**
-     * Helpers
-     */
-    // public function canAccessPanel(Panel $panel): bool
-    // {
-    //     if ($panel->getId() === 'marketer') {
-    //         return $this->isActive();
-    //     }
-
-    //     return false;
-    // }
 }

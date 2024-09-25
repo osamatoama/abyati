@@ -109,6 +109,18 @@
                     </a>
                 </div>
 
+                <div class="menu-item">
+                    <a @class(['menu-link', 'active' => request()->routeIs('admin.supports.*')]) href="{{ route('admin.supports.index') }}"
+                    >
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-headset fs-2"></i>
+                        </span>
+                            <span class="menu-title">
+                        {{ __('admin.supports.title') }}
+                        </span>
+                    </a>
+                </div>
+
                 @if(can("roles.show") or can("roles.show"))
                     <div data-kt-menu-trigger="click"
                          class="menu-item menu-accordion {{ (request()->routeIs("admin.roles.*") or request()->routeIs("admin.roles.*")) ? " hover show " : "" }}">

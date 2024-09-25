@@ -1,15 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Employee\HomeController;
-use App\Http\Controllers\Employee\OrderController;
-use App\Http\Controllers\Employee\AccountController;
-// use App\Http\Controllers\Employee\SettingController;
-// use App\Http\Controllers\Employee\Settings\DomainSettingController;
-// use App\Http\Controllers\Employee\Settings\ReturnSettingController;
-// use App\Http\Controllers\Employee\Settings\WebsiteSettingController;
-// use App\Http\Controllers\Employee\Settings\ExchangeSettingController;
-// use App\Http\Controllers\Employee\Settings\ShippingSettingController;
+use App\Http\Controllers\Support\HomeController;
+use App\Http\Controllers\Support\OrderController;
+use App\Http\Controllers\Support\AccountController;
+// use App\Http\Controllers\Support\SettingController;
+// use App\Http\Controllers\Support\Settings\DomainSettingController;
+// use App\Http\Controllers\Support\Settings\ReturnSettingController;
+// use App\Http\Controllers\Support\Settings\WebsiteSettingController;
+// use App\Http\Controllers\Support\Settings\ExchangeSettingController;
+// use App\Http\Controllers\Support\Settings\ShippingSettingController;
 
 // Home
 Route::get('/', HomeController::class)->name('home');
