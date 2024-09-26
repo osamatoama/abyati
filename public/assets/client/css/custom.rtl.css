@@ -1,0 +1,187 @@
+th {
+    text-align: right !important;
+}
+
+tr.muted td {
+    filter: opacity (0.5);
+    --bs-table-accent-bg: var(--bs-table-striped-bg);
+    cursor: not-allowed;
+}
+
+td span.reorder {
+    color: #999;
+    cursor: move;
+    text-align: center;
+    font-size: 2rem;
+}
+
+html[data-bs-theme=light] .form-check-label {
+    color: black !important;
+}
+
+.menu-item.show .menu-link .menu-arrow:after {
+    transform: rotate(-90deg) !important
+}
+
+.menu-item .menu-link .menu-arrow:after {
+    transform: rotate(90deg) !important
+}
+
+.btn.disabled-with-tooltip {
+    opacity: var(--bs-btn-disabled-opacity);
+    cursor: not-allowed;
+}
+
+.btn.disabled {
+    cursor: not-allowed;
+}
+
+.form-switch.form-check-solid .form-check-input:not(:checked) {
+    background-color: var(--bs-gray-300);
+}
+
+/**
+ * Fonts
+ */
+@font-face {
+    font-family: tajawal;
+    src: url('../fonts/tajawal/Tajawal-Regular.ttf');
+}
+
+@font-face {
+    font-family: tajawal;
+    src: url('../fonts/tajawal/Tajawal-Light.ttf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: tajawal;
+    src: url('../fonts/tajawal/Tajawal-ExtraLight.ttf');
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: tajawal;
+    src: url('../fonts/tajawal/Tajawal-Medium.ttf');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: tajawal;
+    src: url('../fonts/tajawal/Tajawal-Bold.ttf');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: tajawal;
+    src: url('../fonts/tajawal/Tajawal-Bold.ttf');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: tajawal;
+    src: url('../fonts/tajawal/Tajawal-ExtraBold.ttf');
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: tajawal;
+    src: url('../fonts/tajawal/Tajawal-Black.ttf');
+    font-weight: 900;
+}
+
+body {
+    font-family: tajawal;
+}
+
+/**
+ * Flatpickr Fixes
+ */
+.flatpickr-months .flatpickr-next-month:hover,
+.flatpickr-months .flatpickr-prev-month:hover {
+    background-color: transparent !important;
+}
+
+.flatpickr-months .flatpickr-prev-month.flatpickr-prev-month {
+    right: initial !important;
+}
+
+.flatpickr-months .flatpickr-next-month.flatpickr-next-month {
+    left: initial !important;
+}
+
+.flatpickr-weekday {
+    padding-right: 0.25rem !important;
+    padding-left: 0.25rem !important;
+}
+
+/**
+ * Select2 Fixes
+ */
+.select2-container--open .select2-dropdown {
+    transform: translate(100%, 0);
+}
+
+.color-heading {
+    color: var(--bs-heading-color,inherit);
+}
+
+.opacity-05 {
+    opacity: 0.5;
+}
+
+.tr-overlay {
+    opacity: 0.4;
+}
+
+.inherit-color {
+    color: inherit;
+}
+
+.email-link i {
+    display: none;
+    margin-right: 5px;
+}
+
+.email-link:hover i {
+    display: inline-block;
+}
+
+.icon-link:hover i {
+    color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner i {
+    font-size: 2rem;
+}
+
+.fa-spin.spin-reverse {
+    -webkit-animation-direction:reverse;
+    -moz-animation-direction:reverse;
+    animation-direction:reverse;
+}
+
+[data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-logo {
+    border-bottom: none;
+}
+
+.pointer-disabled {
+    pointer-events: none;
+}
+
+.form-switch.form-check-custom .form-check-input {
+    cursor: pointer;
+}

@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'name_ar' => env('APP_NAME_AR', 'Laravel'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -123,4 +125,18 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Superadmin Account
+    |--------------------------------------------------------------------------
+    |
+    | Superadmin Account Credentials
+    |
+    */
+    'superadmin' => [
+        'email' => env('SUPERADMIN_EMAIL', 'admin@abyati.com'),
+
+        'password' => env('SUPERADMIN_PASSWORD', 'password'),
+    ],
 ];

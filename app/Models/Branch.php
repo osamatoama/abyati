@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use App\Models\Concerns\Activatable;
-use App\Models\Concerns\BelongsToStore;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Branch extends Model
 {
-    use BelongsToStore;
     use SoftDeletes;
     use Activatable;
 
@@ -18,8 +17,6 @@ class Branch extends Model
      * Config
      */
     protected $fillable = [
-        'store_id',
-        'status_id',
         'name',
         'active',
     ];
@@ -31,8 +28,35 @@ class Branch extends Model
     /**
      * Relationships
      */
-    public function status(): BelongsTo
+    public function orderStatuses(): BelongsToMany
     {
-        return $this->belongsTo(OrderStatus::class);
+        return $this->belongsToMany(
+                related: OrderStatus::class,
+                table: 'branch_order_statuses',
+                foreignPivotKey: 'branch_id',
+                relatedPivotKey: 'order_status_id',
+            )
+            ->withPivot('store_id');
+    }
+
+    public function stores(): BelongsToMany
+    {
+        return $this->belongsToMany(
+                related: Store::class,
+                table: 'branch_order_statuses',
+                foreignPivotKey: 'branch_id',
+                relatedPivotKey: 'store_id',
+            )
+            ->withPivot('order_status_id');
+    }
+
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Employee::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 }

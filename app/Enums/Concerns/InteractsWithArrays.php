@@ -23,8 +23,8 @@ trait InteractsWithArrays
     public static function array(): array
     {
         return array_combine(
-            keys: self::values(),
-            values: self::names(),
+            keys: self::names(),
+            values: self::values(),
         );
     }
 

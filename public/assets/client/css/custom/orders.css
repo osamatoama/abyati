@@ -1,0 +1,17 @@
+#orders-slider .carousel-control-prev, #orders-slider .carousel-control-next {
+    background-color: gray;
+    top: 30vh;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    opacity: 0.1;
+    transition: opacity .15s ease;
+}
+
+#orders-slider .carousel-control-prev:hover, #orders-slider .carousel-control-next:hover {
+    opacity: 0.5;
+}
+
+.custom-modal-size {
+    max-width: 1800px;
+}

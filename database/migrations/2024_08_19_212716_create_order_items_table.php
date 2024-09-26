@@ -22,8 +22,10 @@ return new class extends Migration
             $table->string('remote_id')->unique();
             $table->foreignId('order_id')->constrained();
             $table->foreignId('product_id')->constrained();
+            $table->foreignId('variant_id')->nullable()->constrained('product_variants');
             $table->string('name')->nullable();
-            $table->integer('quantity')->default(0);
+            $table->unsignedInteger('quantity')->default(0);
+            $table->unsignedInteger('executed_quantity')->default(0);
             $table->string('completion_status')->default(OrderItemCompletionStatus::PENDING);
             $table->text('amounts')->nullable();
 

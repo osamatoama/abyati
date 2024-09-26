@@ -3,9 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserRole;
 use App\Enums\StoreProviderType;
+use App\Models\Concerns\Activatable;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +17,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
+    use Activatable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +29,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'active',
     ];
 
     /**
@@ -105,41 +111,46 @@ class User extends Authenticatable
     //     return false;
     // }
 
-    // public function scopeAdmin(Builder $query): Builder
-    // {
-    //     return $this->scopeRole(
-    //         query: $query,
-    //         roles: [
-    //             UserRole::ADMIN->asModel(),
-    //         ],
-    //     );
-    // }
+    public function scopeAdmin(Builder $query): Builder
+    {
+        return $this->scopeRole(
+            query: $query,
+            roles: [
+                UserRole::ADMIN->asModel(),
+            ],
+        );
+    }
 
-    // public function scopeMerchant(Builder $query): Builder
-    // {
-    //     return $this->scopeRole(
-    //         query: $query,
-    //         roles: [
-    //             UserRole::MERCHANT->asModel(),
-    //         ],
-    //     );
-    // }
+    public function scopeMerchant(Builder $query): Builder
+    {
+        return $this->scopeRole(
+            query: $query,
+            roles: [
+                UserRole::MERCHANT->asModel(),
+            ],
+        );
+    }
 
-    // protected function isAdmin(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn (mixed $value, array $attributes): bool => $this->hasRole(
-    //             roles: UserRole::ADMIN->asModel(),
-    //         ),
-    //     );
-    // }
+    public function isSuperAdmin()
+    {
+        return $this->id == 1;
+    }
 
-    // protected function isMerchant(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn (mixed $value, array $attributes): bool => $this->hasRole(
-    //             roles: UserRole::MERCHANT->asModel(),
-    //         ),
-    //     );
-    // }
+    protected function isAdmin(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes): bool => $this->hasRole(
+                roles: UserRole::ADMIN->asModel(),
+            ),
+        );
+    }
+
+    protected function isMerchant(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes): bool => $this->hasRole(
+                roles: UserRole::MERCHANT->asModel(),
+            ),
+        );
+    }
 }

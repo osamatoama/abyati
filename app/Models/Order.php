@@ -2,21 +2,26 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasJson;
+use App\Models\Concerns\Filterable;
+use App\Models\Filters\OrderFilter;
 use App\Enums\OrderCompletionStatus;
 use App\Models\Concerns\BelongsToStore;
-use App\Models\Concerns\HasDateFilters;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Concerns\BelongsToEmployee;
+use App\Models\Concerns\AssignableToEmployee;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Order extends Model
 {
+    use HasJson;
+    use Filterable;
     use SoftDeletes;
     use BelongsToStore;
-    use HasDateFilters;
-    use BelongsToEmployee;
+    use AssignableToEmployee;
 
     /**
      * Config
@@ -28,7 +33,6 @@ class Order extends Model
         'branch_id',
         'employee_id',
         'date',
-        'date_timezone',
         'status_id',
         'status_name',
         'completion_status',
@@ -46,12 +50,35 @@ class Order extends Model
         'address' => 'array',
     ];
 
+    protected $filter = OrderFilter::class;
+
     /**
      * Relationships
-     */ 
+     */
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
     public function status(): BelongsTo
     {
         return $this->belongsTo(OrderStatus::class);
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(OrderItem::class)
+            ->withTrashed();
+    }
+
+    public function executions(): HasMany
+    {
+        return $this->hasMany(OrderExecution::class);
+    }
+
+    public function executionHistories(): HasMany
+    {
+        return $this->hasMany(OrderExecutionHistory::class);
     }
 
     /**
@@ -77,10 +104,51 @@ class Order extends Model
         return $query->where('completion_status', OrderCompletionStatus::COMPLETED);
     }
 
-
     /**
      * Attributes
      */
+    public function customerName(): Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                $name = '';
+                if (filled($this->customer['first_name'])) {
+                    $name .= $this->customer['first_name'] ?? '';
+                }
+
+                if (filled($this->customer['last_name'])) {
+                    $name .= ' ' . $this->customer['last_name'] ?? '';
+                }
+
+                return filled($name) ? $name : null;
+            },
+        );
+    }
+
+    public function customerPhone(): Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                $phone = '';
+                if (filled($this->customer['mobile_code'])) {
+                    $phone .= $this->customer['mobile_code'] ?? '';
+                }
+
+                if (filled($this->customer['mobile'])) {
+                    $phone .= $this->customer['mobile'] ?? '';
+                }
+
+                return filled($phone) ? $phone : null;
+            },
+        );
+    }
+
+    public function total(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->amounts['total']['amount'] ?? null,
+        );
+    }
 
     /**
      * Helpers
@@ -103,5 +171,75 @@ class Order extends Model
     public function isCompleted(): bool
     {
         return $this->completion_status === OrderCompletionStatus::COMPLETED;
+    }
+
+    public function isPickup(): bool
+    {
+        return $this->shipment_type === 'pickup';
+    }
+
+    public function isExecuted(): bool
+    {
+        return $this->items->every(fn(OrderItem $item) => $item->isExecuted());
+    }
+
+    public function setAsPending(): void
+    {
+        $this->update([
+            'completion_status' => OrderCompletionStatus::PENDING,
+        ]);
+    }
+
+    public function setAsProcessing(): void
+    {
+        $this->update([
+            'completion_status' => OrderCompletionStatus::PROCESSING,
+        ]);
+    }
+
+    public function setAsQuantityIssues(): void
+    {
+        $this->update([
+            'completion_status' => OrderCompletionStatus::QUANTITY_ISSUES,
+        ]);
+    }
+
+    public function setAsCompleted(): void
+    {
+        $this->update([
+            'completion_status' => OrderCompletionStatus::COMPLETED,
+        ]);
+    }
+
+    public function logPendingToHistory($employeeId = null): void
+    {
+        $this->executionHistories()->create([
+            'employee_id' => $employeeId,
+            'status' => OrderCompletionStatus::PENDING,
+        ]);
+    }
+
+    public function logProcessingToHistory($employeeId = null): void
+    {
+        $this->executionHistories()->create([
+            'employee_id' => $employeeId,
+            'status' => OrderCompletionStatus::PROCESSING,
+        ]);
+    }
+
+    public function logQuantityIssuesToHistory($employeeId = null): void
+    {
+        $this->executionHistories()->create([
+            'employee_id' => $employeeId,
+            'status' => OrderCompletionStatus::QUANTITY_ISSUES,
+        ]);
+    }
+
+    public function logCompletedToHistory($employeeId = null): void
+    {
+        $this->executionHistories()->create([
+            'employee_id' => $employeeId,
+            'status' => OrderCompletionStatus::COMPLETED,
+        ]);
     }
 }

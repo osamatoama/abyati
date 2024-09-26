@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait Activatable
 {
-
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('active', true);
@@ -27,15 +26,24 @@ trait Activatable
         return !$this->isActive();
     }
 
-    public function activate(): bool {
+    public function activate(): bool
+    {
         return $this->update([
             'active' => true
         ]);
     }
 
-    public function deactivate(): bool {
+    public function deactivate(): bool
+    {
         return $this->update([
             'active' => false
+        ]);
+    }
+
+    public function toggleActive(): bool
+    {
+        return $this->update([
+            'active' => ! $this->active
         ]);
     }
 }

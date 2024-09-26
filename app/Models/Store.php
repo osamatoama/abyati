@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Enums\StoreProviderType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +14,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Store extends Model
 {
     use HasFactory;
+
+    /**
+     * Constants
+     */
+    const DEFAULT_ID_COLOR = '#ffffff';
+
+    const CACHE_STORES_ID_COLORS_KEY = 'stores:id_colors';
 
     /**
      * Config
@@ -27,6 +33,7 @@ class Store extends Model
         'mobile',
         'email',
         'domain',
+        'id_color',
     ];
 
     protected $casts = [
@@ -42,21 +49,39 @@ class Store extends Model
         );
     }
 
-    public function coupons(): BelongsToMany
-    {
-        return $this->belongsToMany(Coupon::class, 'coupon_store');
-    }
-
+    /**
+     * Relationships
+     */
     public function orderStatuses(): HasMany
     {
         return $this->hasMany(OrderStatus::class, 'store_id');
     }
 
-    public function paymentTerm(): HasOne
+    public function branches(): BelongsToMany
     {
-        return $this->hasOne(PaymentTerm::class, 'store_id');
+        return $this->belongsToMany(
+                related: Branch::class,
+                table: 'branch_order_statuses',
+                foreignPivotKey: 'store_id',
+                relatedPivotKey: 'branch_id',
+            )
+            ->withPivot('order_status_id');
     }
 
+    public function branchOrderStatuses(): BelongsToMany
+    {
+        return $this->belongsToMany(
+                related: OrderStatus::class,
+                table: 'branch_order_statuses',
+                foreignPivotKey: 'store_id',
+                relatedPivotKey: 'order_status_id',
+            )
+            ->withPivot('branch_id');
+    }
+
+    /**
+     * Scopes
+     */
     public function scopeSalla(Builder $query, ?int $providerId = null): Builder
     {
         return $query->where(
