@@ -8,9 +8,7 @@ use App\Models\Employee;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Locked;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
-use App\Enums\OrderCompletionStatus;
-use App\Events\Order\OrderAssignedEvent;
+use App\Services\Orders\Fulfillment\Admin\AssignOrderToEmployee;
 
 class AssignEmployeeInput extends Component
 {
@@ -25,10 +23,10 @@ class AssignEmployeeInput extends Component
 
     public function mount()
     {
-        /**
-         * TODO: Add branch_id to the query
-         */
-        $this->employees = Employee::active()->pluck('name', 'id');
+        $this->employees = Employee::query()
+            ->active()
+            ->where('branch_id', $this->order->branch_id)
+            ->pluck('name', 'id');
     }
 
     public function render()
@@ -48,19 +46,10 @@ class AssignEmployeeInput extends Component
     {
         $this->validate();
 
-        /**
-         * TODO: REPLICATED CODE
-         */
-        DB::transaction(function () {
-            $this->order->assignTo($this->employee_id);
-
-            $this->order->executionHistories()->create([
-                'employee_id' => $this->employee_id,
-                'status' => OrderCompletionStatus::PROCESSING,
-            ]);
-
-            event(new OrderAssignedEvent($this->order));
-        });
+        (new AssignOrderToEmployee(
+            order: $this->order, 
+            employeeId: $this->employee_id
+        ))->execute();
 
         $this->dispatch('order-employee-assigned', [
             'message' => __('admin.orders.messages.employee_assigned'),
@@ -72,7 +61,10 @@ class AssignEmployeeInput extends Component
         return [
             'employee_id' => [
                 'required',
-                Rule::exists('employees', 'id')->where('active', true),
+                Rule::exists('employees', 'id')
+                    ->where('id', '!=', $this->order->employee_id)
+                    ->where('branch_id', $this->order->branch_id)
+                    ->where('active', true),
             ],
         ];
     }

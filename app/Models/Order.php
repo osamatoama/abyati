@@ -71,6 +71,11 @@ class Order extends Model
             ->withTrashed();
     }
 
+    public function executions(): HasMany
+    {
+        return $this->hasMany(OrderExecution::class);
+    }
+
     public function executionHistories(): HasMany
     {
         return $this->hasMany(OrderExecutionHistory::class);
@@ -176,5 +181,65 @@ class Order extends Model
     public function isExecuted(): bool
     {
         return $this->items->every(fn(OrderItem $item) => $item->isExecuted());
+    }
+
+    public function setAsPending(): void
+    {
+        $this->update([
+            'completion_status' => OrderCompletionStatus::PENDING,
+        ]);
+    }
+
+    public function setAsProcessing(): void
+    {
+        $this->update([
+            'completion_status' => OrderCompletionStatus::PROCESSING,
+        ]);
+    }
+
+    public function setAsQuantityIssues(): void
+    {
+        $this->update([
+            'completion_status' => OrderCompletionStatus::QUANTITY_ISSUES,
+        ]);
+    }
+
+    public function setAsCompleted(): void
+    {
+        $this->update([
+            'completion_status' => OrderCompletionStatus::COMPLETED,
+        ]);
+    }
+
+    public function logPendingToHistory($employeeId = null): void
+    {
+        $this->executionHistories()->create([
+            'employee_id' => $employeeId,
+            'status' => OrderCompletionStatus::PENDING,
+        ]);
+    }
+
+    public function logProcessingToHistory($employeeId = null): void
+    {
+        $this->executionHistories()->create([
+            'employee_id' => $employeeId,
+            'status' => OrderCompletionStatus::PROCESSING,
+        ]);
+    }
+
+    public function logQuantityIssuesToHistory($employeeId = null): void
+    {
+        $this->executionHistories()->create([
+            'employee_id' => $employeeId,
+            'status' => OrderCompletionStatus::QUANTITY_ISSUES,
+        ]);
+    }
+
+    public function logCompletedToHistory($employeeId = null): void
+    {
+        $this->executionHistories()->create([
+            'employee_id' => $employeeId,
+            'status' => OrderCompletionStatus::COMPLETED,
+        ]);
     }
 }

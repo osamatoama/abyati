@@ -5,15 +5,14 @@ namespace App\Http\Controllers\Employee;
 use Throwable;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
-use App\Enums\OrderCompletionStatus;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\Employee\OrdersExport;
 use App\Datatables\Employee\OrderIndex;
-use App\Events\Order\OrderAssignedEvent;
 use App\Events\Order\OrderUnassignedEvent;
 use App\Http\Requests\Employee\Order\AssignRequest;
 use App\Http\Requests\Employee\Order\UnassignRequest;
+use App\Services\Orders\Fulfillment\Employee\AssignOrderToMe;
 
 class OrderController extends Controller
 {
@@ -52,24 +51,11 @@ class OrderController extends Controller
 
     public function assign(AssignRequest $request, Order $order)
     {
-        /**
-         * TODO: REPLICATED CODE
-         */
-
         try {
-            DB::transaction(function () use ($request, $order) {
-                $order->assignTo($request->employee_id);
-
-                $order->executionHistories()->create([
-                    'employee_id' => $request->employee_id,
-                    'status' => OrderCompletionStatus::PROCESSING,
-                ]);
-
-                event(new OrderAssignedEvent(
-                    order: $order,
-                    selfAssign: true,
-                ));
-            });
+            (new AssignOrderToMe(
+                order: $order, 
+            ))->execute();
+        
         } catch (Throwable $th) {
             return response()->json([
                 'success' => false,
@@ -86,10 +72,6 @@ class OrderController extends Controller
 
     public function unassign(UnassignRequest $request, Order $order)
     {
-        /**
-         * TODO: REPLICATED CODE
-         */
-
         try {
             DB::transaction(function () use ($order) {
                 $order->unassign();
