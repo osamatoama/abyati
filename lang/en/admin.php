@@ -111,13 +111,20 @@ return [
         ],
 
         'actions' => [
+            'create' => 'Create Branch',
             'edit_branch' => 'Edit Branch',
         ],
 
         'messages' => [
+            'created' => 'Branch created',
             'updated' => 'Branch updated',
+            'deleted' => 'Branch deleted',
             'activated' => 'Branch activated',
             'deactivated' => 'Branch deactivated',
+        ],
+
+        'errors' => [
+            'should_have_no_relations' => 'You cannot perform this action, because this branch has related employees or orders. Deactivate the branch instead.',
         ],
     ],
 

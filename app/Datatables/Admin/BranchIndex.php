@@ -13,7 +13,11 @@ class BranchIndex extends Datatable
      */
     public function query()
     {
-        return Branch::query();
+        return Branch::query()
+            ->withCount([
+                'employees',
+                'orders',
+            ]);
     }
 
     /**
@@ -22,7 +26,9 @@ class BranchIndex extends Datatable
     protected function addColumns(): array
     {
         return [
-            //
+            'action' => function (Branch $branch) {
+                return view('admin.pages.branches.partials.index.cols.actions', compact('branch'));
+            }
         ];
     }
 

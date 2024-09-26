@@ -15,6 +15,10 @@ class OrderController extends Controller
 
     protected $permissionName = 'orders';
 
+    protected $additionalAbilities = [
+        'export' => 'export',
+    ];
+
     public function index(): mixed
     {
         if (request()->ajax() or request()->expectsJson()) {

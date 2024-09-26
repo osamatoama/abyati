@@ -9,7 +9,10 @@
         buttons: [],
         createdRow: function (row, data, dataIndex) {
             $(row).addClass('store-row cursor-pointer')
-        }
+        },
+        drawCallback: function(settings) {
+            enableTooltips()
+        },
     })
 
     const storeIdColorInputClass = '.store-id-color'

@@ -27,9 +27,14 @@ Breadcrumbs::for('admin.branches.index', function ($trail) {
     $trail->push(__('admin.branches.title'), route('admin.branches.index'));
 });
 
-Breadcrumbs::for('admin.branches.show', function ($trail, Branch $branch) {
+Breadcrumbs::for('admin.branches.create', function ($trail) {
     $trail->parent('admin.branches.index');
-    $trail->push($branch->name, route('admin.branches.show', $branch->id));
+    $trail->push(__('admin.branches.actions.create'), route('admin.branches.create'));
+});
+
+Breadcrumbs::for('admin.branches.edit', function ($trail, Branch $branch) {
+    $trail->parent('admin.branches.index');
+    $trail->push($branch->name, route('admin.branches.edit', $branch->id));
 });
 
 //customers

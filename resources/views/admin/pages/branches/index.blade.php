@@ -2,6 +2,10 @@
 
 @section('title', __('admin.branches.title'))
 
+@section('actions')
+    @include('admin.pages.branches.partials.index.actions')
+@endsection
+
 @section('content')
     <div class="card">
         <div class="card-body">
@@ -14,6 +18,7 @@
                             <th>{{ __('admin.branches.attributes.id') }}</th>
                             <th>{{ __('admin.branches.attributes.name') }}</th>
                             <th>{{ __('admin.branches.attributes.active') }}</th>
+                            <th></th>
                         </tr>
                     </thead>
                 </table>

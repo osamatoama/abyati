@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\Activatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Branch extends Model
@@ -47,5 +48,15 @@ class Branch extends Model
                 relatedPivotKey: 'store_id',
             )
             ->withPivot('order_status_id');
+    }
+
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Employee::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 }

@@ -17,5 +17,5 @@
 @endsection
 
 @push('afterScripts')
-    @include('admin.pages.branches.partials.show.after-scripts')
+    @include('admin.pages.branches.partials.edit.after-scripts')
 @endpush

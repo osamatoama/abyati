@@ -38,6 +38,13 @@ return [
         'edit' => 'تعديل',
         'delete' => 'حذف',
     ],
+    'supports' => [
+        'title' => 'فريق الدعم',
+        'show' => 'عرض',
+        'add' => 'إضافة',
+        'edit' => 'تعديل',
+        'delete' => 'حذف',
+    ],
     'branches' => [
         'title' => 'الفروع',
         'show' => 'عرض',

@@ -35,7 +35,7 @@ Route::resource('stores', StoreController::class)->only('index', 'update');
 Route::prefix('branches')->as('branches.')->group(function () {
     Route::put('{branch}/toggle-active', [BranchController::class, 'toggleActive'])->name('toggle_active');
 });
-Route::resource('branches', BranchController::class)->only('index', 'show');
+Route::resource('branches', BranchController::class)->only('index', 'edit', 'create', 'destroy');
 
 // Orders
 Route::prefix('orders')->as('orders.')->group(function () {

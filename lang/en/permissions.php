@@ -38,6 +38,13 @@ return [
         'edit' => 'Edit',
         'delete' => 'Delete',
     ],
+    'supports' => [
+        'title' => 'Support Staff',
+        'show' => 'Show',
+        'add' => 'Create',
+        'edit' => 'Edit',
+        'delete' => 'Delete',
+    ],
     'branches' => [
         'title' => 'Branches',
         'show' => 'Show',

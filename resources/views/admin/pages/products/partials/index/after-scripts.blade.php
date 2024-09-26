@@ -12,7 +12,10 @@
         buttons: [],
         createdRow: function (row, data, dataIndex) {
             $(row).addClass('product-row cursor-pointer')
-        }
+        },
+        drawCallback: function(settings) {
+            enableTooltips()
+        },
     })
 
     Livewire.on('product-filters-applied', (params) => {

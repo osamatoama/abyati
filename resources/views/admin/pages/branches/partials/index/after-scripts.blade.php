@@ -3,11 +3,15 @@
         {data: 'id', name: 'id', orderable: true, searchable: true},
         {data: 'name', name: 'name', orderable: false, searchable: true},
         {data: 'active', name: 'active', orderable: false, searchable: false},
+        {data: 'action', name: 'action', orderable: false, searchable: true},
     ], $('#results-table').data('url'), '#results-table', [[0, 'desc']], {
         buttons: [],
         createdRow: function (row, data, dataIndex) {
             $(row).addClass('branch-row cursor-pointer')
-        }
+        },
+        drawCallback: function(settings) {
+            enableTooltips()
+        },
     })
 
     const toggleActiveRowBtnClass = '.toggle-active-row-button'
@@ -25,25 +29,34 @@
             })
     })
 
-    const branchRowClass = '#results-table .branch-row'
-    const showProductModal = $('#show-modal')
+    const deleteRowButtonClass = '.delete-row-button'
 
-    $(document).on('click', branchRowClass, function(e) {
-        if (e.target.classList.contains('toggle-active-row-button')) {
-            return
-        }
+    $('body').on('click', deleteRowButtonClass, function (e) {
+        e.preventDefault()
+        let el = $(this)
+        disableElement(el)
 
-        const el = $(this)
-        const idWrapper = el.find('.id-wrapper')
-
-        el.addClass('tr-overlay')
-
-        try {
-            window.location.href = idWrapper.data('show-url')
-        } catch (error) {
-            errorToast(getTranslation('somethingWrong'))
-            enableElement(el)
-            el.removeClass('tr-overlay')
-        }
+        Swal.fire({
+            title: getTranslation('areYouSure'),
+            text: getTranslation('noRevertDelete'),
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: getTranslation('discard'),
+            confirmButtonText: getTranslation('confirmDelete')
+        }).then(function (result) {
+            if (result.value) {
+                axios.post(el.data('action'), generateFormData('DELETE'))
+                    .then((response) => {
+                        successToast(response?.data?.message || getTranslation('deletedSuccessfully'))
+                        reloadDatatable(dataTable)
+                    })
+                    .catch((error) => {
+                        errorToast(getTranslation('somethingWrong'))
+                        enableElement(el)
+                    })
+            } else {
+                enableElement(el)
+            }
+        })
     })
 </script>
