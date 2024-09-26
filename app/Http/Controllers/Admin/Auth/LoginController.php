@@ -39,7 +39,7 @@ class LoginController extends Controller
             'success' => true,
             'message' => __('admin.auth.messages.logged_in'),
             'data' => [
-                'redirect' => $request->session()->get('url.intended') ?? route('admin.home'),
+                'redirect' => route('admin.home'),
             ],
         ]);
     }

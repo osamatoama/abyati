@@ -39,7 +39,7 @@ class LoginController extends Controller
             'success' => true,
             'message' => __('employee.auth.messages.logged_in'),
             'data' => [
-                'redirect' => $request->session()->get('url.intended') ?? route('employee.home'),
+                'redirect' => route('employee.home'),
             ],
         ]);
     }
