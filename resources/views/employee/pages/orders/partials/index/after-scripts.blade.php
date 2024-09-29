@@ -47,14 +47,8 @@
         const el = $(this)
         const idWrapper = el.find('.id-wrapper')
 
-        console.log(e.target)
-
-        if (e.target.closest('.actions-wrapper')) {
+        if (e.target.closest('.actions-wrapper') || e.target.closest('.assign-employee-wrapper')) {
             return;
-        }
-
-        if (e.target.tagName === 'SELECT' || e.target.classList.contains('select2-selection')) {
-            return
         }
 
         el.addClass('tr-overlay')

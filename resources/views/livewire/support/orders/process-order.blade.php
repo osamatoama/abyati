@@ -38,7 +38,7 @@
                                                     ---
                                                 @endif
                                             </td>
-                                            <td>{{ $variant->barcode }}</td>
+                                            <td>{{ $item->barcode }}</td>
                                             <td>
                                                 {{ $item->quantity }}
                                             </td>
@@ -84,7 +84,7 @@
                                             $variant = $item->variant;
                                         @endphp
 
-                                        @if($variant && filled($variant->barcode))
+                                        @if(filled($item->barcode))
                                             <tr wire:key="to-execute-item-{{ $item->id }}">
                                                 <td>
                                                     <img src="{{ $product->main_image }}" alt="{{ $product->name }}" class="img-fluid" style="max-width: 50px;">
@@ -97,7 +97,7 @@
                                                         ---
                                                     @endif
                                                 </td>
-                                                <td>{{ $variant->barcode }}</td>
+                                                <td>{{ $item->barcode }}</td>
                                                 <td>
                                                     {{ $item->quantity }}
                                                 </td>
@@ -172,14 +172,14 @@
                                     <th class="fw-bold">{{ __('support.orders.items.attributes.executed_quantity') }}</th>
                                     <th class="fw-bold">{{ __('support.orders.items.attributes.employee_note') }}</th>
                                 </thead>
-    
+
                                 <tbody>
                                     @foreach($quantityIssuesItems as $item)
                                         @php
                                             $product = $item->product;
                                             $variant = $item->variant;
                                         @endphp
-    
+
                                         <tr>
                                             <td>
                                                 <img src="{{ $product->main_image }}" alt="{{ $product->name }}" class="img-fluid" style="max-width: 50px;">
@@ -192,7 +192,7 @@
                                                     ---
                                                 @endif
                                             </td>
-                                            <td>{{ $variant->barcode }}</td>
+                                            <td>{{ $item->barcode }}</td>
                                             <td>
                                                 {{ $item->quantity }}
                                             </td>
