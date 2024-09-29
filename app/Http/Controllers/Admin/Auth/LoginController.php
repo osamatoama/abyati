@@ -50,7 +50,7 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-        Auth::logout();
+        auth('admin')->logout();
 
         $request->session()->invalidate();
 

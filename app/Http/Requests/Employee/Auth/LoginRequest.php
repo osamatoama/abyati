@@ -58,6 +58,17 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        $guards = array_filter(
+            array: array_keys(config('auth.guards')),
+            callback: fn($guard) => $guard !== 'salla-oauth' && $guard !== 'employee',
+        );
+
+        foreach ($guards as $guard) {
+            if (auth($guard)->check()) {
+                auth($guard)->logout();
+            }
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 

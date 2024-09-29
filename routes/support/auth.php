@@ -6,7 +6,7 @@ use App\Http\Controllers\Support\Auth\SecretLoginController;
 use App\Http\Controllers\Support\Auth\ResetPasswordController;
 use App\Http\Controllers\Support\Auth\SupportSecretLoginController;
 
-Route::middleware('guest:web,admin,employee,support')->group(function () {
+Route::middleware('guest:support')->group(function () {
     // Login
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'login']);

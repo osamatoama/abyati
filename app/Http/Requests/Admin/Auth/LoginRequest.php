@@ -4,7 +4,6 @@ namespace App\Http\Requests\Admin\Auth;
 
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\Lockout;
-use App\Services\Domains\SubdomainChecker;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
@@ -57,6 +56,17 @@ class LoginRequest extends FormRequest
             throw ValidationException::withMessages([
                 'email' => __('admin.auth.failed'),
             ]);
+        }
+
+        $guards = array_filter(
+            array: array_keys(config('auth.guards')),
+            callback: fn($guard) => $guard !== 'salla-oauth' && $guard !== 'admin',
+        );
+
+        foreach ($guards as $guard) {
+            if (auth($guard)->check()) {
+                auth($guard)->logout();
+            }
         }
 
         RateLimiter::clear($this->throttleKey());

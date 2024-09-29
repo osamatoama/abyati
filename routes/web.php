@@ -2,11 +2,12 @@
 
 use App\Models\Store;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\LocaleController;
 use App\Services\Salla\Merchant\SallaMerchantService;
 
-Route::redirect('/', 'employee');
+Route::get('/', HomeController::class);
 
 Route::redirect('login', 'employee/login')->name('login');
 
