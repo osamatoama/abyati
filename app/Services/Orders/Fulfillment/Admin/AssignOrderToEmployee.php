@@ -32,6 +32,7 @@ class AssignOrderToEmployee
             if ($this->isReassign) {
                 $this->order->executions()->update([
                     'reassigned' => true,
+                    'unassigned_at' => now(),
                 ]);
             }
 
