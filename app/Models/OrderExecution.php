@@ -16,14 +16,20 @@ class OrderExecution extends Model
         'order_id',
         'employee_id',
         'completed',
+        'reassigned',
+        'is_reassign',
         'started_at',
         'completed_at',
+        'unassigned_at',
     ];
 
     protected $casts = [
         'completed' => 'boolean',
+        'reassigned' => 'boolean',
+        'is_reassign' => 'boolean',
         'started_at' => 'datetime',
         'completed_at' => 'datetime',
+        'unassigned_at' => 'datetime',
     ];
 
     /**

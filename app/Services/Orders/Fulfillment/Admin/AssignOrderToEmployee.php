@@ -15,7 +15,7 @@ class AssignOrderToEmployee
         public int $employeeId
     )
     {
-        $this->isReassign = filled($this->order->employee_id);
+        $this->isReassign = $this->order->executions()->exists();
     }
 
     public function execute()
@@ -26,12 +26,19 @@ class AssignOrderToEmployee
             if ($this->order->isPending()) {
                 $this->order->setAsProcessing();
             }
-            
+
             $this->order->logProcessingToHistory($this->employeeId);
+
+            if ($this->isReassign) {
+                $this->order->executions()->update([
+                    'reassigned' => true,
+                ]);
+            }
 
             $this->order->executions()->create([
                 'employee_id' => $this->employeeId,
                 'started_at' => now(),
+                'is_reassign' => $this->isReassign,
             ]);
         });
 

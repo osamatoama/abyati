@@ -9,10 +9,10 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\Employee\OrdersExport;
 use App\Datatables\Employee\OrderIndex;
-use App\Events\Order\OrderUnassignedEvent;
 use App\Http\Requests\Employee\Order\AssignRequest;
 use App\Http\Requests\Employee\Order\UnassignRequest;
 use App\Services\Orders\Fulfillment\Employee\AssignOrderToMe;
+use App\Services\Orders\Fulfillment\Employee\UnassignOrderFromMe;
 
 class OrderController extends Controller
 {
@@ -53,9 +53,9 @@ class OrderController extends Controller
     {
         try {
             (new AssignOrderToMe(
-                order: $order, 
+                order: $order,
             ))->execute();
-        
+
         } catch (Throwable $th) {
             return response()->json([
                 'success' => false,
@@ -74,11 +74,9 @@ class OrderController extends Controller
     {
         try {
             DB::transaction(function () use ($order) {
-                $order->unassign();
-
-                event(new OrderUnassignedEvent(
+                (new UnassignOrderFromMe(
                     order: $order,
-                ));
+                ))->execute();
             });
         } catch (Throwable $th) {
             return response()->json([

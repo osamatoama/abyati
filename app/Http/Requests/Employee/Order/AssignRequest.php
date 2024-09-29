@@ -35,7 +35,7 @@ class AssignRequest extends FormRequest
             'employee_id' => [
                 'required',
                 Rule::exists('employees', 'id')
-                    ->where('id', $this->route('order')->employee_id)
+                    ->where('id', '!=', $this->route('order')->employee_id)
                     ->where('branch_id', $this->route('order')->branch_id)
                     ->where('active', true),
             ],

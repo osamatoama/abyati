@@ -10,11 +10,14 @@ class AssignOrderToMe
 {
     public int $employeeId;
 
+    public bool $isReassign = false;
+
     public function __construct(
         public Order $order,
     )
     {
         $this->employeeId = auth('employee')->id();
+        $this->isReassign = $this->order->executions()->exists();
     }
 
     public function execute()
@@ -28,9 +31,16 @@ class AssignOrderToMe
 
             $this->order->logProcessingToHistory($this->employeeId);
 
+            if ($this->isReassign) {
+                $this->order->executions()->update([
+                    'reassigned' => true,
+                ]);
+            }
+
             $this->order->executions()->create([
                 'employee_id' => $this->employeeId,
                 'started_at' => now(),
+                'is_reassign' => $this->isReassign,
             ]);
         });
 

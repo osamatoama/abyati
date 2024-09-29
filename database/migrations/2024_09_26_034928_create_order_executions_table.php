@@ -17,10 +17,14 @@ return new class extends Migration
             $table->foreignId('order_id')->constrained()->cascadeOnDelete();
             $table->foreignId('employee_id')->nullable()->constrained('employees');
             $table->boolean('completed')->default(false);
+            $table->boolean('reassigned')->default(false);
+            $table->boolean('is_reassign')->default(false);
             $table->dateTime('started_at')->nullable();
             $table->dateTime('completed_at')->nullable();
+            $table->dateTime('unassigned_at')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

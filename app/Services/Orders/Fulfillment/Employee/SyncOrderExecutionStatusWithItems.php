@@ -21,6 +21,11 @@ class SyncOrderExecutionStatusWithItems
                 $this->order->setAsCompleted();
 
                 $this->order->logCompletedToHistory();
+
+                $this->order->executions()->where('employee_id', $this->order->employee_id)->update([
+                    'completed' => true,
+                    'completed_at' => now(),
+                ]);
             });
 
             return;
@@ -31,9 +36,6 @@ class SyncOrderExecutionStatusWithItems
 
     private function dispatchEvents()
     {
-        // event(new OrderAssignedEvent(
-        //     order: $this->order,
-        //     selfAssign: true,
-        // ));
+        //
     }
 }
