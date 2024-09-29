@@ -1,4 +1,4 @@
-<div class="modal fade" id="scan-item-{{ $item->id }}-modal" tabindex="-1" aria-labelledby="scan-item-{{ $item->id }}-modal-label" aria-hidden="true" wire:ignore.self>
+<div class="modal fade scan-item-modal" id="scan-item-{{ $item->id }}-modal" tabindex="-1" aria-labelledby="scan-item-{{ $item->id }}-modal-label" aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -34,7 +34,7 @@
                             <div class="col-12 mb-5">
                                 <label class="form-label">{{ __('employee.products.attributes.barcode') }}</label>
 
-                                <input type="text" class="form-control @error('scanned_barcode') is-invalid @enderror" wire:model="scanned_barcode" />
+                                <input type="text" class="scan-barcode-input form-control @error('scanned_barcode') is-invalid @enderror" wire:model="scanned_barcode" />
 
                                 @error('scanned_barcode') <span class="form-input-error text-danger">{{ $message }}</span> @enderror
                             </div>

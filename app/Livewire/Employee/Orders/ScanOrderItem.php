@@ -6,8 +6,7 @@ use Livewire\Component;
 use App\Models\OrderItem;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Locked;
-use App\Enums\OrderCompletionStatus;
-use App\Enums\OrderItemCompletionStatus;
+use App\Services\Orders\Fulfillment\Employee\ScanOrderItem as ScanOrderItemService;
 
 class ScanOrderItem extends Component
 {
@@ -29,41 +28,24 @@ class ScanOrderItem extends Component
     {
         $this->validate();
 
-        $this->item->increment('executed_quantity');
+        $scanService = new ScanOrderItemService(
+            item: $this->item
+        );
 
-        $this->reset('scanned_barcode');
+        $scanService->execute();
 
-        if ($this->item->isPartiallyExecuted()) {
-            $this->item->update([
-                'completion_status' => OrderItemCompletionStatus::PROCESSING,
-            ]);
+        $this->dispatch('order-item-scanned', [
+            'order_item_id' => $this->item->id,
+        ]);
 
-            return;
-        }
-
-        if ($this->item->isExecuted()) {
-            $this->item->update([
-                'completion_status' => OrderItemCompletionStatus::COMPLETED,
-            ]);
-
-            if ($this->item->order->isExecuted()) {
-                $this->item->order->update([
-                    'completion_status' => OrderCompletionStatus::COMPLETED,
-                ]);
-
-                $this->item->order->executionHistories()->create([
-                    'employee_id' => auth('employee')->id(),
-                    'status' => OrderCompletionStatus::COMPLETED,
-                ]);
-            }
-
+        if ($scanService->executionCompleted) {
             $this->dispatch('order-item-executed', [
                 'order_item_id' => $this->item->id,
                 'message' => __('employee.orders.messages.item_executed'),
             ]);
-
-            return;
         }
+
+        $this->reset('scanned_barcode');
     }
 
     public function rules(): array

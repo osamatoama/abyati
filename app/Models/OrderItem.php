@@ -164,4 +164,32 @@ class OrderItem extends Model
     {
         return $this->executed_quantity > 0 && $this->executed_quantity < $this->quantity;
     }
+
+    public function setAsPending(): void
+    {
+        $this->update([
+            'completion_status' => OrderItemCompletionStatus::PENDING,
+        ]);
+    }
+
+    public function setAsProcessing(): void
+    {
+        $this->update([
+            'completion_status' => OrderItemCompletionStatus::PROCESSING,
+        ]);
+    }
+
+    public function setAsQuantityIssues(): void
+    {
+        $this->update([
+            'completion_status' => OrderItemCompletionStatus::QUANTITY_ISSUES,
+        ]);
+    }
+
+    public function setAsCompleted(): void
+    {
+        $this->update([
+            'completion_status' => OrderItemCompletionStatus::COMPLETED,
+        ]);
+    }
 }
