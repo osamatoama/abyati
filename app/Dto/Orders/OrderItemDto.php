@@ -24,10 +24,10 @@ final class OrderItemDto
 
     public static function fromSalla(array $sallaOrderItem, int $orderId): self
     {
+        $product = Product::firstWhere('remote_id', $sallaOrderItem['product_id'] ?? null);
         $variant = ProductVariant::firstWhere('remote_id', $sallaOrderItem['product_sku_id'] ?? null);
 
-        $productId = $variant?->product_id
-            ?? Product::firstWhere('sku', $sallaOrderItem['sku'])?->id;
+        $productId = $product?->id ?? $variant?->product_id;
 
         return new self(
             remoteId: $sallaOrderItem['id'],
