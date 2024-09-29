@@ -47,7 +47,7 @@ return [
             'sku' => 'SKU',
             'barcode' => 'الباركود',
             'variants' => 'الخيارات',
-            'variant' => 'الخيار',
+            'variant' => 'الخيارات',
             'quantity' => 'الكمية',
             'show_only_bought_variants' => 'إظهار الخيارات التي تم شراؤها فقط',
             'included_order_statuses' => 'حالات الطلب',
@@ -275,6 +275,7 @@ return [
             'attributes' => [
                 'product' => 'المنتج',
                 'variant' => 'الخيارات',
+                'barcode' => 'الباركود',
                 'quantity' => 'الكمية',
                 'unit_price' => 'سعر القطعة',
                 'total' => 'الإجمالي',

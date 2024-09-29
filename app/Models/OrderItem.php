@@ -104,6 +104,27 @@ class OrderItem extends Model
         );
     }
 
+    public function barcode(): Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                if (filled($this->variant?->barcode)) {
+                    return $this->variant->barcode;
+                }
+
+                if (filled($this->variant?->sku)) {
+                    return $this->variant->sku;
+                }
+
+                if (filled($this->product?->sku)) {
+                    return $this->product->sku;
+                }
+
+                return null;
+            },
+        );
+    }
+
     /**
      * Scopes
      */

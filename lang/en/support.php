@@ -148,6 +148,7 @@ return [
             'attributes' => [
                 'product' => 'Product',
                 'variant' => 'Variant',
+                'barcode' => 'Barcode',
                 'quantity' => 'Quantity',
                 'executed_quantity' => 'Executed Quantity',
                 'unit_price' => 'Unit Price',

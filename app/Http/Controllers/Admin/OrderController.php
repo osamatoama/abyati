@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
-use App\Datatables\Admin\OrderIndex;
 use App\Exports\Admin\OrdersExport;
+use App\Datatables\Admin\OrderIndex;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Concerns\Authorizable;
@@ -32,10 +32,10 @@ class OrderController extends Controller
     {
         $order->load([
             'items.product' => function ($query) {
-                $query->select('id', 'name', 'main_image');
+                $query->select('id', 'name', 'sku', 'main_image');
             },
             'items.variant' => function ($query) {
-                $query->select('id');
+                $query->select('id', 'sku', 'barcode');
             },
             'items.variant.optionValues.option',
             // 'histories' => fn($q) => $q->orderBy('date'),

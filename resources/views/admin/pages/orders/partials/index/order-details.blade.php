@@ -96,7 +96,7 @@
                     <thead>
                         <tr>
                             <th>{{ __('employee.orders.items.attributes.product') }}</th>
-                            <th>{{ __('employee.orders.items.attributes.variant') }}</th>
+                            <th>{{ __('employee.orders.items.attributes.barcode') }}</th>
                             <th>{{ __('employee.orders.items.attributes.quantity') }}</th>
                             <th>{{ __('employee.orders.items.attributes.unit_price') }}</th>
                             <th>{{ __('employee.orders.items.attributes.total') }}</th>
@@ -121,14 +121,16 @@
                                                 <span class="badge badge-danger ms-1">{{ __('globals.deleted') }}</span>
                                             @endif
                                         </div>
+
+                                        @if($item->variant?->optionValues?->isNotEmpty())
+                                            <div>
+                                                ({{ $item->variant->optionValues->map(fn($optionValue) => $optionValue->option->name . ': ' . $optionValue->name)->implode(' - ') }})
+                                            </div>
+                                        @endif
                                     </div>
                                 </td>
                                 <td>
-                                    @if($item->variant?->optionValues?->isNotEmpty())
-                                        ({{ $item->variant->optionValues->map(fn($optionValue) => $optionValue->option->name . ': ' . $optionValue->name)->implode(' - ') }})
-                                    @else
-                                        ---
-                                    @endif
+                                    {{ $item->barcode ?? '---' }}
                                 </td>
                                 <td>
                                     {{ $item->quantity }}

@@ -53,7 +53,7 @@ class ScanOrderItem extends Component
         return [
             'scanned_barcode' => [
                 'required',
-                Rule::in([$this->item->variant->barcode]),
+                Rule::in([$this->item->barcode]),
             ],
         ];
     }

@@ -30,10 +30,10 @@ class OrderController extends Controller
     {
         $order->load([
             'items.product' => function ($query) {
-                $query->select('id', 'name', 'main_image');
+                $query->select('id', 'name', 'sku', 'main_image');
             },
             'items.variant' => function ($query) {
-                $query->select('id');
+                $query->select('id', 'sku', 'barcode');
             },
             'items.variant.optionValues.option',
             // 'histories' => fn($q) => $q->orderBy('date'),
