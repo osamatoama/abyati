@@ -63,7 +63,7 @@ final class UpdateOrderService
                         productId: ProductService::instance()
                             ->firstOrCreate(
                                 productDto: ProductDto::fromSallaOrderItem(
-                                    sallaOrderItemProduct: $item['product'],
+                                    sallaOrderItem: $item,
                                     storeId: $storeId,
                                 ),
                             )

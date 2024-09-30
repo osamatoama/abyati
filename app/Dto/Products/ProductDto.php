@@ -29,13 +29,21 @@ final class ProductDto
         );
     }
 
-    public static function fromSallaOrderItem(array $sallaOrderItemProduct, int $storeId): self
+    public static function fromSallaOrderItem(array $sallaOrderItem, int $storeId): self
     {
+        $mainImage = null;
+        if (filled($sallaOrderItem['product_thumbnail'])) {
+            $mainImage = $sallaOrderItem['product_thumbnail'];
+        } elseif (filled($sallaOrderItem['thumbnail'])) {
+            $mainImage = $sallaOrderItem['thumbnail'];
+        }
+
         return new self(
             storeId: $storeId,
-            remoteId: $sallaOrderItemProduct['id'],
-            name: $sallaOrderItemProduct['name'],
-            sku: $sallaOrderItemProduct['sku'],
+            remoteId: $sallaOrderItem['product_id'],
+            name: $sallaOrderItem['name'],
+            sku: $sallaOrderItem['sku'],
+            mainImage: $mainImage,
         );
     }
 }
