@@ -26,11 +26,22 @@ class Product extends Model
         'name',
         'sku',
         'main_image',
+        'quantity',
+        'unlimited_quantity',
+        'price',
+        'sale_price',
+        'regular_price',
+        'currency',
     ];
 
     protected $casts = [
         'id' => 'integer',
         'store_id' => 'integer',
+        'quantity' => 'integer',
+        'unlimited_quantity' => 'boolean',
+        'price' => 'decimal:2',
+        'sale_price' => 'decimal:2',
+        'regular_price' => 'decimal:2',
     ];
 
     protected $filter = ProductFilter::class;

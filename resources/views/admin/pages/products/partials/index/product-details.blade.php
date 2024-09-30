@@ -77,28 +77,28 @@
                                 <th class="fw-semibold">{{ __('admin.products.attributes.price') }}</th>
                                 <td>{{ round($product->price) . ' ' . lang("currency.$product->currency") }}</td>
                             </tr>
-    
+
                             <tr>
                                 <th class="fw-semibold">{{ __('admin.products.attributes.regular_price') }}</th>
                                 <td>{{ round($product->regular_price) . ' ' . lang("currency.$product->currency") }}</td>
                             </tr>
-    
+
                             <tr>
                                 <th class="fw-semibold">{{ __('admin.products.attributes.sale_price') }}</th>
                                 <td>{{ round($product->sale_price) . ' ' . lang("currency.$product->currency") }}</td>
                             </tr>
-    
-                            @if($product->sale_end)
+
+                            {{-- @if($product->sale_end)
                                 <tr>
                                     <th class="fw-semibold">{{ __('admin.products.attributes.sale_end') }}</th>
                                     <td>{{  $product->sale_end->format('Y-m-d') }}</td>
                                 </tr>
-                            @endif
-    
-                            <tr>
+                            @endif --}}
+
+                            {{-- <tr>
                                 <th class="fw-semibold">{{ __('admin.products.attributes.with_tax') }}</th>
                                 <td>{!! boolToYesNoSymbol($product->with_tax) !!}</td>
-                            </tr>
+                            </tr> --}}
                         </tbody>
                     </table>
                 </div>
@@ -117,7 +117,7 @@
                                     <th>{{ __('admin.products.attributes.price') }}</th>
                                 </tr>
                             </thead>
-    
+
                             <tbody>
                                 @foreach($product->variants as $variant)
                                     <tr>
