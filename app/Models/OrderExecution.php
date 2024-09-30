@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\Filterable;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Filters\OrderExecutionFilter;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class OrderExecution extends Model
 {
     use SoftDeletes;
+    use Filterable;
 
     /**
      * Config
@@ -32,6 +36,8 @@ class OrderExecution extends Model
         'unassigned_at' => 'datetime',
     ];
 
+    protected $filter = OrderExecutionFilter::class;
+
     /**
      * Relationships
      */
@@ -43,5 +49,21 @@ class OrderExecution extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class);
+    }
+
+    /**
+     * Attributes
+     */
+    public function duration(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if (!$this->started_at || !$this->completed_at) {
+                    return null;
+                }
+
+                return $this->started_at->diffInMinutes($this->completed_at);
+            }
+        );
     }
 }

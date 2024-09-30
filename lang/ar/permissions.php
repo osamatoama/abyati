@@ -52,4 +52,8 @@ return [
         'edit' => 'تعديل',
         'delete' => 'حذف',
     ],
+    'employee_performance_report' => [
+        'title' => 'تقرير أداء الموظفين',
+        'show' => 'عرض',
+    ],
 ];

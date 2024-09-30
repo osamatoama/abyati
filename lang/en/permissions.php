@@ -52,4 +52,8 @@ return [
         'edit' => 'Edit',
         'delete' => 'Delete',
     ],
+    'employee_performance_report' => [
+        'title' => 'Employee Performance Report',
+        'show' => 'Show',
+    ],
 ];

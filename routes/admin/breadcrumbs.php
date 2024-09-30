@@ -244,19 +244,9 @@ Breadcrumbs::for('admin.reports.index', function ($trail) {
     $trail->push(__('admin.reports.title'), route('admin.reports.index'));
 });
 
-Breadcrumbs::for('admin.reports.reasons.index', function ($trail) {
+Breadcrumbs::for('admin.reports.employee-performance.index', function ($trail) {
     $trail->parent('admin.reports.index');
-    $trail->push(__('admin.reports.reasons.name'), route('admin.reports.reasons.index'));
-});
-
-Breadcrumbs::for('admin.reports.return-products.index', function ($trail) {
-    $trail->parent('admin.reports.index');
-    $trail->push(__('admin.reports.return_products.name'), route('admin.reports.return-products.index'));
-});
-
-Breadcrumbs::for('admin.reports.exchange-products.index', function ($trail) {
-    $trail->parent('admin.reports.index');
-    $trail->push(__('admin.reports.exchange_products.name'), route('admin.reports.exchange-products.index'));
+    $trail->push(__('admin.reports.employee_performance.title'), route('admin.reports.employee-performance.index'));
 });
 
 // Settings

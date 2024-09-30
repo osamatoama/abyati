@@ -404,4 +404,25 @@ return [
             'should_have_no_relations' => 'You cannot perform this action, because this role has related users',
         ],
     ],
+
+    'reports' => [
+        'title' => 'Reports',
+        'results' => 'Results',
+
+        'employee_performance' => [
+            'title' => 'Employee Performance',
+
+            'attributes' => [
+                'order_number' => 'Order Number',
+                'started_at' => 'Started At',
+                'completed_at' => 'Completed At',
+                'duration' => 'Duration',
+                'duration_minutes' => 'Duration (Minutes)',
+            ],
+
+            'filters' => [
+                'employee_id' => 'Employee',
+            ],
+        ],
+    ],
 ];

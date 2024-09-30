@@ -404,4 +404,25 @@ return [
             'should_have_no_relations' => 'لا يمكن إجراء العملية لوجود مستخدمين تابعين لهذا الدور.',
         ],
     ],
+
+    'reports' => [
+        'title' => 'التقارير',
+        'results' => 'النتائج',
+
+        'employee_performance' => [
+            'title' => 'أداء الموظفين',
+
+            'attributes' => [
+                'order_number' => 'رقم الطلب',
+                'started_at' => 'بدأ في',
+                'completed_at' => 'اكتمل في',
+                'duration' => 'مدة التنفيذ',
+                'duration_minutes' => 'مدة التنفيذ (دقائق)',
+            ],
+
+            'filters' => [
+                'employee_id' => 'الموظف',
+            ],
+        ],
+    ],
 ];

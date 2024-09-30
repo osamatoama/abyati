@@ -21,6 +21,7 @@ class PermissionSeeder extends Seeder
             'users' => ['show', 'add', 'edit', 'delete'],
             'employees' => ['show', 'add', 'edit', 'delete'],
             'supports' => ['show', 'add', 'edit', 'delete'],
+            'employee_perfomance_report' => ['show'],
         ];
 
         $permissionNames = [];
