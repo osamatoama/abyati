@@ -130,7 +130,11 @@
                                     </div>
                                 </td>
                                 <td>
-                                    {{ $item->barcode ?? '---' }}
+                                    @if(filled($item->masked_barcode))
+                                        <span dir="ltr">{{ $item->masked_barcode }}</span>
+                                    @else
+                                        ---
+                                    @endif
                                 </td>
                                 <td>
                                     {{ $item->quantity }}
