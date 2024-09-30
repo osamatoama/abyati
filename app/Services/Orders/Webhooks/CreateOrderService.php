@@ -68,7 +68,7 @@ final class CreateOrderService
                         orderId: $order->id,
                         productId: ProductService::instance()
                             ->firstOrCreate(
-                                productDto: ProductDto::fromSallaOrderItem(
+                                productDto: ProductDto::fromSallaOrderItemWebhook(
                                     sallaOrderItemProduct: $item['product'],
                                     storeId: $storeId,
                                 ),

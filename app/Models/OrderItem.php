@@ -125,6 +125,23 @@ class OrderItem extends Model
         );
     }
 
+    public function maskedBarcode(): Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                $barcode = $this->barcode;
+
+                if (empty($barcode)) {
+                    return null;
+                }
+
+                $length = strlen($barcode);
+
+                return str()->mask($barcode, '*', -$length, floor($length / 2));
+            },
+        );
+    }
+
     /**
      * Scopes
      */

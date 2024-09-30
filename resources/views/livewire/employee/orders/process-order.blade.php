@@ -38,7 +38,9 @@
                                                     ---
                                                 @endif
                                             </td>
-                                            <td>{{ $item->barcode }}</td>
+                                            <td>
+                                                <span dir="ltr">{{ $item->masked_barcode }}</span>
+                                            </td>
                                             <td>
                                                 {{ $item->quantity }}
                                             </td>
@@ -97,7 +99,9 @@
                                                         ---
                                                     @endif
                                                 </td>
-                                                <td>{{ $item->barcode }}</td>
+                                                <td>
+                                                    <span dir="ltr">{{ $item->masked_barcode }}</span>
+                                                </td>
                                                 <td>
                                                     {{ $item->quantity }}
                                                 </td>
@@ -192,7 +196,9 @@
                                                     ---
                                                 @endif
                                             </td>
-                                            <td>{{ $item->barcode }}</td>
+                                            <td>
+                                                <span dir="ltr">{{ $item->masked_barcode }}</span>
+                                            </td>
                                             <td>
                                                 {{ $item->quantity }}
                                             </td>
