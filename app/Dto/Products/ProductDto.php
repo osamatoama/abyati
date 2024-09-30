@@ -29,7 +29,7 @@ final class ProductDto
         );
     }
 
-    public static function fromSallaOrderItem(array $sallaOrderItem, int $storeId): self
+    public static function fromSallaOrderItemApi(array $sallaOrderItem, int $storeId): self
     {
         $mainImage = null;
         if (filled($sallaOrderItem['product_thumbnail'])) {
@@ -44,6 +44,17 @@ final class ProductDto
             name: $sallaOrderItem['name'],
             sku: $sallaOrderItem['sku'],
             mainImage: $mainImage,
+        );
+    }
+
+    public static function fromSallaOrderItemWebhook(array $sallaOrderItemProduct, int $storeId): self
+    {
+        return new self(
+            storeId: $storeId,
+            remoteId: $sallaOrderItemProduct['id'],
+            name: $sallaOrderItemProduct['name'],
+            sku: $sallaOrderItemProduct['sku'],
+            mainImage: $sallaOrderItemProduct['thumbnail'] ?? null,
         );
     }
 }
