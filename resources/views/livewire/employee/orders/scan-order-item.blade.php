@@ -31,6 +31,10 @@
                         </div>
 
                         <div class="mb-10">
+                            <div class="col-12" wire:ignore>
+                                <div id="qr-reader"></div>
+                            </div>
+
                             <div class="col-12 mb-5">
                                 <label class="form-label">{{ __('employee.products.attributes.barcode') }}</label>
 

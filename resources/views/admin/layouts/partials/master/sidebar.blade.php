@@ -160,7 +160,7 @@
                     </div>
                 @endif
 
-                {{-- @if(true)
+                @if(can('employee_performance_report.show'))
                     <div class="menu-item">
                         <a @class(['menu-link', 'active' => request()->routeIs('admin.reports.*')])
                         href="{{ route('admin.reports.index') }}"
@@ -169,11 +169,11 @@
                                 <i class="fa-solid fa-file fs-2"></i>
                             </span>
                                 <span class="menu-title">
-                            {{ __('reports.title') }}
+                            {{ __('admin.reports.title') }}
                             </span>
                         </a>
                     </div>
-                @endif --}}
+                @endif
 
                 {{-- @if(can("customers.show") or can("products.show") or can("orders.show"))
                     <div data-kt-menu-trigger="click"

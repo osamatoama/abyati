@@ -37,8 +37,6 @@ final class CreateOrderService
 
     public function handle(array $sallaOrder, int $storeId, string $accessToken): void
     {
-        logger()->notice("CreateOrderService@handle");
-
         if (!isset($sallaOrder['status']['customized'])) {
             return;
         }

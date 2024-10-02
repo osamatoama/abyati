@@ -10,8 +10,15 @@ final class ProductDto
         public string  $name,
         public ?string $sku,
         public ?string $mainImage = null,
+        public ?int    $quantity = null,
+        public bool    $unlimitedQuantity = false,
+        public ?float  $price = null,
+        public ?float  $salePrice = null,
+        public ?float  $regularPrice = null,
+        public ?string $currency = null,
     )
     {
+        //
     }
 
     public static function fromSalla(array $sallaProduct, int $storeId): self
@@ -26,6 +33,12 @@ final class ProductDto
             name: $sallaProduct['name'],
             sku: !empty($sallaProduct['sku']) ? $sallaProduct['sku'] : null,
             mainImage: $mainImage,
+            quantity: $sallaProduct['quantity'] ?? null,
+            unlimitedQuantity: $sallaProduct['unlimited_quantity'] ?? false,
+            price: $sallaProduct['price']['amount'] ?? null,
+            salePrice: $sallaProduct['sale_price']['amount'] ?? null,
+            regularPrice: $sallaProduct['regular_price']['amount'] ?? null,
+            currency: $sallaProduct['price']['currency'] ?? null,
         );
     }
 
@@ -44,6 +57,12 @@ final class ProductDto
             name: $sallaOrderItem['name'],
             sku: $sallaOrderItem['sku'],
             mainImage: $mainImage,
+            quantity: null,
+            unlimitedQuantity: false,
+            price: null,
+            salePrice: null,
+            regularPrice: null,
+            currency: null,
         );
     }
 
@@ -55,6 +74,12 @@ final class ProductDto
             name: $sallaOrderItemProduct['name'],
             sku: $sallaOrderItemProduct['sku'],
             mainImage: $sallaOrderItemProduct['thumbnail'] ?? null,
+            quantity: null,
+            unlimitedQuantity: false,
+            price: $sallaOrderItemProduct['price']['amount'] ?? null,
+            salePrice: $sallaOrderItemProduct['sale_price']['amount'] ?? null,
+            regularPrice: $sallaOrderItemProduct['regular_price']['amount'] ?? null,
+            currency: $sallaOrderItemProduct['price']['currency'] ?? null,
         );
     }
 }

@@ -6,6 +6,8 @@ return [
     'edit' => 'تعديل',
     'delete' => 'حذف',
 
+    'date' => 'التاريخ',
+
     'select' => 'اختر',
     'select_date' => 'اختر التاريخ',
     'select_date_range' => 'اختر المدة',

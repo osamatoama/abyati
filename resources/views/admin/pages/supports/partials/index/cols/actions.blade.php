@@ -2,6 +2,7 @@
     <x-admin.table.actions.edit-button
         data-action="{{ route('admin.supports.update', $support->id) }}"
         data-name="{{ $support->name }}"
+        data-branch-id="{{ $support->branch_id }}"
         data-email="{{ $support->email }}"
         data-phone="{{ $support->phone }}"
     />

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\StoreController;
@@ -11,6 +12,9 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\Reports\ReportController;
+use App\Http\Controllers\Admin\Reports\QuantityIssuesReportController;
+use App\Http\Controllers\Admin\Reports\EmployeePerformanceReportController;
 
 // use App\Http\Controllers\Admin\SettingController;
 // use App\Http\Controllers\Admin\Settings\DomainSettingController;
@@ -72,6 +76,14 @@ Route::prefix('reports')->as('reports.')->group(function () {
 
 Route::get('account', [AccountController::class, 'index'])->name('account.index');
 
+Route::prefix('reports')->as('reports.')->group(function () {
+    Route::get('/', [ReportController::class, 'index'])->name('index');
+
+    Route::get('employee-performance', [EmployeePerformanceReportController::class, 'index'])->name('employee-performance.index');
+
+    Route::get('quantity-issues', [QuantityIssuesReportController::class, 'index'])->name('quantity-issues.index');
+});
+
 Route::prefix('settings')->as('settings.')->group(function () {
     // Route::get('/', [SettingController::class, 'index'])->name('index');
 
@@ -79,24 +91,7 @@ Route::prefix('settings')->as('settings.')->group(function () {
     //     Route::get('/', 'index')->name('index');
     //     Route::put('update', 'update')->name('update');
     // });
-
-    // Route::prefix('exchange')->as('exchange.')->controller(ExchangeSettingController::class)->group(function () {
-    //     Route::get('/', 'index')->name('index');
-    //     Route::put('update', 'update')->name('update');
-    // });
-
-    // Route::prefix('website')->as('website.')->controller(WebsiteSettingController::class)->group(function () {
-    //     Route::get('/', 'index')->name('index');
-    //     Route::put('update', 'update')->name('update');
-    // });
-
-    // Route::prefix('domain')->as('domain.')->controller(DomainSettingController::class)->group(function () {
-    //     Route::get('/', 'index')->name('index');
-    //     Route::put('update', 'update')->name('update');
-    // });
-
-    // Route::prefix('shipping')->as('shipping.')->controller(ShippingSettingController::class)->group(function () {
-    //     Route::get('/', 'index')->name('index');
-    //     Route::put('update', 'update')->name('update');
-    // });
 });
+
+// Home
+Route::get('test', TestController::class)->name('test');

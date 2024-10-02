@@ -6,6 +6,8 @@ return [
     'edit' => 'Edit',
     'delete' => 'Delete',
 
+    'date' => 'Date',
+
     'select' => 'Choose',
     'select_date' => 'Select date',
     'select_date_range' => 'Select date range',

@@ -2,6 +2,7 @@
     let dataTable = helpers.plugins.datatables.init([
         {data: 'id', name: 'id'},
         {data: 'name', name: 'name', orderable: false, searchable: true},
+        {data: 'branch', name: 'branch.name', orderable: false, searchable: true},
         {data: 'email', name: 'email', orderable: false, searchable: true},
         {data: 'phone', name: 'phone', orderable: false, searchable: true},
         {data: 'active', name: 'active', orderable: false, searchable: true},
@@ -57,6 +58,7 @@
         resetForm(editForm)
         setFormAction(editForm, el.data('action'))
         editForm.find('[name=name]').val(el.data('name'))
+        editForm.find('[name=branch_id]').val(el.data('branch-id'))
         editForm.find('[name=email]').val(el.data('email'))
         editForm.find('[name=phone]').val(el.data('phone'))
         hideFormValidationErrors(editForm)

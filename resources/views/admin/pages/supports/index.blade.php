@@ -14,6 +14,7 @@
                     <tr class="fw-semibold fs-6 text-gray-800">
                         <th>#</th>
                         <th>{{ __('admin.supports.attributes.name') }}</th>
+                        <th>{{ __('admin.supports.attributes.branch') }}</th>
                         <th>{{ __('admin.supports.attributes.email') }}</th>
                         <th>{{ __('admin.supports.attributes.phone') }}</th>
                         <th>{{ __('admin.supports.attributes.active') }}</th>

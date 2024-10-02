@@ -23,6 +23,12 @@ final class ProductService
                     'name' => $productDto->name,
                     'sku' => $productDto->sku,
                     'main_image' => $productDto->mainImage,
+                    'quantity' => $productDto->quantity,
+                    'unlimited_quantity' => $productDto->unlimitedQuantity,
+                    'price' => $productDto->price,
+                    'sale_price' => $productDto->salePrice,
+                    'regular_price' => $productDto->regularPrice,
+                    'currency' => $productDto->currency,
                 ],
             );
     }
@@ -39,6 +45,12 @@ final class ProductService
                     'name' => $productDto->name,
                     'sku' => $productDto->sku,
                     'main_image' => $productDto->mainImage,
+                    'quantity' => $productDto->quantity,
+                    'unlimited_quantity' => $productDto->unlimitedQuantity,
+                    'price' => $productDto->price,
+                    'sale_price' => $productDto->salePrice,
+                    'regular_price' => $productDto->regularPrice,
+                    'currency' => $productDto->currency,
                 ],
             );
     }

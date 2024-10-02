@@ -55,7 +55,7 @@ class UpdateEmployeeRequest extends FormRequest
             'email' => __('admin.employees.attributes.email'),
             'phone' => __('admin.employees.attributes.phone'),
             'password' => __('admin.employees.attributes.password'),
-            'role' => __('admin.employees.attributes.role'),
+            'branch_id' => __('admin.employees.attributes.branch'),
         ];
     }
 }

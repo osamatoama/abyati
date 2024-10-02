@@ -9,7 +9,10 @@ class SupportIndex extends Datatable
 {
     public function query()
     {
-        return Support::query();
+        return Support::query()
+            ->with([
+                'branch' => fn($q) => $q->select('id', 'name'),
+            ]);
     }
 
 
@@ -32,6 +35,9 @@ class SupportIndex extends Datatable
     public function editColumns()
     {
         return [
+            'branch' => function (Support $support) {
+                return view('admin.pages.supports.partials.index.cols.branch', compact('support'));
+            },
             'phone' => function (Support $support) {
                 return view('admin.pages.supports.partials.index.cols.phone', compact('support'));
             },

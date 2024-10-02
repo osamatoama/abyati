@@ -52,4 +52,12 @@ return [
         'edit' => 'تعديل',
         'delete' => 'حذف',
     ],
+    'employee_performance_report' => [
+        'title' => 'تقرير أداء الموظفين',
+        'show' => 'عرض',
+    ],
+    'quantity_issues_report' => [
+        'title' => 'تقرير مشاكل الكميات',
+        'show' => 'عرض',
+    ],
 ];

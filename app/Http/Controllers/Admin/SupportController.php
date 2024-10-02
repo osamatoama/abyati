@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Branch;
 use App\Models\Support;
 use App\Http\Controllers\Controller;
 use App\Datatables\Admin\SupportIndex;
@@ -24,7 +25,9 @@ class SupportController extends Controller
             return app(SupportIndex::class)->render();
         }
 
-        return view('admin.pages.supports.index');
+        $branches = Branch::pluck('name', 'id');
+
+        return view('admin.pages.supports.index', compact('branches'));
     }
 
     public function store(StoreSupportRequest $request)

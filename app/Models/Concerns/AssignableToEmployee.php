@@ -20,15 +20,6 @@ trait AssignableToEmployee
     /**
      * Scopes
      */
-    public function scopeBranchMine(Builder $query)
-    {
-        if (! auth('employee')->check()) {
-            return $query;
-        }
-
-        return $query->where('branch_id', auth('employee')->user()->branch_id);
-    }
-
     public function scopeForEmployee(Builder $query, Employee|string|int $employee)
     {
         $employeeId = $employee instanceof Employee ? $employee->id : $employee;

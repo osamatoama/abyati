@@ -104,6 +104,19 @@ class Order extends Model
         return $query->where('completion_status', OrderCompletionStatus::COMPLETED);
     }
 
+    public function scopeBranchMine(Builder $query)
+    {
+        if (auth('employee')->check()) {
+            return $query->where('branch_id', auth('employee')->user()->branch_id);
+        }
+
+        if (auth('support')->check()) {
+            return $query->where('branch_id', auth('support')->user()->branch_id);
+        }
+
+        return $query;
+    }
+
     /**
      * Attributes
      */

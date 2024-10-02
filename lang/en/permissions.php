@@ -52,4 +52,12 @@ return [
         'edit' => 'Edit',
         'delete' => 'Delete',
     ],
+    'employee_performance_report' => [
+        'title' => 'Employee Performance Report',
+        'show' => 'Show',
+    ],
+    'quantity_issues_report' => [
+        'title' => 'Quantity Issues Report',
+        'show' => 'Show',
+    ],
 ];
