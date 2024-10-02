@@ -26,14 +26,14 @@
                     width: 480,
                     height: 320,
                     facingMode: "environment",
-                    advanced: [{ focusMode: "auto" }],
+                    // advanced: [{ focusMode: "auto" }],
                 },
             },
             locator: {
                 patchSize: 'medium',
                 halfSample: true,
             },
-            // numOfWorkers: 0,
+            numOfWorkers: 0,
             frequency: 10,
             decoder: {
                 readers: [
@@ -62,7 +62,7 @@
                     }
                 }
             },
-            locate: true,
+            // locate: true,
         }, function(err) {
             if (err) {
                 console.log(err);
@@ -149,23 +149,30 @@
             constraints: {
                 width: 480,
                 height: 320,
-                facingMode: "environment"
+                facingMode: "environment",
+                // advanced: [{ focusMode: "auto" }],
             },
         },
         decoder : {
             readers : [
-                "code_128_reader",
+                // "code_128_reader",
                 "ean_reader",
-                "ean_8_reader",
-                "code_39_reader",
-                "code_39_vin_reader",
-                "codabar_reader",
+                // "ean_8_reader",
+                // "code_39_reader",
+                // "code_39_vin_reader",
+                // "codabar_reader",
                 "upc_reader",
-                "upc_e_reader",
-                "i2of5_reader",
+                // "upc_e_reader",
+                // "i2of5_reader",
             ],
         },
+        // locator: {
+        //     patchSize: 'medium',
+        //     halfSample: true,
+        // },
+        // numOfWorkers: 2,
         frequency: 10,
+        // locate: true,
     }, function(err) {
         if (err) {
             console.log(err);
@@ -180,6 +187,18 @@
         scannerAudio.play()
 
         alert(result.codeResult.code);
+
+        const errors = result.codeResult.decodedCodes
+            .filter((_) => _.error !== undefined)
+            .map((_) => _.error);
+        const median = _getMedian(errors);
+
+        // if (median < 0.08 || errors.some((err) => err > 0.1)) {
+        if (median < medianLimit) {
+            // Quagga.stop();
+            alert('no errors');
+        }
+
     });
 </script>
 @endpush
