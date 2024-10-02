@@ -44,6 +44,7 @@ class UpdateSupportRequest extends FormRequest
                     ->numbers()
                     ->symbols(),
             ],
+            'branch_id' => ['required', 'exists:branches,id'],
         ];
     }
 
@@ -54,6 +55,7 @@ class UpdateSupportRequest extends FormRequest
             'email' => __('admin.supports.attributes.email'),
             'phone' => __('admin.supports.attributes.phone'),
             'password' => __('admin.supports.attributes.password'),
+            'branch_id' => __('admin.employees.attributes.branch'),
         ];
     }
 }

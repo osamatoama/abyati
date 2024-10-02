@@ -36,7 +36,7 @@ class TransferOrderItemToSupport extends Component
             ]);
 
             $this->item->order->update([
-                'status' => OrderCompletionStatus::QUANTITY_ISSUES,
+                'completion_status' => OrderCompletionStatus::QUANTITY_ISSUES,
             ]);
 
             $this->item->order->executionHistories()->create([

@@ -6,6 +6,7 @@ use App\Models\Concerns\Activatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Support extends Authenticatable
@@ -18,6 +19,7 @@ class Support extends Authenticatable
      * Config
      */
     protected $fillable = [
+        'branch_id',
         'name',
         'email',
         'phone',
@@ -37,6 +39,14 @@ class Support extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Relations
+     */
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function orders(): HasMany

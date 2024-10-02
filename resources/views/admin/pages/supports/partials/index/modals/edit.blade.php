@@ -23,6 +23,19 @@
                     </div>
 
                     <div class="form-group mt-3 row">
+                        <label for="update-form-branch_id" class="col-md-2 form-label form-control-lg">{{ __('admin.employees.attributes.branch') }}</label>
+                        <div class="col-md-10">
+                            <select name="branch_id" id="update-form-branch_id" class="form-control">
+                                <option selected disabled> {{ __('globals.select') }}</option>
+                                @foreach($branches as $branchId => $branchName)
+                                    <option value="{{ $branchId }}">{{ $branchName }}</option>
+                                @endforeach
+                            </select>
+                            <span id="update-form-branch_id-error" class="form-input-error text-danger d-none"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3 row">
                         <label for="edit-form-email"
                             class="col-md-2 form-control-lg">{{ __('admin.supports.attributes.email') }}</label>
                         <div class="col-md-10">
