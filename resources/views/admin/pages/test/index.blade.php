@@ -25,9 +25,16 @@
                 constraints: {
                     width: 480,
                     height: 320,
-                    facingMode: "environment"
+                    facingMode: "environment",
+                    advanced: [{ focusMode: "auto" }],
                 },
             },
+            locator: {
+                patchSize: 'medium',
+                halfSample: true,
+            },
+            numOfWorkers: 0,
+            frequency: 10,
             decoder: {
                 readers: [
                     // "code_128_reader",
@@ -36,7 +43,7 @@
                     // "code_39_reader",
                     // "code_39_vin_reader",
                     // "codabar_reader",
-                    // "upc_reader",
+                    "upc_reader",
                     // "upc_e_reader",
                     // "i2of5_reader"
                 ],
@@ -55,7 +62,7 @@
                     }
                 }
             },
-
+            locate: true,
         }, function(err) {
             if (err) {
                 console.log(err);
@@ -117,7 +124,17 @@
         Quagga.onDetected(function(result) {
             console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
 
-            alert(result.codeResult.code);
+            const errors = result.codeResult.decodedCodes
+                .filter((_) => _.error !== undefined)
+                .map((_) => _.error);
+            const median = _getMedian(errors);
+
+            // if (median < 0.08 || errors.some((err) => err > 0.1)) {
+            if (median < medianLimit) {
+                // Quagga.stop();
+                // navigate(`/result/${result.codeResult.code}`);
+                alert(result.codeResult.code);
+            }
         });
     }
 
