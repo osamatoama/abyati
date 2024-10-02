@@ -13,9 +13,9 @@ class SallaWebhookController extends Controller
      */
     public function __invoke(Request $request, SallaWebhookHandler $sallaWebhooksHandler): void
     {
-        if ($sallaWebhooksHandler->isNotVerified($request->header('Authorization', ''))) {
-            return;
-        }
+        // if ($sallaWebhooksHandler->isNotVerified($request->header('Authorization', ''))) {
+        //     return;
+        // }
 
         $sallaWebhooksHandler->handle(
             event: $request->input('event'),
