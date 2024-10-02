@@ -124,6 +124,8 @@
         Quagga.onDetected(function(result) {
             console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
 
+            alert(result.codeResult.code);
+
             const errors = result.codeResult.decodedCodes
                 .filter((_) => _.error !== undefined)
                 .map((_) => _.error);
@@ -132,8 +134,7 @@
             // if (median < 0.08 || errors.some((err) => err > 0.1)) {
             if (median < medianLimit) {
                 // Quagga.stop();
-                // navigate(`/result/${result.codeResult.code}`);
-                alert(result.codeResult.code);
+                // alert(result.codeResult.code);
             }
         });
     }
