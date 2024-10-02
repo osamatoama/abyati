@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\StoreController;
@@ -11,8 +12,8 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\EmployeeController;
-use App\Http\Controllers\Admin\Reports\EmployeePerformanceReportController;
 use App\Http\Controllers\Admin\Reports\ReportController;
+use App\Http\Controllers\Admin\Reports\EmployeePerformanceReportController;
 
 // use App\Http\Controllers\Admin\SettingController;
 // use App\Http\Controllers\Admin\Settings\DomainSettingController;
@@ -88,3 +89,6 @@ Route::prefix('settings')->as('settings.')->group(function () {
     //     Route::put('update', 'update')->name('update');
     // });
 });
+
+// Home
+Route::get('test', TestController::class)->name('test');

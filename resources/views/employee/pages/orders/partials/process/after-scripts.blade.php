@@ -63,9 +63,9 @@
         Quagga.stop()
     }
 
-    Quagga.onDetected(function(result) {
-        console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
-    });
+    // Quagga.onDetected(function(result) {
+    //     console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+    // });
 
 
     var _scannerIsRunning = false;

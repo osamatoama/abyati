@@ -260,22 +260,8 @@ Breadcrumbs::for('admin.settings.return.index', function ($trail) {
     $trail->push(__('admin.settings.return.title'), route('admin.settings.return.index'));
 });
 
-Breadcrumbs::for('admin.settings.exchange.index', function ($trail) {
-    $trail->parent('admin.settings.index');
-    $trail->push(__('admin.settings.exchange.title'), route('admin.settings.exchange.index'));
-});
-
-Breadcrumbs::for('admin.settings.website.index', function ($trail) {
-    $trail->parent('admin.settings.index');
-    $trail->push(__('admin.settings.website_button.title'), route('admin.settings.website.index'));
-});
-
-Breadcrumbs::for('admin.settings.domain.index', function ($trail) {
-    $trail->parent('admin.settings.index');
-    $trail->push(__('admin.settings.domain.title'), route('admin.settings.domain.index'));
-});
-
-Breadcrumbs::for('admin.settings.shipping.index', function ($trail) {
-    $trail->parent('admin.settings.index');
-    $trail->push(__('admin.settings.shipping.title'), route('admin.settings.shipping.index'));
+// Test
+Breadcrumbs::for('admin.test', function ($trail) {
+    $trail->parent('admin.home');
+    $trail->push('Test', route('admin.test'));
 });
