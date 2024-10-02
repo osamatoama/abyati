@@ -33,7 +33,7 @@
                 patchSize: 'medium',
                 halfSample: true,
             },
-            numOfWorkers: 0,
+            // numOfWorkers: 0,
             frequency: 10,
             decoder: {
                 readers: [
