@@ -12,6 +12,7 @@
 
 @push('afterScripts')
 <script src="https://cdn.jsdelivr.net/npm/@ericblade/quagga2/dist/quagga.min.js"></script>
+{{-- <script src="{{ asset('assets/client/plugins/custom/quagga/quagga.js') }}"></script> --}}
 
 <script>
     const scannerAudio = new Audio("{{ asset('assets/client/plugins/custom/barcode/barcode.wav') }}");

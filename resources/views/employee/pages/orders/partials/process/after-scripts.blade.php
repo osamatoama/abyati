@@ -17,7 +17,7 @@
     $('.scan-item-modal').on('shown.bs.modal', function(e) {
         let el = $(e.target)
 
-        startScanner()
+        // startScanner()
         el.find('.scan-barcode-input').focus()
     })
 
