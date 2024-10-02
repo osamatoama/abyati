@@ -161,7 +161,7 @@
                 // "code_39_reader",
                 // "code_39_vin_reader",
                 // "codabar_reader",
-                "upc_reader",
+                // "upc_reader",
                 // "upc_e_reader",
                 // "i2of5_reader",
             ],
