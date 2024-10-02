@@ -424,5 +424,19 @@ return [
                 'employee_id' => 'الموظف',
             ],
         ],
+
+        'quantity_issues' => [
+            'title' => 'مشاكل الكميات',
+
+            'attributes' => [
+                'product_remote_id' => 'معرف المنتج',
+                'product_name' => 'اسم المنتج',
+                'issues_count' => 'عدد المشاكل',
+            ],
+
+            'filters' => [
+
+            ],
+        ],
     ],
 ];

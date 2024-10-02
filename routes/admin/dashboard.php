@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\Reports\ReportController;
+use App\Http\Controllers\Admin\Reports\QuantityIssuesReportController;
 use App\Http\Controllers\Admin\Reports\EmployeePerformanceReportController;
 
 // use App\Http\Controllers\Admin\SettingController;
@@ -79,6 +80,8 @@ Route::prefix('reports')->as('reports.')->group(function () {
     Route::get('/', [ReportController::class, 'index'])->name('index');
 
     Route::get('employee-performance', [EmployeePerformanceReportController::class, 'index'])->name('employee-performance.index');
+
+    Route::get('quantity-issues', [QuantityIssuesReportController::class, 'index'])->name('quantity-issues.index');
 });
 
 Route::prefix('settings')->as('settings.')->group(function () {

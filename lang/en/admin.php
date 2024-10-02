@@ -424,5 +424,19 @@ return [
                 'employee_id' => 'Employee',
             ],
         ],
+
+        'quantity_issues' => [
+            'title' => 'Quantity Issues',
+
+            'attributes' => [
+                'product_remote_id' => 'Product ID',
+                'product_name' => 'Product Name',
+                'issues_count' => 'Issues Count',
+            ],
+
+            'filters' => [
+
+            ],
+        ],
     ],
 ];

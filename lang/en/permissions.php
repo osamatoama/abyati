@@ -56,4 +56,8 @@ return [
         'title' => 'Employee Performance Report',
         'show' => 'Show',
     ],
+    'quantity_issues_report' => [
+        'title' => 'Quantity Issues Report',
+        'show' => 'Show',
+    ],
 ];

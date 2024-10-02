@@ -56,4 +56,8 @@ return [
         'title' => 'تقرير أداء الموظفين',
         'show' => 'عرض',
     ],
+    'quantity_issues_report' => [
+        'title' => 'تقرير مشاكل الكميات',
+        'show' => 'عرض',
+    ],
 ];

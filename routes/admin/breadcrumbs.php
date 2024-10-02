@@ -249,6 +249,11 @@ Breadcrumbs::for('admin.reports.employee-performance.index', function ($trail) {
     $trail->push(__('admin.reports.employee_performance.title'), route('admin.reports.employee-performance.index'));
 });
 
+Breadcrumbs::for('admin.reports.quantity-issues.index', function ($trail) {
+    $trail->parent('admin.reports.index');
+    $trail->push(__('admin.reports.quantity_issues.title'), route('admin.reports.quantity-issues.index'));
+});
+
 // Settings
 Breadcrumbs::for('admin.settings.index', function ($trail) {
     $trail->parent('admin.home');

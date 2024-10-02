@@ -68,4 +68,9 @@ class Product extends Model
     {
         return $this->hasManyThrough(OptionValue::class, Option::class);
     }
+
+    public function orderItems(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
