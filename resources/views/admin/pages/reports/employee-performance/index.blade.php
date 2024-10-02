@@ -7,12 +7,6 @@
 @endsection
 
 @section('content')
-    {{-- <div class="card mb-5">
-        <div class="card-body">
-            @include('admin.pages.reports.employee-performance.partials.filters')
-        </div>
-    </div> --}}
-
     <div class="card mb-5">
         <div class="card-body">
             <livewire:admin.reports.employee-performance.filter-employee-performance-report />

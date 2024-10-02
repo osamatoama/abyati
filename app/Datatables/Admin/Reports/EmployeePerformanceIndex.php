@@ -13,6 +13,11 @@ class EmployeePerformanceIndex extends Datatable
      */
     public function query()
     {
+        if (empty(request('employee_id'))) {
+            return OrderExecution::query()
+                ->whereNull('employee_id');
+        }
+
         return OrderExecution::query()
             ->filter()
             ->with([

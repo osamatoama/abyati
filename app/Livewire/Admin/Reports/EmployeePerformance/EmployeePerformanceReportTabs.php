@@ -12,8 +12,11 @@ class EmployeePerformanceReportTabs extends Component
 
     public array $filters = [];
 
+    public bool $enabled = false;
+
     public function render()
     {
+        $this->enabled = ! empty($this->filters['employee_id'] ?? null);
         $this->tabs = $this->getTabs();
 
         return view('livewire.admin.reports.employee-performance.employee-performance-report-tabs');
