@@ -27,6 +27,7 @@ class OrderItem extends Model
         'name',
         'quantity',
         'executed_quantity',
+        'issue_quantity',
         'completion_status',
         'amounts',
     ];
@@ -220,6 +221,7 @@ class OrderItem extends Model
     public function setAsQuantityIssues(): void
     {
         $this->update([
+            'issue_quantity' => $this->quantity - $this->executed_quantity,
             'completion_status' => OrderItemCompletionStatus::QUANTITY_ISSUES,
         ]);
     }
