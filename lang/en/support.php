@@ -281,4 +281,25 @@ return [
             'currency' => 'Currency',
         ],
     ],
+
+    'reports' => [
+        'title' => 'Reports',
+        'results' => 'Results',
+
+        'products_without_sku' => [
+            'title' => 'Products Without SKU',
+
+            'attributes' => [
+                'id' => 'ID',
+                'salla_id' => 'Salla ID',
+                'store' => 'Store',
+                'image' => 'Image',
+                'name' => 'Name',
+                'sku' => 'SKU',
+            ],
+
+            'filters' => [
+            ],
+        ],
+    ],
 ];

@@ -275,4 +275,25 @@ return [
             'currency' => 'العملة',
         ],
     ],
+
+    'reports' => [
+        'title' => 'التقارير',
+        'results' => 'النتائج',
+
+        'products_without_sku' => [
+            'title' => 'منتجات بدون باركود',
+
+            'attributes' => [
+                'id' => 'المعرف',
+                'salla_id' => 'معرف سلة',
+                'store' => 'المتجر',
+                'image' => 'الصورة',
+                'name' => 'الاسم',
+                'sku' => 'SKU',
+            ],
+
+            'filters' => [
+            ],
+        ],
+    ],
 ];

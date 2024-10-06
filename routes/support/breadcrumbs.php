@@ -37,3 +37,9 @@ Breadcrumbs::for('support.reports.index', function ($trail) {
     $trail->parent('support.home');
     $trail->push(__('support.reports.title'), route('support.reports.index'));
 });
+
+Breadcrumbs::for('support.reports.products-without-sku.index', function ($trail) {
+    $trail->parent('support.reports.index');
+    $trail->push(__('support.reports.products_without_sku.title'), route('support.reports.products-without-sku.index'));
+});
+

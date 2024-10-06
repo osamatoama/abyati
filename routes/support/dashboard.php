@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Support\HomeController;
 use App\Http\Controllers\Support\OrderController;
 use App\Http\Controllers\Support\AccountController;
+use App\Http\Controllers\Support\Reports\ReportController;
+use App\Http\Controllers\Support\Reports\ProductsWithoutSkuReportController;
 // use App\Http\Controllers\Support\SettingController;
 // use App\Http\Controllers\Support\Settings\DomainSettingController;
 // use App\Http\Controllers\Support\Settings\ReturnSettingController;
@@ -34,6 +36,9 @@ Route::resource('orders', OrderController::class)->only('index', 'show');
 // Route::resource('roles', RoleController::class)->except('show');
 
 Route::prefix('reports')->as('reports.')->group(function () {
+    Route::get('/', [ReportController::class, 'index'])->name('index');
+
+    Route::get('products-without-sku', [ProductsWithoutSkuReportController::class, 'index'])->name('products-without-sku.index');
 });
 
 Route::get('account', [AccountController::class, 'index'])->name('account.index');
