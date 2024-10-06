@@ -3,12 +3,9 @@
 namespace App\Livewire\Employee\Orders;
 
 use Livewire\Component;
-use App\Models\Employee;
 use App\Models\OrderItem;
 use Livewire\Attributes\Locked;
-use Illuminate\Support\Facades\DB;
-use App\Enums\OrderCompletionStatus;
-use App\Enums\OrderItemCompletionStatus;
+use App\Services\Orders\Fulfillment\Employee\TransferOrderItemToSupport as TransferOrderItemToSupportService;
 
 class TransferOrderItemToSupport extends Component
 {
@@ -30,28 +27,10 @@ class TransferOrderItemToSupport extends Component
     {
         $this->validate();
 
-        DB::transaction(function () {
-            $this->item->update([
-                'completion_status' => OrderItemCompletionStatus::QUANTITY_ISSUES,
-            ]);
-
-            $this->item->order->update([
-                'completion_status' => OrderCompletionStatus::QUANTITY_ISSUES,
-            ]);
-
-            $this->item->order->executionHistories()->create([
-                'employee_id' => auth('employee')->id(),
-                'status' => OrderCompletionStatus::QUANTITY_ISSUES,
-            ]);
-
-            if (filled($this->employee_note)) {
-                $this->item->notes()->create([
-                    'author_id' => auth('employee')->id(),
-                    'author_type' => Employee::class,
-                    'content' => $this->employee_note,
-                ]);
-            }
-        });
+        (new TransferOrderItemToSupportService(
+            item: $this->item,
+            note: $this->employee_note,
+        ))->execute();
 
         $this->dispatch('order-item-transferred', [
             'order_item_id' => $this->item->id,
