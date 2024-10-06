@@ -16,6 +16,8 @@ class OrderExecutionHistory extends Model
     protected $fillable = [
         'order_id',
         'employee_id',
+        'executor_type',
+        'executor_id',
         'status',
     ];
 
@@ -34,5 +36,10 @@ class OrderExecutionHistory extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class);
+    }
+
+    public function executor()
+    {
+        return $this->morphTo();
     }
 }

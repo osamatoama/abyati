@@ -227,7 +227,8 @@ class Order extends Model
     public function logPendingToHistory($employeeId = null): void
     {
         $this->executionHistories()->create([
-            'employee_id' => $employeeId,
+            'executor_type' => filled($employeeId) ? Employee::class : null,
+            'executor_id' => $employeeId,
             'status' => OrderCompletionStatus::PENDING,
         ]);
     }
@@ -235,7 +236,8 @@ class Order extends Model
     public function logProcessingToHistory($employeeId = null): void
     {
         $this->executionHistories()->create([
-            'employee_id' => $employeeId,
+            'executor_type' => filled($employeeId) ? Employee::class : null,
+            'executor_id' => $employeeId,
             'status' => OrderCompletionStatus::PROCESSING,
         ]);
     }
@@ -243,15 +245,17 @@ class Order extends Model
     public function logQuantityIssuesToHistory($employeeId = null): void
     {
         $this->executionHistories()->create([
-            'employee_id' => $employeeId,
+            'executor_type' => filled($employeeId) ? Employee::class : null,
+            'executor_id' => $employeeId,
             'status' => OrderCompletionStatus::QUANTITY_ISSUES,
         ]);
     }
 
-    public function logCompletedToHistory($employeeId = null): void
+    public function logCompletedToHistory($executorType = null, $executorId = null): void
     {
         $this->executionHistories()->create([
-            'employee_id' => $employeeId,
+            'executor_type' => $executorType,
+            'executor_id' => $executorId,
             'status' => OrderCompletionStatus::COMPLETED,
         ]);
     }

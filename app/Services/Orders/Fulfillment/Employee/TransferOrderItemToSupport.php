@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class TransferOrderItemToSupport
 {
-    public bool $executionCompleted = false;
-
     public function __construct(
         public OrderItem $item,
         public ?string $note = null,
@@ -25,9 +23,7 @@ class TransferOrderItemToSupport
 
             $this->item->order->setAsQuantityIssues();
 
-            $this->item->order->logQuantityIssuesToHistory(
-                employeeId: auth('employee')->id(),
-            );
+            $this->item->order->logQuantityIssuesToHistory(auth('employee')->id());
 
             if (filled($this->note)) {
                 $this->item->notes()->create([

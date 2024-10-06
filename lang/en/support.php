@@ -197,6 +197,7 @@ return [
             'item_executed' => 'Item executed successfully',
             'item_transferred_to_support' => 'Item transferred to support successfully',
             'unassign_confirm' => 'Order will be unassigned from you and returned to the list',
+            'item_completed' => 'Item completed successfully',
         ],
 
         'errors' => [
@@ -259,6 +260,7 @@ return [
             'scan_item' => 'Confirm',
             'transfer' => 'Transfer',
             'transfer_to_support' => 'Transfer to support',
+            'complete' => 'Complete',
         ],
 
         'notifications' => [

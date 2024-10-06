@@ -74,7 +74,6 @@
                                     <th class="fw-bold">{{ __('support.products.attributes.barcode') }}</th>
                                     <th class="fw-bold">{{ __('support.orders.items.attributes.quantity') }}</th>
                                     <th class="fw-bold">{{ __('support.orders.items.attributes.executed_quantity') }}</th>
-                                    <th></th>
                                 </thead>
 
                                 <tbody>
@@ -104,15 +103,6 @@
                                                 <td>
                                                     {{ $item->executed_quantity }}
                                                 </td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#scan-item-{{ $item->id }}-modal" wire:key="scan-{{ $item->id }}">
-                                                        <i class="fas fa-barcode"></i> {{ __('support.orders.actions.scan_item') }}
-                                                    </button>
-
-                                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#transfer-item-{{ $item->id }}-modal" wire:key="transfer-{{ $item->id }}">
-                                                        <i class="fas fa-headphones"></i> {{ __('support.orders.actions.transfer_to_support') }}
-                                                    </button>
-                                                </td>
                                             </tr>
                                         @else
                                             <tr>
@@ -136,12 +126,6 @@
                                                 </td>
                                             </tr>
                                         @endif
-
-                                        @push('modals')
-                                            <livewire:support.orders.scan-order-item :$item :key="'scan-' . $item->id" />
-
-                                            <livewire:support.orders.transfer-order-item-to-support :$item :key="'transfer-' . $item->id" />
-                                        @endpush
                                     @endforeach
                                 </tbody>
                             </table>
@@ -171,6 +155,7 @@
                                     <th class="fw-bold">{{ __('support.orders.items.attributes.quantity') }}</th>
                                     <th class="fw-bold">{{ __('support.orders.items.attributes.executed_quantity') }}</th>
                                     <th class="fw-bold">{{ __('support.orders.items.attributes.employee_note') }}</th>
+                                    <th></th>
                                 </thead>
 
                                 <tbody>
@@ -200,7 +185,10 @@
                                                 {{ $item->executed_quantity }}
                                             </td>
                                             <td>
-                                                {{ filled($item->employee_note) ? $item->employee_note : '---' }}
+                                                {{ filled($item->employeeNote?->content) ? $item->employeeNote->content : '---' }}
+                                            </td>
+                                            <td>
+                                                <livewire:support.orders.complete-order-item :$item :key="'complete-' . $item->id" />
                                             </td>
                                         </tr>
                                     @endforeach

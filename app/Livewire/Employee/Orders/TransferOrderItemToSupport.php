@@ -4,6 +4,7 @@ namespace App\Livewire\Employee\Orders;
 
 use Livewire\Component;
 use App\Models\OrderItem;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Locked;
 use App\Services\Orders\Fulfillment\Employee\TransferOrderItemToSupport as TransferOrderItemToSupportService;
 
@@ -16,6 +17,7 @@ class TransferOrderItemToSupport extends Component
 
     public ?string $employee_note = null;
 
+    #[On('order-item-scanned')]
     public function render()
     {
         $this->enable = ! $this->item->isExecuted();

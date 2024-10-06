@@ -196,6 +196,7 @@ return [
             'item_executed' => 'تم تجهيز المنتج',
             'item_transferred_to_support' => 'تم تحويل المنتج لفريق الدعم',
             'unassign_confirm' => 'سيتم إلغاء إسناد الطلب منك وإعادة الطلب إلى القائمة',
+            'item_completed' => 'تم إتمام المنتج',
         ],
 
         'errors' => [
@@ -253,6 +254,7 @@ return [
             'scan_item' => 'تأكيد',
             'transfer' => 'تحويل',
             'transfer_to_support' => 'تحويل لفريق الدعم',
+            'complete' => 'إتمام',
         ],
 
         'notifications' => [

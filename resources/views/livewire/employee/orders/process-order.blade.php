@@ -206,7 +206,7 @@
                                                 {{ $item->executed_quantity }}
                                             </td>
                                             <td>
-                                                {{ filled($item->employee_note) ? $item->employee_note : '---' }}
+                                                {{ filled($item->employeeNote?->content) ? $item->employeeNote->content : '---' }}
                                             </td>
                                         </tr>
                                     @endforeach

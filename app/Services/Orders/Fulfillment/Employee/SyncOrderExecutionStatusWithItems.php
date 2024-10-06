@@ -3,6 +3,7 @@
 namespace App\Services\Orders\Fulfillment\Employee;
 
 use App\Models\Order;
+use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
 
 class SyncOrderExecutionStatusWithItems
@@ -20,7 +21,10 @@ class SyncOrderExecutionStatusWithItems
             DB::transaction(function () {
                 $this->order->setAsCompleted();
 
-                $this->order->logCompletedToHistory();
+                $this->order->logCompletedToHistory(
+                    executorType: Employee::class,
+                    executorId: $this->order->employee_id,
+                );
 
                 $this->order->executions()->where('employee_id', $this->order->employee_id)->update([
                     'completed' => true,
