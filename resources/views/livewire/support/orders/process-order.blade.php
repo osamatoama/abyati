@@ -38,7 +38,7 @@
                                                     ---
                                                 @endif
                                             </td>
-                                            <td>{{ $item->barcode }}</td>
+                                            <td>{{ $item->barcode ?? '---' }}</td>
                                             <td>
                                                 {{ $item->quantity }}
                                             </td>
@@ -96,7 +96,7 @@
                                                         ---
                                                     @endif
                                                 </td>
-                                                <td>{{ $item->barcode }}</td>
+                                                <td>{{ $item->barcode ?? '---' }}</td>
                                                 <td>
                                                     {{ $item->quantity }}
                                                 </td>
@@ -177,7 +177,7 @@
                                                     ---
                                                 @endif
                                             </td>
-                                            <td>{{ $item->barcode }}</td>
+                                            <td>{{ $item->barcode ?? '---' }}</td>
                                             <td>
                                                 {{ $item->quantity }}
                                             </td>

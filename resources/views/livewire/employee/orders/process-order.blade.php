@@ -39,7 +39,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <span dir="ltr">{{ $item->masked_barcode }}</span>
+                                                <span dir="ltr">{{ $item->masked_barcode ?? '---' }}</span>
                                             </td>
                                             <td>
                                                 {{ $item->quantity }}
@@ -100,7 +100,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <span dir="ltr">{{ $item->masked_barcode }}</span>
+                                                    <span dir="ltr">{{ $item->masked_barcode ?? '---' }}</span>
                                                 </td>
                                                 <td>
                                                     {{ $item->quantity }}
@@ -131,12 +131,17 @@
                                                         ---
                                                     @endif
                                                 </td>
-                                                <td colspan="4">
+                                                <td colspan="3">
                                                     <div class="alert alert-danger text-danger text-center fw-bold">
                                                         <p class="mb-0">
                                                             {{ __('employee.orders.errors.no_barcode_for_this_product') }}
                                                         </p>
                                                     </div>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#transfer-item-{{ $item->id }}-modal" wire:key="transfer-{{ $item->id }}">
+                                                        <i class="fas fa-headphones"></i> {{ __('employee.orders.actions.transfer_to_support') }}
+                                                    </button>
                                                 </td>
                                             </tr>
                                         @endif
@@ -197,7 +202,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <span dir="ltr">{{ $item->masked_barcode }}</span>
+                                                <span dir="ltr">{{ $item->masked_barcode ?? '---' }}</span>
                                             </td>
                                             <td>
                                                 {{ $item->quantity }}
