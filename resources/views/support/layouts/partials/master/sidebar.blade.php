@@ -61,6 +61,19 @@
                     </a>
                 </div>
 
+                <div class="menu-item">
+                    <a @class(['menu-link', 'active' => request()->routeIs('support.reports.*')])
+                    href="{{ route('support.reports.index') }}"
+                    >
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-file fs-2"></i>
+                        </span>
+                            <span class="menu-title">
+                        {{ __('support.reports.title') }}
+                        </span>
+                    </a>
+                </div>
+
                 {{-- @if(true)
                     <div class="menu-item">
                         <a @class(['menu-link', 'active' => request()->routeIs('support.reports.*')])
