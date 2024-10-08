@@ -3,7 +3,7 @@
         <div class="mb-5">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">تم التأكيد ({{ $executedItems->count() }})</h3>
+                    <h3 class="card-title">{{ __('employee.orders.process_statuses.completed') }} ({{ $executedItems->count() }})</h3>
                 </div>
 
                 <div class="card-body">
@@ -46,6 +46,10 @@
                                             </td>
                                             <td>
                                                 {{ $item->executed_quantity }}
+
+                                                @if($item->issue_quantity)
+                                                    <span class="badge badge-danger ms-3">{{ __('employee.orders.process_statuses.quantity_issues') }}</span>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -62,7 +66,7 @@
         <div class="mb-5">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">قيد التأكيد ({{ $toExecuteItems->count() }})</h3>
+                    <h3 class="card-title">{{ __('employee.orders.process_statuses.pending') }} ({{ $toExecuteItems->count() }})</h3>
                 </div>
 
                 <div class="card-body">
@@ -165,7 +169,7 @@
         <div class="mb-5">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">مشاكل كميات ({{ $quantityIssuesItems->count() }})</h3>
+                    <h3 class="card-title">{{ __('employee.orders.process_statuses.quantity_issues') }} ({{ $quantityIssuesItems->count() }})</h3>
                 </div>
 
                 <div class="card-body">
@@ -209,6 +213,10 @@
                                             </td>
                                             <td>
                                                 {{ $item->executed_quantity }}
+
+                                                @if($item->issue_quantity)
+                                                    <span class="badge badge-danger ms-3">{{ __('employee.orders.process_statuses.quantity_issues') }}</span>
+                                                @endif
                                             </td>
                                             <td>
                                                 {{ filled($item->employeeNote?->content) ? $item->employeeNote->content : '---' }}

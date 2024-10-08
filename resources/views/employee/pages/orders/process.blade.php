@@ -31,7 +31,7 @@
 @endsection
 
 @push('modals')
-
+    <livewire:employee.orders.scan :$order />
 @endpush
 
 @push('afterScripts')
