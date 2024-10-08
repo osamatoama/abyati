@@ -34,23 +34,23 @@
         successToast(params[0].message)
     })
 
-    $(document).on('keyup', '.scan-barcode-input', function(e) {
-        let el = $(e.target)
+    // $(document).on('keyup', '.scan-barcode-input', function(e) {
+    //     let el = $(e.target)
 
-        if (el.val() == null || el.val() == '') {
-            return
-        }
+    //     if (el.val() == null || el.val() == '') {
+    //         return
+    //     }
 
-        el.closest('form').find('button[type=submit]').click()
-    })
+    //     el.closest('form').find('button[type=submit]').click()
+    // })
 
-    $(document).on('keyup', '.scan-item-barcode-input', function(e) {
-        let el = $(e.target)
+    // $(document).on('keyup', '.scan-item-barcode-input', function(e) {
+    //     let el = $(e.target)
 
-        if (el.val() == null || el.val() == '') {
-            return
-        }
+    //     if (el.val() == null || el.val() == '') {
+    //         return
+    //     }
 
-        el.closest('form').find('button[type=submit]').click()
-    })
+    //     el.closest('form').find('button[type=submit]').click()
+    // })
 </script>
