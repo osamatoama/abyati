@@ -2,7 +2,7 @@
     $('.scan-item-modal').on('shown.bs.modal', function(e) {
         let el = $(e.target)
 
-        el.find('.scan-barcode-input').focus()
+        el.find('.scan-item-barcode-input').focus()
     })
 
     Livewire.on('order-scanned', (params) => {
@@ -10,7 +10,7 @@
     })
 
     Livewire.on('order-item-scanned', (params) => {
-        $(`#scan-item-${params[0].order_item_id}-modal`).find('.scan-barcode-input').focus()
+        $(`#scan-item-${params[0].order_item_id}-modal`).find('.scan-item-barcode-input').focus()
     })
 
     Livewire.on('order-executed', (params) => {
@@ -26,5 +26,17 @@
     Livewire.on('order-item-transferred', (params) => {
         closeModal($(`#transfer-item-${params[0].order_item_id}-modal`))
         successToast(params[0].message)
+    })
+
+    $(document).on('keyup', '.scan-barcode-input', function(e) {
+        let el = $(e.target)
+
+        el.closest('form').find('button[type=submit]').click()
+    })
+
+    $(document).on('keyup', '.scan-item-barcode-input', function(e) {
+        let el = $(e.target)
+
+        el.closest('form').find('button[type=submit]').click()
     })
 </script>
