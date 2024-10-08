@@ -11,7 +11,8 @@
             <div class="modal-body">
                 <div>
                     @if($enable)
-                        <form wire:submit.prevent="scan">
+                        {{-- <form wire:submit.prevent="scan"> --}}
+                        <form>
                             <div class="mb-10">
                                 <div class="col-12" wire:ignore>
                                     <div id="qr-reader"></div>
@@ -20,7 +21,7 @@
                                 <div class="col-12 mb-5">
                                     <label class="form-label">{{ __('employee.products.attributes.barcode') }}</label>
 
-                                    <input type="text" class="scan-barcode-input form-control @error('scanned_barcode') is-invalid @enderror" wire:model="scanned_barcode" />
+                                    <input type="text" class="scan-barcode-input form-control @error('scanned_barcode') is-invalid @enderror" wire:model="scanned_barcode" wire:keyup.debounce.200ms="scan" />
 
                                     @error('scanned_barcode') <span class="form-input-error text-danger">{{ $message }}</span> @enderror
                                 </div>
@@ -47,11 +48,11 @@
                                 </div>
                             @endif
 
-                            <div class="d-flex justify-content-end">
+                            {{-- <div class="d-flex justify-content-end">
                                 <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">
                                     {{ __('employee.orders.actions.scan_item') }}
                                 </button>
-                            </div>
+                            </div> --}}
                         </form>
                     @else
                         <div class="alert bg-success text-white fw-semibold">
