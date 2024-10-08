@@ -3,7 +3,7 @@
         <div class="mb-5">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">تم التأكيد ({{ $executedItems->count() }})</h3>
+                    <h3 class="card-title">{{ __('employee.orders.process_statuses.completed') }} ({{ $executedItems->count() }})</h3>
                 </div>
 
                 <div class="card-body">
@@ -39,13 +39,17 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <span dir="ltr">{{ $item->masked_barcode }}</span>
+                                                <span dir="ltr">{{ $item->masked_barcode ?? '---' }}</span>
                                             </td>
                                             <td>
                                                 {{ $item->quantity }}
                                             </td>
                                             <td>
                                                 {{ $item->executed_quantity }}
+
+                                                @if($item->issue_quantity)
+                                                    <span class="badge badge-danger ms-3">{{ __('employee.orders.process_statuses.quantity_issues') }}</span>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -62,7 +66,7 @@
         <div class="mb-5">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">قيد التأكيد ({{ $toExecuteItems->count() }})</h3>
+                    <h3 class="card-title">{{ __('employee.orders.process_statuses.pending') }} ({{ $toExecuteItems->count() }})</h3>
                 </div>
 
                 <div class="card-body">
@@ -100,7 +104,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <span dir="ltr">{{ $item->masked_barcode }}</span>
+                                                    <span dir="ltr">{{ $item->masked_barcode ?? '---' }}</span>
                                                 </td>
                                                 <td>
                                                     {{ $item->quantity }}
@@ -131,12 +135,17 @@
                                                         ---
                                                     @endif
                                                 </td>
-                                                <td colspan="4">
+                                                <td colspan="3">
                                                     <div class="alert alert-danger text-danger text-center fw-bold">
                                                         <p class="mb-0">
                                                             {{ __('employee.orders.errors.no_barcode_for_this_product') }}
                                                         </p>
                                                     </div>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#transfer-item-{{ $item->id }}-modal" wire:key="transfer-{{ $item->id }}">
+                                                        <i class="fas fa-headphones"></i> {{ __('employee.orders.actions.transfer_to_support') }}
+                                                    </button>
                                                 </td>
                                             </tr>
                                         @endif
@@ -160,7 +169,7 @@
         <div class="mb-5">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">مشاكل كميات ({{ $quantityIssuesItems->count() }})</h3>
+                    <h3 class="card-title">{{ __('employee.orders.process_statuses.quantity_issues') }} ({{ $quantityIssuesItems->count() }})</h3>
                 </div>
 
                 <div class="card-body">
@@ -197,13 +206,17 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <span dir="ltr">{{ $item->masked_barcode }}</span>
+                                                <span dir="ltr">{{ $item->masked_barcode ?? '---' }}</span>
                                             </td>
                                             <td>
                                                 {{ $item->quantity }}
                                             </td>
                                             <td>
                                                 {{ $item->executed_quantity }}
+
+                                                @if($item->issue_quantity)
+                                                    <span class="badge badge-danger ms-3">{{ __('employee.orders.process_statuses.quantity_issues') }}</span>
+                                                @endif
                                             </td>
                                             <td>
                                                 {{ filled($item->employeeNote?->content) ? $item->employeeNote->content : '---' }}

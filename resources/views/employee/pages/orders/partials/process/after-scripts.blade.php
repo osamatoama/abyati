@@ -9,9 +9,9 @@
     }
 </style>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"
     integrity="sha512-bCsBoYoW6zE0aja5xcIyoCDPfT27+cGr7AOCqelttLVRGay6EKGQbR6wm6SUcUGOMGXJpj+jrIpMS6i80+kZPw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 
 <script>
     $('.scan-item-modal').on('shown.bs.modal', function(e) {
@@ -21,12 +21,21 @@
         el.find('.scan-barcode-input').focus()
     })
 
-    $('.scan-item-modal').on('hidden.bs.modal', function(e) {
-        stopScanner()
+    // $('.scan-item-modal').on('hidden.bs.modal', function(e) {
+    //     stopScanner()
+    // })
+
+    Livewire.on('order-scanned', (params) => {
+        $(`#scan-modal`).find('.scan-barcode-input').focus()
     })
 
     Livewire.on('order-item-scanned', (params) => {
         $(`#scan-item-${params[0].order_item_id}-modal`).find('.scan-barcode-input').focus()
+    })
+
+    Livewire.on('order-executed', (params) => {
+        closeModal($(`#scan-modal`))
+        successToast(params[0].message)
     })
 
     Livewire.on('order-item-executed', (params) => {

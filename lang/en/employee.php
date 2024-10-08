@@ -195,6 +195,7 @@ return [
             'assigned' => 'Order assigned successfully',
             'unassigned' => 'Order unassigned successfully',
             'item_executed' => 'Item executed successfully',
+            'order_executed' => 'Order executed successfully',
             'item_transferred_to_support' => 'Item transferred to support successfully',
             'unassign_confirm' => 'Order will be unassigned from you and returned to the list',
         ],
@@ -245,6 +246,12 @@ return [
             OrderCompletionStatus::COMPLETED->value => 'Completed',
         ],
 
+        'process_statuses' => [
+            'pending' => 'Pending',
+            'completed' => 'Completed',
+            'quantity_issues' => 'Quantity Issues',
+        ],
+
         'assign_statuses' =>[
             'all' => 'All',
             'assigned' => 'Assigned',
@@ -259,6 +266,7 @@ return [
             'scan_item' => 'Confirm',
             'transfer' => 'Transfer',
             'transfer_to_support' => 'Transfer to support',
+            'scan_barcode' => 'Scan Barcode',
         ],
 
         'notifications' => [

@@ -194,6 +194,7 @@ return [
             'assigned' => 'تم إسناد الطلب',
             'unassigned' => 'تم إلغاء إسناد الطلب',
             'item_executed' => 'تم تجهيز المنتج',
+            'order_executed' => 'تم تجهيز الطلب',
             'item_transferred_to_support' => 'تم تحويل المنتج لفريق الدعم',
             'unassign_confirm' => 'سيتم إلغاء إسناد الطلب منك وإعادة الطلب إلى القائمة',
         ],
@@ -239,6 +240,12 @@ return [
             OrderCompletionStatus::COMPLETED->value => 'مكتمل',
         ],
 
+        'process_statuses' => [
+            'pending' => 'قيد التأكيد',
+            'completed' => 'تم التأكيد',
+            'quantity_issues' => 'مشاكل كميات',
+        ],
+
         'assign_statuses' =>[
             'all' => 'الكل',
             'assigned' => 'مسند',
@@ -253,6 +260,7 @@ return [
             'scan_item' => 'تأكيد',
             'transfer' => 'تحويل',
             'transfer_to_support' => 'تحويل لفريق الدعم',
+            'scan_barcode' => 'مسح الباركود',
         ],
 
         'notifications' => [
