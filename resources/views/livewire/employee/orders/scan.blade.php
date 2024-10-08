@@ -1,4 +1,4 @@
-<div class="modal fade scan-item-modal" id="scan-modal" tabindex="-1" aria-labelledby="scan-modal-label" aria-hidden="true" wire:ignore.self>
+<div class="modal fade" id="scan-modal" tabindex="-1" aria-labelledby="scan-modal-label" aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
