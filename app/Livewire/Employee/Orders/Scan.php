@@ -31,6 +31,10 @@ class Scan extends Component
     {
         logError('Scan: ', $this->scanned_barcode);
 
+        if (empty($this->scanned_barcode)) {
+            return;
+        }
+
         $this->reset('scanned_item');
 
         $this->resetErrorBag();

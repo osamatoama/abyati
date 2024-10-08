@@ -21,7 +21,7 @@
                                     <label class="form-label">{{ __('employee.products.attributes.barcode') }}</label>
 
                                     {{-- <input type="text" class="scan-barcode-input form-control @error('scanned_barcode') is-invalid @enderror" wire:model="scanned_barcode" /> --}}
-                                    <input type="text" class="scan-barcode-input form-control @error('scanned_barcode') is-invalid @enderror" wire:model="scanned_barcode" wire:keyup="scan" />
+                                    <input type="text" class="scan-barcode-input form-control @error('scanned_barcode') is-invalid @enderror" wire:model="scanned_barcode" wire:keyup.throttle.500ms="scan" />
 
                                     @error('scanned_barcode') <span class="form-input-error text-danger">{{ $message }}</span> @enderror
                                 </div>
