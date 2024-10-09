@@ -1,5 +1,5 @@
 <audio
-    id="cashier-voice-notification"
+    id="cashier-sound-notification"
     src="{{ asset('assets/client/media/audio/notifications/cashier-sound.mp3') }}"
     preload="auto"
 ></audio>
@@ -21,7 +21,7 @@
         .bind('order-assigned-event', function(data) {
             if (data.self_assign == false && data.employee_id == authEmployeeId) {
                 successToast(data.message)
-                playVoiceNotification('cashier-voice-notification')
+                playVoiceNotification('cashier-sound-notification')
             }
 
             if (dataTable) {

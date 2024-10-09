@@ -1,5 +1,5 @@
 <audio
-    id="cashier-voice-notification"
+    id="cashier-sound-notification"
     src="{{ asset('assets/client/media/audio/notifications/cashier-sound.mp3') }}"
     preload="auto"
 ></audio>

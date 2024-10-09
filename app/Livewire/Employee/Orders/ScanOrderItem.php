@@ -17,6 +17,15 @@ class ScanOrderItem extends Component
 
     public ?string $scanned_barcode = null;
 
+    public function boot()
+    {
+        $this->withValidator(function ($validator) {
+            if ($validator->fails()) {
+                $this->dispatch('scan-error');
+            }
+        });
+    }
+
     public function render()
     {
         $this->enable = ! $this->item->isExecuted();

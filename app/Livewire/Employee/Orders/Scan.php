@@ -20,6 +20,15 @@ class Scan extends Component
 
     public ?OrderItem $scanned_item = null;
 
+    public function boot()
+    {
+        $this->withValidator(function ($validator) {
+            if ($validator->fails()) {
+                $this->dispatch('scan-error');
+            }
+        });
+    }
+
     public function render()
     {
         $this->enable = ! $this->order->isExecuted();

@@ -28,6 +28,8 @@
             @include('employee.pages.orders.partials.process.customer')
         </div>
     </div>
+
+    @include('employee.pages.orders.partials.process.notifications')
 @endsection
 
 @push('modals')

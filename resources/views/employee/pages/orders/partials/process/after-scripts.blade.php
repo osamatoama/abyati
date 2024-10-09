@@ -13,10 +13,12 @@
 
     Livewire.on('order-scanned', (params) => {
         $(`#scan-modal`).find('.scan-barcode-input').focus()
+        playVoiceNotification('scanner-beep-notification')
     })
 
     Livewire.on('order-item-scanned', (params) => {
         $(`#scan-item-${params[0].order_item_id}-modal`).find('.scan-item-barcode-input').focus()
+        playVoiceNotification('scanner-beep-notification')
     })
 
     Livewire.on('order-executed', (params) => {
@@ -32,6 +34,10 @@
     Livewire.on('order-item-transferred', (params) => {
         closeModal($(`#transfer-item-${params[0].order_item_id}-modal`))
         successToast(params[0].message)
+    })
+
+    Livewire.on('scan-error', () => {
+        playVoiceNotification('wrong-barcode-notification')
     })
 
     // $(document).on('keyup', '.scan-barcode-input', function(e) {
