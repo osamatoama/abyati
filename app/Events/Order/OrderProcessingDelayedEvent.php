@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class OrderCreatedEvent implements ShouldBroadcast
+class OrderProcessingDelayedEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,7 +20,9 @@ class OrderCreatedEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public Order $order)
+    public function __construct(
+        public Order $order,
+    )
     {
         //
     }
@@ -33,20 +35,21 @@ class OrderCreatedEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('order-sync-channel'),
+            new PrivateChannel('order-delay-channel'),
         ];
     }
 
     public function broadcastAs(): string
     {
-        return 'order-created-event';
+        return 'order-processing-delayed-event';
     }
 
     public function broadcastWith(): array
     {
         return [
             'reference_id' => $this->order->reference_id,
-            'status' => $this->order->status->value,
+            'employee_id' => $this->order->employee_id,
+            // 'message' => __('employee.orders.notifications.order_assigned_to_you', ['id' => $this->order->reference_id]),
         ];
     }
 }

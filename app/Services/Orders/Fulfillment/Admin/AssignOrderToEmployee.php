@@ -3,8 +3,11 @@
 namespace App\Services\Orders\Fulfillment\Admin;
 
 use App\Models\Order;
+use App\Models\Employee;
+use App\Enums\Queues\QueueName;
 use Illuminate\Support\Facades\DB;
 use App\Events\Order\OrderAssignedEvent;
+use App\Jobs\Orders\CheckOrderProcessingDelay;
 
 class AssignOrderToEmployee
 {
@@ -41,6 +44,10 @@ class AssignOrderToEmployee
                 'started_at' => now(),
                 'is_reassign' => $this->isReassign,
             ]);
+
+            Employee::find($this->employeeId)?->update([
+                'current_assigned_order_id' => $this->order->id,
+            ]);
         });
 
         $this->dispatchEvents();
@@ -48,6 +55,10 @@ class AssignOrderToEmployee
 
     private function dispatchEvents()
     {
+        CheckOrderProcessingDelay::dispatch($this->order)
+            ->onQueue(QueueName::BROADCAST->value)
+            ->delay(now()->addMinutes(2));
+
         event(new OrderAssignedEvent(
             order: $this->order,
             selfAssign: false,

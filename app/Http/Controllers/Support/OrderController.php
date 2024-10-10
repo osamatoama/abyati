@@ -2,18 +2,11 @@
 
 namespace App\Http\Controllers\Support;
 
-use Throwable;
 use App\Models\Order;
-use Illuminate\Support\Facades\DB;
-use App\Enums\OrderCompletionStatus;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\Support\OrdersExport;
 use App\Datatables\Support\OrderIndex;
-use App\Events\Order\OrderAssignedEvent;
-use App\Events\Order\OrderUnassignedEvent;
-use App\Http\Requests\Support\Order\AssignRequest;
-use App\Http\Requests\Support\Order\UnassignRequest;
 
 class OrderController extends Controller
 {

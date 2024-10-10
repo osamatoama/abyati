@@ -26,6 +26,7 @@ class Employee extends Authenticatable
         'email_verified_at',
         'password',
         'active',
+        'current_assigned_order_id',
     ];
 
     protected $hidden = [
@@ -53,5 +54,10 @@ class Employee extends Authenticatable
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function currentAssignedOrder(): BelongsTo
+    {
+        return $this->belongsTo(Order::class, 'current_assigned_order_id');
     }
 }

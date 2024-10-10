@@ -50,4 +50,11 @@
                 reloadDatatable(dataTable)
             }
         })
+
+    pusher.subscribe('private-order-delay-channel')
+        .bind('order-processing-delayed-event', function(data) {
+            if (data.employee_id == authEmployeeId) {
+                playSpeechSynthesisNotification('You have a delayed order. Please start scanning the order items.')
+            }
+        })
 </script>

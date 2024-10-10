@@ -9,4 +9,6 @@ enum QueueName: string
     use InteractsWithArrays;
 
     case DEFAULT = 'default';
+
+    case BROADCAST = 'broadcast';
 }

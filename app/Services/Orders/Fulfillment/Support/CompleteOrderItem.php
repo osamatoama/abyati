@@ -39,9 +39,6 @@ class CompleteOrderItem
 
     private function dispatchEvents()
     {
-        // event(new OrderAssignedEvent(
-        //     order: $this->order,
-        //     selfAssign: true,
-        // ));
+        //
     }
 }
