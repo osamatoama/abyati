@@ -93,5 +93,5 @@ Route::prefix('settings')->as('settings.')->group(function () {
     // });
 });
 
-// Home
+// Test
 Route::get('test', TestController::class)->name('test');

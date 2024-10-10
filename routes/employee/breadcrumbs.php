@@ -58,3 +58,9 @@ Breadcrumbs::for('employee.reports.index', function ($trail) {
     $trail->parent('employee.home');
     $trail->push(__('employee.reports.title'), route('employee.reports.index'));
 });
+
+// Test
+Breadcrumbs::for('employee.test', function ($trail) {
+    $trail->parent('employee.home');
+    $trail->push('Test', route('employee.test'));
+});
