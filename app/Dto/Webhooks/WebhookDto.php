@@ -2,7 +2,7 @@
 
 namespace App\Dto\Webhooks;
 
-use App\Enums\Providers\WebhookProviderType;
+use App\Enums\WebhookProviderType;
 
 final class WebhookDto
 {

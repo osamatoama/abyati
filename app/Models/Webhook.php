@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\WebhookProviderType;
 use Illuminate\Database\Eloquent\Model;
-use App\Enums\Providers\WebhookProviderType;
 
 class Webhook extends Model
 {

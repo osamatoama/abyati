@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enums\Providers;
+namespace App\Enums;
 
 use App\Enums\Concerns\InteractsWithArrays;
 
