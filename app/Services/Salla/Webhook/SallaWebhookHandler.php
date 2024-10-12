@@ -7,6 +7,7 @@ use App\Services\Salla\Webhook\Events\Order\OrderCreatedEvent;
 use App\Services\Salla\Webhook\Events\Order\OrderUpdatedEvent;
 use App\Services\Salla\Webhook\Events\Product\ProductCreatedEvent;
 use App\Services\Salla\Webhook\Events\Product\ProductUpdatedEvent;
+use App\Services\Salla\Webhook\Events\Order\OrderStatusUpdatedEvent;
 use App\Services\Salla\Webhook\Events\App\Store\AppStoreAuthorizeEvent;
 use App\Services\Salla\Webhook\Events\Order\OrderShippingAddressUpdatedEvent;
 
@@ -34,6 +35,7 @@ final class SallaWebhookHandler
             'product.updated' => new ProductUpdatedEvent(),
             'order.created' => new OrderCreatedEvent(),
             'order.updated' => new OrderUpdatedEvent(),
+            'order.status.updated' => new OrderStatusUpdatedEvent(),
             'order.shipping.address.updated' => new OrderShippingAddressUpdatedEvent(),
             default => new UnknownEvent(),
         })(

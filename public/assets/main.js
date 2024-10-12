@@ -572,7 +572,7 @@ function playSpeechSynthesisNotification(message, lang = 'en-US') {
         const speech = new SpeechSynthesisUtterance(message)
 
         speech.lang = lang
-        speech.rate = 1
+        speech.rate = 0.75
         speech.pitch = 1
         // speech.volume = 1
 

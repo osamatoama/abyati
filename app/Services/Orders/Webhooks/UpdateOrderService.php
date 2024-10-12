@@ -19,8 +19,6 @@ final class UpdateOrderService
 
     public function update(Order $order, OrderDto $orderDto): Order
     {
-        logger()->notice($orderDto->address);
-
         $order->update([
             'reference_id' => $orderDto->referenceId,
             'branch_id' => $orderDto->branchId,
@@ -72,6 +70,6 @@ final class UpdateOrderService
                 );
         }
 
-        // event(new OrderUpdatedEvent($order));
+        event(new OrderUpdatedEvent($order));
     }
 }

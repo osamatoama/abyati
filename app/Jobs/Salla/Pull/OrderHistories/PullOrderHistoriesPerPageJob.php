@@ -67,8 +67,6 @@ class PullOrderHistoriesPerPageJob implements ShouldQueue
 
             $jobs = [];
             foreach ($this->response['data'] as $i => $orderHistory) {
-                logger()->debug($orderHistory);
-
                 if (
                     $this->statusChangesOnly
                     && !empty($this->response['data'][$i-1]['status'])
