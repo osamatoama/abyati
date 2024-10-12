@@ -4,10 +4,17 @@
     preload="auto"
 ></audio>
 
+<audio
+    id="alert-sound-notification"
+    src="{{ asset('assets/client/media/audio/notifications/alert-sound.mp3') }}"
+    preload="auto"
+></audio>
+
 <script src="{{ asset('assets/client/plugins/custom/pusher/pusher.min.js') }}"></script>
 
 <script>
     const authEmployeeId = "{{ auth('employee')->id() }}"
+    const authEmployeeBranchId = "{{ auth('employee')->user()?->branch_id }}"
 
     var pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {
         cluster: '{{ config('broadcasting.connections.pusher.options.cluster') }}',
@@ -36,12 +43,15 @@
 
     pusher.subscribe('private-order-sync-channel')
         .bind('order-created-event', function(data) {
-            if (dataTable) {
+            if (dataTable && data.branch_id == authEmployeeBranchId) {
                 reloadDatatable(dataTable)
+                playVoiceNotification('alert-sound')
+                playSpeechSynthesisNotification('New order arrived')
+                console.log('New order arrived')
             }
         })
         .bind('order-updated-event', function(data) {
-            if (dataTable) {
+            if (dataTable && data.branch_id == authEmployeeBranchId) {
                 reloadDatatable(dataTable)
             }
         })
