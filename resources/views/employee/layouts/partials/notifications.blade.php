@@ -48,13 +48,15 @@
                     reloadDatatable(dataTable)
                 }
 
-                playVoiceNotification('alert-sound-notification')
+                try {
+                    playVoiceNotification('alert-sound-notification')
 
-                setTimeout(() => {
-                    playSpeechSynthesisNotification('New order arrived')
-                }, 1500);
-
-                console.log('New order arrived')
+                    setTimeout(() => {
+                        playSpeechSynthesisNotification('New order arrived')
+                    }, 1500)
+                } catch (error) {
+                    console.error(error)
+                }
             }
         })
         .bind('order-updated-event', function(data) {
