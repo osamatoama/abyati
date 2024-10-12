@@ -43,16 +43,20 @@
 
     pusher.subscribe('private-order-sync-channel')
         .bind('order-created-event', function(data) {
-            if (dataTable && data.branch_id == authEmployeeBranchId) {
-                reloadDatatable(dataTable)
+            if (data.branch_id == authEmployeeBranchId) {
+                if (dataTable) {
+                    reloadDatatable(dataTable)
+                }
                 playVoiceNotification('alert-sound')
                 playSpeechSynthesisNotification('New order arrived')
                 console.log('New order arrived')
             }
         })
         .bind('order-updated-event', function(data) {
-            if (dataTable && data.branch_id == authEmployeeBranchId) {
-                reloadDatatable(dataTable)
+            if (data.branch_id == authEmployeeBranchId && (data.employee_id == authEmployeeId || data.employee_id == null)) {
+                if (dataTable) {
+                    reloadDatatable(dataTable)
+                }
             }
         })
         .bind('order-completion-status-updated-event', function(data) {

@@ -72,6 +72,6 @@ final class UpdateOrderService
                 );
         }
 
-        // event(new OrderUpdatedEvent($order));
+        event(new OrderUpdatedEvent($order));
     }
 }

@@ -48,6 +48,7 @@ class OrderUpdatedEvent implements ShouldBroadcast
             'reference_id' => $this->order->reference_id,
             'status' => $this->order->status->value,
             'branch_id' => $this->order->branch_id,
+            'employee_id' => $this->order->employee_id,
         ];
     }
 }
