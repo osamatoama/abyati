@@ -15,6 +15,8 @@ class OrderUnassignedEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $queue = 'broadcast';
+
     /**
      * Create a new event instance.
      */

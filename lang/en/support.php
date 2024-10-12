@@ -257,7 +257,7 @@ return [
             'assign' => 'Assign',
             'unassign' => 'Unassign',
             'process' => 'Process',
-            'scan_item' => 'Confirm',
+            'scan_item' => 'Scan',
             'transfer' => 'Transfer',
             'transfer_to_support' => 'Transfer to support',
             'complete' => 'Complete',

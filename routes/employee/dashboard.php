@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Employee\HomeController;
+use App\Http\Controllers\Employee\TestController;
 use App\Http\Controllers\Employee\OrderController;
 use App\Http\Controllers\Employee\AccountController;
 // use App\Http\Controllers\Employee\SettingController;
@@ -37,3 +38,6 @@ Route::prefix('reports')->as('reports.')->group(function () {
 });
 
 Route::get('account', [AccountController::class, 'index'])->name('account.index');
+
+// Test
+Route::get('test', TestController::class)->name('test');

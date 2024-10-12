@@ -9,8 +9,8 @@ final class OrderCreatedEvent implements WebhookEvent
 {
     public function __invoke(string $event, int $merchantId, array $data): void
     {
-        logger()->notice("Event: {$event}");
-        logger()->notice($data);
+        // logger()->notice("Event: {$event}");
+        // logger()->notice($data);
 
         OrderCreatedJob::dispatch(
             event: $event,

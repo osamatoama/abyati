@@ -109,9 +109,10 @@ return [
     'orders' => [
         'title' => 'Orders',
         'order_#' => 'Order ',
-        'process_order_#' => 'Process Order #:id',
+        'process_order_#' => 'Order #:id',
         'details' => 'Order Details',
         'calculations' => 'Calculations',
+        'customer_info' => 'Customer Info',
 
         'attributes' => [
             'id' => 'ID',
@@ -263,7 +264,7 @@ return [
             'assign' => 'Assign',
             'unassign' => 'Unassign',
             'process' => 'Process',
-            'scan_item' => 'Confirm',
+            'scan_item' => 'Scan',
             'transfer' => 'Transfer',
             'transfer_to_support' => 'Transfer to support',
             'scan_barcode' => 'Scan Barcode',

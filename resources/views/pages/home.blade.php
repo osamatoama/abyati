@@ -25,12 +25,25 @@
                         <img src="{{ asset('assets/client/media/logos/logo.png') }}" class="mw-100 mh-300px" alt="" />
                     </div>
                     <div class="mb-0">
-                        <a href="{{ route('employee.login') }}" class="btn btn-sm btn-primary">
-                            <i class="fa-solid fa-users"></i> {{ __('admin.employees.title') }}
-                        </a>
-                        <a href="{{ route('support.login') }}" class="btn btn-sm btn-primary">
-                            <i class="fa-solid fa-headset"></i> {{ __('admin.supports.title') }}
-                        </a>
+                        @if(auth('employee')->check())
+                            <a href="{{ route('employee.orders.index') }}" class="btn btn-sm btn-primary">
+                                <i class="fa-solid fa-users"></i> {{ __('admin.employees.title') }}
+                            </a>
+                        @else
+                            <a href="{{ route('employee.login') }}" class="btn btn-sm btn-primary">
+                                <i class="fa-solid fa-users"></i> {{ __('admin.employees.title') }}
+                            </a>
+                        @endif
+
+                        @if(auth('support')->check())
+                            <a href="{{ route('support.orders.index') }}" class="btn btn-sm btn-primary">
+                                <i class="fa-solid fa-headset"></i> {{ __('admin.supports.title') }}
+                            </a>
+                        @else
+                            <a href="{{ route('support.login') }}" class="btn btn-sm btn-primary">
+                                <i class="fa-solid fa-headset"></i> {{ __('admin.supports.title') }}
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 <audio
-    id="cashier-voice-notification"
+    id="cashier-sound-notification"
     src="{{ asset('assets/client/media/audio/notifications/cashier-sound.mp3') }}"
     preload="auto"
 ></audio>
@@ -21,7 +21,7 @@
         .bind('order-assigned-event', function(data) {
             if (data.self_assign == false && data.employee_id == authEmployeeId) {
                 successToast(data.message)
-                playVoiceNotification('cashier-voice-notification')
+                playVoiceNotification('cashier-sound-notification')
             }
 
             if (dataTable) {
@@ -48,6 +48,13 @@
         .bind('order-completion-status-updated-event', function(data) {
             if (dataTable) {
                 reloadDatatable(dataTable)
+            }
+        })
+
+    pusher.subscribe('private-order-delay-channel')
+        .bind('order-processing-delayed-event', function(data) {
+            if (data.employee_id == authEmployeeId) {
+                playSpeechSynthesisNotification('You have a delayed order. Please start scanning the order items.')
             }
         })
 </script>

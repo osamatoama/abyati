@@ -20,6 +20,15 @@ class Scan extends Component
 
     public ?OrderItem $scanned_item = null;
 
+    public function boot()
+    {
+        $this->withValidator(function ($validator) {
+            if ($validator->fails()) {
+                $this->dispatch('scan-error');
+            }
+        });
+    }
+
     public function render()
     {
         $this->enable = ! $this->order->isExecuted();
@@ -29,6 +38,12 @@ class Scan extends Component
 
     public function scan()
     {
+        // logError('Scan: ', $this->scanned_barcode);
+
+        if (empty($this->scanned_barcode)) {
+            return;
+        }
+
         $this->reset('scanned_item');
 
         $this->resetErrorBag();
@@ -56,6 +71,8 @@ class Scan extends Component
         }
 
         $this->reset('scanned_barcode');
+
+        // logError('Scan completed');
     }
 
     private function getAvailableBarcodesToScan(): array

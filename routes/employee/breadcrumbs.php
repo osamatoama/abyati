@@ -44,7 +44,7 @@ Breadcrumbs::for('employee.orders.show', function ($trail, Order $order) {
 
 Breadcrumbs::for('employee.orders.process', function ($trail, Order $order) {
     $trail->parent('employee.orders.index');
-    $trail->push(__('employee.orders.process_order_#', ['id' => $order->reference_id]));
+    $trail->push($order->reference_id . '#');
 });
 
 //Account
@@ -57,4 +57,10 @@ Breadcrumbs::for('employee.account.index', function ($trail) {
 Breadcrumbs::for('employee.reports.index', function ($trail) {
     $trail->parent('employee.home');
     $trail->push(__('employee.reports.title'), route('employee.reports.index'));
+});
+
+// Test
+Breadcrumbs::for('employee.test', function ($trail) {
+    $trail->parent('employee.home');
+    $trail->push('Test', route('employee.test'));
 });

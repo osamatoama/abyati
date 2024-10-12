@@ -196,6 +196,16 @@ class Order extends Model
         return $this->items->every(fn(OrderItem $item) => $item->isExecuted());
     }
 
+    public function startedProcessing(): bool
+    {
+        return ! $this->doesntStartProcessing();
+    }
+
+    public function doesntStartProcessing(): bool
+    {
+        return $this->items->every(fn(OrderItem $item) => $item->isNotExecuted());
+    }
+
     public function setAsPending(): void
     {
         $this->update([

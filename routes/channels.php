@@ -24,3 +24,11 @@ Broadcast::channel(
     },
     options: ['guards' => ['admin', 'employee', 'support']]
 );
+
+Broadcast::channel(
+    channel: 'order-delay-channel',
+    callback: function ($user) {
+        return $user instanceof Employee;
+    },
+    options: ['guards' => ['employee']]
+);

@@ -109,9 +109,10 @@ return [
     'orders' => [
         'title' => 'الطلبات',
         'order_#' => 'طلب ',
-        'process_order_#' => 'تجهيز طلب #:id',
+        'process_order_#' => 'طلب #:id',
         'details' => 'تفاصيل الطلب',
         'calculations' => 'الحسابات',
+        'customer_info' => 'بيانات العميل',
 
         'attributes' => [
             'id' => 'المعرف',
@@ -257,9 +258,9 @@ return [
             'assign' => 'إسناد',
             'unassign' => 'إلغاء الإسناد',
             'process' => 'تجهيز',
-            'scan_item' => 'تأكيد',
+            'scan_item' => 'مسح',
             'transfer' => 'تحويل',
-            'transfer_to_support' => 'تحويل لفريق الدعم',
+            'transfer_to_support' => 'تحويل للدعم',
             'scan_barcode' => 'مسح الباركود',
         ],
 

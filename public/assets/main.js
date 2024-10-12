@@ -574,6 +574,7 @@ function playSpeechSynthesisNotification(message, lang = 'en-US') {
         speech.lang = lang
         speech.rate = 1
         speech.pitch = 1
+        // speech.volume = 1
 
         window.speechSynthesis.speak(speech)
     } else {

@@ -26,8 +26,10 @@ class TruncateData extends Command
      */
     public function handle()
     {
-        // $this->error("Can't run this command outside dev env");
-        // return;
+        if (app()->isProduction()) {
+            $this->error("Can't run this command outside dev env");
+            return;
+        }
 
         $this->info('Truncating data...');
 
