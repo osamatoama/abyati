@@ -47,8 +47,13 @@
                 if (dataTable) {
                     reloadDatatable(dataTable)
                 }
+
                 playVoiceNotification('alert-sound-notification')
-                playSpeechSynthesisNotification('New order arrived')
+
+                setTimeout(() => {
+                    playSpeechSynthesisNotification('New order arrived')
+                }, 1500);
+
                 console.log('New order arrived')
             }
         })
