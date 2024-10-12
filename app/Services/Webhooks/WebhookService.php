@@ -2,8 +2,8 @@
 
 namespace App\Services\Webhooks;
 
-use App\Dto\WebhookDto;
 use App\Models\Webhook;
+use App\Dto\Webhooks\WebhookDto;
 use App\Services\Concerns\HasInstance;
 
 final class WebhookService

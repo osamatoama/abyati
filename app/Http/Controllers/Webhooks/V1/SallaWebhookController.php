@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Webhooks\V1;
 
 use Throwable;
-use App\Dto\WebhookDto;
 use Illuminate\Http\Request;
+use App\Dto\Webhooks\WebhookDto;
 use App\Http\Controllers\Controller;
 use App\Services\Webhooks\WebhookService;
 use App\Services\Salla\Webhook\SallaWebhookHandler;
