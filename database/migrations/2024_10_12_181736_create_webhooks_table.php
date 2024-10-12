@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->string('provider_type');
+            $table->unsignedBigInteger('provider_store_id')->nullable();
+            $table->string('event')->nullable();
+            $table->dateTime('provider_created_at')->nullable();
             $table->json('headers');
             $table->json('payload');
 
