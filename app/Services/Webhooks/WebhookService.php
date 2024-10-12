@@ -16,6 +16,9 @@ final class WebhookService
             ->create(
                 attributes: [
                     'provider_type' => $webhookDto->providerType,
+                    'provider_store_id' => $webhookDto->providerStoreId,
+                    'event' => $webhookDto->event,
+                    'provider_created_at' => $webhookDto->providerCreatedAt,
                     'headers' => $webhookDto->headers,
                     'payload' => $webhookDto->payload,
                 ],
