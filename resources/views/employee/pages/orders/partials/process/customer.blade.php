@@ -1,5 +1,9 @@
 <div class="mb-5">
-    <div class="card">
+    <div class="card customer-card">
+        <div class="card-header">
+            <h3 class="card-title">{{ __('employee.orders.customer_info') }}</h3>
+        </div>
+
         <div class="card-body">
             <table class="table fit-content-table">
                 <tbody>

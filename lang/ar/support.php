@@ -251,9 +251,9 @@ return [
             'assign' => 'إسناد',
             'unassign' => 'إلغاء الإسناد',
             'process' => 'معالجة',
-            'scan_item' => 'تأكيد',
+            'scan_item' => 'مسح',
             'transfer' => 'تحويل',
-            'transfer_to_support' => 'تحويل لفريق الدعم',
+            'transfer_to_support' => 'تحويل للدعم',
             'complete' => 'إتمام',
         ],
 
