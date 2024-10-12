@@ -35,8 +35,6 @@ class OrderStatusUpdatedJob implements ShouldQueue, WebhookEvent
      */
     public function handle(): void
     {
-        return;
-
         try {
             $store = Store::query()->salla(providerId: $this->merchantId)->first();
 
