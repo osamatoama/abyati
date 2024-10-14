@@ -1,4 +1,14 @@
 <script>
+    const smallScreenBreakpoint = 600
+    const dataTableResponsiveConfig = window.innerWidth <= smallScreenBreakpoint
+        ? {
+            details: {
+                type: 'inline',
+                display: $.fn.dataTable.Responsive.display.childRowImmediate,
+            },
+        }
+        : false
+
     let dataTable = helpers.plugins.datatables.init([
         {data: 'reference_id', name: 'reference_id', orderable: false, searchable: true},
         {data: 'store', name: 'store', orderable: false, searchable: false},
@@ -14,6 +24,7 @@
         '#results-table',
         [[3, 'desc']],
         {
+            responsive: dataTableResponsiveConfig,
             buttons: [],
             drawCallback: function(settings) {
                 enableTooltips()
@@ -22,6 +33,7 @@
                 let rowBackgroundColor = $(row).find('.id-wrapper').attr('data-id-color')
                 $(row).addClass('order-row cursor-pointer')
                 $(row).css('background-color', rowBackgroundColor)
+                // $(row).next('tr.child').css('background-color', rowBackgroundColor)
             }
         }
     );
@@ -41,19 +53,35 @@
     })
 
     const orderRowClass = '#results-table .order-row'
+    const showBtnClass = '#results-table .show-btn'
     const showOrderModal = $('#show-modal')
 
-    $(document).on('click', orderRowClass, function(e) {
-        const el = $(this)
-        const idWrapper = el.find('.id-wrapper')
+    if (window.innerWidth > 600) {
+        $(document).on('click', orderRowClass, function(e) {
 
-        if (e.target.closest('.actions-wrapper') || e.target.closest('.assign-employee-wrapper')) {
-            return;
+            if (e.target.closest('.actions-wrapper') || e.target.closest('.assign-employee-wrapper') || e.target.closest('.dtr-control')) {
+                return;
+            }
+
+            showOrderDetails($(this))
+        })
+    }
+
+    $(document).on('click', showBtnClass, function(e) {
+        showOrderDetails($(this), $(this).data('show-url'))
+    })
+
+    function showOrderDetails(rowElement, url) {
+        el = rowElement
+
+
+        if (el.hasClass('order-row')) {
+            const idWrapper = el.find('.id-wrapper')
+            url = idWrapper.data('show-url')
+            el.addClass('tr-overlay')
         }
 
-        el.addClass('tr-overlay')
-
-        axios.get(idWrapper.data('show-url'))
+        axios.get(url)
             .then((res) => {
                 showOrderModal.find('.modal-title').text(res.data.data.title)
                 showOrderModal.find('.modal-body').html(res.data.data.html)
@@ -64,9 +92,11 @@
                 enableElement(el)
             })
             .then(() => {
-                el.removeClass('tr-overlay')
+                if (el.hasClass('order-row')) {
+                    el.removeClass('tr-overlay')
+                }
             })
-    })
+    }
 
 
     const showHistoryBtnClass = '.show-history-btn'

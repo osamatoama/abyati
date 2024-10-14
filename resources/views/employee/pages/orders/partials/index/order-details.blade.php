@@ -92,63 +92,65 @@
 
         <div class="tab-content" id="">
             <div class="tab-pane fade show active" id="order-details-items" role="tabpanel">
-                <table class="table table-row-bordered">
-                    <thead>
-                        <tr>
-                            <th>{{ __('employee.orders.items.attributes.product') }}</th>
-                            <th>{{ __('employee.orders.items.attributes.barcode') }}</th>
-                            <th>{{ __('employee.orders.items.attributes.quantity') }}</th>
-                            <th>{{ __('employee.orders.items.attributes.unit_price') }}</th>
-                            <th>{{ __('employee.orders.items.attributes.total') }}</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach($order->items as $item)
+                <div class="table-responsive">
+                    <table class="table table-row-bordered">
+                        <thead>
                             <tr>
-                                <td>
-                                    <div class="d-flex align-items-center mb-1 p-1">
-                                        @if(filled($item->product->main_image))
-                                            <a href="{{ $item->product->main_image }}" target="_blank" class="me-3">
-                                                <img src="{{ $item->product->main_image }}" alt="{{ $item->product->name }}" width="100" height="100">
-                                            </a>
-                                        @endif
+                                <th>{{ __('employee.orders.items.attributes.product') }}</th>
+                                <th>{{ __('employee.orders.items.attributes.barcode') }}</th>
+                                <th>{{ __('employee.orders.items.attributes.quantity') }}</th>
+                                <th>{{ __('employee.orders.items.attributes.unit_price') }}</th>
+                                <th>{{ __('employee.orders.items.attributes.total') }}</th>
+                            </tr>
+                        </thead>
 
-                                        <div>
-                                            {{ $item->product->name }}
+                        <tbody>
+                            @foreach($order->items as $item)
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center mb-1 p-1">
+                                            @if(filled($item->product->main_image))
+                                                <a href="{{ $item->product->main_image }}" target="_blank" class="me-3">
+                                                    <img src="{{ $item->product->main_image }}" alt="{{ $item->product->name }}" width="100" height="100">
+                                                </a>
+                                            @endif
 
-                                            @if($item->trashed())
-                                                <span class="badge badge-danger ms-1">{{ __('globals.deleted') }}</span>
+                                            <div>
+                                                {{ $item->product->name }}
+
+                                                @if($item->trashed())
+                                                    <span class="badge badge-danger ms-1">{{ __('globals.deleted') }}</span>
+                                                @endif
+                                            </div>
+
+                                            @if($item->variant?->optionValues?->isNotEmpty())
+                                                <div>
+                                                    ({{ $item->variant->optionValues->map(fn($optionValue) => $optionValue->option->name . ': ' . $optionValue->name)->implode(' - ') }})
+                                                </div>
                                             @endif
                                         </div>
-
-                                        @if($item->variant?->optionValues?->isNotEmpty())
-                                            <div>
-                                                ({{ $item->variant->optionValues->map(fn($optionValue) => $optionValue->option->name . ': ' . $optionValue->name)->implode(' - ') }})
-                                            </div>
+                                    </td>
+                                    <td>
+                                        @if(filled($item->masked_barcode))
+                                            <span dir="ltr">{{ $item->masked_barcode }}</span>
+                                        @else
+                                            ---
                                         @endif
-                                    </div>
-                                </td>
-                                <td>
-                                    @if(filled($item->masked_barcode))
-                                        <span dir="ltr">{{ $item->masked_barcode }}</span>
-                                    @else
-                                        ---
-                                    @endif
-                                </td>
-                                <td>
-                                    {{ $item->quantity }}
-                                </td>
-                                <td>
-                                    {{ round($item->unit_price) }}
-                                </td>
-                                <td>
-                                    {{ round($item->total) }}
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                    </td>
+                                    <td>
+                                        {{ $item->quantity }}
+                                    </td>
+                                    <td>
+                                        {{ round($item->unit_price) }}
+                                    </td>
+                                    <td>
+                                        {{ round($item->total) }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="tab-pane fade" id="order-details-customer" role="tabpanel">

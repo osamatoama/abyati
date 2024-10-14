@@ -1,4 +1,12 @@
-<div class="actions-wrapper">
+<div class="actions-wrapper d-flex">
+    <button
+        data-show-url="{{ route('employee.orders.show', $order->id) }}"
+        class="show-btn btn btn-outline btn-outline-primary btn-sm mb-1 me-1"
+        data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('employee.orders.actions.show_details') }}"
+    >
+        <i class="fas fa-eye pe-0"></i>
+    </button>
+
     @if($order->isNotAssigned())
         <button
             data-action="{{ route('employee.orders.assign', $order) }}"

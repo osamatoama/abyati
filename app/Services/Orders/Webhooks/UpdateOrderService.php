@@ -70,6 +70,14 @@ final class UpdateOrderService
                 );
         }
 
+        $deletedItems = $order->items->filter(function ($item) use ($sallaOrder) {
+            return ! in_array($item->remote_id, array_column($sallaOrder['items'], 'id'));
+        });
+
+        if ($deletedItems->isNotEmpty()) {
+            $deletedItems->each->delete();
+        }
+
         event(new OrderUpdatedEvent($order));
     }
 }
