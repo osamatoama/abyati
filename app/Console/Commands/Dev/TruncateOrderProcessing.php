@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Enums\OrderCompletionStatus;
 use App\Enums\OrderItemCompletionStatus;
 
-class TruncateOrders extends Command
+class TruncateOrderProcessing extends Command
 {
     /**
      * The name and signature of the console command.
