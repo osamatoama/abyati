@@ -268,6 +268,7 @@ return [
             'transfer' => 'Transfer',
             'transfer_to_support' => 'Transfer to support',
             'scan_barcode' => 'Scan Barcode',
+            'show_details' => 'Show Details',
         ],
 
         'notifications' => [

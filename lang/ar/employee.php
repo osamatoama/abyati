@@ -262,6 +262,7 @@ return [
             'transfer' => 'تحويل',
             'transfer_to_support' => 'تحويل للدعم',
             'scan_barcode' => 'مسح الباركود',
+            'show_details' => 'عرض التفاصيل',
         ],
 
         'notifications' => [
