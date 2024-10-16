@@ -7,12 +7,10 @@
 @endsection
 
 @push('afterStyles')
-    <link rel="stylesheet" href="{{ asset('assets/client/css/custom/employees/orders/index.css') }}?version=1.0.21">
+    <link rel="stylesheet" href="{{ asset('assets/client/css/custom/employees/orders/index.css') }}?version=1.0.22">
 @endpush
 
 @section('content')
-    <livewire:employee.orders.order-tabs />
-
     <div class="orders-table-card card">
         <div class="card-body">
             <div class="table-responsive">
@@ -22,16 +20,16 @@
                 >
                     <thead>
                         <tr class="fw-semibold fs-6 text-gray-800">
-                            <th data-label="{{ __('employee.orders.attributes.order_number') }}">{{ __('employee.orders.attributes.order_number') }}</th>
-                            <th data-label="{{ __('employee.orders.attributes.store') }}">{{ __('employee.orders.attributes.store') }}</th>
-                            <th data-label="{{ __('employee.orders.attributes.customer') }}">{{ __('employee.orders.attributes.customer') }}</th>
-                            <th data-label="{{ __('employee.orders.attributes.date') }}">{{ __('employee.orders.attributes.date') }}</th>
-                            <th data-label="{{ __('employee.orders.attributes.status') }}">{{ __('employee.orders.attributes.status') }}</th>
-                            <th data-label="{{ __('employee.orders.attributes.completion_status') }}">{{ __('employee.orders.attributes.completion_status') }}</th>
-                            <th data-label="{{ __('employee.orders.attributes.employee') }}">{{ __('employee.orders.attributes.employee') }}</th>
-                            <th data-label="{{ __('employee.orders.attributes.items_count') }}">{{ __('employee.orders.attributes.items_count') }}</th>
-                            <th data-label="{{ __('employee.orders.attributes.total') }}">{{ __('employee.orders.attributes.total') }}</th>
-                            <th></th>
+                            {{-- <th></th> --}}
+                            <th class="text-nowrap" data-label="{{ __('employee.orders.attributes.order_number') }}">{{ __('employee.orders.attributes.order_number') }}</th>
+                            {{-- <th class="text-nowrap" data-label="{{ __('employee.orders.attributes.store') }}">{{ __('employee.orders.attributes.store') }}</th> --}}
+                            {{-- <th class="text-nowrap" data-label="{{ __('employee.orders.attributes.customer') }}">{{ __('employee.orders.attributes.customer') }}</th> --}}
+                            <th class="text-nowrap" data-label="{{ __('employee.orders.attributes.date') }}">{{ __('employee.orders.attributes.date') }}</th>
+                            {{-- <th class="text-nowrap" data-label="{{ __('employee.orders.attributes.status') }}">{{ __('employee.orders.attributes.status') }}</th> --}}
+                            <th class="text-nowrap" data-label="{{ __('employee.orders.attributes.completion_status') }}">{{ __('employee.orders.attributes.completion_status') }}</th>
+                            <th class="text-nowrap" data-label="{{ __('employee.orders.attributes.employee') }}">{{ __('employee.orders.attributes.employee') }}</th>
+                            <th class="text-nowrap" data-label="{{ __('employee.orders.attributes.items_count') }}">{{ __('employee.orders.attributes.items_count') }}</th>
+                            {{-- <th class="text-nowrap" data-label="{{ __('employee.orders.attributes.total') }}">{{ __('employee.orders.attributes.total') }}</th> --}}
                         </tr>
                     </thead>
                 </table>

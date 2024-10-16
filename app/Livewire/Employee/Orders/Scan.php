@@ -67,6 +67,7 @@ class Scan extends Component
         if ($this->order->isExecuted()) {
             $this->dispatch('order-executed', [
                 'message' => __('employee.orders.messages.order_executed'),
+                'redirect_url' => route('employee.orders.index'),
             ]);
         }
 

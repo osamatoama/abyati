@@ -5,6 +5,7 @@ table.dataTable .show-btn {
 @media only screen and (max-width: 600px) {
     .btn:not(.btn-outline):not(.btn-dashed):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon) {
         padding: calc(.5rem + 1px) calc(1rem + 1px);
+        font-size: 0.90rem;
     }
 
     .btn-group-sm>.btn:not(.btn-outline):not(.btn-dashed):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon), .btn:not(.btn-outline):not(.btn-dashed):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon).btn-sm {
@@ -17,6 +18,31 @@ table.dataTable .show-btn {
 
     table.dataTable .show-btn {
         display: block;
+    }
+
+    table.dataTable .actions-wrapper .btn-sm {
+        --bs-btn-padding-y: 0.50rem;
+        --bs-btn-padding-x: 1rem;
+        --bs-btn-font-size: 0.95rem;
+        --bs-btn-border-radius: 0.425rem;
+    }
+
+    table.dataTable .order-date-diff {
+        display: none;
+    }
+
+    table.dataTable .dataTables_filter {
+        padding: 0;
+    }
+
+    table.dataTable .dataTables_length {
+        padding: 0;
+    }
+
+    .table.gy-5 td, .table.gy-5 th {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        font-size: 1rem;
     }
 
     /* table.dataTable thead {
