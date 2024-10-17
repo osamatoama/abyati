@@ -18,17 +18,31 @@
                         <img src="{{ $scanned_item->product->main_image }}" class="img-fluid">
                     </div>
 
-                    <div class="col-6 d-flex align-items-center justify-content-center">
-                        <ul class="list-unstyled fs-lg">
-                            <li>
-                                <strong>{{ __('employee.orders.items.attributes.quantity') }} = </strong>
-                                <span>{{ $scanned_item->quantity }}</span>
-                            </li>
-                            <li>
-                                <strong>{{ __('employee.orders.items.attributes.executed_quantity') }} = </strong>
-                                <span>{{ $scanned_item->executed_quantity }}</span>
-                            </li>
-                        </ul>
+                    <div class="col-6">
+                        <div>
+                            <div class="product-name">
+                                {{ $scanned_item->product->name }}
+                            </div>
+
+                            @if($scanned_item->variant?->optionValues?->isNotEmpty())
+                                <div class="product-variant">
+                                    {{ $scanned_item->variant->optionValues->map(fn($optionValue) => $optionValue->option->name . ': ' . $optionValue->name)->implode(' - ') }}
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <ul class="list-unstyled fs-lg">
+                                <li>
+                                    <strong>{{ __('employee.orders.items.attributes.quantity') }} = </strong>
+                                    <span>{{ $scanned_item->quantity }}</span>
+                                </li>
+                                <li>
+                                    <strong>{{ __('employee.orders.items.attributes.executed_quantity') }} = </strong>
+                                    <span>{{ $scanned_item->executed_quantity }}</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             @endif

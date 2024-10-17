@@ -55,7 +55,7 @@
     <div class="d-flex flex-column flex-column-fluid flex-lg-row">
         <div class="d-flex flex-center w-lg-50 pt-15 pt-lg-0 px-10">
             <div class="d-flex flex-center flex-lg-start flex-column">
-                <a href="{{ route('support.home') }}" class="mb-7">
+                <a href="{{ route('home') }}" class="mb-7">
                     <img alt="Logo" src="{{ assetCustom('assets/client/media/logos/logo-300.png') }}">
                 </a>
                 {{--<h2 class="text-white fw-normal m-0">
@@ -85,7 +85,7 @@
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
     axios.defaults.headers.common['X-CSRF-Token'] = $('meta[name="_token"]').attr('content')
 </script>
-<script src="{{ assetCustom('assets/main.js') }}?version=1.0.31"></script>
+<script src="{{ assetCustom('assets/main.js') }}?version=1.0.32"></script>
 <script src="{{ assetCustom('assets/helpers.js') }}?version=1.0.30"></script>
 @stack('scripts')
 </body>

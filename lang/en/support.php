@@ -265,6 +265,7 @@ return [
 
         'notifications' => [
             'order_assigned_to_you' => 'Order #:id has been assigned to you',
+            'order_has_quantity_issue' => 'Order #:id has quantity issues',
         ],
     ],
 

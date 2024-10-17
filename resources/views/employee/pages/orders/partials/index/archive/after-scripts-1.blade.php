@@ -1,29 +1,28 @@
 <script>
     const smallScreenBreakpoint = 600
-    const dataTableResponsiveConfig = false
-    // const dataTableResponsiveConfig = window.innerWidth <= smallScreenBreakpoint
-    //     ? {
-    //         details: {
-    //             type: 'inline',
-    //             display: $.fn.dataTable.Responsive.display.childRowImmediate,
-    //         },
-    //     }
-    //     : false
+    const dataTableResponsiveConfig = window.innerWidth <= smallScreenBreakpoint
+        ? {
+            details: {
+                type: 'inline',
+                display: $.fn.dataTable.Responsive.display.childRowImmediate,
+            },
+        }
+        : false
 
     let dataTable = helpers.plugins.datatables.init([
-        // {data: 'actions', name: 'actions', orderable: false, searchable: false},
         {data: 'reference_id', name: 'reference_id', orderable: false, searchable: true},
-        // {data: 'store', name: 'store', orderable: false, searchable: false},
-        // {data: 'customer', name: 'customer', orderable: false, searchable: false},
+        {data: 'store', name: 'store', orderable: false, searchable: false},
+        {data: 'customer', name: 'customer', orderable: false, searchable: false},
         {data: 'date', name: 'date', orderable: true, searchable: false},
-        // {data: 'status', name: 'status_name', orderable: false, searchable: true},
+        {data: 'status', name: 'status_name', orderable: false, searchable: true},
         {data: 'completion_status', name: 'completion_status', orderable: false, searchable: true},
         {data: 'employee', name: 'employee', orderable: false, searchable: true},
         {data: 'items_count', name: 'items_count', orderable: false, searchable: false},
-        // {data: 'total', name: 'total', orderable: true, searchable: false},
+        {data: 'total', name: 'total', orderable: true, searchable: false},
+        {data: 'actions', name: 'actions', orderable: false, searchable: false},
     ], $('#results-table').data('url'),
         '#results-table',
-        [[1, 'desc']],
+        [[3, 'desc']],
         {
             responsive: dataTableResponsiveConfig,
             buttons: [],
@@ -34,6 +33,7 @@
                 let rowBackgroundColor = $(row).find('.id-wrapper').attr('data-id-color')
                 $(row).addClass('order-row cursor-pointer')
                 $(row).css('background-color', rowBackgroundColor)
+                // $(row).next('tr.child').css('background-color', rowBackgroundColor)
             }
         }
     );
@@ -56,17 +56,16 @@
     const showBtnClass = '#results-table .show-btn'
     const showOrderModal = $('#show-modal')
 
-    // if (window.innerWidth > smallScreenBreakpoint) {
+    if (window.innerWidth > 600) {
         $(document).on('click', orderRowClass, function(e) {
 
-            // if (e.target.closest('.actions-wrapper') || e.target.closest('.assign-employee-wrapper') || e.target.closest('.dtr-control')) {
-            if (e.target.closest('.actions-wrapper') || e.target.closest('.assign-employee-wrapper')) {
+            if (e.target.closest('.actions-wrapper') || e.target.closest('.assign-employee-wrapper') || e.target.closest('.dtr-control')) {
                 return;
             }
 
             showOrderDetails($(this))
         })
-    // }
+    }
 
     $(document).on('click', showBtnClass, function(e) {
         showOrderDetails($(this), $(this).data('show-url'))
@@ -168,40 +167,3 @@
         })
     })
 </script>
-
-@if(auth('employee')->user()->canAccessAllOrders())
-<script>
-    const resetBtnClass = '.reset-btn'
-
-    $(document).on('click', resetBtnClass, function(e) {
-        e.preventDefault()
-        const el = $(this)
-        disableElement(el)
-
-        Swal.fire({
-            title: getTranslation('areYouSure'),
-            text: el.data('confirm-message'),
-            icon: 'warning',
-            showCancelButton: true,
-            cancelButtonText: getTranslation('discard'),
-            confirmButtonText: el.data('confirm-title')
-        }).then(function (result) {
-            if (result.value) {
-                axios.post(el.data('action'))
-                    .then((response) => {
-                        successToast(response?.data?.message || getTranslation('updatedSuccessfully'))
-                        reloadDatatable(dataTable)
-                    })
-                    .catch((error) => {
-                        errorToast(getTranslation('somethingWrong'))
-                    })
-                    .then(() => {
-                        enableElement(el)
-                    })
-            } else {
-                enableElement(el)
-            }
-        })
-    })
-</script>
-@endif

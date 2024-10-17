@@ -1,5 +1,5 @@
 <form wire:submit.prevent="apply">
-    <div class="mb-10" wire:ignore>
+    <div class="mb-5 mb-md-10" wire:ignore>
         <label class="form-label">{{ __('employee.orders.attributes.store') }}</label>
 
         <select id="filter-store_ids" class="form-control" data-control="select2" data-placeholder="{{ __('globals.select_store') }}" multiple>
@@ -11,7 +11,7 @@
         @error('store_ids') <span class="form-input-error text-danger"></span> @enderror
     </div>
 
-    <div class="mb-10" wire:ignore>
+    <div class="mb-5 mb-md-10" wire:ignore>
         <div class="col-12 mb-5">
             <label class="form-label">{{ __('employee.orders.attributes.date') }}</label>
 
@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div class="mb-10" wire:ignore>
+    <div class="mb-5 mb-md-10" wire:ignore>
         <label class="form-label">{{ __('employee.orders.attributes.completion_status') }}</label>
 
         <select id="filter-completion_statuses" class="form-control" data-control="select2" multiple>
@@ -34,7 +34,7 @@
         @error('completion_statuses') <span class="form-input-error text-danger"></span> @enderror
     </div>
 
-    <div class="mb-10">
+    <div class="mb-5 mb-md-10">
         <label class="form-label">{{ __('employee.orders.attributes.assign_status') }}</label>
 
         <select wire:model="is_assigned" wire:change="apply" class="form-control">

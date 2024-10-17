@@ -218,6 +218,10 @@ function successToast(message) {
     toastr.success(message)
 }
 
+function warningToast(message) {
+    toastr.warning(message)
+}
+
 function errorToast(message) {
     toastr.error(message)
 }

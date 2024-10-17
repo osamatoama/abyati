@@ -32,3 +32,11 @@ Broadcast::channel(
     },
     options: ['guards' => ['employee']]
 );
+
+Broadcast::channel(
+    channel: 'order-transfer-channel',
+    callback: function ($user) {
+        return $user instanceof Support;
+    },
+    options: ['guards' => ['support']]
+);

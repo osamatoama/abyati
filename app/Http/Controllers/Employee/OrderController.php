@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employee;
 
 use Throwable;
 use App\Models\Order;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -11,6 +12,7 @@ use App\Exports\Employee\OrdersExport;
 use App\Datatables\Employee\OrderIndex;
 use App\Http\Requests\Employee\Order\AssignRequest;
 use App\Http\Requests\Employee\Order\UnassignRequest;
+use App\Services\Orders\Fulfillment\Employee\ResetOrder;
 use App\Services\Orders\Fulfillment\Employee\AssignOrderToMe;
 use App\Services\Orders\Fulfillment\Employee\UnassignOrderFromMe;
 
@@ -97,6 +99,30 @@ class OrderController extends Controller
         abort_unless($order->isBranchMine() && $order->isAssignedToMe(), 403, __('employee.orders.errors.cannot_process'));
 
         return view('employee.pages.orders.process', compact('order'));
+    }
+
+    public function reset(Request $request, Order $order)
+    {
+        abort_unless(auth('employee')->user()->canAccessAllOrders(), 403);
+
+        try {
+            DB::transaction(function () use ($order) {
+                (new ResetOrder(
+                    order: $order,
+                ))->execute();
+            });
+        } catch (Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => __('globals.errors.something_went_wrong'),
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => __('employee.orders.messages.reset'),
+            'data' => [],
+        ]);
     }
 
     // public function setupPull(SetupPullOrdersRequest $request)

@@ -24,6 +24,11 @@ Route::prefix('orders')->as('orders.')->group(function () {
     Route::post('{order}/unassign', [OrderController::class, 'unassign'])->name('unassign');
     Route::get('{order}/process', [OrderController::class, 'process'])->name('process');
     Route::get('export', [OrderController::class, 'export'])->name('export');
+
+    /**
+     * TEMP
+     */
+    Route::post('{order}/reset', [OrderController::class, 'reset'])->name('reset');
 });
 Route::resource('orders', OrderController::class)->only('index', 'show');
 
