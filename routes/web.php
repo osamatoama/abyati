@@ -8,7 +8,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\LocaleController;
 use App\Services\Salla\Merchant\SallaMerchantService;
 
-Route::get('/', HomeController::class);
+Route::get('/', HomeController::class)->name('home');
 
 Route::redirect('login', 'employee/login')->name('login');
 

@@ -13,6 +13,22 @@ class OrderIndex extends Datatable
      */
     public function query()
     {
+        /**
+         * TEMP
+         */
+        if (auth('employee')->user()->canAccessAllOrders()) {
+            return Order::query()
+                ->branchMine()
+                ->filter()
+                ->with([
+                    'store',
+                    'employee',
+                ])
+                ->withCount([
+                    'items'
+                ]);
+        }
+
         return Order::query()
             ->branchMine()
             ->where(fn($q) =>

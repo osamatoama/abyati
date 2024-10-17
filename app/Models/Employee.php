@@ -60,4 +60,18 @@ class Employee extends Authenticatable
     {
         return $this->belongsTo(Order::class, 'current_assigned_order_id');
     }
+
+    /**
+     * Methods
+     */
+    public function canAccessAllOrders(): bool
+    {
+        $accessEmails = app()->isProduction() ? [
+            'abobakr.sadig96@gmail.com'
+        ] : [
+            'employee-1@abyati.com',
+        ];
+
+        return in_array($this->email, $accessEmails);
+    }
 }

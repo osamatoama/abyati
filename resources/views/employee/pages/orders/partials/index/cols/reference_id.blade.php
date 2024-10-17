@@ -47,4 +47,17 @@
             <i class="fas fa-user-minus pe-0"></i>
         </button>
     @endif
+
+    {{-- TEMP --}}
+    @if(auth('employee')->user()->canAccessAllOrders() && $order->isCompleted())
+        <button
+            data-action="{{ route('employee.orders.reset', $order) }}"
+            data-confirm-message="سيتم استرجاع الحالة الافتراضية للطلب لإعادة مسح الباركود"
+            data-confirm-title="إعادة المسح"
+            class="reset-btn btn btn-warning btn-sm mb-1 me-1"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="إعادة المسح"
+        >
+            <i class="fas fa-rotate-left pe-0"></i>
+        </button>
+    @endif
 </div>

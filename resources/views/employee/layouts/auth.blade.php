@@ -55,7 +55,7 @@
     <div class="d-flex flex-column flex-column-fluid flex-lg-row">
         <div class="d-flex flex-center w-lg-50 pt-15 pt-lg-0 px-10">
             <div class="d-flex flex-center flex-lg-start flex-column">
-                <a href="{{ route('employee.home') }}" class="mb-7">
+                <a href="{{ route('home') }}" class="mb-7">
                     <img alt="Logo" src="{{ assetCustom('assets/client/media/logos/logo-300.png') }}">
                 </a>
                 {{--<h2 class="text-white fw-normal m-0">

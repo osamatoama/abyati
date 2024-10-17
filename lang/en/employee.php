@@ -199,6 +199,7 @@ return [
             'order_executed' => 'Order executed successfully',
             'item_transferred_to_support' => 'Item transferred to support successfully',
             'unassign_confirm' => 'Order will be unassigned from you and returned to the list',
+            'reset' => 'Order status has been reset',
         ],
 
         'errors' => [
