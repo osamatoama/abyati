@@ -2,6 +2,7 @@
 
 namespace App\Services\Orders\Fulfillment\Employee;
 
+use App\Events\Order\OrderTransferredToSupportEvent;
 use App\Models\Employee;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\DB;
@@ -39,6 +40,8 @@ class TransferOrderItemToSupport
 
     private function dispatchEvents()
     {
-        //
+        event(new OrderTransferredToSupportEvent(
+            order: $this->item->order,
+        ));
     }
 }

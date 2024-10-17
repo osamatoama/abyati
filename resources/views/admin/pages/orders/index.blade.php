@@ -6,10 +6,6 @@
     @include('admin.pages.orders.partials.index.actions')
 @endsection
 
-@push('afterStyles')
-    <link rel="stylesheet" href="{{ assetCustom('assets/client/css/custom/orders.css') }}?version=1.0.3">
-@endpush
-
 @section('content')
     <livewire:admin.orders.order-tabs />
 

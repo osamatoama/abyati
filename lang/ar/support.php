@@ -259,6 +259,7 @@ return [
 
         'notifications' => [
             'order_assigned_to_you' => 'تم إسناد طلب رقم :id لك',
+            'order_has_quantity_issue' => 'الطلب رقم :id يحتوي على مشكلة في الكميات',
         ],
     ],
 

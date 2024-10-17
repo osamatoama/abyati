@@ -134,7 +134,7 @@
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
     axios.defaults.headers.common['X-CSRF-Token'] = $('meta[name="_token"]').attr('content')
 </script>
-<script src="{{ assetCustom('assets/main.js') }}?version=1.0.31"></script>
+<script src="{{ assetCustom('assets/main.js') }}?version=1.0.32"></script>
 <script src="{{ assetCustom('assets/helpers.js') }}?version=1.0.30"></script>
 
 @include('support.layouts.partials.notifications')
