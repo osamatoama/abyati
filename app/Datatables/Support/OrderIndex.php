@@ -16,15 +16,16 @@ class OrderIndex extends Datatable
     {
         return Order::query()
             ->branchMine()
+            ->where('completion_status', OrderCompletionStatus::QUANTITY_ISSUES)
             // ->where(fn($q) =>
             //     $q->notAssigned()
             //         ->orWhere(fn($q) =>
             //             $q->assignedTo(auth('support')->id())
             //         )
             // )
-            ->whereHas('executionHistories', function ($q) {
-                $q->where('status', OrderCompletionStatus::QUANTITY_ISSUES);
-            })
+            // ->whereHas('executionHistories', function ($q) {
+            //     $q->where('status', OrderCompletionStatus::QUANTITY_ISSUES);
+            // })
             ->filter()
             ->with([
                 'store',

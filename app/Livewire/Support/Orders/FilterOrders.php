@@ -5,7 +5,6 @@ namespace App\Livewire\Support\Orders;
 use Carbon\Carbon;
 use App\Models\Store;
 use Livewire\Component;
-use App\Models\Support;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Locked;
 
@@ -27,9 +26,6 @@ class FilterOrders extends Component
 
     #[Url]
     public array $completion_statuses = [];
-
-    #[Url]
-    public ?string $is_assigned = '';
 
     public function mount()
     {
@@ -64,7 +60,6 @@ class FilterOrders extends Component
             'from_date',
             'to_date',
             'completion_statuses',
-            'is_assigned',
         ]);
 
         $this->dispatch('order-filters-reset', [
@@ -107,7 +102,6 @@ class FilterOrders extends Component
             'completion_statuses' => $this->completion_statuses,
             'from_date' => $this->from_date,
             'to_date' => $this->to_date,
-            'is_assigned' => $this->is_assigned,
         ];
 
         $params = [];
