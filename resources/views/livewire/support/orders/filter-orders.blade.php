@@ -34,18 +34,6 @@
         @error('completion_statuses') <span class="form-input-error text-danger"></span> @enderror
     </div>
 
-    <div class="mb-10">
-        <label class="form-label">{{ __('support.orders.attributes.assign_status') }}</label>
-
-        <select wire:model="is_assigned" wire:change="apply" class="form-control">
-            <option value="">{{ __('support.orders.assign_statuses.all') }}</option>
-            <option value="1">{{ __('support.orders.assign_statuses.assigned_to_me') }}</option>
-            <option value="0">{{ __('support.orders.assign_statuses.not_assigned') }}</option>
-        </select>
-
-        @error('is_assigned') <span class="form-input-error text-danger"></span> @enderror
-    </div>
-
     <div class="d-flex justify-content-end">
         <a wire:click="resetFilters" class="btn btn-sm btn-light-danger btn-active-danger me-2" data-kt-menu-dismiss="true">
             {{ __('globals.reset_filters') }}

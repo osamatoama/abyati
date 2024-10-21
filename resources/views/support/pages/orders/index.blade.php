@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <livewire:support.orders.order-tabs />
+    {{-- <livewire:support.orders.order-tabs /> --}}
 
     <div class="card">
         <div class="card-body">
