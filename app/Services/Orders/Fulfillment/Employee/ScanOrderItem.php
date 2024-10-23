@@ -18,6 +18,16 @@ class ScanOrderItem
 
     public function execute()
     {
+        if ($this->item->executed_quantity == $this->item->quantity) {
+            return;
+        }
+
+        if ($this->item->executed_quantity > $this->item->quantity) {
+            $this->handleScanIncrementError();
+
+            return;
+        }
+
         DB::transaction(function () {
             $this->item->increment('executed_quantity');
 
@@ -41,6 +51,23 @@ class ScanOrderItem
         });
 
         $this->dispatchEvents();
+    }
+
+    public function handleScanIncrementError()
+    {
+        DB::transaction(function () {
+            $this->item->update([
+                'executed_quantity' => $this->item->quantity,
+            ]);
+
+            $this->item->setAsCompleted();
+
+            (new SyncOrderExecutionStatusWithItems(
+                order: $this->item->order
+            ))->execute();
+
+            $this->executionCompleted = true;
+        });
     }
 
     private function dispatchEvents()

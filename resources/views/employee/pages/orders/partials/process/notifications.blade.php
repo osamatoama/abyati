@@ -9,4 +9,3 @@
     src="{{ asset('assets/client/media/audio/notifications/correct-choice-sound.mp3') }}"
     preload="auto"
 ></audio>
-

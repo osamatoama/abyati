@@ -38,8 +38,6 @@ class Scan extends Component
 
     public function scan()
     {
-        // logError('Scan: ', $this->scanned_barcode);
-
         if (empty($this->scanned_barcode)) {
             return;
         }
@@ -72,8 +70,6 @@ class Scan extends Component
         }
 
         $this->reset('scanned_barcode');
-
-        // logError('Scan completed');
     }
 
     private function getAvailableBarcodesToScan(): array
