@@ -6,6 +6,7 @@ use App\Services\Salla\Webhook\Events\UnknownEvent;
 use App\Services\Salla\Webhook\Events\Order\OrderCreatedEvent;
 use App\Services\Salla\Webhook\Events\Order\OrderUpdatedEvent;
 use App\Services\Salla\Webhook\Events\Product\ProductCreatedEvent;
+use App\Services\Salla\Webhook\Events\Product\ProductDeletedEvent;
 use App\Services\Salla\Webhook\Events\Product\ProductUpdatedEvent;
 use App\Services\Salla\Webhook\Events\Order\OrderStatusUpdatedEvent;
 use App\Services\Salla\Webhook\Events\App\Store\AppStoreAuthorizeEvent;
@@ -33,6 +34,7 @@ final class SallaWebhookHandler
             'app.store.authorize' => new AppStoreAuthorizeEvent(),
             'product.created' => new ProductCreatedEvent(),
             'product.updated' => new ProductUpdatedEvent(),
+            'product.deleted' => new ProductDeletedEvent(),
             'order.created' => new OrderCreatedEvent(),
             'order.updated' => new OrderUpdatedEvent(),
             'order.status.updated' => new OrderStatusUpdatedEvent(),
