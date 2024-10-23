@@ -11,4 +11,6 @@ enum QueueName: string
     case DEFAULT = 'default';
 
     case BROADCAST = 'broadcast';
+
+    case PULL = 'pull';
 }

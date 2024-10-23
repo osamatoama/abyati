@@ -4,6 +4,7 @@ namespace App\Console\Commands\Salla;
 
 use Carbon\Carbon;
 use App\Models\Store;
+use App\Enums\Queues\QueueName;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
 use App\Jobs\Salla\Pull\Orders\PullOrdersJob;
@@ -59,6 +60,8 @@ class SallaPullOrders extends Command
             $this->line('Orders');
         }
 
-        Bus::chain($jobs)->dispatch();
+        Bus::chain($jobs)
+            ->onQueue(QueueName::PULL)
+            ->dispatch();
     }
 }
