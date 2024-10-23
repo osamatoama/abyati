@@ -17,7 +17,7 @@
         <link href="{{ assetCustom('assets/client/plugins/custom/datatables/datatables.bundle.rtl.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ assetCustom('assets/client/plugins/global/plugins.bundle.rtl.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ assetCustom('assets/client/css/style.bundle.rtl.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ assetCustom('assets/client/css/custom.rtl.css') }}?version=1.0.21" rel="stylesheet" type="text/css">
+        <link href="{{ assetCustom('assets/client/css/custom.rtl.css') }}?version=1.0.22" rel="stylesheet" type="text/css">
     @else
         <link href="{{ assetCustom('assets/client/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ assetCustom('assets/client/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
@@ -127,7 +127,7 @@
     axios.defaults.headers.common['X-CSRF-Token'] = $('meta[name="_token"]').attr('content')
 </script>
 <script src="{{ assetCustom('assets/main.js') }}?version=1.0.33"></script>
-<script src="{{ assetCustom('assets/helpers.js') }}?version=1.0.30"></script>
+<script src="{{ assetCustom('assets/helpers.js') }}?version=1.0.31"></script>
 
 @livewireScripts
 

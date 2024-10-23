@@ -185,3 +185,7 @@ body {
 .form-switch.form-check-custom .form-check-input {
     cursor: pointer;
 }
+
+.swal2-icon {
+    transform: scaleX(-1);
+}

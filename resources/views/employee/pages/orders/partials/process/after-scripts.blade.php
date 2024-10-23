@@ -16,8 +16,17 @@
     })
 
     Livewire.on('order-executed', (params) => {
-        successToast(params[0].message)
-        location.href = params[0].redirect_url
+        Swal.fire({
+            title: params[0].message,
+            icon: 'success',
+            showCancelButton: true,
+            cancelButtonText: getTranslation('cancel'),
+            confirmButtonText: getTranslation('backToMenu'),
+        }).then(function (result) {
+            if (result.value) {
+                location.href = params[0].redirect_url
+            }
+        })
     })
 
     Livewire.on('order-item-executed', (params) => {
