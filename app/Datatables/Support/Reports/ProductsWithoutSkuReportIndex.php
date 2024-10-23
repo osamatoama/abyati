@@ -3,6 +3,7 @@
 namespace App\Datatables\Support\Reports;
 
 use App\Models\Product;
+use App\Enums\ProductStatus;
 use App\Datatables\Datatable;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -14,6 +15,7 @@ class ProductsWithoutSkuReportIndex extends Datatable
     public function query()
     {
         return Product::query()
+            ->where('status', '!=', ProductStatus::DELETED)
             ->whereNull('sku');
     }
 

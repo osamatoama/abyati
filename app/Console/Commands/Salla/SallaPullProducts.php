@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Salla;
 
+use App\Enums\Queues\QueueName;
 use App\Models\Store;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
@@ -45,6 +46,8 @@ class SallaPullProducts extends Command
             $this->line('Products');
         }
 
-        Bus::chain($jobs)->dispatch();
+        Bus::chain($jobs)
+            ->onQueue(QueueName::PULL)
+            ->dispatch();
     }
 }

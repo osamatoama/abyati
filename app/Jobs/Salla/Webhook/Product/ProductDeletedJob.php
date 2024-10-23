@@ -1,27 +1,28 @@
 <?php
 
-namespace App\Jobs\Salla\Pull\Products;
+namespace App\Jobs\Salla\Webhook\Product;
 
 use Exception;
+use App\Models\Store;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use App\Jobs\Concerns\HandleExceptions;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Services\Products\ProductService;
-use App\Jobs\Concerns\InteractsWithBatches;
+use App\Jobs\Salla\Contracts\WebhookEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class PullProductJob implements ShouldQueue
+class ProductDeletedJob implements ShouldQueue, WebhookEvent
 {
-    use Dispatchable, InteractsWithBatches, HandleExceptions, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, HandleExceptions, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.
      */
     public function __construct(
-        public readonly string $accessToken,
-        public readonly int $storeId,
+        public readonly string $event,
+        public readonly int $merchantId,
         public readonly array $data,
     ) {
         $this->maxAttempts = 1;
@@ -33,10 +34,16 @@ class PullProductJob implements ShouldQueue
     public function handle(): void
     {
         try {
+            $store = Store::query()->salla(providerId: $this->merchantId)->first();
+
+            if ($store === null) {
+                return;
+            }
+
             ProductService::instance()
                 ->saveSallaProduct(
                     sallaProduct: $this->data,
-                    storeId: $this->storeId,
+                    storeId: $store->id,
                 );
         } catch (Exception $exception) {
             $this->handleException(

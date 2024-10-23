@@ -2,46 +2,33 @@
 
 namespace App\Console\Commands\Salla;
 
-use Carbon\Carbon;
 use App\Models\Store;
 use App\Enums\Queues\QueueName;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
-use App\Jobs\Salla\Pull\Orders\PullOrdersJob;
+use App\Jobs\Salla\Pull\Products\DeletedProducts\PullDeletedProductsJob;
 
-class SallaPullOrders extends Command
+class SallaPullDeletedProducts extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'salla:pull-orders {--from=} {--to=}';
+    protected $signature = 'salla:pull-deleted-products';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Pull orders data from Salla API';
+    protected $description = 'Pull deleted products data from Salla API';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $fromDate = $this->option('from') ?? null;
-        $toDate = $this->option('to') ?? null;
-
-        $filters = [];
-
-        if (filled($fromDate)) {
-            $filters['from_date'] = Carbon::parse($fromDate)->format('d-m-Y');
-        }
-        if (filled($toDate)) {
-            $filters['to_date'] = Carbon::parse($toDate)->addDay()->format('d-m-Y');
-        }
-
         $stores = Store::get();
         $jobs = [];
 
@@ -52,12 +39,11 @@ class SallaPullOrders extends Command
                 relations: ['user.sallaToken'],
             );
 
-            $jobs[] = new PullOrdersJob(
+            $jobs[] = new PullDeletedProductsJob(
                 accessToken: $store->user->sallaToken->access_token,
                 storeId: $store->id,
-                filters: $filters,
             );
-            $this->line('Orders');
+            $this->line('Products (Deleted)');
         }
 
         Bus::chain($jobs)

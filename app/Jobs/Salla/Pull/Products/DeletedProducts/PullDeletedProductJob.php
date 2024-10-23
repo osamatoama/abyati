@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\Salla\Pull\Products;
+namespace App\Jobs\Salla\Pull\Products\DeletedProducts;
 
 use Exception;
 use Illuminate\Bus\Queueable;
@@ -12,7 +12,7 @@ use App\Jobs\Concerns\InteractsWithBatches;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class PullProductJob implements ShouldQueue
+class PullDeletedProductJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithBatches, HandleExceptions, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -34,8 +34,8 @@ class PullProductJob implements ShouldQueue
     {
         try {
             ProductService::instance()
-                ->saveSallaProduct(
-                    sallaProduct: $this->data,
+                ->setStatusDeleted(
+                    sallaDeletedProduct: $this->data,
                     storeId: $this->storeId,
                 );
         } catch (Exception $exception) {

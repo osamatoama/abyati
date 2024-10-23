@@ -26,6 +26,7 @@ class Product extends Model
         'name',
         'sku',
         'main_image',
+        'status',
         'quantity',
         'unlimited_quantity',
         'price',
