@@ -1,6 +1,6 @@
 <audio
     id="scanner-beep-notification"
-    src="{{ asset('assets/client/media/audio/notifications/store-scanner-beep-sound.mp3') }}"
+    src="{{ asset('assets/client/media/audio/notifications/achieve-sound.mp3') }}"
     preload="auto"
 ></audio>
 

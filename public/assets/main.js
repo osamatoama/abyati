@@ -565,8 +565,10 @@ function updateChart(config) {
     chart.update()
 }
 
-function playVoiceNotification(id) {
+function playVoiceNotification(id, level = 1.0) {
     var audio = document.getElementById(id)
+
+    audio.volume = level
 
     audio.play()
 }
