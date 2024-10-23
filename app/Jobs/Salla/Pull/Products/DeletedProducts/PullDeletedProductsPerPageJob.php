@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Jobs\Salla\Pull\Products;
+namespace App\Jobs\Salla\Pull\Products\DeletedProducts;
 
-use App\Enums\Queues\BatchName;
-use App\Jobs\Concerns\InteractsWithBatches;
-use App\Jobs\Concerns\HandleExceptions;
-use App\Services\Salla\Merchant\SallaMerchantException;
-use App\Services\Salla\Merchant\SallaMerchantService;
 use Exception;
 use Illuminate\Bus\Queueable;
+use App\Enums\Queues\BatchName;
+use Illuminate\Queue\SerializesModels;
+use App\Jobs\Concerns\HandleExceptions;
+use Illuminate\Queue\InteractsWithQueue;
+use App\Jobs\Concerns\InteractsWithBatches;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use App\Services\Salla\Merchant\SallaMerchantService;
+use App\Services\Salla\Merchant\SallaMerchantException;
 
-class PullProductsPerPageJob implements ShouldQueue
+class PullDeletedProductsPerPageJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithBatches, HandleExceptions, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -61,7 +61,7 @@ class PullProductsPerPageJob implements ShouldQueue
 
             $jobs = [];
             foreach ($this->response['data'] as $product) {
-                $jobs[] = new PullProductJob(
+                $jobs[] = new PullDeletedProductJob(
                     accessToken: $this->accessToken,
                     storeId: $this->storeId,
                     data: $product,

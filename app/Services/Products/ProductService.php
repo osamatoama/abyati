@@ -3,6 +3,7 @@
 namespace App\Services\Products;
 
 use App\Models\Product;
+use App\Enums\ProductStatus;
 use App\Dto\Products\ProductDto;
 use App\Services\Concerns\HasInstance;
 use App\Services\Products\OptionService;
@@ -83,6 +84,23 @@ final class ProductService
                     productId: $product->id,
                 );
         }
+
+        return $product;
+    }
+
+    public function setStatusDeleted(array $sallaDeletedProduct, int $storeId): ?Product
+    {
+        $product = Product::where('store_id', $storeId)
+            ->where('remote_id', $sallaDeletedProduct['id'])
+            ->first();
+
+        if ($product === null) {
+            return null;
+        }
+
+        $product->update([
+            'status' => ProductStatus::DELETED,
+        ]);
 
         return $product;
     }

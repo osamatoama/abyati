@@ -14,6 +14,22 @@ Route::redirect('login', 'employee/login')->name('login');
 
 Route::get('locale/{locale?}', [LocaleController::class, 'change'])->name('locale.change');
 
+Route::get('salla-products', function($page = 1) {
+    return SallaMerchantService::withToken(
+        accessToken: Store::first()->user?->sallaToken?->access_token,
+    )->products()->get(
+        page: $page,
+    );
+});
+
+Route::get('salla-products/restore', function($page = 1) {
+    return SallaMerchantService::withToken(
+        accessToken: Store::first()->user?->sallaToken?->access_token,
+    )->products()->restore(
+        page: $page,
+    );
+});
+
 Route::get('salla-products/{id}', function($id) {
     return SallaMerchantService::withToken(
         accessToken: Store::first()->user?->sallaToken?->access_token,

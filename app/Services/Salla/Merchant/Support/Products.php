@@ -36,4 +36,17 @@ final class Products implements Support
             url: "{$this->service->baseUrl}/products/{$id}"
         );
     }
+
+    /**
+     * @throws SallaMerchantException
+     */
+    public function restore(int $page = 1): array
+    {
+        return $this->client->get(
+            url: "{$this->service->baseUrl}/products/restore",
+            query: [
+                'page' => $page,
+            ],
+        );
+    }
 }
