@@ -32,7 +32,10 @@ class SallaException extends Exception
         $data ??= $response->json();
 
         return new static(
-            message: "{$data['message']}" . json_encode($data['errors']),
+            message: "{$data['error']['code']} | {$data['error']['message']}"
+                . PHP_EOL
+                . json_encode($data['error']['errors'])
+                . PHP_EOL,
             code: 422,
         );
     }
