@@ -163,6 +163,13 @@ final class Client extends BaseClient
                 );
             }
 
+            if ($response->status() === 422) {
+                throw SallaMerchantException::sallaValidationError(
+                    response: $response,
+                    data: $data,
+                );
+            }
+
             throw SallaMerchantException::fromResponse(
                 response: $response,
                 data: $data,

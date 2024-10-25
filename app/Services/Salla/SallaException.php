@@ -27,6 +27,16 @@ class SallaException extends Exception
         );
     }
 
+    public static function sallaValidationError(Response $response, ?array $data = null): static
+    {
+        $data ??= $response->json();
+
+        return new static(
+            message: "{$data['message']}" . json_encode($data['errors']),
+            code: 422,
+        );
+    }
+
     public static function fromResponse(Response $response, ?array $data = null): static
     {
         $data ??= $response->json();
