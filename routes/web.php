@@ -39,7 +39,9 @@ Route::get('salla-products/{id}', function($id) {
     );
 });
 
-Route::get('salla-products-quantities', function($page = 1, $filters = []) {
+Route::get('salla-products-quantities', function(Request $request, $page = 1) {
+    $filters = $request->query('filters', []);
+
     return SallaMerchantService::withToken(
         accessToken: Store::first()->user?->sallaToken?->access_token,
     )->products()->quantities(
