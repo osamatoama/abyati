@@ -49,4 +49,17 @@ final class Products implements Support
             ],
         );
     }
+
+    /**
+     * @throws SallaMerchantException
+     */
+    public function quantities(int $page = 1, array $filters = []): array
+    {
+        return $this->client->get(
+            url: "{$this->service->baseUrl}/products/quantities",
+            query: array_merge($filters, [
+                'page' => $page,
+            ]),
+        );
+    }
 }
