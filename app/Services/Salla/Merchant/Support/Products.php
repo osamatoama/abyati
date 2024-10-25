@@ -58,7 +58,7 @@ final class Products implements Support
         return $this->client->get(
             url: "{$this->service->baseUrl}/products/quantities",
             query: array_merge($filters, [
-                'page' => $page,
+                // 'page' => $page,
             ]),
         );
     }
