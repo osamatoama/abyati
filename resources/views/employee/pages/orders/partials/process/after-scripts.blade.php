@@ -1,4 +1,10 @@
 <script>
+    setInterval(function () {
+        $('.scan-barcode-input').focus();
+
+    }, 1000);
+    
+
     $('.scan-item-modal').on('shown.bs.modal', function(e) {
         let el = $(e.target)
 
