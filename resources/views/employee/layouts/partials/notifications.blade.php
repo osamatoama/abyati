@@ -13,6 +13,12 @@
 <script src="{{ asset('assets/client/plugins/custom/pusher/pusher.min.js') }}"></script>
 
 <script>
+
+    setInterval(function () {
+        $('.scan-barcode-input').focus();
+
+    }, 1000);
+    
     const authEmployeeId = "{{ auth('employee')->id() }}"
     const authEmployeeBranchId = "{{ auth('employee')->user()?->branch_id }}"
 
