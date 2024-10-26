@@ -11,7 +11,7 @@
     })
 
     $(document).on('keydown', '.scan-barcode-input', (e) => {
-        if (e.key === "Enter") {
+        if (e.key === "Enter" || e.key === "Tab") {
             e.preventDefault()
             $('.scan-barcode-input').focus()
         }
