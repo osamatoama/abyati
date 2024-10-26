@@ -10,6 +10,13 @@
         playVoiceNotification('scanner-beep-notification')
     })
 
+    $(document).on('keydown', '.scan-barcode-input', (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault()
+            $('.scan-barcode-input').focus()
+        }
+    })
+
     Livewire.on('order-item-scanned', (params) => {
         $(`#scan-item-${params[0].order_item_id}-modal`).find('.scan-item-barcode-input').focus()
         playVoiceNotification('scanner-beep-notification')
