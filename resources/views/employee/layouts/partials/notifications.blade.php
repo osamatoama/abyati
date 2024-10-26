@@ -18,7 +18,8 @@
         $('.scan-barcode-input').focus();
 
     }, 1000);
-    
+
+
     const authEmployeeId = "{{ auth('employee')->id() }}"
     const authEmployeeBranchId = "{{ auth('employee')->user()?->branch_id }}"
 
@@ -37,22 +38,22 @@
                 playVoiceNotification('cashier-sound-notification')
             }
 
-            // if (dataTable) {
-            //     reloadDatatable(dataTable)
-            // }
+            if (dataTable) {
+                reloadDatatable(dataTable)
+            }
         })
         .bind('order-unassigned-event', function(data) {
-            // if (dataTable) {
-            //     reloadDatatable(dataTable)
-            // }
+            if (dataTable) {
+                reloadDatatable(dataTable)
+            }
         })
 
     pusher.subscribe('private-order-sync-channel')
         .bind('order-created-event', function(data) {
             if (data.branch_id == authEmployeeBranchId) {
-                // if (dataTable) {
-                //     reloadDatatable(dataTable)
-                // }
+                if (dataTable) {
+                    reloadDatatable(dataTable)
+                }
 
                 try {
                     playVoiceNotification('alert-sound-notification')
@@ -67,15 +68,15 @@
         })
         .bind('order-updated-event', function(data) {
             if (data.branch_id == authEmployeeBranchId && (data.employee_id == authEmployeeId || data.employee_id == null)) {
-                // if (dataTable) {
-                //     reloadDatatable(dataTable)
-                // }
+                if (dataTable) {
+                    reloadDatatable(dataTable)
+                }
             }
         })
         .bind('order-completion-status-updated-event', function(data) {
-            // if (dataTable) {
-            //     reloadDatatable(dataTable)
-            // }
+            if (dataTable) {
+                reloadDatatable(dataTable)
+            }
         })
 
     pusher.subscribe('private-order-delay-channel')
