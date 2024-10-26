@@ -64,9 +64,5 @@
 @script
 <script>
     $('.scan-barcode-input').focus()
-    setInterval(function () {
-        $('.scan-barcode-input').focus();
-
-    }, 1000)
 </script>
 @endscript
