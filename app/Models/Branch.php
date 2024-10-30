@@ -17,11 +17,16 @@ class Branch extends Model
      * Config
      */
     protected $fillable = [
+        'remote_id',
         'name',
+        'type',
+        'status',
+        'is_default',
         'active',
     ];
 
     protected $casts = [
+        'is_default' => 'boolean',
         'active' => 'boolean',
     ];
 
