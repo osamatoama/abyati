@@ -20,6 +20,8 @@ final class BranchService
                 ],
                 values: [
                     'remote_id' => $branchDto->remoteId,
+                    'store_id' => $branchDto->storeId,
+                    'remote_name' => $branchDto->remoteName,
                     'type' => $branchDto->type,
                     'status' => $branchDto->status,
                     'is_default' => $branchDto->isDefault,
@@ -31,12 +33,14 @@ final class BranchService
     public function updateOrCreate(BranchDto $branchDto): Branch
     {
         return Branch::query()
-            ->firstOrCreate(
+            ->updateOrCreate(
                 attributes: [
                     'name' => $branchDto->name,
                 ],
                 values: [
                     'remote_id' => $branchDto->remoteId,
+                    'store_id' => $branchDto->storeId,
+                    'remote_name' => $branchDto->remoteName,
                     'type' => $branchDto->type,
                     'status' => $branchDto->status,
                     'is_default' => $branchDto->isDefault,

@@ -15,7 +15,7 @@ class SallaPullBranches extends Command
      *
      * @var string
      */
-    protected $signature = 'salla:pull-branches';
+    protected $signature = 'salla:pull-branches {--stores=}';
 
     /**
      * The console command description.
@@ -29,7 +29,16 @@ class SallaPullBranches extends Command
      */
     public function handle()
     {
-        $stores = Store::get();
+        $storeIds = $this->option('stores');
+
+        $stores = Store::query()
+            ->supplier()
+            ->when(
+                filled($storeIds),
+                fn ($query) => $query->whereIn('id', explode(',', $storeIds)),
+            )
+            ->get();
+
         $jobs = [];
 
         foreach ($stores as $store) {
@@ -43,6 +52,7 @@ class SallaPullBranches extends Command
                 accessToken: $store->user->sallaToken->access_token,
                 storeId: $store->id,
             );
+
             $this->line('Branches');
         }
 

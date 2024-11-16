@@ -8,7 +8,9 @@ final class BranchDto
 {
     public function __construct(
         public ?int    $remoteId,
+        public ?int    $storeId,
         public ?string $name,
+        public ?string $remoteName,
         public ?string $type,
         public ?string $status,
         public bool    $isDefault = false,
@@ -22,7 +24,9 @@ final class BranchDto
     {
         return new self(
             remoteId: $data['id'],
-            name: $data['name'],
+            storeId: $store->id,
+            name: $data['city']['name'] ?? $data['name'],
+            remoteName: $data['name'],
             type: $data['type'] ?? null,
             status: $data['status'] ?? null,
             isDefault: $data['is_default'] ?? false,

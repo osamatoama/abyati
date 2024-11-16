@@ -17,7 +17,9 @@ return new class extends Migration
 
         Schema::table('branches', function (Blueprint $table) {
             $table->string('remote_id')->nullable()->unique()->after('id');
-            $table->string('type')->nullable()->after('name');
+            $table->foreignId('store_id')->nullable()->after('remote_id')->constrained();
+            $table->string('remote_name')->nullable()->after('name');
+            $table->string('type')->nullable()->after('remote_name');
             $table->string('status')->nullable()->after('type');
             $table->boolean('is_default')->default(false)->after('status');
         });
@@ -34,6 +36,8 @@ return new class extends Migration
 
         Schema::table('branches', function (Blueprint $table) {
             $table->dropColumn('remote_id');
+            $table->dropConstrainedForeignId('store_id');
+            $table->dropColumn('remote_name');
             $table->dropColumn('type');
             $table->dropColumn('status');
             $table->dropColumn('is_default');

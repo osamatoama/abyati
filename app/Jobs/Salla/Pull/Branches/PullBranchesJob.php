@@ -4,6 +4,8 @@ namespace App\Jobs\Salla\Pull\Branches;
 
 use Exception;
 use Illuminate\Bus\Queueable;
+use App\Enums\Queues\BatchName;
+use App\Enums\Queues\QueueName;
 use Illuminate\Queue\SerializesModels;
 use App\Jobs\Concerns\HandleExceptions;
 use Illuminate\Queue\InteractsWithQueue;
@@ -23,6 +25,7 @@ class PullBranchesJob implements ShouldQueue
     public function __construct(
         public readonly string $accessToken,
         public readonly int $storeId,
+        public readonly int $page = 1,
     ) {
         $this->maxAttempts = 5;
     }
@@ -38,7 +41,9 @@ class PullBranchesJob implements ShouldQueue
                         accessToken: $this->accessToken,
                     )
                     ->branches()
-                    ->get();
+                    ->get(
+                        page: $this->page,
+                    );
             } catch (SallaMerchantException $exception) {
                 $this->handleException(
                     exception: SallaMerchantException::withLines(
@@ -54,24 +59,29 @@ class PullBranchesJob implements ShouldQueue
             }
 
             $jobs = [];
-            for ($page = 1, $totalPages = $response['pagination']['totalPages']; $page <= $totalPages; $page++) {
-                $jobs[] = new PullBranchesPerPageJob(
+
+            foreach ($response['data'] as $branch) {
+                $jobs[] = new PullBranchJob(
                     accessToken: $this->accessToken,
                     storeId: $this->storeId,
-                    page: $page,
-                    response: $page === 1 ? $response : null,
+                    data: $branch,
                 );
             }
 
-            // $this->addOrCreateBatch(
-            //     jobs: $jobs,
-            //     batchName: BatchName::SALLA_PULL_PRODUCTS,
-            //     storeId: $this->storeId,
-            // );
-
-            foreach ($jobs as $job) {
-                $this->prependToChain($job);
+            if (! empty($response['pagination']['links']['next'])) {
+                $jobs[] = new self(
+                    accessToken: $this->accessToken,
+                    storeId: $this->storeId,
+                    page: $this->page + 1,
+                );
             }
+
+            $this->addOrCreateBatch(
+                jobs: $jobs,
+                batchName: BatchName::SALLA_PULL_BRANCHES,
+                storeId: $this->storeId,
+                queueName: QueueName::PULL,
+            );
         } catch (Exception $exception) {
             $this->handleException(
                 exception: $exception,
