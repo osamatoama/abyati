@@ -104,7 +104,9 @@ return [
 
         'attributes' => [
             'id' => 'ID',
+            'remote_id' => 'Salla ID',
             'name' => 'Name',
+            'warehouses_count' => 'Warehouses Count',
             'related_order_status' => 'Related order status',
             'related_order_statuses' => 'Related order statuses',
             'active' => 'Active',
@@ -125,6 +127,36 @@ return [
 
         'errors' => [
             'should_have_no_relations' => 'You cannot perform this action, because this branch has related employees or orders. Deactivate the branch instead.',
+        ],
+    ],
+
+    'shelves' => [
+        'title' => 'Shelves',
+        'num_#' => 'Shelf :name',
+
+        'attributes' => [
+            'id' => 'ID',
+            'warehouse' => 'Warehouse',
+            'name' => 'Name',
+            'order' => 'Order',
+            'products_count' => 'Products Count',
+        ],
+
+        'actions' => [
+            'create' => 'Create Shelf',
+            'edit_branch' => 'Edit Shelf',
+        ],
+
+        'messages' => [
+            'created' => 'Shelf created',
+            'updated' => 'Shelf updated',
+            'deleted' => 'Shelf deleted',
+            'activated' => 'Shelf activated',
+            'deactivated' => 'Shelf deactivated',
+        ],
+
+        'errors' => [
+            'should_have_no_relations' => 'You cannot perform this action, because this shelf has related products or stocktakings. Deactivate the shelf instead.',
         ],
     ],
 

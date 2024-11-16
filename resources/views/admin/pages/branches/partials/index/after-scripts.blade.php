@@ -1,7 +1,9 @@
 <script>
     const dataTable = helpers.plugins.datatables.init([
         {data: 'id', name: 'id', orderable: true, searchable: true},
+        {data: 'remote_id', name: 'remote_id', orderable: false, searchable: true},
         {data: 'name', name: 'name', orderable: false, searchable: true},
+        {data: 'warehouses_count', name: 'warehouses_count', orderable: true, searchable: false},
         {data: 'active', name: 'active', orderable: false, searchable: false},
         {data: 'action', name: 'action', orderable: false, searchable: true},
     ], $('#results-table').data('url'), '#results-table', [[0, 'desc']], {

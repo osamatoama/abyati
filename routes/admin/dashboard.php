@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ShelfController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\AccountController;
@@ -40,6 +41,12 @@ Route::prefix('branches')->as('branches.')->group(function () {
     Route::put('{branch}/toggle-active', [BranchController::class, 'toggleActive'])->name('toggle_active');
 });
 Route::resource('branches', BranchController::class)->only('index', 'edit', 'create', 'destroy');
+
+// Branches
+Route::prefix('shelves')->as('shelves.')->group(function () {
+    Route::get('{shelf}/products', [ShelfController::class, 'products'])->name('products');
+});
+Route::resource('shelves', ShelfController::class)->only('index', 'show', 'edit', 'create', 'destroy');
 
 // Orders
 Route::prefix('orders')->as('orders.')->group(function () {

@@ -2,10 +2,13 @@
 
 use App\Models\Store;
 use App\Models\Webhook;
+use App\Models\Warehouse;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\LocaleController;
+use App\Imports\Admin\Shelf\WarehouseProductsImport;
 use App\Services\Salla\Merchant\SallaMerchantService;
 
 Route::get('/', HomeController::class)->name('home');
@@ -99,5 +102,13 @@ Route::get('test/webhooks', function() {
         'mistakes' => $mistakeOrders,
         'all' => $ordersWebhooks,
     ];
+});
+
+Route::get('test/import', function() {
+    Excel::import(
+        new WarehouseProductsImport(Warehouse::firstWhere('name', 'تبوك')),
+        public_path('imports/shelves-products.xlsx')
+    );
+
 });
 

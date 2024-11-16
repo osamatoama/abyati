@@ -2,6 +2,7 @@
 
 return [
 
+    'show' => 'عرض',
     'add' => 'إضافة',
     'edit' => 'تعديل',
     'delete' => 'حذف',
@@ -14,6 +15,7 @@ return [
     'select_store' => 'اختر المتجر',
     'select_branch' => 'اختر الفرع',
     'select_employee' => 'اختر الموظف',
+    'select_warehouse' => 'اختر المستودع',
     'select_all' => 'اختيار الكل',
     'clear_all' => 'إلغاء الكل',
     'You will not be able to change this afterwards' => 'لن تتمكن من تغيير هذا بعد ذلك',

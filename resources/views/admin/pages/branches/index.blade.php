@@ -16,7 +16,9 @@
                     <thead>
                         <tr class="fw-semibold fs-6 text-gray-800">
                             <th>{{ __('admin.branches.attributes.id') }}</th>
+                            <th>{{ __('admin.branches.attributes.remote_id') }}</th>
                             <th>{{ __('admin.branches.attributes.name') }}</th>
+                            <th>{{ __('admin.branches.attributes.warehouses_count') }}</th>
                             <th>{{ __('admin.branches.attributes.active') }}</th>
                             <th></th>
                         </tr>

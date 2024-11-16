@@ -15,6 +15,7 @@ class BranchIndex extends Datatable
     {
         return Branch::query()
             ->withCount([
+                'warehouses',
                 'employees',
                 'orders',
             ]);
@@ -41,8 +42,14 @@ class BranchIndex extends Datatable
             'id' => function (Branch $branch) {
                 return view('admin.pages.branches.partials.index.cols.id', compact('branch'));
             },
+            'remote_id' => function (Branch $branch) {
+                return view('admin.pages.branches.partials.index.cols.remote_id', compact('branch'));
+            },
             'name' => function (Branch $branch) {
                 return view('admin.pages.branches.partials.index.cols.name', compact('branch'));
+            },
+            'warehouses_count' => function (Branch $branch) {
+                return view('admin.pages.branches.partials.index.cols.warehouses_count', compact('branch'));
             },
             'active' => function (Branch $branch) {
                 return view('admin.pages.branches.partials.index.cols.active', compact('branch'));
