@@ -42,6 +42,7 @@ return [
             'id' => 'المعرف',
             'salla_id' => 'معرف سلة',
             'store' => 'المتجر',
+            'warehouse' => 'المستودع',
             'image' => 'الصورة',
             'name' => 'الاسم',
             'sku' => 'SKU',
@@ -138,6 +139,7 @@ return [
             'id' => 'المعرف',
             'warehouse' => 'المستودع',
             'name' => 'الاسم',
+            'description' => 'الوصف',
             'order' => 'الترتيب',
             'products_count' => 'عدد المنتجات',
         ],
@@ -145,6 +147,12 @@ return [
         'actions' => [
             'create' => 'إضافة رف',
             'edit_branch' => 'تعديل الرف',
+            'attach_product' => 'إضافة منتج للرف',
+            'detach_product' => 'إزالة المنتج',
+            'import' => 'استيراد',
+            'download_warehouse_template' => 'تحميل نموذج المستودع',
+            'download_aisle_template' => 'تحميل نموذج الممر',
+            'download_shelf_template' => 'تحميل نموذج الرف',
         ],
 
         'messages' => [
@@ -153,6 +161,9 @@ return [
             'deleted' => 'تم حذف الرف',
             'activated' => 'تم تفعيل الرف',
             'deactivated' => 'تم إلغاء تفعيل الرف',
+            'product_attached' => 'تم إضافة المنتجات للرف',
+            'product_detached' => 'تم إزالة المنتج عن الرف',
+            'import_started' => 'جاري استيراد البيانات من الملف',
         ],
 
         'errors' => [

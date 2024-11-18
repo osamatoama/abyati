@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('warehouse_id')->constrained();
             $table->string('aisle')->nullable();
             $table->string('name');
+            $table->string('description', 1000)->nullable();
             $table->unsignedInteger('order')->default(1);
 
             $table->timestamps();

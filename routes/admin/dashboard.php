@@ -28,6 +28,9 @@ use App\Http\Controllers\Admin\Reports\EmployeePerformanceReportController;
 Route::get('/', HomeController::class)->name('home');
 
 // Products
+Route::prefix('products')->as('products.')->group(function () {
+    Route::get('select', [ProductController::class, 'select'])->name('select');
+});
 Route::resource('products', ProductController::class)->only('index', 'show');
 
 // Stores
@@ -44,7 +47,10 @@ Route::resource('branches', BranchController::class)->only('index', 'edit', 'cre
 
 // Branches
 Route::prefix('shelves')->as('shelves.')->group(function () {
+    Route::post('import', [ShelfController::class, 'import'])->name('import');
     Route::get('{shelf}/products', [ShelfController::class, 'products'])->name('products');
+    Route::post('{shelf}/products/attach', [ShelfController::class, 'attachProduct'])->name('products.attach');
+    Route::put('{shelf}/products/{product}/detach', [ShelfController::class, 'detachProduct'])->name('products.detach');
 });
 Route::resource('shelves', ShelfController::class)->only('index', 'show', 'edit', 'create', 'destroy');
 

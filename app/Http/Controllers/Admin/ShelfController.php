@@ -3,12 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Shelf;
+use App\Models\Product;
+use App\Models\Warehouse;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use App\Datatables\Admin\ShelfIndex;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 use App\Datatables\Admin\ShelfProductsIndex;
 use App\Http\Controllers\Concerns\Authorizable;
+use App\Http\Requests\Admin\Shelf\ImportRequest;
+use App\Imports\Admin\Shelf\WarehouseProductsImport;
 use App\Http\Requests\Admin\Shelf\DeleteShelfRequest;
+use App\Http\Requests\Admin\Shelf\AttachProductRequest;
 
 class ShelfController extends Controller
 {
@@ -22,7 +29,9 @@ class ShelfController extends Controller
             return app(ShelfIndex::class)->render();
         }
 
-        return view('admin.pages.shelves.index');
+        $warehouses = Warehouse::pluck('name', 'id');
+
+        return view('admin.pages.shelves.index', compact('warehouses'));
     }
 
     public function show(Shelf $shelf)
@@ -37,6 +46,48 @@ class ShelfController extends Controller
         }
 
         return app(ShelfProductsIndex::class, ['shelf' => $shelf])->render();
+    }
+
+    public function attachProduct(Shelf $shelf, AttachProductRequest $request)
+    {
+        $data = $request->validated();
+
+        $shelf->products()->syncWithoutDetaching($data['product_ids'] ?? []);
+
+        return response()->json([
+            'success' => true,
+            'message' => __('admin.shelves.messages.product_attached'),
+        ]);
+    }
+
+    public function detachProduct(Shelf $shelf, Product $product)
+    {
+        $shelf->products()->detach($product);
+
+        return response()->json([
+            'success' => true,
+            'message' => __('admin.shelves.messages.product_detached'),
+        ]);
+    }
+
+    public function import(ImportRequest $request)
+    {
+        $data = $request->validated();
+
+        $file = Storage::disk('local')->putFile('imports', $data['file']);
+
+        Excel::import(
+            import: new WarehouseProductsImport(
+                warehouse: Warehouse::find($data['warehouse_id']),
+            ),
+            filePath: storage_path('app/' . $file),
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => __('admin.shelves.messages.import_started'),
+            'data' => [],
+        ]);
     }
 
     public function create()

@@ -42,6 +42,7 @@ return [
             'id' => 'ID',
             'salla_id' => 'Salla ID',
             'store' => 'Store',
+            'warehouse' => 'Warehouse',
             'image' => 'Image',
             'name' => 'Name',
             'sku' => 'SKU',
@@ -138,6 +139,7 @@ return [
             'id' => 'ID',
             'warehouse' => 'Warehouse',
             'name' => 'Name',
+            'description' => 'Description',
             'order' => 'Order',
             'products_count' => 'Products Count',
         ],
@@ -145,6 +147,12 @@ return [
         'actions' => [
             'create' => 'Create Shelf',
             'edit_branch' => 'Edit Shelf',
+            'attach_product' => 'Attach Product',
+            'detach_product' => 'Detach Product',
+            'import' => 'Import',
+            'download_warehouse_template' => 'Download Warehouse Template',
+            'download_aisle_template' => 'Download Aisle Template',
+            'download_shelf_template' => 'Download Shelf Template',
         ],
 
         'messages' => [
@@ -153,6 +161,9 @@ return [
             'deleted' => 'Shelf deleted',
             'activated' => 'Shelf activated',
             'deactivated' => 'Shelf deactivated',
+            'product_attached' => 'Products attached to the shelf',
+            'product_detached' => 'Product detached from the shelf',
+            'import_started' => 'Started importing data from the file',
         ],
 
         'errors' => [

@@ -47,6 +47,9 @@ class ShelfIndex extends Datatable
             'name' => function (Shelf $shelf) {
                 return view('admin.pages.shelves.partials.index.cols.name', compact('shelf'));
             },
+            'description' => function (Shelf $shelf) {
+                return view('admin.pages.shelves.partials.index.cols.description', compact('shelf'));
+            },
             'order' => function (Shelf $shelf) {
                 return view('admin.pages.shelves.partials.index.cols.order', compact('shelf'));
             },

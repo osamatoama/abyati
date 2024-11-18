@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Observers\ShelfObserver;
 use App\Models\Concerns\Filterable;
 use App\Models\Filters\ShelfFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+#[ObservedBy(ShelfObserver::class)]
 class Shelf extends Model
 {
     use SoftDeletes;
@@ -22,6 +25,7 @@ class Shelf extends Model
         'warehouse_id',
         'aisle',
         'name',
+        'description',
         'order',
     ];
 

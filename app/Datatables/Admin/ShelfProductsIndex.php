@@ -25,7 +25,6 @@ class ShelfProductsIndex extends Datatable
             ->whereHas('shelves', function ($query) {
                 $query->where('shelves.id', $this->shelf->id);
             });
-            // ->filter();
     }
 
     /**
@@ -34,12 +33,13 @@ class ShelfProductsIndex extends Datatable
     protected function addColumns(): array
     {
         return [
-            'store' => function (Product $product) {
-                return view('admin.pages.products.partials.index.cols.store', compact('product'));
-            },
             'image' => function (Product $product) {
-                return view('admin.pages.products.partials.index.cols.image', compact('product'));
+                return view('admin.pages.shelves.partials.show.cols.image', compact('product'));
             },
+            'action' => function (Product $product) {
+                $shelf = $this->shelf;
+                return view('admin.pages.shelves.partials.show.cols.actions', compact('product', 'shelf'));
+            }
         ];
     }
 
@@ -50,16 +50,16 @@ class ShelfProductsIndex extends Datatable
     {
         return [
             'id' => function (Product $product) {
-                return view('admin.pages.products.partials.index.cols.id', compact('product'));
+                return view('admin.pages.shelves.partials.show.cols.id', compact('product'));
             },
             'remote_id' => function (Product $product) {
-                return view('admin.pages.products.partials.index.cols.remote_id', compact('product'));
+                return view('admin.pages.shelves.partials.show.cols.remote_id', compact('product'));
             },
             'name' => function (Product $product) {
-                return view('admin.pages.products.partials.index.cols.name', compact('product'));
+                return view('admin.pages.shelves.partials.show.cols.name', compact('product'));
             },
             'sku' => function (Product $product) {
-                return view('admin.pages.products.partials.index.cols.sku', compact('product'));
+                return view('admin.pages.shelves.partials.show.cols.sku', compact('product'));
             },
         ];
     }

@@ -107,8 +107,15 @@ Route::get('test/webhooks', function() {
 Route::get('test/import', function() {
     Excel::import(
         new WarehouseProductsImport(Warehouse::firstWhere('name', 'تبوك')),
-        public_path('imports/shelves-products.xlsx')
+        public_path('imports/tabuk-shelves.xlsx')
     );
-
 });
 
+Route::get('test/import-missing-barcodes', function() {
+    return array_map(
+        array: cache()->get('import_shelves_missing_barcodes', []),
+        callback: fn($barcode) => [
+            'barcode' => $barcode
+        ],
+    );
+});

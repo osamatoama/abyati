@@ -16,6 +16,7 @@ return [
     'select_branch' => 'اختر الفرع',
     'select_employee' => 'اختر الموظف',
     'select_warehouse' => 'اختر المستودع',
+    'select_product' => 'اختر المنتج',
     'select_all' => 'اختيار الكل',
     'clear_all' => 'إلغاء الكل',
     'You will not be able to change this afterwards' => 'لن تتمكن من تغيير هذا بعد ذلك',
@@ -96,4 +97,6 @@ return [
     ],
     'optional' => 'اختياري',
     'alert' => 'تنبيه',
+
+    'import_file' => 'ملف الاستيراد',
 ];

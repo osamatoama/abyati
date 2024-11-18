@@ -75,7 +75,19 @@ class ShelfSeeder extends Seeder
                 'dir' => 'desc',
             ],
             'M' => [
-                'suffixes' => [],
+                'suffixes' => [1, 1],
+                'dir' => null,
+            ],
+            'N' => [
+                'suffixes' => [1, 1],
+                'dir' => null,
+            ],
+            'O' => [
+                'suffixes' => [1, 24],
+                'dir' => null,
+            ],
+            'X' => [
+                'suffixes' => [1, 1],
                 'dir' => null,
             ],
         ];

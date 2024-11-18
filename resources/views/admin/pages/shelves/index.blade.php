@@ -18,6 +18,7 @@
                             <th>{{ __('admin.shelves.attributes.id') }}</th>
                             <th>{{ __('admin.shelves.attributes.warehouse') }}</th>
                             <th>{{ __('admin.shelves.attributes.name') }}</th>
+                            <th>{{ __('admin.shelves.attributes.description') }}</th>
                             {{-- <th>{{ __('admin.shelves.attributes.order') }}</th> --}}
                             <th>{{ __('admin.shelves.attributes.products_count') }}</th>
                             <th></th>
@@ -28,6 +29,10 @@
         </div>
     </div>
 @endsection
+
+@push('modals')
+    @include('admin.pages.shelves.partials.index.modals.import')
+@endpush
 
 @push('afterScripts')
     @include('admin.pages.shelves.partials.index.after-scripts')

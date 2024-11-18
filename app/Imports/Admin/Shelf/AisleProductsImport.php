@@ -23,21 +23,38 @@ class AisleProductsImport implements ToCollection
     public function collection(Collection $rows)
     {
         $columns = $this->transpose($rows);
+        array_shift($columns);
 
         foreach ($columns as $column) {
             $column = collect($column);
 
-            $column = $column->filter(fn ($value) => $value !== null);
+            $shelfName = trim($column->shift());
 
-            if ($column->isEmpty()) {
+            if (empty($shelfName)) {
                 continue;
             }
 
-            $shelfName = trim($column->shift());
+            $shelfDescription = trim($column->shift());
+            $shelfDescription = filled($shelfDescription) ? $shelfDescription : null;
 
             $shelf = $this->warehouse->shelves()->firstWhere('name', $shelfName);
 
             if (empty($shelf)) {
+                $shelf = $this->warehouse->shelves()->create([
+                    'aisle' => $this->aisle,
+                    'name' => $shelfName,
+                    'description' => $shelfDescription,
+                ]);
+            } elseif ($shelf->description !== $shelfDescription) {
+                $shelf->update([
+                    'description' => $shelfDescription,
+                ]);
+            }
+
+            $column = $column->map(fn ($value) => trim((string) $value))
+                ->filter(fn ($value) => filled($value));
+
+            if ($column->isEmpty()) {
                 continue;
             }
 
@@ -45,6 +62,16 @@ class AisleProductsImport implements ToCollection
                 ->whereIn('sku', $column->toArray())
                 ->pluck('id')
                 ->toArray();
+
+            /**
+             * TEMP: For Debug
+             */
+            // $wrongBarcodes = $column->diff(Product::whereIn('sku', $column->toArray())->pluck('sku'));
+
+            // cache()->put('import_shelves_missing_barcodes', array_merge(
+            //     cache()->get('import_shelves_missing_barcodes', []),
+            //     $wrongBarcodes->toArray(),
+            // ));
 
             $shelf->products()->sync($productIds);
         }

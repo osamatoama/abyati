@@ -14,7 +14,12 @@ class ProductIndex extends Datatable
     public function query()
     {
         return Product::query()
-            ->filter();
+            ->filter()
+            ->with([
+                'store' => fn($q) => $q->select('id', 'name'),
+                'shelves' => fn($q) => $q->select('shelves.id', 'shelves.warehouse_id', 'shelves.name'),
+                'shelves.warehouse' => fn($q) => $q->select('id', 'name'),
+            ]);
     }
 
     /**
@@ -25,6 +30,9 @@ class ProductIndex extends Datatable
         return [
             'store' => function (Product $product) {
                 return view('admin.pages.products.partials.index.cols.store', compact('product'));
+            },
+            'warehouse' => function (Product $product) {
+                return view('admin.pages.products.partials.index.cols.warehouse', compact('product'));
             },
             'image' => function (Product $product) {
                 return view('admin.pages.products.partials.index.cols.image', compact('product'));

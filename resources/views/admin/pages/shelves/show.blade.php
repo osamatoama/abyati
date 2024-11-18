@@ -19,9 +19,8 @@
                             <th>{{ __('admin.products.attributes.salla_id') }}</th>
                             <th>{{ __('admin.products.attributes.image') }}</th>
                             <th>{{ __('admin.products.attributes.name') }}</th>
-                            <th>{{ __('admin.products.attributes.store') }}</th>
                             <th>{{ __('admin.products.attributes.sku') }}</th>
-                            {{-- <th></th> --}}
+                            <th></th>
                         </tr>
                     </thead>
                 </table>
@@ -29,6 +28,10 @@
         </div>
     </div>
 @endsection
+
+@push('modals')
+    @include('admin.pages.shelves.partials.show.modals.attach-product')
+@endpush
 
 @push('afterScripts')
     @include('admin.pages.shelves.partials.show.after-scripts')
