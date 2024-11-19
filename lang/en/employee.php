@@ -42,6 +42,7 @@ return [
             'id' => 'ID',
             'salla_id' => 'Salla ID',
             'store' => 'Store',
+            'shelf' => 'Shelf',
             'image' => 'Image',
             'name' => 'Name',
             'sku' => 'SKU',

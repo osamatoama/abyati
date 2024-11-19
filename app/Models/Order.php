@@ -169,6 +169,16 @@ class Order extends Model
     }
 
     /**
+     * TEMP: will be removed when relating order directly to warehouse
+     */
+    public function warehouseId(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->branch?->warehouse?->id ?? null,
+        );
+    }
+
+    /**
      * Helpers
      */
     public function isPending(): bool
@@ -272,6 +282,29 @@ class Order extends Model
             'executor_type' => $executorType,
             'executor_id' => $executorId,
             'status' => OrderCompletionStatus::COMPLETED,
+        ]);
+    }
+
+    public function getItemsSortedByShelf()
+    {
+        $this->loadMissing([
+            'items',
+            'items.product',
+            'items.product.shelves' => fn($q) => $q->where('warehouse_id', $this->warehouse_id),
+        ]);
+
+        $this->items->each(function(OrderItem $item) {
+            $shelf = $item->product?->shelves?->first();
+            $item->aisle = $shelf?->aisle ?? null;
+            $item->shelf = $shelf?->name ?? null;
+            // $item->shelf_number = filled($item->shelf) ? str($item->shelf)->after($item->aisle)->__toString() : null;
+        });
+
+        return $this->items->sortBy([
+            ['aisle', 'asc'],
+            // function(OrderItem $item) {
+            //     return $item->shelf_number;
+            // },
         ]);
     }
 }

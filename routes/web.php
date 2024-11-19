@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Order;
 use App\Models\Store;
 use App\Models\Webhook;
 use App\Models\Warehouse;
@@ -109,6 +110,29 @@ Route::get('test/import', function() {
         new WarehouseProductsImport(Warehouse::firstWhere('name', 'تبوك')),
         public_path('imports/tabuk-shelves.xlsx')
     );
+});
+
+Route::get('test/sort', function() {
+    $shelves = [
+        'F1',
+        'A10',
+        'B6',
+        'C11',
+        'B3',
+        'F2',
+    ];
+
+    usort($shelves, function($a, $b) {
+        return strnatcmp($a, $b);
+    });
+
+    return $shelves;
+});
+
+Route::get('test/order-sort', function() {
+    $order = Order::find(8523);
+
+    return $order->getItemsSortedByShelf();
 });
 
 Route::get('test/import-missing-barcodes', function() {
