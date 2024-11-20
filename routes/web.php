@@ -5,6 +5,7 @@ use App\Models\Shelf;
 use App\Models\Store;
 use App\Models\Webhook;
 use App\Models\Warehouse;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -51,6 +52,17 @@ Route::get('salla-products/{id}', function($id) {
         accessToken: Store::first()->user?->sallaToken?->access_token,
     )->products()->details(
         id: $id,
+    );
+});
+
+Route::get('salla-products-quantities', function(Request $request, $page = 1) {
+    $filters = $request->query('filters', []);
+
+    return SallaMerchantService::withToken(
+        accessToken: Store::first()->user?->sallaToken?->access_token,
+    )->products()->quantities(
+        // page: $page,
+        filters: $filters,
     );
 });
 

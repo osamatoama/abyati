@@ -30,7 +30,7 @@
                 return
             }
 
-            if (dataTable) {
+            if (typeof dataTable !== 'undefined') {
                 reloadDatatable(dataTable)
             }
         })
@@ -39,7 +39,7 @@
                 return
             }
 
-            if (dataTable) {
+            if (typeof dataTable !== 'undefined') {
                 reloadDatatable(dataTable)
             }
         })
@@ -47,7 +47,7 @@
     pusher.subscribe('private-order-transfer-channel')
         .bind('order-transferred-to-support-event', function(data) {
             if (data.branch_id == authSupportBranchId) {
-                if (dataTable) {
+                if (typeof dataTable !== 'undefined') {
                     reloadDatatable(dataTable)
                 }
 

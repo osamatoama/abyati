@@ -19,29 +19,29 @@
 
     pusher.subscribe('private-order-assign-channel')
         .bind('order-assigned-event', function(data) {
-            if (dataTable) {
+            if (typeof dataTable !== 'undefined') {
                 reloadDatatable(dataTable)
             }
         })
         .bind('order-unassigned-event', function(data) {
-            if (dataTable) {
+            if (typeof dataTable !== 'undefined') {
                 reloadDatatable(dataTable)
             }
         })
 
     pusher.subscribe('private-order-sync-channel')
         .bind('order-created-event', function(data) {
-            if (dataTable) {
+            if (typeof dataTable !== 'undefined') {
                 reloadDatatable(dataTable)
             }
         })
         .bind('order-updated-event', function(data) {
-            if (dataTable) {
+            if (typeof dataTable !== 'undefined') {
                 reloadDatatable(dataTable)
             }
         })
         .bind('order-completion-status-updated-event', function(data) {
-            if (dataTable) {
+            if (typeof dataTable !== 'undefined') {
                 reloadDatatable(dataTable)
             }
         })

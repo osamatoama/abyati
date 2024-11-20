@@ -116,6 +116,10 @@ const helpers = {
             en: "Confirm integration",
             ar: "تأكيد الربط",
         },
+        cancel: {
+            en: "Cancel",
+            ar: "إلغاء",
+        },
         discard: {
             en: "Discard",
             ar: "تراجع",
@@ -195,6 +199,10 @@ const helpers = {
         copiedToClipboard: {
             en: "Copied to clipboard",
             ar: "تم النسخ",
+        },
+        backToMenu: {
+            en: "Back to menu",
+            ar: "العودة للقائمة",
         },
     },
 }

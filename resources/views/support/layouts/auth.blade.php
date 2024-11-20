@@ -12,7 +12,7 @@
     @if(locale()->isRtl())
         <link href="{{ assetCustom('assets/client/plugins/global/plugins.bundle.rtl.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ assetCustom('assets/client/css/style.bundle.rtl.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ assetCustom('assets/client/css/custom.rtl.css') }}?version=1.0.21" rel="stylesheet" type="text/css">
+        <link href="{{ assetCustom('assets/client/css/custom.rtl.css') }}?version=1.0.22" rel="stylesheet" type="text/css">
     @else
         <link href="{{ assetCustom('assets/client/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ assetCustom('assets/client/css/style.bundle.css') }}" rel="stylesheet" type="text/css">

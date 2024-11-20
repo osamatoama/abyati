@@ -10,14 +10,30 @@
         playVoiceNotification('scanner-beep-notification')
     })
 
+    $(document).on('keydown', '.scan-barcode-input', (e) => {
+        if (e.key === "Enter" || e.key === "Tab") {
+            e.preventDefault()
+            $('.scan-barcode-input').focus()
+        }
+    })
+
     Livewire.on('order-item-scanned', (params) => {
         $(`#scan-item-${params[0].order_item_id}-modal`).find('.scan-item-barcode-input').focus()
         playVoiceNotification('scanner-beep-notification')
     })
 
     Livewire.on('order-executed', (params) => {
-        successToast(params[0].message)
-        location.href = params[0].redirect_url
+        Swal.fire({
+            title: params[0].message,
+            icon: 'success',
+            showCancelButton: true,
+            cancelButtonText: getTranslation('cancel'),
+            confirmButtonText: getTranslation('backToMenu'),
+        }).then(function (result) {
+            if (result.value) {
+                location.href = params[0].redirect_url
+            }
+        })
     })
 
     Livewire.on('order-item-executed', (params) => {
