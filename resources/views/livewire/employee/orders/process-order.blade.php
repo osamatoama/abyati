@@ -12,6 +12,7 @@
                             <table class="table table-row-bordered">
                                 <thead>
                                     <th class="fw-bold text-nowrap">{{ __('employee.products.attributes.image') }}</th>
+                                    <th class="fw-bold text-nowrap">{{ __('employee.products.attributes.shelf') }}</th>
                                     <th class="fw-bold text-nowrap">{{ __('employee.products.attributes.name') }}</th>
                                     <th class="fw-bold text-nowrap">{{ __('employee.products.attributes.barcode') }}</th>
                                     <th class="fw-bold text-nowrap">{{ __('employee.orders.items.attributes.quantity') }}</th>
@@ -20,7 +21,7 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach($toExecuteItems as $item)
+                                    @foreach(sortOrderItemsByShelves($toExecuteItems) as $item)
                                         @php
                                             $product = $item->product;
                                             $variant = $item->variant;
@@ -30,6 +31,15 @@
                                             <tr wire:key="to-execute-item-{{ $item->id }}">
                                                 <td>
                                                     <img src="{{ $product->main_image }}" alt="{{ $product->name }}" class="img-fluid" style="max-width: 50px;">
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex flex-column gap-2 align-items-center">
+                                                        @forelse ($item->product->shelves as $shelf)
+                                                            <span class="badge badge-secondary">{{ $shelf->descriptive_name }}</span>
+                                                        @empty
+                                                            ---
+                                                        @endforelse
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <div class="product-name">

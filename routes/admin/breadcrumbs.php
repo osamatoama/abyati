@@ -1,11 +1,8 @@
 <?php
 
-use App\Models\Branch;
 use App\Models\Order;
-use App\Models\SmsProvider;
-use App\Models\ReturnRequest;
-use App\Models\ExchangeRequest;
-use App\Models\SystemShippingCompany;
+use App\Models\Branch;
+use App\Models\Shelf;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
 /**
@@ -35,6 +32,27 @@ Breadcrumbs::for('admin.branches.create', function ($trail) {
 Breadcrumbs::for('admin.branches.edit', function ($trail, Branch $branch) {
     $trail->parent('admin.branches.index');
     $trail->push($branch->name, route('admin.branches.edit', $branch->id));
+});
+
+// Shelves
+Breadcrumbs::for('admin.shelves.index', function ($trail) {
+    $trail->parent('admin.home');
+    $trail->push(__('admin.shelves.title'), route('admin.shelves.index'));
+});
+
+Breadcrumbs::for('admin.shelves.show', function ($trail, Shelf $shelf) {
+    $trail->parent('admin.shelves.index');
+    $trail->push($shelf->name, route('admin.shelves.show', $shelf->id));
+});
+
+Breadcrumbs::for('admin.shelves.create', function ($trail) {
+    $trail->parent('admin.shelves.index');
+    $trail->push(__('admin.shelves.actions.create'), route('admin.shelves.create'));
+});
+
+Breadcrumbs::for('admin.shelves.edit', function ($trail, Shelf $shelf) {
+    $trail->parent('admin.shelves.index');
+    $trail->push($shelf->name, route('admin.shelves.edit', $shelf->id));
 });
 
 //customers
@@ -92,39 +110,6 @@ Breadcrumbs::for('admin.supports.index', function ($trail) {
     $trail->push(__('admin.supports.title'), route('admin.supports.index'));
 });
 
-//tags
-Breadcrumbs::for('admin.tags.index', function ($trail) {
-    $trail->parent('admin.home');
-    $trail->push(__('admin.tags.title'), route('admin.tags.index'));
-});
-
-Breadcrumbs::for('admin.tags.trash', function ($trail) {
-    $trail->parent('admin.home');
-    $trail->push(__('admin.tags.title'), route('admin.tags.index'));
-    $trail->push(__('admin.tags.trash'), route('admin.tags.trash'));
-});
-
-Breadcrumbs::for('admin.tags.create', function ($trail) {
-    $trail->parent('admin.tags.index');
-    $trail->push(__('admin.tags.action.create'), route('admin.tags.create'));
-});
-
-Breadcrumbs::for('admin.tags.edit', function ($trail) {
-    $trail->parent('admin.tags.index');
-    $trail->push(__('admin.tags.action.edit'), route('admin.tags.edit', request('tag')));
-});
-
-// System Shipping Companies
-Breadcrumbs::for('admin.system-shipping-companies.index', function ($trail) {
-    $trail->parent('admin.home');
-    $trail->push(__('admin.system-shipping-companies.title'), route('admin.system-shipping-companies.index'));
-});
-
-Breadcrumbs::for('admin.system-shipping-companies.settings', function ($trail, SystemShippingCompany $systemShippingCompany) {
-    $trail->parent('admin.system-shipping-companies.index');
-    $trail->push($systemShippingCompany?->name, '#');
-});
-
 //orders
 Breadcrumbs::for('admin.orders.index', function ($trail) {
     $trail->parent('admin.home');
@@ -156,80 +141,6 @@ Breadcrumbs::for('admin.whatsapp.integration.index', function ($trail) {
 Breadcrumbs::for('admin.whatsapp.templates.index', function ($trail) {
     $trail->parent('whatsapp');
     $trail->push(__('admin.whatsapp.message_templates'), route('admin.whatsapp.templates.index'));
-});
-
-//Sms
-Breadcrumbs::for('sms', function ($trail) {
-    $trail->parent('admin.home');
-    $trail->push(__('admin.sms.title'), '#');
-});
-
-Breadcrumbs::for('admin.sms.integration.index', function ($trail) {
-    $trail->parent('sms');
-    $trail->push(__('admin.sms.integration.title'), route('admin.sms.integration.index'));
-});
-
-Breadcrumbs::for('admin.sms.integration.settings', function ($trail, SmsProvider $smsProvider) {
-    $trail->parent('admin.sms.integration.index');
-    $trail->push($smsProvider?->name, '#');
-});
-
-Breadcrumbs::for('admin.sms.templates.index', function ($trail) {
-    $trail->parent('sms');
-    $trail->push(__('admin.sms.message_templates'), route('admin.sms.templates.index'));
-});
-
-
-//Return
-Breadcrumbs::for('return', function ($trail) {
-    $trail->parent('admin.home');
-    $trail->push(__('admin.return.title'), '#');
-});
-
-Breadcrumbs::for('admin.return.reasons.index', function ($trail) {
-    $trail->parent('return');
-    $trail->push(__('admin.return.reasons.title'), route('admin.return.reasons.index'));
-});
-
-Breadcrumbs::for('admin.return.statuses.index', function ($trail) {
-    $trail->parent('return');
-    $trail->push(__('admin.return.statuses.title'), route('admin.return.statuses.index'));
-});
-
-Breadcrumbs::for('admin.return.requests.index', function ($trail) {
-    $trail->parent('return');
-    $trail->push(__('admin.return.requests.index.title'), route('admin.return.requests.index'));
-});
-
-Breadcrumbs::for('admin.return.requests.show', function ($trail, ReturnRequest $returnRequest) {
-    $trail->parent('admin.return.requests.index');
-    $trail->push(__('admin.return.requests.show.request_no', ['id' => $returnRequest->id]), route('admin.return.requests.index')); // TODO:fix return requests show breadcrumb
-});
-
-//Exchange
-Breadcrumbs::for('exchange', function ($trail) {
-    $trail->parent('admin.home');
-    $trail->push(__('admin.exchange.title'), '#');
-});
-
-Breadcrumbs::for('admin.exchange.reasons.index', function ($trail) {
-    $trail->parent('exchange');
-    $trail->push(__('admin.exchange.reasons.title'), route('admin.exchange.reasons.index'));
-});
-
-Breadcrumbs::for('admin.exchange.statuses.index', function ($trail) {
-    $trail->parent('exchange');
-    $trail->push(__('admin.exchange.statuses.title'), route('admin.exchange.statuses.index'));
-});
-
-Breadcrumbs::for('admin.exchange.requests.index', function ($trail) {
-    $trail->parent('exchange');
-    $trail->push(__('admin.exchange.requests.index.title'), route('admin.exchange.requests.index'));
-});
-
-Breadcrumbs::for('admin.exchange.requests.show', function ($trail, ExchangeRequest $exchangeRequest) {
-    $trail->parent('admin.exchange.requests.index');
-    $trail->push(__('admin.exchange.requests.show.request_no', ['id' => $exchangeRequest->id]), route('admin.exchange.requests.index')); // TODO:fix exchange requests show breadcrumb
 });
 
 //Account

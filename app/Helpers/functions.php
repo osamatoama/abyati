@@ -5,10 +5,12 @@ use App\Models\User;
 use App\Models\Store;
 use App\Models\Support;
 use App\Models\Employee;
+use App\Models\OrderItem;
 use Illuminate\Support\Arr;
 use App\Services\Utils\Core;
 use App\Services\Utils\Locale;
 use Illuminate\Support\Number;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -297,5 +299,40 @@ if (! function_exists('getStoreColor')) {
         );
 
         return $colors[$storeId] ?? Store::DEFAULT_ID_COLOR;
+    }
+}
+
+if (! function_exists('sortOrderItemsByShelves')) {
+    function sortOrderItemsByShelves(Collection $items): Collection
+    {
+        // Extract aisle, shelf, and shelf_number for sorting
+        $items->each(function (OrderItem $item) {
+            $shelf = $item->product?->shelves?->first();
+            $item->aisle = $shelf?->aisle ?? null;
+            $item->shelf = $shelf?->name ?? null;
+            $item->shelf_number = filled($item->shelf) ? str($item->shelf)->after($item->aisle)->__toString() : null;
+        });
+
+        // Undefined aisles
+        $undefinedAisles = $items->whereNull('aisle');
+
+        // Group items by aisles
+        $groupedByAisle = $items->whereNotNull('aisle')->groupBy('aisle');
+        $sortedAisles = $groupedByAisle->sortKeys()->keys()->toArray();
+
+        // Sort aisles alphabetically but handle sorting inside each aisle
+        $sortedItems = $groupedByAisle->sortKeys()->map(function ($group, $aisle) use ($sortedAisles) {
+            // Determine sort order based on the aisle's position
+            $aisleIndex = array_search($aisle, $sortedAisles);
+            $sortOrder = $aisleIndex % 2 === 0 ? 'asc' : 'desc';
+
+            // Sort within the aisle by shelf_number
+            return $group->sortBy([
+                ['shelf_number', $sortOrder],
+            ]);
+        });
+
+        // Flatten the sorted groups back into a single collection
+        return $sortedItems->flatten()->merge($undefinedAisles);
     }
 }

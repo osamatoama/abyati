@@ -7,6 +7,7 @@ use App\Services\Salla\SallaService;
 use App\Services\Salla\Merchant\Support\Orders;
 use App\Services\Salla\Merchant\Support\Coupons;
 use App\Services\Salla\Merchant\Support\Reviews;
+use App\Services\Salla\Merchant\Support\Branches;
 use App\Services\Salla\Merchant\Support\Products;
 use App\Services\Salla\Merchant\Contracts\Support;
 use App\Services\Salla\Merchant\Support\Shipments;
@@ -35,6 +36,13 @@ final class SallaMerchantService extends SallaService
     {
         return new self(
             accessToken: $accessToken,
+        );
+    }
+
+    public function branches(): Branches
+    {
+        return $this->resolve(
+            className: Branches::class,
         );
     }
 

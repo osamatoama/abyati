@@ -98,6 +98,12 @@ class OrderController extends Controller
     {
         abort_unless($order->isBranchMine() && $order->isAssignedToMe(), 403, __('employee.orders.errors.cannot_process'));
 
+        $order->load([
+            'items',
+            'items.product',
+            'items.product.shelves' => fn($q) => $q->where('warehouse_id', $order->warehouse_id),
+        ]);
+
         return view('employee.pages.orders.process', compact('order'));
     }
 

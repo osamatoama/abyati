@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ShelfController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\AccountController;
@@ -27,6 +28,9 @@ use App\Http\Controllers\Admin\Reports\EmployeePerformanceReportController;
 Route::get('/', HomeController::class)->name('home');
 
 // Products
+Route::prefix('products')->as('products.')->group(function () {
+    Route::get('select', [ProductController::class, 'select'])->name('select');
+});
 Route::resource('products', ProductController::class)->only('index', 'show');
 
 // Stores
@@ -40,6 +44,19 @@ Route::prefix('branches')->as('branches.')->group(function () {
     Route::put('{branch}/toggle-active', [BranchController::class, 'toggleActive'])->name('toggle_active');
 });
 Route::resource('branches', BranchController::class)->only('index', 'edit', 'create', 'destroy');
+
+// Branches
+Route::prefix('shelves')->as('shelves.')->group(function () {
+    Route::get('select', [ShelfController::class, 'select'])->name('select');
+    Route::get('select-ailses', [ShelfController::class, 'selectAisles'])->name('select.aisles');
+    Route::post('import/warehouse', [ShelfController::class, 'importWarehouse'])->name('import.warehouse');
+    Route::post('import/aisle', [ShelfController::class, 'importAisle'])->name('import.aisle');
+    Route::post('import/shelf', [ShelfController::class, 'importShelf'])->name('import.shelf');
+    Route::get('{shelf}/products', [ShelfController::class, 'products'])->name('products');
+    Route::post('{shelf}/products/attach', [ShelfController::class, 'attachProduct'])->name('products.attach');
+    Route::put('{shelf}/products/{product}/detach', [ShelfController::class, 'detachProduct'])->name('products.detach');
+});
+Route::resource('shelves', ShelfController::class)->only('index', 'show', 'store', 'update', 'destroy');
 
 // Orders
 Route::prefix('orders')->as('orders.')->group(function () {

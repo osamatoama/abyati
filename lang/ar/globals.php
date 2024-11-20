@@ -2,6 +2,7 @@
 
 return [
 
+    'show' => 'عرض',
     'add' => 'إضافة',
     'edit' => 'تعديل',
     'delete' => 'حذف',
@@ -14,6 +15,10 @@ return [
     'select_store' => 'اختر المتجر',
     'select_branch' => 'اختر الفرع',
     'select_employee' => 'اختر الموظف',
+    'select_warehouse' => 'اختر المستودع',
+    'select_aisle' => 'اختر الممر',
+    'select_shelf' => 'اختر الرف',
+    'select_product' => 'اختر المنتج',
     'select_all' => 'اختيار الكل',
     'clear_all' => 'إلغاء الكل',
     'You will not be able to change this afterwards' => 'لن تتمكن من تغيير هذا بعد ذلك',
@@ -94,4 +99,6 @@ return [
     ],
     'optional' => 'اختياري',
     'alert' => 'تنبيه',
+
+    'import_file' => 'ملف الاستيراد',
 ];

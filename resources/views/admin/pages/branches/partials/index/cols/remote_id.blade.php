@@ -1,0 +1,1 @@
+{{ $branch->remote_id ?? '---' }}

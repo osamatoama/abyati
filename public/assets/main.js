@@ -28,6 +28,14 @@ function getSelect2Translation(keyword) {
     return helpers.plugins.select2.translations[keyword][lang] || ''
 }
 
+function getSelect2Localization(el)
+{
+    return {
+        searching: function() {
+            return getSelect2Translation('searching');
+        }
+    }
+}
 function getFormData(form) {
     if (! form instanceof jQuery) {
         // throw exception
