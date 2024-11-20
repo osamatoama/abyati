@@ -8,6 +8,7 @@ use App\Models\Filters\ShelfFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 #[ObservedBy(ShelfObserver::class)]
@@ -52,5 +53,15 @@ class Shelf extends Model
                 relatedPivotKey: 'product_id',
             )
             ->withTimestamps();
+    }
+
+    /**
+     * Accessors
+     */
+    public function descriptiveName(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => filled($this->description) ? $this->description : $this->name,
+        );
     }
 }

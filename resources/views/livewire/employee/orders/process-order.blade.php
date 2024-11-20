@@ -33,11 +33,13 @@
                                                     <img src="{{ $product->main_image }}" alt="{{ $product->name }}" class="img-fluid" style="max-width: 50px;">
                                                 </td>
                                                 <td>
-                                                    @forelse ($item->product->shelves as $shelf)
-                                                        <span class="badge badge-secondary">{{ $shelf->name }}</span>
-                                                    @empty
-                                                        ---
-                                                    @endforelse
+                                                    <div class="d-flex flex-column gap-2 align-items-center">
+                                                        @forelse ($item->product->shelves as $shelf)
+                                                            <span class="badge badge-secondary">{{ $shelf->descriptive_name }}</span>
+                                                        @empty
+                                                            ---
+                                                        @endforelse
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <div class="product-name">
