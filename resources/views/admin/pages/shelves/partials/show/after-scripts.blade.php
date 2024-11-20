@@ -47,15 +47,6 @@
         // })
     })
 
-    function getSelect2Localization(el)
-    {
-        return {
-            searching: function() {
-                return getSelect2Translation('searching');
-            }
-        }
-    }
-
     $('select.attach-product-form-product_ids').each((i, el) => {
         el = $(el)
 

@@ -12,10 +12,16 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Datatables\Admin\ShelfProductsIndex;
 use App\Http\Controllers\Concerns\Authorizable;
-use App\Http\Requests\Admin\Shelf\ImportRequest;
+use App\Imports\Admin\Shelf\AisleProductsImport;
+use App\Imports\Admin\Shelf\ShelfProductsImport;
+use App\Http\Requests\Admin\Shelf\StoreShelfRequest;
 use App\Imports\Admin\Shelf\WarehouseProductsImport;
 use App\Http\Requests\Admin\Shelf\DeleteShelfRequest;
+use App\Http\Requests\Admin\Shelf\UpdateShelfRequest;
 use App\Http\Requests\Admin\Shelf\AttachProductRequest;
+use App\Http\Requests\Admin\Shelf\Import\ImportAisleRequest;
+use App\Http\Requests\Admin\Shelf\Import\ImportShelfRequest;
+use App\Http\Requests\Admin\Shelf\Import\ImportWarehouseRequest;
 
 class ShelfController extends Controller
 {
@@ -37,6 +43,45 @@ class ShelfController extends Controller
     public function show(Shelf $shelf)
     {
         return view('admin.pages.shelves.show', compact('shelf'));
+    }
+
+    public function store(StoreShelfRequest $request)
+    {
+        $data = $request->validated();
+
+        Shelf::create($data);
+
+        return response()->json([
+            'success' => true,
+            'message' => __('admin.shelves.messages.created'),
+            'data' => [],
+        ]);
+    }
+
+    public function update(Shelf $shelf, UpdateShelfRequest $request)
+    {
+        $data = $request->validated();
+
+        $shelf->update($data);
+
+        return response()->json([
+            'success' => true,
+            'message' => __('admin.shelves.messages.updated'),
+            'data' => [],
+        ]);
+    }
+
+    public function destroy(DeleteShelfRequest $request, Shelf $shelf)
+    {
+        DB::transaction(function () use ($shelf) {
+            $shelf->products()->sync([]);
+            $shelf->delete();
+        });
+
+        return response()->json([
+            'success' => true,
+            'message' => __('admin.shelves.messages.deleted'),
+        ]);
     }
 
     public function products(Shelf $shelf)
@@ -70,34 +115,120 @@ class ShelfController extends Controller
         ]);
     }
 
-    public function import(ImportRequest $request)
+    public function importWarehouse(ImportWarehouseRequest $request)
     {
         $data = $request->validated();
+        $importFailed = false;
 
         $file = Storage::disk('local')->putFile('imports', $data['file']);
 
-        Excel::import(
-            import: new WarehouseProductsImport(
-                warehouse: Warehouse::find($data['warehouse_id']),
-            ),
-            filePath: storage_path('app/' . $file),
-        );
+        try {
+            Excel::import(
+                import: new WarehouseProductsImport(
+                    warehouse: Warehouse::find($data['warehouse_id']),
+                ),
+                filePath: storage_path('app/' . $file),
+            );
+
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            $importFailed = true;
+        }
+
+        Storage::disk('local')->delete($file);
+
+        if ($importFailed) {
+            return response()->json([
+                'success' => false,
+                'message' => __('globals.errors.something_went_wrong'),
+                'data' => [],
+            ], 500);
+        }
 
         return response()->json([
             'success' => true,
-            'message' => __('admin.shelves.messages.import_started'),
+            'message' => __('admin.shelves.messages.imported'),
             'data' => [],
         ]);
     }
 
-    public function create()
+    public function importAisle(ImportAisleRequest $request)
     {
-        return view('admin.pages.shelves.create');
+        $data = $request->validated();
+        $importFailed = false;
+
+        $file = Storage::disk('local')->putFile('imports', $data['file']);
+
+        try {
+            Excel::import(
+                import: new AisleProductsImport(
+                    warehouse: Warehouse::find($data['warehouse_id']),
+                    aisle: $data['aisle'],
+                ),
+                filePath: storage_path('app/' . $file),
+            );
+
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            $importFailed = true;
+        }
+
+        Storage::disk('local')->delete($file);
+
+        if ($importFailed) {
+            return response()->json([
+                'success' => false,
+                'message' => __('globals.errors.something_went_wrong'),
+                'data' => [],
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => __('admin.shelves.messages.imported'),
+            'data' => [],
+        ]);
     }
 
-    public function edit(Shelf $shelf)
+    public function importShelf(ImportShelfRequest $request)
     {
-        return view('admin.pages.shelves.edit', compact('shelf'));
+        $data = $request->validated();
+        $importFailed = false;
+
+        $file = Storage::disk('local')->putFile('imports', $data['file']);
+
+        try {
+            Excel::import(
+                import: new ShelfProductsImport(
+                    warehouse: Warehouse::find($data['warehouse_id']),
+                    shelf: Shelf::find($data['shelf_id']),
+                ),
+                filePath: storage_path('app/' . $file),
+            );
+
+        } catch (\Exception $e) {
+            logger()->error($e);
+
+            $importFailed = true;
+        }
+
+        Storage::disk('local')->delete($file);
+
+        if ($importFailed) {
+            return response()->json([
+                'success' => false,
+                'message' => __('globals.errors.something_went_wrong'),
+                'data' => [],
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => __('admin.shelves.messages.imported'),
+            'data' => [],
+        ]);
     }
 
     public function toggleActive(Shelf $shelf)
@@ -110,16 +241,40 @@ class ShelfController extends Controller
         ]);
     }
 
-    public function destroy(DeleteShelfRequest $request, Shelf $shelf)
+    public function select()
     {
-        DB::transaction(function () use ($shelf) {
-            $shelf->orderStatuses()->sync([]);
-            $shelf->delete();
-        });
+        if (! request()->expectsJson()) {
+            abort(404);
+        }
+
+        $shelves = Shelf::select('id', 'warehouse_id', 'name')
+            ->when(request()->warehouse_id, function ($q) {
+                return $q->where('warehouse_id', request()->warehouse_id);
+            })
+            ->get();
 
         return response()->json([
-            'success' => true,
-            'message' => __('admin.shelves.messages.deleted'),
-        ]);
+            'success' => __('general.success.fetched'),
+            'data'    => $shelves,
+        ], 200);
+    }
+
+    public function selectAisles()
+    {
+        if (! request()->expectsJson()) {
+            abort(404);
+        }
+
+        $aisles = Shelf::select('aisle')
+            ->distinct('aisle')
+            ->when(request()->warehouse_id, function ($q) {
+                return $q->where('warehouse_id', request()->warehouse_id);
+            })
+            ->get();
+
+        return response()->json([
+            'success' => __('general.success.fetched'),
+            'data'    => $aisles,
+        ], 200);
     }
 }

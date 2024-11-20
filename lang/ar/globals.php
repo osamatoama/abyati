@@ -16,6 +16,8 @@ return [
     'select_branch' => 'اختر الفرع',
     'select_employee' => 'اختر الموظف',
     'select_warehouse' => 'اختر المستودع',
+    'select_aisle' => 'اختر الممر',
+    'select_shelf' => 'اختر الرف',
     'select_product' => 'اختر المنتج',
     'select_all' => 'اختيار الكل',
     'clear_all' => 'إلغاء الكل',

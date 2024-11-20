@@ -31,7 +31,13 @@
 @endsection
 
 @push('modals')
-    @include('admin.pages.shelves.partials.index.modals.import')
+    @include('admin.pages.shelves.partials.index.modals.create')
+
+    @include('admin.pages.shelves.partials.index.modals.edit')
+
+    @include('admin.pages.shelves.partials.index.modals.import.warehouse')
+    @include('admin.pages.shelves.partials.index.modals.import.aisle')
+    @include('admin.pages.shelves.partials.index.modals.import.shelf')
 @endpush
 
 @push('afterScripts')

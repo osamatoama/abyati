@@ -55,7 +55,7 @@
     </script>
     <script src="{{ assetCustom('assets/client/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ assetCustom('assets/client/js/scripts.bundle.js') }}"></script>
-    <script src="{{ assetCustom('assets/helpers.js') }}?version=1.0.30"></script>
+    <script src="{{ assetCustom('assets/helpers.js') }}?version=1.0.33"></script>
     @stack('afterScripts')
 </body>
 </html>

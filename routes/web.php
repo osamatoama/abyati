@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Order;
+use App\Models\Shelf;
 use App\Models\Store;
 use App\Models\Webhook;
 use App\Models\Warehouse;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\LocaleController;
+use App\Imports\Admin\Shelf\ShelfProductsImport;
 use App\Imports\Admin\Shelf\WarehouseProductsImport;
 use App\Services\Salla\Merchant\SallaMerchantService;
 
@@ -109,6 +111,16 @@ Route::get('test/import', function() {
     Excel::import(
         new WarehouseProductsImport(Warehouse::firstWhere('name', 'تبوك')),
         public_path('imports/tabuk-shelves.xlsx')
+    );
+});
+
+Route::get('test/import-shelf', function() {
+    Excel::import(
+        new ShelfProductsImport(
+            Warehouse::firstWhere('name', 'تبوك'),
+            Shelf::firstWhere('name', 'A1'),
+        ),
+        public_path('imports/shelf-products.xlsx')
     );
 });
 

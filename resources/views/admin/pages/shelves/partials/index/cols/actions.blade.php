@@ -4,21 +4,26 @@
     />
 @endif
 
-{{-- @if(can('shelves.edit'))
+@if(can('shelves.edit'))
     <x-admin.table.actions.edit-button
-        :href="route('admin.shelves.edit',  $branch->id)"
+        data-action="{{ route('admin.shelves.update', $shelf->id) }}"
+        data-warehouse_id="{{ $shelf->warehouse_id }}"
+        data-name="{{ $shelf->name }}"
+        data-aisle="{{ $shelf->aisle }}"
+        data-description="{{ $shelf->description }}"
     />
 @endif
 
 @if(can('shelves.delete'))
     @php
-        $enabled = $branch->employees_count == 0 && $branch->orders_count == 0;
+        // $enabled = $branch->employees_count == 0 && $branch->orders_count == 0;
+        $enabled = true;
     @endphp
 
     <x-admin.table.actions.delete-button
-        :action="route('admin.shelves.destroy',  $branch->id)"
+        :action="route('admin.shelves.destroy',  $shelf->id)"
         :showTooltip="! $enabled"
         :tooltip="__('admin.shelves.errors.should_have_no_relations')"
         :disabled="! $enabled"
     />
-@endif --}}
+@endif

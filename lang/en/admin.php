@@ -133,11 +133,13 @@ return [
 
     'shelves' => [
         'title' => 'Shelves',
+        'model' => 'Shelf',
         'num_#' => 'Shelf :name',
 
         'attributes' => [
             'id' => 'ID',
             'warehouse' => 'Warehouse',
+            'aisle' => 'Aisle',
             'name' => 'Name',
             'description' => 'Description',
             'order' => 'Order',
@@ -146,13 +148,20 @@ return [
 
         'actions' => [
             'create' => 'Create Shelf',
-            'edit_branch' => 'Edit Shelf',
+            'edit' => 'Edit Shelf',
             'attach_product' => 'Attach Product',
             'detach_product' => 'Detach Product',
             'import' => 'Import',
+            'import_products' => 'Import Products',
             'download_warehouse_template' => 'Download Warehouse Template',
             'download_aisle_template' => 'Download Aisle Template',
             'download_shelf_template' => 'Download Shelf Template',
+        ],
+
+        'import_options' => [
+            'warehouse' => 'Warehouse',
+            'aisle' => 'Aisle',
+            'shelf' => 'Shelf',
         ],
 
         'messages' => [
@@ -164,6 +173,7 @@ return [
             'product_attached' => 'Products attached to the shelf',
             'product_detached' => 'Product detached from the shelf',
             'import_started' => 'Started importing data from the file',
+            'imported' => 'Data imported successfully',
         ],
 
         'errors' => [

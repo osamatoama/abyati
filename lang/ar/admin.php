@@ -133,11 +133,13 @@ return [
 
     'shelves' => [
         'title' => 'الرفوف',
+        'model' => 'الرف',
         'num_#' => 'رف :name',
 
         'attributes' => [
             'id' => 'المعرف',
             'warehouse' => 'المستودع',
+            'aisle' => 'الممر',
             'name' => 'الاسم',
             'description' => 'الوصف',
             'order' => 'الترتيب',
@@ -146,13 +148,20 @@ return [
 
         'actions' => [
             'create' => 'إضافة رف',
-            'edit_branch' => 'تعديل الرف',
+            'edit' => 'تعديل الرف',
             'attach_product' => 'إضافة منتج للرف',
             'detach_product' => 'إزالة المنتج',
             'import' => 'استيراد',
+            'import_products' => 'استيراد المنتجات',
             'download_warehouse_template' => 'تحميل نموذج المستودع',
             'download_aisle_template' => 'تحميل نموذج الممر',
             'download_shelf_template' => 'تحميل نموذج الرف',
+        ],
+
+        'import_options' => [
+            'warehouse' => 'مستودع',
+            'aisle' => 'ممر',
+            'shelf' => 'رف',
         ],
 
         'messages' => [
@@ -164,6 +173,7 @@ return [
             'product_attached' => 'تم إضافة المنتجات للرف',
             'product_detached' => 'تم إزالة المنتج عن الرف',
             'import_started' => 'جاري استيراد البيانات من الملف',
+            'imported' => 'تم استيراد البيانات بنجاح',
         ],
 
         'errors' => [

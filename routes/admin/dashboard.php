@@ -47,12 +47,16 @@ Route::resource('branches', BranchController::class)->only('index', 'edit', 'cre
 
 // Branches
 Route::prefix('shelves')->as('shelves.')->group(function () {
-    Route::post('import', [ShelfController::class, 'import'])->name('import');
+    Route::get('select', [ShelfController::class, 'select'])->name('select');
+    Route::get('select-ailses', [ShelfController::class, 'selectAisles'])->name('select.aisles');
+    Route::post('import/warehouse', [ShelfController::class, 'importWarehouse'])->name('import.warehouse');
+    Route::post('import/aisle', [ShelfController::class, 'importAisle'])->name('import.aisle');
+    Route::post('import/shelf', [ShelfController::class, 'importShelf'])->name('import.shelf');
     Route::get('{shelf}/products', [ShelfController::class, 'products'])->name('products');
     Route::post('{shelf}/products/attach', [ShelfController::class, 'attachProduct'])->name('products.attach');
     Route::put('{shelf}/products/{product}/detach', [ShelfController::class, 'detachProduct'])->name('products.detach');
 });
-Route::resource('shelves', ShelfController::class)->only('index', 'show', 'edit', 'create', 'destroy');
+Route::resource('shelves', ShelfController::class)->only('index', 'show', 'store', 'update', 'destroy');
 
 // Orders
 Route::prefix('orders')->as('orders.')->group(function () {

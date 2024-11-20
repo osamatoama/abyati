@@ -16,6 +16,8 @@ return [
     'select_branch' => 'Select branch',
     'select_employee' => 'Select employee',
     'select_warehouse' => 'Select warehouse',
+    'select_aisle' => 'Select aisle',
+    'select_shelf' => 'Select shelf',
     'select_product' => 'Select product',
     'select_all' => 'Select all',
     'clear_all' => 'Clear all',
