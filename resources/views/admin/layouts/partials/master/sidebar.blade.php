@@ -74,6 +74,18 @@
                 </div>
 
                 <div class="menu-item">
+                    <a @class(['menu-link', 'active' => request()->routeIs('admin.shelves.*')]) href="{{ route('admin.shelves.index') }}"
+                    >
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-warehouse fs-2"></i>
+                        </span>
+                            <span class="menu-title">
+                        {{ __('admin.shelves.title') }}
+                        </span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
                     <a @class(['menu-link', 'active' => request()->routeIs('admin.products.*')]) href="{{ route('admin.products.index') }}"
                     >
                         <span class="menu-icon">

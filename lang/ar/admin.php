@@ -42,6 +42,7 @@ return [
             'id' => 'المعرف',
             'salla_id' => 'معرف سلة',
             'store' => 'المتجر',
+            'warehouse' => 'المستودع',
             'image' => 'الصورة',
             'name' => 'الاسم',
             'sku' => 'SKU',
@@ -104,7 +105,9 @@ return [
 
         'attributes' => [
             'id' => 'المعرف',
+            'remote_id' => 'معرف سلة',
             'name' => 'الاسم',
+            'warehouses_count' => 'عدد المستودعات',
             'related_order_status' => 'حالة الطلب المرتبطة بالفرع',
             'related_order_statuses' => 'حالات الطلب المرتبطة بالفرع',
             'active' => 'مفعل',
@@ -125,6 +128,56 @@ return [
 
         'errors' => [
             'should_have_no_relations' => 'لا يمكن إجراء العملية لوجود موظفين أو طلبات تابعين لهذا الفرع. قم بإلغاء تفعيل الفرع بدلاً من الحذف.',
+        ],
+    ],
+
+    'shelves' => [
+        'title' => 'الرفوف',
+        'model' => 'الرف',
+        'num_#' => 'رف :name',
+
+        'attributes' => [
+            'id' => 'المعرف',
+            'warehouse' => 'المستودع',
+            'aisle' => 'الممر',
+            'name' => 'الاسم',
+            'description' => 'الوصف',
+            'order' => 'الترتيب',
+            'products_count' => 'عدد المنتجات',
+        ],
+
+        'actions' => [
+            'create' => 'إضافة رف',
+            'edit' => 'تعديل الرف',
+            'attach_product' => 'إضافة منتج للرف',
+            'detach_product' => 'إزالة المنتج',
+            'import' => 'استيراد',
+            'import_products' => 'استيراد المنتجات',
+            'download_warehouse_template' => 'تحميل نموذج المستودع',
+            'download_aisle_template' => 'تحميل نموذج الممر',
+            'download_shelf_template' => 'تحميل نموذج الرف',
+        ],
+
+        'import_options' => [
+            'warehouse' => 'مستودع',
+            'aisle' => 'ممر',
+            'shelf' => 'رف',
+        ],
+
+        'messages' => [
+            'created' => 'تم إضافة الرف',
+            'updated' => 'تم تعديل الرف',
+            'deleted' => 'تم حذف الرف',
+            'activated' => 'تم تفعيل الرف',
+            'deactivated' => 'تم إلغاء تفعيل الرف',
+            'product_attached' => 'تم إضافة المنتجات للرف',
+            'product_detached' => 'تم إزالة المنتج عن الرف',
+            'import_started' => 'جاري استيراد البيانات من الملف',
+            'imported' => 'تم استيراد البيانات بنجاح',
+        ],
+
+        'errors' => [
+            'should_have_no_relations' => 'لا يمكن إجراء العملية لوجود منتجات أو عمليات جرد تابعة لهذا الرف. قم بإلغاء تفعيل الرف بدلاً من الحذف.',
         ],
     ],
 

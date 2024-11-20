@@ -1,12 +1,18 @@
 <?php
 
+use App\Models\Order;
+use App\Models\Shelf;
 use App\Models\Store;
 use App\Models\Webhook;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\LocaleController;
+use App\Imports\Admin\Shelf\ShelfProductsImport;
+use App\Imports\Admin\Shelf\WarehouseProductsImport;
 use App\Services\Salla\Merchant\SallaMerchantService;
 
 Route::get('/', HomeController::class)->name('home');
@@ -14,6 +20,16 @@ Route::get('/', HomeController::class)->name('home');
 Route::redirect('login', 'employee/login')->name('login');
 
 Route::get('locale/{locale?}', [LocaleController::class, 'change'])->name('locale.change');
+
+Route::get('salla-branches', function($page = 1) {
+    $response = SallaMerchantService::withToken(
+        accessToken: Store::first()->user?->sallaToken?->access_token,
+    )->branches()->get(
+        page: $page,
+    );
+
+    return $response;
+});
 
 Route::get('salla-products', function($page = 1) {
     return SallaMerchantService::withToken(
@@ -103,3 +119,51 @@ Route::get('test/webhooks', function() {
     ];
 });
 
+Route::get('test/import', function() {
+    Excel::import(
+        new WarehouseProductsImport(Warehouse::firstWhere('name', 'تبوك')),
+        public_path('imports/tabuk-shelves.xlsx')
+    );
+});
+
+Route::get('test/import-shelf', function() {
+    Excel::import(
+        new ShelfProductsImport(
+            Warehouse::firstWhere('name', 'تبوك'),
+            Shelf::firstWhere('name', 'A1'),
+        ),
+        public_path('imports/shelf-products.xlsx')
+    );
+});
+
+Route::get('test/sort', function() {
+    $shelves = [
+        'F1',
+        'A10',
+        'B6',
+        'C11',
+        'B3',
+        'F2',
+    ];
+
+    usort($shelves, function($a, $b) {
+        return strnatcmp($a, $b);
+    });
+
+    return $shelves;
+});
+
+Route::get('test/order-sort', function() {
+    $order = Order::find(8523);
+
+    return $order->getItemsSortedByShelf();
+});
+
+Route::get('test/import-missing-barcodes', function() {
+    return array_map(
+        array: cache()->get('import_shelves_missing_barcodes', []),
+        callback: fn($barcode) => [
+            'barcode' => $barcode
+        ],
+    );
+});

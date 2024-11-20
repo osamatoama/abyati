@@ -13,4 +13,6 @@ enum QueueName: string
     case BROADCAST = 'broadcast';
 
     case PULL = 'pull';
+
+    case EXCEL = 'excel';
 }

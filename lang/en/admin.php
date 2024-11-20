@@ -42,6 +42,7 @@ return [
             'id' => 'ID',
             'salla_id' => 'Salla ID',
             'store' => 'Store',
+            'warehouse' => 'Warehouse',
             'image' => 'Image',
             'name' => 'Name',
             'sku' => 'SKU',
@@ -104,7 +105,9 @@ return [
 
         'attributes' => [
             'id' => 'ID',
+            'remote_id' => 'Salla ID',
             'name' => 'Name',
+            'warehouses_count' => 'Warehouses Count',
             'related_order_status' => 'Related order status',
             'related_order_statuses' => 'Related order statuses',
             'active' => 'Active',
@@ -125,6 +128,56 @@ return [
 
         'errors' => [
             'should_have_no_relations' => 'You cannot perform this action, because this branch has related employees or orders. Deactivate the branch instead.',
+        ],
+    ],
+
+    'shelves' => [
+        'title' => 'Shelves',
+        'model' => 'Shelf',
+        'num_#' => 'Shelf :name',
+
+        'attributes' => [
+            'id' => 'ID',
+            'warehouse' => 'Warehouse',
+            'aisle' => 'Aisle',
+            'name' => 'Name',
+            'description' => 'Description',
+            'order' => 'Order',
+            'products_count' => 'Products Count',
+        ],
+
+        'actions' => [
+            'create' => 'Create Shelf',
+            'edit' => 'Edit Shelf',
+            'attach_product' => 'Attach Product',
+            'detach_product' => 'Detach Product',
+            'import' => 'Import',
+            'import_products' => 'Import Products',
+            'download_warehouse_template' => 'Download Warehouse Template',
+            'download_aisle_template' => 'Download Aisle Template',
+            'download_shelf_template' => 'Download Shelf Template',
+        ],
+
+        'import_options' => [
+            'warehouse' => 'Warehouse',
+            'aisle' => 'Aisle',
+            'shelf' => 'Shelf',
+        ],
+
+        'messages' => [
+            'created' => 'Shelf created',
+            'updated' => 'Shelf updated',
+            'deleted' => 'Shelf deleted',
+            'activated' => 'Shelf activated',
+            'deactivated' => 'Shelf deactivated',
+            'product_attached' => 'Products attached to the shelf',
+            'product_detached' => 'Product detached from the shelf',
+            'import_started' => 'Started importing data from the file',
+            'imported' => 'Data imported successfully',
+        ],
+
+        'errors' => [
+            'should_have_no_relations' => 'You cannot perform this action, because this shelf has related products or stocktakings. Deactivate the shelf instead.',
         ],
     ],
 

@@ -2,6 +2,7 @@
 
 return [
 
+    'show' => 'Show',
     'add' => 'Add',
     'edit' => 'Edit',
     'delete' => 'Delete',
@@ -14,6 +15,10 @@ return [
     'select_store' => 'Select store',
     'select_branch' => 'Select branch',
     'select_employee' => 'Select employee',
+    'select_warehouse' => 'Select warehouse',
+    'select_aisle' => 'Select aisle',
+    'select_shelf' => 'Select shelf',
+    'select_product' => 'Select product',
     'select_all' => 'Select all',
     'clear_all' => 'Clear all',
     'You will not be able to change this afterwards' => 'You will not be able to change this afterwards',
@@ -94,4 +99,6 @@ return [
     ],
     'optional' => 'Optional',
     'alert' => 'Alert',
+
+    'import_file' => 'Import file',
 ];

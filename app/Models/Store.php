@@ -33,11 +33,13 @@ class Store extends Model
         'mobile',
         'email',
         'domain',
+        'is_supplier',
         'id_color',
     ];
 
     protected $casts = [
         'provider_type' => StoreProviderType::class,
+        'is_supplier' => 'boolean',
     ];
 
     public function user(): BelongsTo
@@ -96,5 +98,36 @@ class Store extends Model
                 value: $providerId,
             ),
         );
+    }
+
+    public function scopeSupplier(Builder $query): Builder
+    {
+        return $query->where(
+            column: 'is_supplier',
+            operator: '=',
+            value: true,
+        );
+    }
+
+    public function scopeRetailer(Builder $query): Builder
+    {
+        return $query->where(
+            column: 'is_supplier',
+            operator: '=',
+            value: false,
+        );
+    }
+
+    /**
+     * Helpers
+     */
+    public function isSupplier(): bool
+    {
+        return $this->is_supplier;
+    }
+
+    public function isRetailer(): bool
+    {
+        return ! $this->is_supplier;
     }
 }

@@ -6,6 +6,7 @@
         {data: 'name', name: 'name', orderable: false, searchable: true},
         {data: 'store', name: 'store', orderable: false, searchable: true},
         {data: 'sku', name: 'sku', orderable: false, searchable: true},
+        {data: 'warehouse', name: 'warehouse', orderable: false, searchable: false},
         // {data: 'quantity', name: 'quantity', orderable: true, searchable: true},
         // {data: 'price', name: 'price', orderable: true, searchable: false},
     ], $('#results-table').data('url'), '#results-table', [[0, 'desc']], {
