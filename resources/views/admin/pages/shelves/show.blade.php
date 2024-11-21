@@ -20,6 +20,7 @@
                             <th>{{ __('admin.products.attributes.image') }}</th>
                             <th>{{ __('admin.products.attributes.name') }}</th>
                             <th>{{ __('admin.products.attributes.sku') }}</th>
+                            <th>{{ __('admin.products.attributes.attached_at') }}</th>
                             <th></th>
                         </tr>
                     </thead>

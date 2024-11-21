@@ -40,6 +40,10 @@ abstract class Datatable
             $datatable = $datatable->filterColumn($key, $value);
         }
 
+        foreach ($this->orderColumns() as $key => $value) {
+            $datatable = $datatable->orderColumn($key, $value);
+        }
+
         return $datatable->make(true);
     }
 
@@ -69,6 +73,16 @@ abstract class Datatable
      * @return array
      */
     protected function filterColumns()
+    {
+        return [];
+    }
+
+    /**
+     * For ordering columns in the datatable
+     *
+     * @return array
+     */
+    protected function orderColumns()
     {
         return [];
     }

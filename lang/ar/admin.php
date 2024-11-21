@@ -59,6 +59,7 @@ return [
             'admin_url' => 'رابط التحكم',
             'customer_url' => 'رابط العميل',
             'with_tax' => 'خاضع للضريبة',
+            'attached_at' => 'تاريخ الربط',
         ],
 
         'statuses' => [

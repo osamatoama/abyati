@@ -65,9 +65,9 @@ class ShelfIndex extends Datatable
     protected function filterColumns(): array
     {
         return [
-            // 'remote_id' => function ($query, $keyword) {
-            //     $query->where('remote_id', 'LIKE', "%$keyword%");
-            // },
+            'name' => function ($query, $keyword) {
+                $query->where('name', '=', $keyword);
+            },
         ];
     }
 }

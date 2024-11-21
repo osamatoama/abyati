@@ -1,12 +1,13 @@
 <script>
     const dataTable = helpers.plugins.datatables.init([
-        {data: 'id', name: 'id', orderable: true, searchable: true},
+        {data: 'DT_RowIndex', name: 'id', orderable: true, searchable: false},
         {data: 'remote_id', name: 'remote_id', orderable: false, searchable: true},
         {data: 'image', name: 'image', orderable: false, searchable: false},
         {data: 'name', name: 'name', orderable: false, searchable: true},
         {data: 'sku', name: 'sku', orderable: false, searchable: true},
+        {data: 'attached_at', name: 'attached_at', orderable: true, searchable: true},
         {data: 'action', name: 'action', orderable: false, searchable: false},
-    ], $('#shelf-products-table').data('url'), '#shelf-products-table', [[0, 'desc']], {
+    ], $('#shelf-products-table').data('url'), '#shelf-products-table', [[5, 'desc']], {
         buttons: [],
         createdRow: function (row, data, dataIndex) {
             $(row).addClass('product-row cursor-pointer')

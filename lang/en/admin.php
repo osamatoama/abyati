@@ -59,6 +59,7 @@ return [
             'admin_url' => 'Admin URL',
             'customer_url' => 'Customer URL',
             'with_tax' => 'Tax applied',
+            'attached_at' => 'Attached at',
         ],
 
         'statuses' => [
