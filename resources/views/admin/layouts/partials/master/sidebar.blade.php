@@ -172,13 +172,13 @@
                     </div>
                 @endif
 
-                @if(can('employee_performance_report.show'))
+                @if(can('employee_performance_report.show') || can('quantity_issues_report.show') || can('products_without_shelves_report.show'))
                     <div class="menu-item">
                         <a @class(['menu-link', 'active' => request()->routeIs('admin.reports.*')])
                         href="{{ route('admin.reports.index') }}"
                         >
                             <span class="menu-icon">
-                                <i class="fa-solid fa-file fs-2"></i>
+                                <i class="fa-solid fa-file-lines fs-2"></i>
                             </span>
                                 <span class="menu-title">
                             {{ __('admin.reports.title') }}

@@ -485,7 +485,23 @@ return [
             'attributes' => [
                 'product_remote_id' => 'معرف المنتج',
                 'product_name' => 'اسم المنتج',
+                'product_image' => 'الصورة',
                 'issues_count' => 'عدد المشاكل',
+            ],
+
+            'filters' => [
+
+            ],
+        ],
+
+        'products_without_shelves' => [
+            'title' => 'منتجات بدون رفوف',
+
+            'attributes' => [
+                'product_remote_id' => 'معرف سلة',
+                'product_name' => 'الاسم',
+                'product_image' => 'الصورة',
+                'product_sku' => 'SKU',
             ],
 
             'filters' => [

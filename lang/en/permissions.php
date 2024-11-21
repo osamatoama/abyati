@@ -17,6 +17,13 @@ return [
         'title' => 'Products',
         'show' => 'Show',
     ],
+    'shelves' => [
+        'title' => 'Shelves',
+        'show' => 'Show',
+        'add' => 'Create',
+        'edit' => 'Edit',
+        'delete' => 'Delete',
+    ],
     'roles' => [
         'title' => 'Roles',
         'show' => 'Show',
@@ -58,6 +65,10 @@ return [
     ],
     'quantity_issues_report' => [
         'title' => 'Quantity Issues Report',
+        'show' => 'Show',
+    ],
+    'products_without_shelves_report' => [
+        'title' => 'Products Without Shelves Report',
         'show' => 'Show',
     ],
 ];

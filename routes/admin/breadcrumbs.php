@@ -165,6 +165,11 @@ Breadcrumbs::for('admin.reports.quantity-issues.index', function ($trail) {
     $trail->push(__('admin.reports.quantity_issues.title'), route('admin.reports.quantity-issues.index'));
 });
 
+Breadcrumbs::for('admin.reports.products-without-shelves.index', function ($trail) {
+    $trail->parent('admin.reports.index');
+    $trail->push(__('admin.reports.products_without_shelves.title'), route('admin.reports.products-without-shelves.index'));
+});
+
 // Settings
 Breadcrumbs::for('admin.settings.index', function ($trail) {
     $trail->parent('admin.home');

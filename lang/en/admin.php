@@ -485,7 +485,23 @@ return [
             'attributes' => [
                 'product_remote_id' => 'Product ID',
                 'product_name' => 'Product Name',
+                'product_image' => 'Image',
                 'issues_count' => 'Issues Count',
+            ],
+
+            'filters' => [
+
+            ],
+        ],
+
+        'products_without_shelves' => [
+            'title' => 'Products Without Shelves',
+
+            'attributes' => [
+                'product_remote_id' => 'Salla ID',
+                'product_name' => 'Name',
+                'product_image' => 'Image',
+                'product_sku' => 'SKU',
             ],
 
             'filters' => [

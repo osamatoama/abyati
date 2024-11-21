@@ -20,9 +20,11 @@ class PermissionSeeder extends Seeder
             'orders' => ['show', 'assign', 'pull', 'export'],
             'users' => ['show', 'add', 'edit', 'delete'],
             'employees' => ['show', 'add', 'edit', 'delete'],
+            'shelves' => ['show', 'add', 'edit', 'delete'],
             'supports' => ['show', 'add', 'edit', 'delete'],
-            'employee_perfomance_report' => ['show'],
+            'employee_performance_report' => ['show'],
             'quantity_issues_report' => ['show'],
+            'products_without_shelves_report' => ['show'],
         ];
 
         $permissionNames = [];

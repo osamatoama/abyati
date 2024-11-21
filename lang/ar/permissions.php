@@ -17,6 +17,13 @@ return [
         'title' => 'المنتجات',
         'show' => 'عرض',
     ],
+    'shelves' => [
+        'title' => 'الرفوف',
+        'show' => 'عرض',
+        'add' => 'إضافة',
+        'edit' => 'تعديل',
+        'delete' => 'حذف',
+    ],
     'roles' => [
         'title' => 'الأدوار',
         'show' => 'عرض',
@@ -58,6 +65,10 @@ return [
     ],
     'quantity_issues_report' => [
         'title' => 'تقرير مشاكل الكميات',
+        'show' => 'عرض',
+    ],
+    'products_without_shelves_report' => [
+        'title' => 'تقرير المنتجات بدون رفوف',
         'show' => 'عرض',
     ],
 ];
