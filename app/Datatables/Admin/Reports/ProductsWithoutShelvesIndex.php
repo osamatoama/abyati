@@ -15,7 +15,11 @@ class ProductsWithoutShelvesIndex extends Datatable
     {
         return Product::query()
             ->select('id', 'remote_id', 'name', 'sku', 'main_image', 'status')
-            ->doesntHave('shelves');
+            ->whereDoesntHave('shelves', fn ($query) =>
+                $query->when(request('warehouse_id'), fn ($q) =>
+                    $q->where('warehouse_id', request('warehouse_id'))
+                )
+            );
     }
 
     /**

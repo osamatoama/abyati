@@ -505,7 +505,7 @@ return [
             ],
 
             'filters' => [
-
+                'warehouse_id' => 'Warehouse',
             ],
         ],
     ],

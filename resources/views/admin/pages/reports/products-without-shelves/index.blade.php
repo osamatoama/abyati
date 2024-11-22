@@ -7,13 +7,11 @@
 @endsection
 
 @section('content')
-    {{-- <div class="card mb-5">
+    <div class="card mb-5">
         <div class="card-body">
             <livewire:admin.reports.products-without-shelves.filter-products-without-shelves-report />
         </div>
-    </div> --}}
-
-    {{-- <livewire:admin.reports.products-without-shelves.products-without-shelves-report-tabs /> --}}
+    </div>
 
     <div id="results-card" class="card">
         <div class="card-body">

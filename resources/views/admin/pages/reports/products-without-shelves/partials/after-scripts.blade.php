@@ -17,15 +17,15 @@
         }
     );
 
-    // Livewire.on('report-filters-applied', (params) => {
-    //     $('#results-table').DataTable().ajax.url(params[0].refresh_url).load()
-    //     reloadDatatable(dataTable)
-    // })
+    Livewire.on('report-filters-applied', (params) => {
+        $('#results-table').DataTable().ajax.url(params[0].refresh_url).load()
+        reloadDatatable(dataTable)
+    })
 
-    // Livewire.on('report-filters-reset', (params) => {
-    //     $('#results-table').DataTable().ajax.url(params[0].refresh_url).load()
-    //     reloadDatatable(dataTable)
-    // })
+    Livewire.on('report-filters-reset', (params) => {
+        $('#results-table').DataTable().ajax.url(params[0].refresh_url).load()
+        reloadDatatable(dataTable)
+    })
 
     // Livewire.on('report-employee-assigned', (params) => {
     //     successToast(params[0].message)
