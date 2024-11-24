@@ -1,4 +1,19 @@
 <script>
+    function sendDataToReactNative() {
+        const data = { message: 'Hello from WebView!', value: 42 }
+
+        if (window.ReactNativeWebView == undefined) {
+            console.log('window.ReactNativeWebView is undefined')
+            return
+        }
+
+        window.ReactNativeWebView.postMessage(JSON.stringify(data))
+    }
+
+    $('#camera-btn').click(function() {
+        sendDataToReactNative()
+    })
+
     $('.scan-item-modal').on('shown.bs.modal', function(e) {
         let el = $(e.target)
 

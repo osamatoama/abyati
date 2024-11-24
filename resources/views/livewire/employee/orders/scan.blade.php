@@ -6,7 +6,13 @@
                     <label class="form-label">{{ __('employee.products.attributes.barcode') }}</label>
 
                     {{-- <input type="text" class="scan-barcode-input form-control @error('scanned_barcode') is-invalid @enderror" wire:model="scanned_barcode" /> --}}
-                    <input type="text" class="scan-barcode-input form-control @error('scanned_barcode') is-invalid @enderror" wire:model="scanned_barcode" wire:keyup.debounce.500ms="scan" wire:loading.attr="disabled" />
+                    <input type="text" id="scanned_barcode" class="scan-barcode-input form-control @error('scanned_barcode') is-invalid @enderror" wire:model="scanned_barcode" wire:keyup.debounce.500ms="scan" wire:loading.attr="disabled" />
+
+                    <span class="my-3 d-flex justify-content-center">
+                        <button id="camera-btn" class="btn btn-sm btn-info">
+                            <i class="fas fa-camera pe-0"></i>
+                        </button>
+                    </span>
 
                     @error('scanned_barcode') <span class="form-input-error text-danger">{{ $message }}</span> @enderror
                 </div>
