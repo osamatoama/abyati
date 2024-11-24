@@ -19,6 +19,7 @@ return [
     'select_aisle' => 'اختر الممر',
     'select_shelf' => 'اختر الرف',
     'select_product' => 'اختر المنتج',
+    'select_category' => 'اختر التصنيف',
     'select_all' => 'اختيار الكل',
     'clear_all' => 'إلغاء الكل',
     'You will not be able to change this afterwards' => 'لن تتمكن من تغيير هذا بعد ذلك',

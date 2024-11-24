@@ -2,6 +2,7 @@
 
 namespace App\Services\Products;
 
+use App\Models\Store;
 use App\Models\Product;
 use App\Enums\ProductStatus;
 use App\Dto\Products\ProductDto;
@@ -66,6 +67,36 @@ final class ProductService
                 storeId: $storeId,
             ),
         );
+
+        $existingCategoryRemoteIds = $product->categories->pluck('remote_id')->toArray();
+
+        $newCategories = array_filter(
+            $sallaProduct['categories'],
+            fn ($category) => !in_array($category['id'], $existingCategoryRemoteIds),
+        );
+
+        $deletedRemoteIds = array_diff($existingCategoryRemoteIds, array_column($sallaProduct['categories'], 'id'));
+
+        if (filled($newCategories)) {
+            $newCategoryIds = collect([]);
+
+            foreach ($newCategories as $category) {
+                $newCategoryIds->push(
+                    CategoryService::instance()
+                        ->saveSallaCategory(
+                            store: Store::find($storeId),
+                            data: $category,
+                        )
+                        ->id,
+                );
+            }
+
+            $product->categories()->syncWithoutDetaching($newCategoryIds);
+        }
+
+        if (filled($deletedRemoteIds)) {
+            $product->categories()->detach($deletedRemoteIds);
+        }
 
         foreach ($sallaProduct['options'] as $option) {
             OptionService::instance()

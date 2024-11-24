@@ -43,6 +43,7 @@ return [
             'salla_id' => 'Salla ID',
             'store' => 'Store',
             'warehouse' => 'Warehouse',
+            'categories' => 'Categories',
             'image' => 'Image',
             'name' => 'Name',
             'sku' => 'SKU',

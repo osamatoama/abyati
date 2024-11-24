@@ -11,6 +11,18 @@
         @error('store_ids') <span class="form-input-error text-danger"></span> @enderror
     </div>
 
+    <div class="mb-10" wire:ignore>
+        <label class="form-label">{{ __('admin.products.attributes.categories') }}</label>
+
+        <select id="filter-category_ids" class="form-control" data-control="select2" data-placeholder="{{ __('globals.select_category') }}" multiple>
+            @foreach($categories as $categoryId => $categoryName)
+                <option value="{{ $categoryId }}">{{ $categoryName }}</option>
+            @endforeach
+        </select>
+
+        @error('category_ids') <span class="form-input-error text-danger"></span> @enderror
+    </div>
+
     <div class="d-flex justify-content-end">
         <a wire:click="resetFilters" class="btn btn-sm btn-light-danger btn-active-danger me-2" data-kt-menu-dismiss="true">
             {{ __('globals.reset_filters') }}
@@ -23,15 +35,22 @@
         Livewire.on('product-filters-mounted', (event) => {
             setTimeout(() => {
                 $('#filter-store_ids').val(@this.get('store_ids')).trigger('change')
+                $('#filter-category_ids').val(@this.get('category_ids')).trigger('change')
             }, 1000);
         })
 
         Livewire.on('product-filters-reset', (event) => {
             $('#filter-store_ids').val(null).trigger('change')
+            $('#filter-category_ids').val(null).trigger('change')
         })
 
         $('#filter-store_ids').on('change', function() {
             @this.set('store_ids', $('#filter-store_ids').val())
+            @this.apply()
+        })
+
+        $('#filter-category_ids').on('change', function() {
+            @this.set('category_ids', $('#filter-category_ids').val())
             @this.apply()
         })
     </script>

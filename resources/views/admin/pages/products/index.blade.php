@@ -20,6 +20,7 @@
                             <th>{{ __('admin.products.attributes.image') }}</th>
                             <th>{{ __('admin.products.attributes.name') }}</th>
                             <th>{{ __('admin.products.attributes.store') }}</th>
+                            <th>{{ __('admin.products.attributes.categories') }}</th>
                             <th>{{ __('admin.products.attributes.sku') }}</th>
                             <th>{{ __('admin.products.attributes.warehouse') }}</th>
                             {{-- <th>{{ __('admin.products.attributes.quantity') }}</th>

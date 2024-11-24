@@ -43,6 +43,7 @@ return [
             'salla_id' => 'معرف سلة',
             'store' => 'المتجر',
             'warehouse' => 'المستودع',
+            'categories' => 'التصنيفات',
             'image' => 'الصورة',
             'name' => 'الاسم',
             'sku' => 'SKU',
