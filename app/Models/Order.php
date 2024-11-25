@@ -37,6 +37,7 @@ class Order extends Model
         'status_name',
         'completion_status',
         'shipment_type',
+        'payment_method',
         'amounts',
         'customer',
         'address',

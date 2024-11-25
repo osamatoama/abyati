@@ -358,6 +358,18 @@ return [
             ],
         ],
 
+        'payment_methods' => [
+            'credit_card' => 'بطاقة ائتمانية',
+            'paypal' => 'باي بال',
+            'mada' => 'مدى',
+            'free' => 'مجاني',
+            'bank' => 'حوالة بنكية',
+            'cod' => 'دفع عند الاستلام',
+            'apple_pay' => 'أبل باي',
+            'stc_pay' => 'STC pay',
+            'waiting' => 'بانتظار الدفع',
+        ],
+
         'messages' => [
             'created' => 'تم الإضافة بنجاح',
             'updated' => 'تم التعديل بنجاح',

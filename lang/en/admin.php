@@ -356,6 +356,18 @@ return [
             ],
         ],
 
+        'payment_methods' => [
+            'credit_card' => 'Credit Card',
+            'paypal' => 'Paypal',
+            'mada' => 'Mada',
+            'free' => 'Free',
+            'bank' => 'Bank Transfer',
+            'cod' => 'COD',
+            'apple_pay' => 'Applepay',
+            'stc_pay' => 'STC Pay',
+            'waiting' => 'Waiting',
+        ],
+
         'messages' => [
             'created' => 'The Order has been created successfully',
             'updated' => 'The Order has been updated successfully',

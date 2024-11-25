@@ -31,6 +31,7 @@ final class CreateOrderService
             'amounts' => $orderDto->amounts,
             'customer' => $orderDto->customer,
             'shipment_type' => $orderDto->shipmentType,
+            'payment_method' => $orderDto->paymentMethod,
             'address' => $orderDto->address,
         ]);
     }
