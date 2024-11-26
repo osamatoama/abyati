@@ -21,6 +21,7 @@ class Branch extends Model
     protected $fillable = [
         'remote_id',
         'store_id',
+        'city_id',
         'name',
         'remote_name',
         'type',
@@ -51,6 +52,11 @@ class Branch extends Model
     public function store(): BelongsTo
     {
         return $this->belongsTo(Store::class);
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
     }
 
     /**

@@ -28,6 +28,8 @@ final class UpdateOrderService
             'amounts' => $orderDto->amounts,
             'customer' => $orderDto->customer,
             'shipment_type' => $orderDto->shipmentType,
+            'shipping_company_id' => $orderDto->shippingCompanyId,
+            'shipment_branch_id' => $orderDto->shipmentBranchId,
             'payment_method' => $orderDto->paymentMethod,
             'address' => $orderDto->address,
         ]);

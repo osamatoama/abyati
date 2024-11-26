@@ -37,6 +37,8 @@ class Order extends Model
         'status_name',
         'completion_status',
         'shipment_type',
+        'shipping_company_id',
+        'shipment_branch_id',
         'payment_method',
         'amounts',
         'customer',
@@ -59,6 +61,16 @@ class Order extends Model
     public function branch(): BelongsTo
     {
         return $this->belongsTo(Branch::class);
+    }
+
+    public function shippingCompany(): BelongsTo
+    {
+        return $this->belongsTo(ShippingCompany::class);
+    }
+
+    public function shipmentBranch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class, 'shipment_branch_id');
     }
 
     public function status(): BelongsTo

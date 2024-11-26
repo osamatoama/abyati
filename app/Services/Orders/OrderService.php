@@ -165,7 +165,7 @@ final class OrderService
         //     ->dispatch();
     }
 
-    public function saveAddress(string $orderId, array $shipment)
+    public function saveShipment(string $orderId, array $shipment)
     {
         $order = Order::find($orderId);
 
@@ -177,6 +177,8 @@ final class OrderService
 
         $order->update([
             'shipment_type' => $shipmentDto->shipmentType,
+            'shipping_company_id' => $shipmentDto->shippingCompanyId,
+            // 'shipment_branch_id' => $shipmentDto->shipmentBranchId,
             'address' => $shipmentDto->address,
         ]);
     }

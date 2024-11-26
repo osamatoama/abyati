@@ -7,11 +7,11 @@ use App\Models\Store;
 use Illuminate\Bus\Queueable;
 use App\Enums\Queues\BatchName;
 use Illuminate\Queue\SerializesModels;
+use App\Jobs\Concerns\HandleExceptions;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Jobs\Concerns\InteractsWithBatches;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Jobs\Concerns\HandleExceptions;
 use App\Services\Salla\Merchant\SallaMerchantService;
 use App\Services\Salla\Merchant\SallaMerchantException;
 

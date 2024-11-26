@@ -18,6 +18,8 @@ final class UpdateOrderShippingAddressService
         $order->update([
             'customer' => $orderDto->customer,
             'shipment_type' => $orderDto->shipmentType,
+            'shipping_company_id' => $orderDto->shippingCompanyId,
+            'shipment_branch_id' => $orderDto->shipmentBranchId,
             'address' => $orderDto->address,
         ]);
 
