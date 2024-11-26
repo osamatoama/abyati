@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\Activatable;
+use App\Models\Concerns\BelongsToStore;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -14,6 +15,7 @@ class Branch extends Model
 {
     use SoftDeletes;
     use Activatable;
+    use BelongsToStore;
 
     /**
      * Config
@@ -47,11 +49,6 @@ class Branch extends Model
                 relatedPivotKey: 'order_status_id',
             )
             ->withPivot('store_id');
-    }
-
-    public function store(): BelongsTo
-    {
-        return $this->belongsTo(Store::class);
     }
 
     public function city(): BelongsTo

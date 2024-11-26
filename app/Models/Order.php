@@ -99,6 +99,14 @@ class Order extends Model
         return $this->hasMany(OrderExecutionHistory::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(
+            related: Tag::class,
+            table: 'order_tag',
+        );
+    }
+
     /**
      * Scopes
      */
@@ -319,5 +327,14 @@ class Order extends Model
             //     return $item->shelf_number;
             // },
         ]);
+    }
+
+    public function getAddressCity(): ?City
+    {
+        if (empty($this->address['city_id'])) {
+            return null;
+        }
+
+        return City::find($this->address['city_id']);
     }
 }
