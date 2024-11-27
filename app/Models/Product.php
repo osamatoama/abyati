@@ -94,4 +94,9 @@ class Product extends Model
             )
             ->withTimestamps();
     }
+
+    public function quantities(): HasMany
+    {
+        return $this->hasMany(ProductQuantity::class);
+    }
 }

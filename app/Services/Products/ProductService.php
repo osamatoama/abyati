@@ -98,7 +98,15 @@ final class ProductService
             $product->categories()->detach($deletedRemoteIds);
         }
 
-        foreach ($sallaProduct['options'] as $option) {
+        foreach ($sallaProduct['branches_quantities'] ?? [] as $branchQuantity) {
+            ProductQuantityService::instance()
+                ->saveSallaProductQuantity(
+                    product: $product,
+                    data: $branchQuantity,
+                );
+        }
+
+        foreach ($sallaProduct['options'] ?? [] as $option) {
             OptionService::instance()
                 ->saveSallaOption(
                     sallaOption: $option,
@@ -107,7 +115,7 @@ final class ProductService
                 );
         }
 
-        foreach ($sallaProduct['skus'] as $sku) {
+        foreach ($sallaProduct['skus'] ?? [] as $sku) {
             ProductVariantService::instance()
                 ->saveSallaProductVariant(
                     sallaSku: $sku,
