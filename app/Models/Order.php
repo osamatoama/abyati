@@ -37,6 +37,9 @@ class Order extends Model
         'status_name',
         'completion_status',
         'shipment_type',
+        'shipping_company_id',
+        'shipment_branch_id',
+        'payment_method',
         'amounts',
         'customer',
         'address',
@@ -58,6 +61,16 @@ class Order extends Model
     public function branch(): BelongsTo
     {
         return $this->belongsTo(Branch::class);
+    }
+
+    public function shippingCompany(): BelongsTo
+    {
+        return $this->belongsTo(ShippingCompany::class);
+    }
+
+    public function shipmentBranch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class, 'shipment_branch_id');
     }
 
     public function status(): BelongsTo
@@ -84,6 +97,14 @@ class Order extends Model
     public function executionHistories(): HasMany
     {
         return $this->hasMany(OrderExecutionHistory::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(
+            related: Tag::class,
+            table: 'order_tag',
+        );
     }
 
     /**
@@ -306,5 +327,14 @@ class Order extends Model
             //     return $item->shelf_number;
             // },
         ]);
+    }
+
+    public function getAddressCity(): ?City
+    {
+        if (empty($this->address['city_id'])) {
+            return null;
+        }
+
+        return City::find($this->address['city_id']);
     }
 }

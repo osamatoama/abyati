@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Store;
 use App\Models\Support;
+use App\Models\Setting;
 use App\Models\Employee;
 use App\Models\OrderItem;
 use Illuminate\Support\Arr;
@@ -334,5 +335,18 @@ if (! function_exists('sortOrderItemsByShelves')) {
 
         // Flatten the sorted groups back into a single collection
         return $sortedItems->flatten()->merge($undefinedAisles);
+    }
+}
+
+if (! function_exists('settings')) {
+    function settings(): mixed
+    {
+        $settings = cache()->remember(
+            key: 'settings',
+            ttl: 60 * 60,
+            callback: fn () => Setting::get(),
+        );
+
+        return $settings;
     }
 }

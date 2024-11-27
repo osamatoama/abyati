@@ -21,6 +21,7 @@ final class BranchService
                 values: [
                     'remote_id' => $branchDto->remoteId,
                     'store_id' => $branchDto->storeId,
+                    'city_id' => $branchDto->cityId,
                     'remote_name' => $branchDto->remoteName,
                     'type' => $branchDto->type,
                     'status' => $branchDto->status,
@@ -40,6 +41,7 @@ final class BranchService
                 values: [
                     'remote_id' => $branchDto->remoteId,
                     'store_id' => $branchDto->storeId,
+                    'city_id' => $branchDto->cityId,
                     'remote_name' => $branchDto->remoteName,
                     'type' => $branchDto->type,
                     'status' => $branchDto->status,

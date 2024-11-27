@@ -16,6 +16,7 @@ use App\Services\Salla\Merchant\Support\OrderItems;
 use App\Services\Salla\Merchant\Support\OrderStatuses;
 use App\Services\Salla\Merchant\Support\AbandonedCarts;
 use App\Services\Salla\Merchant\Support\OrderHistories;
+use App\Services\Salla\Merchant\Support\ShippingCompanies;
 
 final class SallaMerchantService extends SallaService
 {
@@ -71,6 +72,13 @@ final class SallaMerchantService extends SallaService
     {
         return $this->resolve(
             className: OrderStatuses::class,
+        );
+    }
+
+    public function shippingCompanies(): ShippingCompanies
+    {
+        return $this->resolve(
+            className: ShippingCompanies::class,
         );
     }
 

@@ -5,6 +5,7 @@
         {data: 'image', name: 'image', orderable: false, searchable: false},
         {data: 'name', name: 'name', orderable: false, searchable: true},
         {data: 'store', name: 'store', orderable: false, searchable: true},
+        {data: 'categories', categories: 'sku', orderable: false, searchable: false},
         {data: 'sku', name: 'sku', orderable: false, searchable: true},
         {data: 'warehouse', name: 'warehouse', orderable: false, searchable: false},
         // {data: 'quantity', name: 'quantity', orderable: true, searchable: true},

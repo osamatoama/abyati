@@ -17,6 +17,7 @@ class ProductIndex extends Datatable
             ->filter()
             ->with([
                 'store' => fn($q) => $q->select('id', 'name'),
+                'categories' => fn($q) => $q->select('categories.id', 'categories.name'),
                 'shelves' => fn($q) => $q->select('shelves.id', 'shelves.warehouse_id', 'shelves.name'),
                 'shelves.warehouse' => fn($q) => $q->select('id', 'name'),
             ]);
@@ -30,6 +31,9 @@ class ProductIndex extends Datatable
         return [
             'store' => function (Product $product) {
                 return view('admin.pages.products.partials.index.cols.store', compact('product'));
+            },
+            'categories' => function (Product $product) {
+                return view('admin.pages.products.partials.index.cols.categories', compact('product'));
             },
             'warehouse' => function (Product $product) {
                 return view('admin.pages.products.partials.index.cols.warehouse', compact('product'));

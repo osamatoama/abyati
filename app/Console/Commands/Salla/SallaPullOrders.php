@@ -16,7 +16,7 @@ class SallaPullOrders extends Command
      *
      * @var string
      */
-    protected $signature = 'salla:pull-orders {--from=} {--to=}';
+    protected $signature = 'salla:pull-orders {--stores=} {--from=} {--to=}';
 
     /**
      * The console command description.
@@ -30,6 +30,7 @@ class SallaPullOrders extends Command
      */
     public function handle()
     {
+        $storeIds = $this->option('stores') ?? null;
         $fromDate = $this->option('from') ?? null;
         $toDate = $this->option('to') ?? null;
 
@@ -42,7 +43,13 @@ class SallaPullOrders extends Command
             $filters['to_date'] = Carbon::parse($toDate)->addDay()->format('d-m-Y');
         }
 
-        $stores = Store::get();
+        $stores = Store::query()
+            ->when(
+                filled($storeIds),
+                fn ($query) => $query->whereIn('id', explode(',', $storeIds)),
+            )
+            ->get();
+
         $jobs = [];
 
         foreach ($stores as $store) {

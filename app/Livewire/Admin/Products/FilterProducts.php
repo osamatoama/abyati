@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Products;
 
 use App\Models\Store;
 use Livewire\Component;
+use App\Models\Category;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Locked;
 
@@ -13,14 +14,18 @@ class FilterProducts extends Component
     public array $stores = [];
 
     #[Locked]
-    public array $employees = [];
+    public array $categories = [];
 
     #[Url]
     public ?array $store_ids = [];
 
+    #[Url]
+    public ?array $category_ids = [];
+
     public function mount()
     {
         $this->stores = Store::pluck('name', 'id')->toArray();
+        $this->categories = Category::pluck('name', 'id')->toArray();
 
         $this->dispatch('product-filters-mounted');
     }
@@ -44,6 +49,7 @@ class FilterProducts extends Component
     {
         $this->reset([
             'store_ids',
+            'category_ids',
         ]);
 
         $this->dispatch('product-filters-reset', [
@@ -57,6 +63,8 @@ class FilterProducts extends Component
         return [
             'store_ids' => ['array'],
             'store_ids.*' => ['nullable', 'exists:stores,id'],
+            'category_ids' => ['array'],
+            'category_ids.*' => ['nullable', 'exists:categories,id'],
         ];
     }
 
@@ -64,6 +72,7 @@ class FilterProducts extends Component
     {
         return [
             'store_ids' => __('admin.products.pull_form.store'),
+            'category_ids' => __('admin.products.attributes.categories'),
         ];
     }
 
@@ -78,6 +87,7 @@ class FilterProducts extends Component
     {
         $filters = [
             'store_ids' => $this->store_ids,
+            'category_ids' => $this->category_ids,
         ];
 
         $params = [];

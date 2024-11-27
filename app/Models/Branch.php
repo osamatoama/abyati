@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\Activatable;
+use App\Models\Concerns\BelongsToStore;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -14,6 +15,7 @@ class Branch extends Model
 {
     use SoftDeletes;
     use Activatable;
+    use BelongsToStore;
 
     /**
      * Config
@@ -21,6 +23,7 @@ class Branch extends Model
     protected $fillable = [
         'remote_id',
         'store_id',
+        'city_id',
         'name',
         'remote_name',
         'type',
@@ -48,9 +51,9 @@ class Branch extends Model
             ->withPivot('store_id');
     }
 
-    public function store(): BelongsTo
+    public function city(): BelongsTo
     {
-        return $this->belongsTo(Store::class);
+        return $this->belongsTo(City::class);
     }
 
     /**

@@ -32,6 +32,8 @@ final class SyncOrderService
                     'date' => $orderDto->date,
                     'status_id' => $orderDto->statusId,
                     'status_name' => $orderDto->statusName,
+                    'shipment_type' => $orderDto->shipmentType,
+                    'payment_method' => $orderDto->paymentMethod,
                     'amounts' => $orderDto->amounts,
                     'customer' => $orderDto->customer,
                 ],
