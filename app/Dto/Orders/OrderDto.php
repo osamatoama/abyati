@@ -19,6 +19,7 @@ final class OrderDto
         public ?Carbon $date,
         public ?int    $statusId,
         public ?string $statusName,
+        public bool    $readyForProcessing = false,
         // public ?string $completionStatus,
         public ?string $shipmentType = null,
         public ?int    $shippingCompanyId = null,
@@ -38,6 +39,11 @@ final class OrderDto
 
         $branch = $store->branches()->wherePivot('order_status_id', $statusId)->first();
 
+        $pullOrderStatuses = $store->branchOrderStatuses;
+
+        $readyForProcessing = in_array($sallaOrder['status']['id'] ?? null, $pullOrderStatuses->pluck('remote_original_id')->toArray())
+            || in_array($sallaOrder['status']['customized']['id'] ?? null, $pullOrderStatuses->pluck('remote_id')->toArray());
+
         return new self(
             remoteId: $sallaOrder['id'],
             referenceId: $sallaOrder['reference_id'],
@@ -48,6 +54,7 @@ final class OrderDto
             ) : null,
             statusId: $statusId,
             statusName: $sallaOrder['status']['name'] ?? null,
+            readyForProcessing: $readyForProcessing,
             shipmentType: null,
             shippingCompanyId: null,
             shipmentBranchId: null,
@@ -80,6 +87,11 @@ final class OrderDto
             $shipmentBranch = Branch::where('remote_id', $shipmentBranchRemoteId)->first();
         }
 
+        $pullOrderStatuses = $store->branchOrderStatuses;
+
+        $readyForProcessing = in_array($sallaOrder['status']['id'] ?? null, $pullOrderStatuses->pluck('remote_original_id')->toArray())
+            || in_array($sallaOrder['status']['customized']['id'] ?? null, $pullOrderStatuses->pluck('remote_id')->toArray());
+
         return new self(
             remoteId: $sallaOrder['id'],
             referenceId: $sallaOrder['reference_id'],
@@ -90,6 +102,7 @@ final class OrderDto
             ) : null,
             statusId: $statusId,
             statusName: $sallaOrder['status']['name'] ?? null,
+            readyForProcessing: $readyForProcessing,
             shipmentType: $shipmentType,
             shippingCompanyId: $shippingCompany?->id,
             shipmentBranchId: $shipmentBranch?->id,

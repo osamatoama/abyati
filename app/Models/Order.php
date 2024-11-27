@@ -35,6 +35,7 @@ class Order extends Model
         'date',
         'status_id',
         'status_name',
+        'ready_for_processing',
         'completion_status',
         'shipment_type',
         'shipping_company_id',
@@ -47,6 +48,7 @@ class Order extends Model
 
     protected $casts = [
         'date' => 'datetime',
+        'ready_for_processing' => 'boolean',
         'completion_status' => OrderCompletionStatus::class,
         'amounts' => 'array',
         'customer' => 'array',
@@ -110,6 +112,11 @@ class Order extends Model
     /**
      * Scopes
      */
+    public function readyForProcessing(Builder $query)
+    {
+        return $query->where('ready_for_processing', true);
+    }
+
     public function scopePending(Builder $query)
     {
         return $query->where('completion_status', OrderCompletionStatus::PENDING);

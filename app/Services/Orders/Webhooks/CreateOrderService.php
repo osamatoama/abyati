@@ -28,6 +28,7 @@ final class CreateOrderService
             'date' => $orderDto->date,
             'status_id' => $orderDto->statusId,
             'status_name' => $orderDto->statusName,
+            'ready_for_processing' => $orderDto->readyForProcessing,
             'amounts' => $orderDto->amounts,
             'customer' => $orderDto->customer,
             'shipment_type' => $orderDto->shipmentType,

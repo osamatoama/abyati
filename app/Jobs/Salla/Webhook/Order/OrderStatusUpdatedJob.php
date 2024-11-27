@@ -48,14 +48,14 @@ class OrderStatusUpdatedJob implements ShouldQueue, WebhookEvent
                 ->first();
 
             if (! $order) {
-                $pullOrderStatuses = $store->branchOrderStatuses;
+                // $pullOrderStatuses = $store->branchOrderStatuses;
 
-                if (
-                    ! in_array($this->data['status']['id'] ?? null, $pullOrderStatuses->pluck('remote_original_id')->toArray())
-                    && ! in_array($this->data['status']['customized']['id'] ?? null, $pullOrderStatuses->pluck('remote_id')->toArray())
-                ) {
-                    return;
-                }
+                // if (
+                //     ! in_array($this->data['status']['id'] ?? null, $pullOrderStatuses->pluck('remote_original_id')->toArray())
+                //     && ! in_array($this->data['status']['customized']['id'] ?? null, $pullOrderStatuses->pluck('remote_id')->toArray())
+                // ) {
+                //     return;
+                // }
 
                 CreateOrderService::instance()
                     ->handle(
