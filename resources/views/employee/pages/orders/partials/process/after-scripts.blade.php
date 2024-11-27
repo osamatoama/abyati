@@ -3,7 +3,13 @@
         const data = { message: 'Hello from WebView!', value: 42 }
 
         if (window.ReactNativeWebView == undefined) {
-            console.log('window.ReactNativeWebView is undefined')
+            Swal.fire({
+                title: 'هذه الميزة لا تعمل على الويب. يرجى تثبيت التطبيق على الهاتف لاستخدام هذه الميزة.',
+                icon: 'error',
+                showCancelButton: false,
+                confirmButtonText: getTranslation('ok'),
+            })
+
             return
         }
 
