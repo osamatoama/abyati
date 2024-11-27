@@ -12,4 +12,6 @@ enum SettingType: string
      * Cases
      */
     case PRODUCTS = 'products';
+
+    case TAGS = 'tags';
 }

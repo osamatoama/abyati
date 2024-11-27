@@ -26,7 +26,16 @@ class SettingSeeder extends Seeder
      */
     private function seedForDevelopment(): void
     {
-        $settings = [
+        $generalSettings = [
+            [
+                'source' => SettingSource::SYSTEM,
+                'type' => SettingType::TAGS,
+                'key' => 'enable_order_auto_tagging',
+                'value' => 1,
+            ],
+        ];
+
+        $storeSettings = [
             [
                 'source' => SettingSource::SYSTEM,
                 'type' => SettingType::PRODUCTS,
@@ -35,8 +44,19 @@ class SettingSeeder extends Seeder
             ],
         ];
 
+        foreach ($generalSettings as $setting) {
+            Setting::updateOrCreate([
+                'type' => $setting['type'],
+                'key' => $setting['key'],
+            ], [
+                'store_id' => null,
+                'source' => $setting['source'],
+                'value' => $setting['value'],
+            ]);
+        }
+
         foreach (Store::get() as $store) {
-            foreach ($settings as $setting) {
+            foreach ($storeSettings as $setting) {
                 Setting::updateOrCreate([
                     'store_id' => $store->id,
                     'type' => $setting['type'],
@@ -54,7 +74,16 @@ class SettingSeeder extends Seeder
      */
     private function seedForProduction(): void
     {
-        $settings = [
+        $generalSettings = [
+            [
+                'source' => SettingSource::SYSTEM,
+                'type' => SettingType::TAGS,
+                'key' => 'enable_order_auto_tagging',
+                'value' => 0,
+            ],
+        ];
+
+        $storeSettings = [
             [
                 'source' => SettingSource::SYSTEM,
                 'type' => SettingType::PRODUCTS,
@@ -63,8 +92,19 @@ class SettingSeeder extends Seeder
             ],
         ];
 
+        foreach ($generalSettings as $setting) {
+            Setting::updateOrCreate([
+                'type' => $setting['type'],
+                'key' => $setting['key'],
+            ], [
+                'store_id' => null,
+                'source' => $setting['source'],
+                'value' => $setting['value'],
+            ]);
+        }
+
         foreach (Store::get() as $store) {
-            foreach ($settings as $setting) {
+            foreach ($storeSettings as $setting) {
                 Setting::updateOrCreate([
                     'store_id' => $store->id,
                     'type' => $setting['type'],
