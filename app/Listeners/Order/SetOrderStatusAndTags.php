@@ -3,6 +3,7 @@
 namespace App\Listeners\Order;
 
 use App\Models\Tag;
+use App\Models\Setting;
 use App\Enums\SettingType;
 use App\Events\Order\OrderCreatedEvent;
 use Illuminate\Queue\InteractsWithQueue;
@@ -26,7 +27,7 @@ class SetOrderStatusAndTags implements ShouldQueue
      */
     public function handle(OrderCreatedEvent $event): void
     {
-        $enableOrderAutoTaggingSetting = settings()
+        $enableOrderAutoTaggingSetting = Setting::query()
             ->whereNull('store_id')
             ->where('type', SettingType::TAGS->value)
             ->where('key', 'enable_order_auto_tagging')
@@ -37,6 +38,10 @@ class SetOrderStatusAndTags implements ShouldQueue
         }
 
         $order = $event->order;
+
+        logger()->debug('SetOrderStatusAndTags', [
+            'order' => $order->reference_id,
+        ]);
 
         $tags = Tag::query()
             ->forStore($order->store_id)
