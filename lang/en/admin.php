@@ -84,6 +84,10 @@ return [
             'no_variants' => 'No variants for this product',
             'unlimited_quantity' => 'Unlimited',
         ],
+
+        'errors' => [
+            'invalid_barcode' => 'Invalid barcode',
+        ],
     ],
 
     'stores' => [
@@ -179,6 +183,8 @@ return [
 
         'errors' => [
             'should_have_no_relations' => 'You cannot perform this action, because this shelf has related products or stocktakings. Deactivate the shelf instead.',
+            'invalid_barcode' => 'Invalid barcode',
+            'product_already_attached' => 'Product already attached to the shelf',
         ],
     ],
 

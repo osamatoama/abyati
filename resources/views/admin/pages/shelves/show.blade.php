@@ -7,6 +7,20 @@
 @endsection
 
 @section('content')
+
+    <div class="card mb-5">
+        <div class="card-header collapsible cursor-pointer rotate" data-bs-toggle="collapse" data-bs-target="#attach-product-card">
+            <h3 class="card-title">{{ __('admin.shelves.actions.attach_product') }}</h3>
+            <div class="card-toolbar rotate-180">
+                <i class="ki-duotone ki-down fs-1"></i>
+            </div>
+        </div>
+
+        <div id="attach-product-card" class="card-body collapse show">
+            <livewire:admin.shelves.scan-products :$shelf />
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
@@ -28,6 +42,8 @@
             </div>
         </div>
     </div>
+
+    @include('admin.pages.shelves.partials.show.notifications')
 @endsection
 
 @push('modals')
