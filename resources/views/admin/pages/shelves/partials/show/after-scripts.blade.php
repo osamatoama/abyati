@@ -17,6 +17,23 @@
         },
     })
 
+    Livewire.on('product-scanned', (params) => {
+        $('.scan-barcode-input').focus()
+        playVoiceNotification('scanner-beep-notification')
+        reloadDatatable(dataTable)
+    })
+
+    Livewire.on('scan-error', () => {
+        playVoiceNotification('wrong-barcode-notification')
+    })
+
+    $(document).on('keydown', '.scan-barcode-input', (e) => {
+        if (e.key === "Enter" || e.key === "Tab") {
+            e.preventDefault()
+            $('.scan-barcode-input').focus()
+        }
+    })
+
     const detachProductButtonClass = '.detach-product-btn'
 
     $('body').on('click', detachProductButtonClass, function (e) {

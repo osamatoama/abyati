@@ -85,6 +85,10 @@ return [
             'no_variants' => 'لا توجد خيارات لهذا المنتج',
             'unlimited_quantity' => 'غير محدودة',
         ],
+
+        'errors' => [
+            'invalid_barcode' => 'الباركود غير صحيح',
+        ],
     ],
 
     'stores' => [
@@ -180,6 +184,8 @@ return [
 
         'errors' => [
             'should_have_no_relations' => 'لا يمكن إجراء العملية لوجود منتجات أو عمليات جرد تابعة لهذا الرف. قم بإلغاء تفعيل الرف بدلاً من الحذف.',
+            'invalid_barcode' => 'الباركود غير صحيح',
+            'product_already_attached' => 'المنتج موجود بالفعل في الرف',
         ],
     ],
 
