@@ -29,6 +29,12 @@
                 >
                     <thead>
                         <tr class="fw-semibold fs-6 text-gray-800">
+                            <th style="width: 40px;">
+                                <div class="form-check form-check-custom form-check-solid">
+                                    <input id="checkbox-all-rows" class="form-check-input" type="checkbox" />
+                                    <label class="form-check-label" for="checkbox-all-rows"></label>
+                                </div>
+                            </th>
                             <th>{{ __('admin.products.attributes.id') }}</th>
                             <th>{{ __('admin.products.attributes.salla_id') }}</th>
                             <th>{{ __('admin.products.attributes.image') }}</th>

@@ -6,6 +6,9 @@ return [
     'add' => 'Add',
     'edit' => 'Edit',
     'delete' => 'Delete',
+    'detach' => 'Detach',
+
+    'bulk_actions' => 'Bulk Actions',
 
     'date' => 'Date',
 

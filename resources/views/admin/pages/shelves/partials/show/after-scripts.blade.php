@@ -1,5 +1,6 @@
 <script>
     const dataTable = helpers.plugins.datatables.init([
+        {data: 'checkbox', name: 'id', orderable: false, searchable: false},
         {data: 'DT_RowIndex', name: 'id', orderable: true, searchable: false},
         {data: 'remote_id', name: 'remote_id', orderable: false, searchable: true},
         {data: 'image', name: 'image', orderable: false, searchable: false},
@@ -7,7 +8,7 @@
         {data: 'sku', name: 'sku', orderable: false, searchable: true},
         {data: 'attached_at', name: 'attached_at', orderable: true, searchable: true},
         {data: 'action', name: 'action', orderable: false, searchable: false},
-    ], $('#shelf-products-table').data('url'), '#shelf-products-table', [[5, 'desc']], {
+    ], $('#shelf-products-table').data('url'), '#shelf-products-table', [[6, 'desc']], {
         buttons: [],
         createdRow: function (row, data, dataIndex) {
             $(row).addClass('product-row cursor-pointer')
@@ -121,5 +122,84 @@
             .then(() => {
                 enableSubmit(attachProductForm)
             })
+    })
+
+    let selectedRowIds = []
+    let bulkActionsButtonId = '#bulk-actions-btn'
+    let bulkActionsButton = $(bulkActionsButtonId)
+    let bulkActionsCountId = '#bulk-actions-count'
+    let bulkActionsCount = $(bulkActionsCountId)
+
+    $('body').on('change', '.checkbox-single-row', function() {
+        let checkboxSingleRow = $(this)
+        let rowId = strAfterPrefix(checkboxSingleRow.attr('id'), 'checkbox-row-')
+        checkboxSingleRow.prop('checked') ? selectedRowIds.push(rowId) : selectedRowIds.remove(rowId)
+        selectedRowIds = [...new Set(selectedRowIds)]
+
+        console.log(selectedRowIds)
+
+        let enableBulkDelete = true
+        $('.checkbox-single-row:checked').each(function(i, elem) {
+            if ($(elem).closest('tr').find('.delete-row-button').length == 0) {
+                enableBulkDelete = false
+            }
+        })
+
+        if (! enableBulkDelete) {
+            $('#bulk-delete-button').addClass('link-disabled')
+            $('#bulk-trash-button').addClass('link-disabled')
+        } else {
+            $('#bulk-delete-button').removeClass('link-disabled')
+            $('#bulk-trash-button').removeClass('link-disabled')
+        }
+
+        if (selectedRowIds.length > 0) {
+            showElement(bulkActionsButton)
+            bulkActionsCount.text(`(${selectedRowIds.length})`)
+        } else {
+            hideElement(bulkActionsButton)
+            bulkActionsCount.text(`(0)`)
+        }
+    })
+
+    $('body').on('change', '#checkbox-all-rows', function() {
+        let checkboxAllRows = $(this)
+        let state = checkboxAllRows.prop('checked')
+
+        $(`#shelf-products-table .checkbox-single-row:not([disabled])`).each((index, element) => {
+            let checkboxSingleRow = $(element)
+            checkboxSingleRow.prop('checked', state)
+            checkboxSingleRow.trigger('change')
+        })
+    })
+
+    $('body').on('click', '#bulk-detach-button', function(e) {
+        e.preventDefault()
+        let el = $(this)
+        let formData = generateFormData('PUT')
+        formData.append('ids', selectedRowIds.toString())
+
+        Swal.fire({
+            title: getTranslation('areYouSure'),
+            text: getTranslation('noRevertDetach'),
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: getTranslation('discard'),
+            confirmButtonText: getTranslation('confirmDetach')
+        }).then(function (result) {
+            if (result.value) {
+                axios.post(el.data('action'), formData)
+                    .then((response) => {
+                        successToast(response?.data?.message || getTranslation('deletedSuccessfully'))
+
+                        reloadDatatable(dataTable)
+
+                        if ($('#checkbox-all-rows').prop('checked')) {
+                            $('#checkbox-all-rows').prop('checked', false)
+                            $('#checkbox-all-rows').trigger('change')
+                        }
+                    })
+            }
+        })
     })
 </script>

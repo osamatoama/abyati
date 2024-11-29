@@ -19,6 +19,7 @@ use App\Imports\Admin\Shelf\WarehouseProductsImport;
 use App\Http\Requests\Admin\Shelf\DeleteShelfRequest;
 use App\Http\Requests\Admin\Shelf\UpdateShelfRequest;
 use App\Http\Requests\Admin\Shelf\AttachProductRequest;
+use App\Http\Requests\Admin\Shelf\BulkDetachProductsRequest;
 use App\Http\Requests\Admin\Shelf\Import\ImportAisleRequest;
 use App\Http\Requests\Admin\Shelf\Import\ImportShelfRequest;
 use App\Http\Requests\Admin\Shelf\Import\ImportWarehouseRequest;
@@ -112,6 +113,18 @@ class ShelfController extends Controller
         return response()->json([
             'success' => true,
             'message' => __('admin.shelves.messages.product_detached'),
+        ]);
+    }
+
+    public function bulkDetachProducts(Shelf $shelf, BulkDetachProductsRequest $request)
+    {
+        $data = $request->validated();
+
+        $shelf->products()->detach($data['product_ids']);
+
+        return response()->json([
+            'success' => true,
+            'message' => __('admin.shelves.messages.products_detached'),
         ]);
     }
 

@@ -1,3 +1,14 @@
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax
+    while (L && this.length) {
+        what = a[--L]
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1)
+        }
+    }
+    return this
+}
+
 function sortByKey(array, key) {
     return array.sort(function(a, b) {
         var x = a[key]
@@ -12,6 +23,10 @@ function isNumeric(str) {
     }
 
     return !isNaN(str) && !isNaN(parseFloat(str))
+}
+
+function strAfterPrefix(str, prefix) {
+    return str.replace(prefix, '')
 }
 
 function getCurrentLang() {

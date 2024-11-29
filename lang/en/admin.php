@@ -177,6 +177,7 @@ return [
             'deactivated' => 'Shelf deactivated',
             'product_attached' => 'Products attached to the shelf',
             'product_detached' => 'Product detached from the shelf',
+            'products_detached' => 'Products detached from the shelf',
             'import_started' => 'Started importing data from the file',
             'imported' => 'Data imported successfully',
         ],
