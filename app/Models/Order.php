@@ -342,6 +342,8 @@ class Order extends Model
             return null;
         }
 
-        return City::find($this->address['city_id']);
+        return City::query()
+            ->where('remote_id', $this->address['city_id'])
+            ->first();
     }
 }

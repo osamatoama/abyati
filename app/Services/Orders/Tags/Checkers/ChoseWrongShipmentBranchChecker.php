@@ -21,7 +21,7 @@ class ChoseWrongShipmentBranchChecker implements TagChecker
         $shipmentBranchCity = $shipmentBranch->city;
         $addressCity = $order->getAddressCity();
 
-        if ($shipmentBranchCity->id == $addressCity->id) {
+        if ($shipmentBranchCity?->id == $addressCity?->id) {
             return false;
         }
 
