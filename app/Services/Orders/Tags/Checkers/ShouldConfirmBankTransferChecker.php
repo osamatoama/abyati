@@ -10,6 +10,11 @@ class ShouldConfirmBankTransferChecker implements TagChecker
 {
     public static function check(Order $order): bool
     {
+        logger()->debug($order->payment_method);
+        logger()->debug(OrderPaymentMethod::BANK->value);
+        logger()->debug($order->payment_method == OrderPaymentMethod::BANK->value);
+
+
         return $order->payment_method == OrderPaymentMethod::BANK->value;
     }
 }
