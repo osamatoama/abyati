@@ -19,8 +19,10 @@ use App\Imports\Admin\Shelf\WarehouseProductsImport;
 use App\Http\Requests\Admin\Shelf\DeleteShelfRequest;
 use App\Http\Requests\Admin\Shelf\UpdateShelfRequest;
 use App\Http\Requests\Admin\Shelf\AttachProductRequest;
+use App\Http\Requests\Admin\Shelf\BulkDetachProductsRequest;
 use App\Http\Requests\Admin\Shelf\Import\ImportAisleRequest;
 use App\Http\Requests\Admin\Shelf\Import\ImportShelfRequest;
+use App\Http\Requests\Admin\Shelf\BulkTransferProductsRequest;
 use App\Http\Requests\Admin\Shelf\Import\ImportWarehouseRequest;
 
 class ShelfController extends Controller
@@ -112,6 +114,34 @@ class ShelfController extends Controller
         return response()->json([
             'success' => true,
             'message' => __('admin.shelves.messages.product_detached'),
+        ]);
+    }
+
+    public function bulkDetachProducts(Shelf $shelf, BulkDetachProductsRequest $request)
+    {
+        $data = $request->validated();
+
+        $shelf->products()->detach($data['product_ids']);
+
+        return response()->json([
+            'success' => true,
+            'message' => __('admin.shelves.messages.products_detached'),
+        ]);
+    }
+
+    public function bulkTransferProducts(Shelf $shelf, BulkTransferProductsRequest $request)
+    {
+        $data = $request->validated();
+        $destinationShelf = Shelf::findOrFail($data['shelf_id']);
+
+        DB::transaction(function () use ($shelf, $destinationShelf, $data) {
+            $shelf->products()->detach($data['product_ids']);
+            $destinationShelf->products()->syncWithoutDetaching($data['product_ids']);
+        });
+
+        return response()->json([
+            'success' => true,
+            'message' => __('admin.shelves.messages.products_transferred'),
         ]);
     }
 
@@ -250,6 +280,9 @@ class ShelfController extends Controller
         $shelves = Shelf::select('id', 'warehouse_id', 'name')
             ->when(request()->warehouse_id, function ($q) {
                 return $q->where('warehouse_id', request()->warehouse_id);
+            })
+            ->when(request()->aisle, function ($q) {
+                return $q->where('aisle', request()->aisle);
             })
             ->get();
 

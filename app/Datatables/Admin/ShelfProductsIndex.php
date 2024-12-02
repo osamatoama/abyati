@@ -42,6 +42,10 @@ class ShelfProductsIndex extends Datatable
     protected function addColumns(): array
     {
         return [
+            'checkbox' => function (Product $product) {
+                $shelf = $this->shelf;
+                return view('admin.pages.shelves.partials.show.cols.checkbox', compact('product', 'shelf'));
+            },
             'image' => function (Product $product) {
                 return view('admin.pages.shelves.partials.show.cols.image', compact('product'));
             },
