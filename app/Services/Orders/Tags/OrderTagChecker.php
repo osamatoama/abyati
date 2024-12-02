@@ -14,7 +14,7 @@ class OrderTagChecker
 {
     public static function check(Order $order, Tag $tag): bool
     {
-        return match ($tag->name) {
+        return match ($tag->slug) {
             TagSlug::HAS_FROZEN_PRODUCTS->value => HasFrozenProductsChecker::check($order),
             TagSlug::CONFIRM_BANK_TRANSFER->value => ShouldConfirmBankTransferChecker::check($order),
             TagSlug::WRONG_SHIPMENT_BRANCH->value => ChoseWrongShipmentBranchChecker::check($order),
