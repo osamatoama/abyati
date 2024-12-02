@@ -64,6 +64,10 @@ const helpers = {
             en: "You won't be able to revert this !",
             ar: "لن يكون بإمكانك التراجع عن هذه العملية فى حالة تأكيد الإزالة",
         },
+        noRevertTransfer: {
+            en: "You won't be able to revert this !",
+            ar: "لن يكون بإمكانك التراجع عن هذه العملية فى حالة تأكيد النقل",
+        },
         noRevertReject: {
             en: "You won't be able to revert this !",
             ar: "لن يكون بإمكانك التراجع عن هذه العملية فى حالة تأكيد الرفض",
@@ -80,6 +84,10 @@ const helpers = {
             en: "Data will be Detached",
             ar: "سيتم إزالة البيانات",
         },
+        transferAlert: {
+            en: "Data will be Transferred",
+            ar: "سيتم نقل البيانات",
+        },
         restoreAlert: {
             en: "Data will be restored again",
             ar: "سيتم استعادة البيانات مرة أخرى",
@@ -95,6 +103,10 @@ const helpers = {
         confirmDetach: {
             en: "Confirm Detach",
             ar: "تأكيد الإزالة",
+        },
+        confirmTransfer: {
+            en: "Confirm Transfer",
+            ar: "تأكيد النقل",
         },
         confirmForceDelete: {
             en: "Delete Permanently",

@@ -56,6 +56,7 @@ Route::prefix('shelves')->as('shelves.')->group(function () {
     Route::get('{shelf}/products', [ShelfController::class, 'products'])->name('products');
     Route::post('{shelf}/products/attach', [ShelfController::class, 'attachProduct'])->name('products.attach');
     Route::put('{shelf}/products/bulk-detach', [ShelfController::class, 'bulkDetachProducts'])->name('products.bulk_detach');
+    Route::put('{shelf}/products/bulk-transfer', [ShelfController::class, 'bulkTransferProducts'])->name('products.bulk_transfer');
     Route::put('{shelf}/products/{product}/detach', [ShelfController::class, 'detachProduct'])->name('products.detach');
 });
 Route::resource('shelves', ShelfController::class)->only('index', 'show', 'store', 'update', 'destroy');

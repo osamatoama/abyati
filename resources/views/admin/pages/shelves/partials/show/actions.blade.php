@@ -12,6 +12,12 @@
                     <i class="fas fa-minus me-1"></i> <span class="me-3">{{ __('globals.detach') }}</span>
                 </a>
             </li>
+
+            <li>
+                <a id="bulk-transfer-button" class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#bulk-transfer-products-modal">
+                    <i class="fas fa-reply me-1"></i> <span class="me-3">{{ __('globals.transfer') }}</span>
+                </a>
+            </li>
         </ul>
     </div>
 

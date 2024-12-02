@@ -54,6 +54,8 @@
 
 @push('modals')
     @include('admin.pages.shelves.partials.show.modals.attach-product')
+
+    @include('admin.pages.shelves.partials.show.modals.bulk-transfer-products')
 @endpush
 
 @push('afterScripts')

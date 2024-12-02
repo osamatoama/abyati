@@ -7,6 +7,7 @@ return [
     'edit' => 'تعديل',
     'delete' => 'حذف',
     'detach' => 'إزالة',
+    'transfer' => 'نقل',
 
     'bulk_actions' => 'عمليات المجموعات',
 

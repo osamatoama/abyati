@@ -136,8 +136,6 @@
         checkboxSingleRow.prop('checked') ? selectedRowIds.push(rowId) : selectedRowIds.remove(rowId)
         selectedRowIds = [...new Set(selectedRowIds)]
 
-        console.log(selectedRowIds)
-
         let enableBulkDelete = true
         $('.checkbox-single-row:checked').each(function(i, elem) {
             if ($(elem).closest('tr').find('.delete-row-button').length == 0) {
@@ -199,6 +197,130 @@
                             $('#checkbox-all-rows').trigger('change')
                         }
                     })
+                    .catch((error) => {
+                        errorToast(getTranslation('somethingWrong'))
+                    })
+            }
+        })
+    })
+
+    $('#bulk-transfer-products-modal').on('shown.bs.modal', function() {
+        const aisleSelect = $(`select#bulk-transfer-products-form-aisle`)
+
+        aisleSelect.val(null).trigger('change')
+
+        axios.get(aisleSelect.data('url'), {params: {warehouse_id: aisleSelect.data('warehouse-id')}})
+            .then((response) => {
+                let aisleOptions = [
+                    {
+                        id: "",
+                        text: "{{ __('globals.select_aisle') }}",
+                    }
+                ]
+
+                let rows = response?.data?.data
+
+                for (let row of rows) {
+                    aisleOptions.push({
+                        id: row.aisle,
+                        text: row.aisle,
+                    })
+                }
+
+                if (aisleSelect.hasClass('select2-hidden-accessible')) {
+                    aisleSelect.select2('destroy')
+                }
+                aisleSelect.empty()
+
+                aisleSelect.select2({
+                    data: aisleOptions,
+                    language: getSelect2Localization(aisleSelect),
+                    escapeMarkup: function (markup) {
+                        return markup
+                    },
+                    dropdownParent: $('#bulk-transfer-products-modal'),
+                })
+
+                aisleSelect.prop('disabled', false)
+            })
+    })
+
+    $('select#bulk-transfer-products-form-aisle').on('change', function() {
+        const el = $(this)
+        const relatedShelfSelect = $(`select#bulk-transfer-products-form-shelf_id`)
+
+        relatedShelfSelect.val(null).trigger('change')
+
+        axios.get(relatedShelfSelect.data('url'), {params: {aisle: el.val()}})
+            .then((response) => {
+                let shelfOptions = [
+                    {
+                        id: "",
+                        text: "{{ __('globals.select_shelf') }}",
+                    }
+                ]
+
+                let rows = response?.data?.data
+
+                for (let row of rows) {
+                    shelfOptions.push({
+                        id: row.id,
+                        text: row.name,
+                    })
+                }
+
+                if (relatedShelfSelect.hasClass('select2-hidden-accessible')) {
+                    relatedShelfSelect.select2('destroy')
+                }
+                relatedShelfSelect.empty()
+
+                relatedShelfSelect.select2({
+                    data: shelfOptions,
+                    language: getSelect2Localization(relatedShelfSelect),
+                    escapeMarkup: function (markup) {
+                        return markup
+                    },
+                    dropdownParent: $('#bulk-transfer-products-modal'),
+                })
+
+                relatedShelfSelect.prop('disabled', false)
+            })
+    })
+
+    const bulkTransferProductsForm = $('#bulk-transfer-products-form')
+    const bulkTransferProductsModal = $('#bulk-transfer-products-modal')
+
+    bulkTransferProductsForm.submit(function(e) {
+        e.preventDefault()
+        disableSubmit(bulkTransferProductsForm)
+        hideFormValidationErrors(bulkTransferProductsForm)
+        let formData = getFormData(bulkTransferProductsForm)
+        formData.append('product_ids', selectedRowIds.toString())
+
+        Swal.fire({
+            title: getTranslation('transferAlert'),
+            text: getTranslation('noRevertTransfer'),
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: getTranslation('discard'),
+            confirmButtonText: getTranslation('confirmTransfer')
+        }).then(function (result) {
+            if (result.value) {
+                axios.post(bulkTransferProductsForm.attr('action'), formData)
+                    .then((response) => {
+                        resetForm(bulkTransferProductsForm)
+                        closeModal(bulkTransferProductsModal)
+                        successToast(response?.data?.message || getTranslation('createdSuccessfully'))
+                        reloadDatatable(dataTable)
+                    })
+                    .catch((error) => {
+                        handleAjaxFormError(error, bulkTransferProductsForm)
+                    })
+                    .then(() => {
+                        enableSubmit(bulkTransferProductsForm)
+                    })
+            } else {
+                enableSubmit(bulkTransferProductsForm)
             }
         })
     })

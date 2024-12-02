@@ -178,6 +178,8 @@ return [
             'product_attached' => 'تم إضافة المنتجات للرف',
             'product_detached' => 'تم إزالة المنتج من الرف',
             'products_detached' => 'تم إزالة المنتجات من الرف',
+            'product_transferred' => 'تم نقل المنتج من الرف',
+            'products_transferred' => 'تم نقل المنتجات من الرف',
             'import_started' => 'جاري استيراد البيانات من الملف',
             'imported' => 'تم استيراد البيانات بنجاح',
         ],

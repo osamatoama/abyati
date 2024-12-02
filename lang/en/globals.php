@@ -7,6 +7,7 @@ return [
     'edit' => 'Edit',
     'delete' => 'Delete',
     'detach' => 'Detach',
+    'transfer' => 'Transfer',
 
     'bulk_actions' => 'Bulk Actions',
 
