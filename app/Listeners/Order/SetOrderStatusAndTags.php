@@ -45,6 +45,7 @@ class SetOrderStatusAndTags implements ShouldQueue
 
         $tags = Tag::query()
             ->forStore($order->store_id)
+            ->active()
             ->get();
 
         foreach ($tags as $tag) {

@@ -4,6 +4,7 @@ namespace App\Services\Orders\Tags;
 
 use App\Models\Tag;
 use App\Models\Order;
+use App\Enums\TagSlug;
 use App\Services\Orders\Tags\Checkers\IsExternalOrderChecker;
 use App\Services\Orders\Tags\Checkers\HasFrozenProductsChecker;
 use App\Services\Orders\Tags\Checkers\ChoseWrongShipmentBranchChecker;
@@ -14,10 +15,10 @@ class OrderTagChecker
     public static function check(Order $order, Tag $tag): bool
     {
         return match ($tag->name) {
-            'has_frozen_products' => HasFrozenProductsChecker::check($order),
-            'should_confirm_bank_transfer' => ShouldConfirmBankTransferChecker::check($order),
-            'chose_wrong_shipment_branch' => ChoseWrongShipmentBranchChecker::check($order),
-            'is_external_order' => IsExternalOrderChecker::check($order),
+            TagSlug::HAS_FROZEN_PRODUCTS->value => HasFrozenProductsChecker::check($order),
+            TagSlug::CONFIRM_BANK_TRANSFER->value => ShouldConfirmBankTransferChecker::check($order),
+            TagSlug::WRONG_SHIPMENT_BRANCH->value => ChoseWrongShipmentBranchChecker::check($order),
+            TagSlug::EXTERNAL_ORDER->value => IsExternalOrderChecker::check($order),
             default => false,
         };
     }
