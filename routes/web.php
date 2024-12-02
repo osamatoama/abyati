@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Tag;
 use App\Models\Order;
 use App\Models\Shelf;
 use App\Models\Store;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\LocaleController;
+use App\Services\Orders\Tags\OrderTagChecker;
 use App\Imports\Admin\Shelf\ShelfProductsImport;
 use App\Imports\Admin\Shelf\WarehouseProductsImport;
 use App\Services\Salla\Merchant\SallaMerchantService;
@@ -166,4 +168,27 @@ Route::get('test/import-missing-barcodes', function() {
             'barcode' => $barcode
         ],
     );
+});
+
+Route::get('test/tagger/{order}', function(Order $order) {
+    $tags = Tag::query()
+        ->forStore($order->store_id)
+        ->active()
+        ->get();
+
+    foreach ($tags as $tag) {
+        // if (OrderTagChecker::check(
+        //     order: $order,
+        //     tag: $tag,
+        // )) {
+        //     $order->tags()->attach($tag->id);
+        // }
+
+        $check = OrderTagChecker::check(
+            order: $order,
+            tag: $tag,
+        );
+
+        dump($tag->name . ': ' . ($check ? 'true' : 'false'));
+    }
 });
