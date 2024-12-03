@@ -13,6 +13,6 @@ class IsExternalOrderChecker implements TagChecker
         $shipmentBranchCity = $shipmentBranch->city;
         $addressCity = $order->getAddressCity();
 
-        return $shipmentBranchCity->id != $addressCity->id;
+        return $shipmentBranchCity?->id != $addressCity?->id;
     }
 }
