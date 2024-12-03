@@ -20,6 +20,7 @@ class OrderIndex extends Datatable
             return Order::query()
                 ->branchMine()
                 ->filter()
+                ->readyForProcessing()
                 ->with([
                     'store',
                     'employee',

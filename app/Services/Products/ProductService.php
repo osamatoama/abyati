@@ -2,6 +2,7 @@
 
 namespace App\Services\Products;
 
+use App\Models\Store;
 use App\Models\Product;
 use App\Enums\ProductStatus;
 use App\Dto\Products\ProductDto;
@@ -67,7 +68,45 @@ final class ProductService
             ),
         );
 
-        foreach ($sallaProduct['options'] as $option) {
+        $existingCategoryRemoteIds = $product->categories->pluck('remote_id')->toArray();
+
+        $newCategories = array_filter(
+            $sallaProduct['categories'],
+            fn ($category) => !in_array($category['id'], $existingCategoryRemoteIds),
+        );
+
+        $deletedRemoteIds = array_diff($existingCategoryRemoteIds, array_column($sallaProduct['categories'], 'id'));
+
+        if (filled($newCategories)) {
+            $newCategoryIds = collect([]);
+
+            foreach ($newCategories as $category) {
+                $newCategoryIds->push(
+                    CategoryService::instance()
+                        ->saveSallaCategory(
+                            store: Store::find($storeId),
+                            data: $category,
+                        )
+                        ->id,
+                );
+            }
+
+            $product->categories()->syncWithoutDetaching($newCategoryIds);
+        }
+
+        if (filled($deletedRemoteIds)) {
+            $product->categories()->detach($deletedRemoteIds);
+        }
+
+        foreach ($sallaProduct['branches_quantities'] ?? [] as $branchQuantity) {
+            ProductQuantityService::instance()
+                ->saveSallaProductQuantity(
+                    product: $product,
+                    data: $branchQuantity,
+                );
+        }
+
+        foreach ($sallaProduct['options'] ?? [] as $option) {
             OptionService::instance()
                 ->saveSallaOption(
                     sallaOption: $option,
@@ -76,7 +115,7 @@ final class ProductService
                 );
         }
 
-        foreach ($sallaProduct['skus'] as $sku) {
+        foreach ($sallaProduct['skus'] ?? [] as $sku) {
             ProductVariantService::instance()
                 ->saveSallaProductVariant(
                     sallaSku: $sku,

@@ -71,6 +71,7 @@ class Token extends Model
             get: function (mixed $value, array $attributes): string {
                 if (Carbon::parse($attributes['expired_at'])->lessThanOrEqualTo(now())) {
                     $token = (new SallaOAuthService())->getNewToken(refreshToken: $attributes['refresh_token']);
+
                     $accessToken = $token->getToken();
 
                     $this->update([
@@ -79,10 +80,10 @@ class Token extends Model
                         'expired_at' => $token->getExpires(),
                     ]);
 
-                    $value = $accessToken;
+                    return $accessToken;
                 }
 
-                return $value;
+                return $attributes['access_token'];
             },
         );
     }

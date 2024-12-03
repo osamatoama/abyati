@@ -43,6 +43,7 @@ return [
             'salla_id' => 'Salla ID',
             'store' => 'Store',
             'warehouse' => 'Warehouse',
+            'categories' => 'Categories',
             'image' => 'Image',
             'name' => 'Name',
             'sku' => 'SKU',
@@ -362,6 +363,18 @@ return [
                 'shipping_address' => 'Shipping Address',
                 'pickup_address' => 'Pickup Address',
             ],
+        ],
+
+        'payment_methods' => [
+            'credit_card' => 'Credit Card',
+            'paypal' => 'Paypal',
+            'mada' => 'Mada',
+            'free' => 'Free',
+            'bank' => 'Bank Transfer',
+            'cod' => 'COD',
+            'apple_pay' => 'Applepay',
+            'stc_pay' => 'STC Pay',
+            'waiting' => 'Waiting',
         ],
 
         'messages' => [

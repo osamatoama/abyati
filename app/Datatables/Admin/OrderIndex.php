@@ -15,6 +15,7 @@ class OrderIndex extends Datatable
     {
         return Order::query()
             ->filter()
+            ->readyForProcessing()
             ->with([
                 'store',
                 'branch',

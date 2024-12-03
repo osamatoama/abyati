@@ -18,24 +18,39 @@ final class SyncOrderService
 {
     use HasInstance;
 
-    public function updateOrCreate(OrderDto $orderDto): Order
+    public function updateOrCreate(?Order $order = null, OrderDto $orderDto): Order
     {
-        return Order::query()
-            ->updateOrCreate(
-                attributes: [
-                    'remote_id' => $orderDto->remoteId,
-                    'store_id' => $orderDto->storeId,
-                ],
-                values: [
-                    'reference_id' => $orderDto->referenceId,
-                    'branch_id' => $orderDto->branchId,
-                    'date' => $orderDto->date,
-                    'status_id' => $orderDto->statusId,
-                    'status_name' => $orderDto->statusName,
-                    'amounts' => $orderDto->amounts,
-                    'customer' => $orderDto->customer,
-                ],
-            );
+        if ($order) {
+            $order->update([
+                'reference_id' => $orderDto->referenceId,
+                'branch_id' => $orderDto->branchId,
+                'date' => $orderDto->date,
+                'status_id' => $orderDto->statusId,
+                'status_name' => $orderDto->statusName,
+                'ready_for_processing' => $order->ready_for_processing ? true : $orderDto->readyForProcessing,
+                'shipment_type' => $orderDto->shipmentType,
+                'payment_method' => $orderDto->paymentMethod,
+                'amounts' => $orderDto->amounts,
+                'customer' => $orderDto->customer,
+            ]);
+
+            return $order;
+        }
+
+        return Order::create([
+            'remote_id' => $orderDto->remoteId,
+            'store_id' => $orderDto->storeId,
+            'reference_id' => $orderDto->referenceId,
+            'branch_id' => $orderDto->branchId,
+            'date' => $orderDto->date,
+            'status_id' => $orderDto->statusId,
+            'status_name' => $orderDto->statusName,
+            'ready_for_processing' => $orderDto->readyForProcessing,
+            'shipment_type' => $orderDto->shipmentType,
+            'payment_method' => $orderDto->paymentMethod,
+            'amounts' => $orderDto->amounts,
+            'customer' => $orderDto->customer,
+        ]);
     }
 
     public function save(array $sallaOrder, int $storeId, string $accessToken): void
@@ -44,7 +59,15 @@ final class SyncOrderService
             return;
         }
 
+        $order = Order::query()
+            ->where('remote_id', $sallaOrder['id'])
+            ->where('store_id', $storeId)
+            ->first();
+
+        $isRecentlyCreated = empty($order);
+
         $order = $this->updateOrCreate(
+            order: $order,
             orderDto: OrderDto::fromSalla(
                 sallaOrder: $sallaOrder,
                 storeId: $storeId,
@@ -83,8 +106,8 @@ final class SyncOrderService
             ],
         );
 
-        $jobs[] = function () use ($order) {
-            $order->wasRecentlyCreated
+        $jobs[] = function () use ($order, $isRecentlyCreated) {
+            $isRecentlyCreated
                 ? event(new OrderCreatedEvent($order))
                 : event(new OrderUpdatedEvent($order));
         };

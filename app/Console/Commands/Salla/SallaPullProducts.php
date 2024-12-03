@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands\Salla;
 
-use App\Enums\Queues\QueueName;
 use App\Models\Store;
+use App\Enums\Queues\QueueName;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
 use App\Jobs\Salla\Pull\Products\PullProductsJob;

@@ -68,7 +68,7 @@ class PullFirstOrderShipmentJob implements ShouldQueue
             }
 
             OrderService::instance()
-                ->saveAddress(
+                ->saveShipment(
                     orderId: $this->data['order_id'],
                     shipment: $shipment,
                 );

@@ -37,6 +37,7 @@ final class OrderService
                     'status_id' => $orderDto->statusId,
                     'status_name' => $orderDto->statusName,
                     'shipment_type' => $orderDto->shipmentType,
+                    'payment_method' => $orderDto->paymentMethod,
                     'amounts' => $orderDto->amounts,
                     'customer' => $orderDto->customer,
                     'address' => $orderDto->address,
@@ -164,7 +165,7 @@ final class OrderService
         //     ->dispatch();
     }
 
-    public function saveAddress(string $orderId, array $shipment)
+    public function saveShipment(string $orderId, array $shipment)
     {
         $order = Order::find($orderId);
 
@@ -176,6 +177,8 @@ final class OrderService
 
         $order->update([
             'shipment_type' => $shipmentDto->shipmentType,
+            'shipping_company_id' => $shipmentDto->shippingCompanyId,
+            // 'shipment_branch_id' => $shipmentDto->shipmentBranchId,
             'address' => $shipmentDto->address,
         ]);
     }

@@ -35,8 +35,12 @@ class Order extends Model
         'date',
         'status_id',
         'status_name',
+        'ready_for_processing',
         'completion_status',
         'shipment_type',
+        'shipping_company_id',
+        'shipment_branch_id',
+        'payment_method',
         'amounts',
         'customer',
         'address',
@@ -44,6 +48,7 @@ class Order extends Model
 
     protected $casts = [
         'date' => 'datetime',
+        'ready_for_processing' => 'boolean',
         'completion_status' => OrderCompletionStatus::class,
         'amounts' => 'array',
         'customer' => 'array',
@@ -58,6 +63,16 @@ class Order extends Model
     public function branch(): BelongsTo
     {
         return $this->belongsTo(Branch::class);
+    }
+
+    public function shippingCompany(): BelongsTo
+    {
+        return $this->belongsTo(ShippingCompany::class);
+    }
+
+    public function shipmentBranch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class, 'shipment_branch_id');
     }
 
     public function status(): BelongsTo
@@ -86,9 +101,22 @@ class Order extends Model
         return $this->hasMany(OrderExecutionHistory::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(
+            related: Tag::class,
+            table: 'order_tag',
+        );
+    }
+
     /**
      * Scopes
      */
+    public function scopeReadyForProcessing(Builder $query)
+    {
+        return $query->where('ready_for_processing', true);
+    }
+
     public function scopePending(Builder $query)
     {
         return $query->where('completion_status', OrderCompletionStatus::PENDING);
@@ -211,6 +239,11 @@ class Order extends Model
         return $this->items->every(fn(OrderItem $item) => $item->isExecuted());
     }
 
+    public function isReadyForProcessing(): bool
+    {
+        return (bool) $this->ready_for_processing;
+    }
+
     public function startedProcessing(): bool
     {
         return ! $this->doesntStartProcessing();
@@ -306,5 +339,16 @@ class Order extends Model
             //     return $item->shelf_number;
             // },
         ]);
+    }
+
+    public function getAddressCity(): ?City
+    {
+        if (empty($this->address['city_id'])) {
+            return null;
+        }
+
+        return City::query()
+            ->where('remote_id', $this->address['city_id'])
+            ->first();
     }
 }

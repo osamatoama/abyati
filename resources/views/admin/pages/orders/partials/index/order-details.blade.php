@@ -27,7 +27,7 @@
                     <div class="d-flex align-items-center gap-2">
                         <i class="fas fa-money-bill"></i>
                         <a class="text-muted text-hover-primary" dir="ltr">
-                            {{ lang("orders.payment_methods.{$order->payment_method}") }}
+                            {{ lang("admin.orders.payment_methods.{$order->payment_method}") }}
                         </a>
                     </div>
                 @endif

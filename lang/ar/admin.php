@@ -43,6 +43,7 @@ return [
             'salla_id' => 'معرف سلة',
             'store' => 'المتجر',
             'warehouse' => 'المستودع',
+            'categories' => 'التصنيفات',
             'image' => 'الصورة',
             'name' => 'الاسم',
             'sku' => 'SKU',
@@ -364,6 +365,18 @@ return [
                 'shipping_address' => 'عنوان الشحن',
                 'pickup_address' => 'عنوان الاستلام',
             ],
+        ],
+
+        'payment_methods' => [
+            'credit_card' => 'بطاقة ائتمانية',
+            'paypal' => 'باي بال',
+            'mada' => 'مدى',
+            'free' => 'مجاني',
+            'bank' => 'حوالة بنكية',
+            'cod' => 'دفع عند الاستلام',
+            'apple_pay' => 'أبل باي',
+            'stc_pay' => 'STC pay',
+            'waiting' => 'بانتظار الدفع',
         ],
 
         'messages' => [

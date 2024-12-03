@@ -23,6 +23,7 @@ return [
     'select_aisle' => 'Select aisle',
     'select_shelf' => 'Select shelf',
     'select_product' => 'Select product',
+    'select_category' => 'Select category',
     'select_all' => 'Select all',
     'clear_all' => 'Clear all',
     'You will not be able to change this afterwards' => 'You will not be able to change this afterwards',

@@ -25,9 +25,13 @@ final class UpdateOrderService
             'date' => $orderDto->date,
             'status_id' => $orderDto->statusId,
             'status_name' => $orderDto->statusName,
+            'ready_for_processing' => $order->ready_for_processing ? true : $orderDto->readyForProcessing,
             'amounts' => $orderDto->amounts,
             'customer' => $orderDto->customer,
             'shipment_type' => $orderDto->shipmentType,
+            'shipping_company_id' => $orderDto->shippingCompanyId,
+            'shipment_branch_id' => $orderDto->shipmentBranchId,
+            'payment_method' => $orderDto->paymentMethod,
             'address' => $orderDto->address,
         ]);
 

@@ -7,11 +7,11 @@ use App\Models\Store;
 use Illuminate\Bus\Queueable;
 use App\Enums\Queues\BatchName;
 use Illuminate\Queue\SerializesModels;
+use App\Jobs\Concerns\HandleExceptions;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Jobs\Concerns\InteractsWithBatches;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Jobs\Concerns\HandleExceptions;
 use App\Services\Salla\Merchant\SallaMerchantService;
 use App\Services\Salla\Merchant\SallaMerchantException;
 
@@ -24,8 +24,9 @@ class PullOrdersJob implements ShouldQueue
      */
     public function __construct(
         public readonly string $accessToken,
-        public readonly int    $storeId,
-        public readonly array  $filters = [],
+        public readonly int $storeId,
+        public readonly array $filters = [],
+        public readonly bool $onlyBranchStatuses = false,
     )
     {
         $this->maxAttempts = 5;
@@ -38,15 +39,20 @@ class PullOrdersJob implements ShouldQueue
     {
         try {
             $store = Store::findOrFail($this->storeId);
-            $pullOrderStatuses = $store->branchOrderStatuses;
 
-            if ($pullOrderStatuses->isEmpty()) {
-                return;
+            $filters = $this->filters;
+
+            if ($this->onlyBranchStatuses) {
+                $pullOrderStatuses = $store->branchOrderStatuses;
+
+                if ($pullOrderStatuses->isEmpty()) {
+                    return;
+                }
+
+                $filters = array_merge([
+                    'status' => $pullOrderStatuses->pluck('remote_id')->toArray(),
+                ], $filters);
             }
-
-            $filters = array_merge([
-                'status' => $pullOrderStatuses->pluck('remote_id')->toArray(),
-            ], $this->filters);
 
             try {
                 $response = SallaMerchantService::withToken(

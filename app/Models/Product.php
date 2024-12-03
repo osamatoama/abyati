@@ -56,6 +56,14 @@ class Product extends Model
         return $this->belongsTo(Store::class);
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(
+            related: Category::class,
+            table: 'category_product',
+        );
+    }
+
     public function variants(): HasMany
     {
         return $this->hasMany(ProductVariant::class);
@@ -85,5 +93,10 @@ class Product extends Model
                 relatedPivotKey: 'shelf_id',
             )
             ->withTimestamps();
+    }
+
+    public function quantities(): HasMany
+    {
+        return $this->hasMany(ProductQuantity::class);
     }
 }

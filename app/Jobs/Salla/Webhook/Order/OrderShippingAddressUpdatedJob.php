@@ -7,11 +7,11 @@ use App\Models\Order;
 use App\Models\Store;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
+use App\Jobs\Concerns\HandleExceptions;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Jobs\Salla\Contracts\WebhookEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Jobs\Concerns\HandleExceptions;
 use App\Services\Orders\Webhooks\UpdateOrderShippingAddressService;
 
 class OrderShippingAddressUpdatedJob implements ShouldQueue, WebhookEvent
