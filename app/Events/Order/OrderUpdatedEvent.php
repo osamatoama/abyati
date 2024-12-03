@@ -26,6 +26,14 @@ class OrderUpdatedEvent implements ShouldBroadcast
     }
 
     /**
+     * Determine if this event should broadcast.
+     */
+    public function broadcastWhen(): bool
+    {
+        return $this->order->isReadyForProcessing();
+    }
+
+    /**
      * Get the channels the event should broadcast on.
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>

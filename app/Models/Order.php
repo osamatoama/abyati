@@ -112,7 +112,7 @@ class Order extends Model
     /**
      * Scopes
      */
-    public function readyForProcessing(Builder $query)
+    public function scopeReadyForProcessing(Builder $query)
     {
         return $query->where('ready_for_processing', true);
     }
@@ -237,6 +237,11 @@ class Order extends Model
     public function isExecuted(): bool
     {
         return $this->items->every(fn(OrderItem $item) => $item->isExecuted());
+    }
+
+    public function isReadyForProcessing(): bool
+    {
+        return (bool) $this->ready_for_processing;
     }
 
     public function startedProcessing(): bool

@@ -16,7 +16,7 @@ class SallaPullOrders extends Command
      *
      * @var string
      */
-    protected $signature = 'salla:pull-orders {--stores=} {--from=} {--to=}';
+    protected $signature = 'salla:pull-orders {--stores=} {--from=} {--to=} {--only-branch-statuses}';
 
     /**
      * The console command description.
@@ -33,6 +33,7 @@ class SallaPullOrders extends Command
         $storeIds = $this->option('stores') ?? null;
         $fromDate = $this->option('from') ?? null;
         $toDate = $this->option('to') ?? null;
+        $onlyBranchStatuses = $this->option('only-branch-statuses') ?? false;
 
         $filters = [];
 
@@ -63,7 +64,9 @@ class SallaPullOrders extends Command
                 accessToken: $store->user->sallaToken->access_token,
                 storeId: $store->id,
                 filters: $filters,
+                onlyBranchStatuses: $onlyBranchStatuses,
             );
+
             $this->line('Orders');
         }
 
