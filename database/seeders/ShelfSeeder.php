@@ -14,7 +14,8 @@ class ShelfSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->seedTabukShelves();
+        // $this->seedTabukShelves();
+        $this->seedRiyadhShelves();
     }
 
     private function seedTabukShelves(): void
@@ -112,8 +113,98 @@ class ShelfSeeder extends Seeder
             }
 
             foreach ($shelfNames as $shelfName) {
-                Shelf::updateOrCreate([
+                Shelf::firstOrCreate([
                     'warehouse_id' => $tabukWarehouse->id,
+                    'name' => $shelfName,
+                ], [
+                    'aisle' => $aisle,
+                    'order' => $order++,
+                ]);
+            }
+        }
+    }
+
+    private function seedRiyadhShelves(): void
+    {
+        $riyadhWarehouse = Warehouse::firstWhere('name', 'الرياض');
+
+        if (! $riyadhWarehouse) {
+            return;
+        }
+
+        $shelvesStructure = [
+            'A' => [
+                'suffixes' => [1, 6],
+                'dir' => 'asc',
+            ],
+            'B' => [
+                'suffixes' => [1, 5],
+                'dir' => 'desc',
+            ],
+            'C' => [
+                'suffixes' => [1, 3],
+                'dir' => 'asc',
+            ],
+            'D' => [
+                'suffixes' => [1, 3],
+                'dir' => 'desc',
+            ],
+            'E' => [
+                'suffixes' => [1, 5],
+                'dir' => 'asc',
+            ],
+            'F' => [
+                'suffixes' => [1, 5],
+                'dir' => 'desc',
+            ],
+            'G' => [
+                'suffixes' => [1, 13],
+                'dir' => 'asc',
+            ],
+            'H' => [
+                'suffixes' => [1, 7],
+                'dir' => 'desc',
+            ],
+            'I' => [
+                'suffixes' => [1, 3],
+                'dir' => 'asc',
+            ],
+            'J' => [
+                'suffixes' => [1, 9],
+                'dir' => 'desc',
+            ],
+            'K' => [
+                'suffixes' => [1, 8],
+                'dir' => 'asc',
+            ],
+            'L' => [
+                'suffixes' => [1, 4],
+                'dir' => 'desc',
+            ],
+        ];
+
+        $order = 1;
+
+        foreach ($shelvesStructure as $aisle => $structure) {
+            $shelfNames = [];
+
+            if (empty($structure['suffixes'])) {
+                $shelfNames[] = $aisle;
+            } else {
+                $suffixes = $structure['suffixes'];
+
+                if ($structure['dir'] === 'desc') {
+                    $suffixes = array_reverse($suffixes);
+                }
+
+                foreach (range(...$suffixes) as $suffix) {
+                    $shelfNames[] = $aisle . $suffix;
+                }
+            }
+
+            foreach ($shelfNames as $shelfName) {
+                Shelf::firstOrCreate([
+                    'warehouse_id' => $riyadhWarehouse->id,
                     'name' => $shelfName,
                 ], [
                     'aisle' => $aisle,
