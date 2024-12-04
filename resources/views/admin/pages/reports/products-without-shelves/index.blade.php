@@ -24,6 +24,7 @@
                             <th>{{ __('admin.reports.products_without_shelves.attributes.product_image') }}</th>
                             <th>{{ __('admin.reports.products_without_shelves.attributes.product_name') }}</th>
                             <th>{{ __('admin.reports.products_without_shelves.attributes.product_sku') }}</th>
+                            <th>{{ __('admin.reports.products_without_shelves.attributes.quantities') }}</th>
                         </tr>
                     </thead>
                 </table>

@@ -17,7 +17,7 @@ class FilterProductsWithoutShelvesReport extends Component
 
     public function mount()
     {
-        $this->warehouses = Warehouse::pluck('name', 'id')->toArray();
+        $this->warehouses = Warehouse::active()->pluck('name', 'id')->toArray();
 
         $this->dispatch('report-filters-mounted');
     }

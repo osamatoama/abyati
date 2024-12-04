@@ -5,6 +5,7 @@
         {data: 'image', name: 'image', orderable: false, searchable: false},
         {data: 'name', name: 'name', orderable: false, searchable: true},
         {data: 'sku', name: 'sku', orderable: false, searchable: true},
+        {data: 'quantities', name: 'quantities', orderable: false, searchable: false},
         // {data: 'actions', name: 'actions', orderable: false, searchable: false},
     ], $('#results-table').data('url'),
         '#results-table',

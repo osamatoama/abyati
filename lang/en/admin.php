@@ -524,6 +524,7 @@ return [
                 'product_name' => 'Name',
                 'product_image' => 'Image',
                 'product_sku' => 'SKU',
+                'quantities' => 'Quantities',
             ],
 
             'filters' => [

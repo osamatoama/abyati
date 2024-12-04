@@ -524,6 +524,7 @@ return [
                 'product_name' => 'الاسم',
                 'product_image' => 'الصورة',
                 'product_sku' => 'SKU',
+                'quantities' => 'الكميات',
             ],
 
             'filters' => [
