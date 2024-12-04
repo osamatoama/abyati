@@ -154,7 +154,7 @@ class ShelfSeeder extends Seeder
                 'dir' => 'asc',
             ],
             'F' => [
-                'suffixes' => [1, 5],
+                'suffixes' => [1, 6],
                 'dir' => 'desc',
             ],
             'G' => [
