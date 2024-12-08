@@ -31,6 +31,7 @@
         })
 
         $('#filter-warehouse_ids').on('change', function() {
+            console.log($('#filter-warehouse_ids').val())
             @this.set('warehouse_ids', $('#filter-warehouse_ids').val())
             @this.apply()
         })

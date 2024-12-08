@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\EmployeeRole;
 use App\Enums\OrderCompletionStatus;
 
 return [
@@ -150,6 +151,7 @@ return [
             'description' => 'الوصف',
             'order' => 'الترتيب',
             'products_count' => 'عدد المنتجات',
+            'employees' => 'الموظفين',
         ],
 
         'actions' => [
@@ -213,6 +215,7 @@ return [
             'phone' => 'رقم الهاتف',
             'password' => 'كلمة السر',
             'role' => 'الدور',
+            'roles' => 'الأدوار',
             'totalOrders' => 'عدد الطلبات',
             'totalProducts' => 'عدد المنتجات',
             'active' => 'مفعل',
@@ -227,6 +230,11 @@ return [
             'should_have_no_relations' => 'لا يمكن إجراء العملية لوجود تحديثات لحالات الطلب تابعة لهذا الموظف. قم بإلغاء تفعيل الموظف بدلاً من الحذف.',
             'restored' => 'تمت الاستعادة بنجاح',
             'force_delete' => 'تم الحذف نهائياً بنجاح',
+        ],
+
+        'roles' => [
+            EmployeeRole::ORDERS_FULFILLMENT->value => 'تجهيز الطلبات',
+            EmployeeRole::STOCKTAKING->value => 'جرد المخزون',
         ],
     ],
 

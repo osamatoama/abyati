@@ -15,6 +15,10 @@ class ShelfIndex extends Datatable
     {
         return Shelf::query()
             ->filter()
+            ->with([
+                'warehouse',
+                'employees',
+            ])
             ->withCount([
                 'products',
             ]);
@@ -28,6 +32,9 @@ class ShelfIndex extends Datatable
         return [
             'warehouse' => function (Shelf $shelf) {
                 return view('admin.pages.shelves.partials.index.cols.warehouse', compact('shelf'));
+            },
+            'employees' => function (Shelf $shelf) {
+                return view('admin.pages.shelves.partials.index.cols.employees', compact('shelf'));
             },
             'action' => function (Shelf $shelf) {
                 return view('admin.pages.shelves.partials.index.cols.actions', compact('shelf'));

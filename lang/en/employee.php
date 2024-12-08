@@ -59,6 +59,7 @@ return [
             'admin_url' => 'Admin URL',
             'customer_url' => 'Customer URL',
             'with_tax' => 'Tax applied',
+            'attached_at' => 'Attached at',
         ],
 
         'statuses' => [
@@ -289,6 +290,61 @@ return [
             'city' => 'City',
             'country' => 'Country',
             'currency' => 'Currency',
+        ],
+    ],
+
+    'shelves' => [
+        'title' => 'Shelves',
+        'model' => 'Shelf',
+        'num_#' => 'Shelf :name',
+
+        'attributes' => [
+            'id' => 'ID',
+            'warehouse' => 'Warehouse',
+            'aisle' => 'Aisle',
+            'name' => 'Name',
+            'description' => 'Description',
+            'order' => 'Order',
+            'products_count' => 'Products Count',
+        ],
+
+        'actions' => [
+            'create' => 'Create Shelf',
+            'edit' => 'Edit Shelf',
+            'attach_product' => 'Attach Product',
+            'detach_product' => 'Detach Product',
+            'import' => 'Import',
+            'import_products' => 'Import Products',
+            'download_warehouse_template' => 'Download Warehouse Template',
+            'download_aisle_template' => 'Download Aisle Template',
+            'download_shelf_template' => 'Download Shelf Template',
+        ],
+
+        'import_options' => [
+            'warehouse' => 'Warehouse',
+            'aisle' => 'Aisle',
+            'shelf' => 'Shelf',
+        ],
+
+        'messages' => [
+            'created' => 'Shelf created',
+            'updated' => 'Shelf updated',
+            'deleted' => 'Shelf deleted',
+            'activated' => 'Shelf activated',
+            'deactivated' => 'Shelf deactivated',
+            'product_attached' => 'Products attached to the shelf',
+            'product_detached' => 'Product detached from the shelf',
+            'products_detached' => 'Products detached from the shelf',
+            'product_transferred' => 'Product transferred from the shelf',
+            'products_transferred' => 'Products transferred from the shelf',
+            'import_started' => 'Started importing data from the file',
+            'imported' => 'Data imported successfully',
+        ],
+
+        'errors' => [
+            'should_have_no_relations' => 'You cannot perform this action, because this shelf has related products or stocktakings. Deactivate the shelf instead.',
+            'invalid_barcode' => 'Invalid barcode',
+            'product_already_attached' => 'Product already attached to the shelf',
         ],
     ],
 ];

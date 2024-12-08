@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\EmployeeRole;
 use App\Enums\OrderCompletionStatus;
 
 return [
@@ -150,6 +151,7 @@ return [
             'description' => 'Description',
             'order' => 'Order',
             'products_count' => 'Products Count',
+            'employees' => 'Employees',
         ],
 
         'actions' => [
@@ -212,6 +214,7 @@ return [
             'phone' => 'Phone',
             'password' => 'Password',
             'role' => 'Role',
+            'roles' => 'Roles',
             'totalOrders' => 'Total Orders',
             'totalProducts' => 'Total Products',
             'active' => 'Active',
@@ -226,6 +229,11 @@ return [
             'should_have_no_relations' => "You can't perform this action, because this employee has related order status updates. Deactivate the employee instead.",
             'restored' => 'The Employee has been restored successfully',
             'force_delete' => 'The Employee has been permanently deleted successfully',
+        ],
+
+        'roles' => [
+            EmployeeRole::ORDERS_FULFILLMENT->value => 'Orders Fulfillment',
+            EmployeeRole::STOCKTAKING->value => 'Stocktaking',
         ],
     ],
 

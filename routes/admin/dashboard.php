@@ -46,7 +46,7 @@ Route::prefix('branches')->as('branches.')->group(function () {
 });
 Route::resource('branches', BranchController::class)->only('index', 'edit', 'create', 'destroy');
 
-// Branches
+// Shelves
 Route::prefix('shelves')->as('shelves.')->group(function () {
     Route::get('select', [ShelfController::class, 'select'])->name('select');
     Route::get('select-ailses', [ShelfController::class, 'selectAisles'])->name('select.aisles');

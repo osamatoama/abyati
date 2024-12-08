@@ -88,6 +88,18 @@
                             <span id="create-form-password-error" class="form-input-error text-danger d-none"></span>
                         </div>
                     </div>
+
+                    <div class="form-group mt-3 row">
+                        <label for="create-form-roles" class="col-md-2 form-label form-control-lg">{{ __('admin.employees.attributes.roles') }}</label>
+                        <div class="col-md-10">
+                            <select name="roles[]" id="create-form-roles" class="form-control" data-control="select2" data-placeholder="{{ __('globals.select') }}" multiple>
+                                @foreach(\App\Enums\EmployeeRole::toSelectArray() as $roleKey => $roleValue)
+                                    <option value="{{ $roleKey }}">{{ $roleValue }}</option>
+                                @endforeach
+                            </select>
+                            <span id="create-form-roles-error" class="form-input-error text-danger d-none"></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-footer">

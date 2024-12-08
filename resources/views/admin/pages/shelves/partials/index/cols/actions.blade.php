@@ -11,6 +11,7 @@
         data-name="{{ $shelf->name }}"
         data-aisle="{{ $shelf->aisle }}"
         data-description="{{ $shelf->description }}"
+        data-employee_ids="{{ json_encode($shelf->employees->pluck('id')->toArray()) }}"
     />
 @endif
 

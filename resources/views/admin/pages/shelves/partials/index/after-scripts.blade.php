@@ -4,6 +4,7 @@
         {data: 'warehouse', name: 'warehouse', orderable: false, searchable: true},
         {data: 'name', name: 'name', orderable: false, searchable: true},
         {data: 'description', name: 'description', orderable: false, searchable: true},
+        {data: 'employees', name: 'employees', orderable: false, searchable: false},
         // {data: 'order', name: 'order', orderable: true, searchable: true},
         {data: 'products_count', name: 'products_count', orderable: true, searchable: false},
         {data: 'action', name: 'action', orderable: false, searchable: true},
@@ -65,6 +66,8 @@
         editForm.find('[name=warehouse_id]').val(el.data('warehouse_id'))
         editForm.find('[name=aisle]').val(el.data('aisle'))
         editForm.find('[name=description]').val(el.data('description'))
+        editForm.find('[name=employee_ids\\[\\]]').val(el.data('employee_ids')).trigger('change')
+
         hideFormValidationErrors(editForm)
         openModal(editModal)
     })

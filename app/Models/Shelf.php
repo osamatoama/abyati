@@ -6,9 +6,10 @@ use App\Observers\ShelfObserver;
 use App\Models\Concerns\Filterable;
 use App\Models\Filters\ShelfFilter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 #[ObservedBy(ShelfObserver::class)]
@@ -53,6 +54,27 @@ class Shelf extends Model
                 relatedPivotKey: 'product_id',
             )
             ->withTimestamps();
+    }
+
+    public function employees(): BelongsToMany
+    {
+        return $this->belongsToMany(
+                related: Employee::class,
+                table: 'employee_shelf',
+                foreignPivotKey: 'shelf_id',
+                relatedPivotKey: 'employee_id',
+            )
+            ->withTimestamps();
+    }
+
+    /**
+     * Scopes
+     */
+    public function scopeForEmployee(Builder $query, $employeeId): Builder
+    {
+        return $query->whereHas('employees', fn($q) =>
+            $q->where('employees.id', $employeeId)
+        );
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Order;
+use App\Models\Shelf;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
 /**
@@ -45,6 +46,17 @@ Breadcrumbs::for('employee.orders.show', function ($trail, Order $order) {
 Breadcrumbs::for('employee.orders.process', function ($trail, Order $order) {
     $trail->parent('employee.orders.index');
     $trail->push($order->reference_id . '#');
+});
+
+// Shelves
+Breadcrumbs::for('employee.shelves.index', function ($trail) {
+    $trail->parent('employee.home');
+    $trail->push(__('employee.shelves.title'), route('employee.shelves.index'));
+});
+
+Breadcrumbs::for('employee.shelves.show', function ($trail, Shelf $shelf) {
+    $trail->parent('employee.shelves.index');
+    $trail->push($shelf->name, route('employee.shelves.show', $shelf->id));
 });
 
 //Account

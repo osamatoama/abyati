@@ -19,7 +19,7 @@
                             <th>{{ __('admin.shelves.attributes.warehouse') }}</th>
                             <th>{{ __('admin.shelves.attributes.name') }}</th>
                             <th>{{ __('admin.shelves.attributes.description') }}</th>
-                            {{-- <th>{{ __('admin.shelves.attributes.order') }}</th> --}}
+                            <th>{{ __('admin.shelves.attributes.employees') }}</th>
                             <th>{{ __('admin.shelves.attributes.products_count') }}</th>
                             <th></th>
                         </tr>

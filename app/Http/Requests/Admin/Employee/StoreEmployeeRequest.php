@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Employee;
 
+use App\Enums\EmployeeRole;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -37,6 +38,8 @@ class StoreEmployeeRequest extends FormRequest
                     ->symbols(),
             ],
             'branch_id' => ['required', 'exists:branches,id'],
+            'roles' => ['required', 'array'],
+            'roles.*' => ['required', 'string', EmployeeRole::toValidationRule()],
         ];
     }
 
@@ -48,6 +51,7 @@ class StoreEmployeeRequest extends FormRequest
             'phone' => __('admin.employees.attributes.phone'),
             'password' => __('admin.employees.attributes.password'),
             'branch_id' => __('admin.employees.attributes.branch'),
+            'roles' => __('admin.employees.attributes.roles'),
         ];
     }
 }

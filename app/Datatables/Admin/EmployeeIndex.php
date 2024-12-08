@@ -41,6 +41,9 @@ class EmployeeIndex extends Datatable
             'phone' => function (Employee $employee) {
                 return view('admin.pages.employees.partials.index.cols.phone', compact('employee'));
             },
+            'roles' => function (Employee $employee) {
+                return view('admin.pages.employees.partials.index.cols.roles', compact('employee'));
+            },
             'active' => function (Employee $employee) {
                 return view('admin.pages.employees.partials.index.cols.active', compact('employee'));
             },

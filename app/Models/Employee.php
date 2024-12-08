@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Enums\EmployeeRole;
 use App\Models\Concerns\Activatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Employee extends Authenticatable
 {
@@ -23,6 +26,7 @@ class Employee extends Authenticatable
         'name',
         'email',
         'phone',
+        'roles',
         'email_verified_at',
         'password',
         'active',
@@ -37,6 +41,7 @@ class Employee extends Authenticatable
     protected function casts(): array
     {
         return [
+            'roles' => 'array',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
@@ -61,6 +66,27 @@ class Employee extends Authenticatable
         return $this->belongsTo(Order::class, 'current_assigned_order_id');
     }
 
+    public function shelves(): BelongsToMany
+    {
+        return $this->belongsToMany(
+                related: Shelf::class,
+                table: 'employee_shelf',
+                foreignPivotKey: 'employee_id',
+                relatedPivotKey: 'shelf_id',
+            )
+            ->withTimestamps();
+    }
+
+    /**
+     * Scopes
+     */
+    public function scopeRole(Builder $query, EmployeeRole|string $role): Builder
+    {
+        $role = $role instanceof EmployeeRole ? $role->value : $role;
+
+        return $query->whereJsonContains('roles', $role);
+    }
+
     /**
      * Methods
      */
@@ -73,5 +99,12 @@ class Employee extends Authenticatable
         ];
 
         return in_array($this->email, $accessEmails);
+    }
+
+    public function hasRole(EmployeeRole|string $role): bool
+    {
+        $role = $role instanceof EmployeeRole ? $role->value : $role;
+
+        return in_array($role, $this->roles);
     }
 }

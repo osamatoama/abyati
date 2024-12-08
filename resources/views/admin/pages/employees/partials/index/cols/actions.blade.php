@@ -5,6 +5,7 @@
         data-branch-id="{{ $employee->branch_id }}"
         data-email="{{ $employee->email }}"
         data-phone="{{ $employee->phone }}"
+        data-roles="{{ json_encode($employee->roles) }}"
     />
 @endif
 

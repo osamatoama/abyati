@@ -54,6 +54,20 @@
                             <span id="create-form-description-error" class="form-input-error text-danger d-none">
                         </div>
                     </div>
+
+                    <div class="form-group mt-3 row">
+                        <label for="create-form-employee_ids" class="col-md-2 form-label form-control-lg">{{ __('admin.shelves.attributes.employees') }}</label>
+
+                        <div class="col-md-10">
+                            <select name="employee_ids[]" id="create-form-employee_ids" class="form-control" data-control="select2" data-placeholder="{{ __('globals.select') }}" multiple>
+                                @foreach($stocktakingEmployees as $employee)
+                                    <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                                @endforeach
+                            </select>
+
+                            <span id="create-form-employee_ids-error" class="form-input-error text-danger d-none"></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-footer">

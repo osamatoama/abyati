@@ -49,17 +49,33 @@
                     </a>
                 </div>
 
-                <div class="menu-item">
-                    <a @class(['menu-link', 'active' => request()->routeIs('employee.orders.*')]) href="{{ route('employee.orders.index') }}"
-                    >
-                        <span class="menu-icon">
-                            <i class="fa-solid fa-shopping-cart fs-2"></i>
-                        </span>
-                            <span class="menu-title">
-                        {{ __('employee.orders.title') }}
-                        </span>
-                    </a>
-                </div>
+                @if(auth()->user()->hasRole(\App\Enums\EmployeeRole::ORDERS_FULFILLMENT))
+                    <div class="menu-item">
+                        <a @class(['menu-link', 'active' => request()->routeIs('employee.orders.*')]) href="{{ route('employee.orders.index') }}"
+                        >
+                            <span class="menu-icon">
+                                <i class="fa-solid fa-shopping-cart fs-2"></i>
+                            </span>
+                                <span class="menu-title">
+                            {{ __('employee.orders.title') }}
+                            </span>
+                        </a>
+                    </div>
+                @endif
+
+                @if(auth()->user()->hasRole(\App\Enums\EmployeeRole::STOCKTAKING))
+                    <div class="menu-item">
+                        <a @class(['menu-link', 'active' => request()->routeIs('employee.shelves.*')]) href="{{ route('employee.shelves.index') }}"
+                        >
+                            <span class="menu-icon">
+                                <i class="fa-solid fa-warehouse fs-2"></i>
+                            </span>
+                                <span class="menu-title">
+                            {{ __('employee.shelves.title') }}
+                            </span>
+                        </a>
+                    </div>
+                @endif
 
                 {{-- @if(true)
                     <div class="menu-item">

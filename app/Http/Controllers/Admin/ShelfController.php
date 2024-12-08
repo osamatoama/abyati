@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Shelf;
 use App\Models\Product;
+use App\Models\Employee;
 use App\Models\Warehouse;
+use App\Enums\EmployeeRole;
 use Illuminate\Support\Facades\DB;
 use App\Datatables\Admin\ShelfIndex;
 use App\Http\Controllers\Controller;
@@ -38,8 +40,11 @@ class ShelfController extends Controller
         }
 
         $warehouses = Warehouse::pluck('name', 'id');
+        $stocktakingEmployees = Employee::select('id', 'name', 'email')
+            ->role(EmployeeRole::STOCKTAKING)
+            ->get();
 
-        return view('admin.pages.shelves.index', compact('warehouses'));
+        return view('admin.pages.shelves.index', compact('warehouses', 'stocktakingEmployees'));
     }
 
     public function show(Shelf $shelf)
@@ -51,7 +56,13 @@ class ShelfController extends Controller
     {
         $data = $request->validated();
 
-        Shelf::create($data);
+        DB::transaction(function () use ($data) {
+            $shelf = Shelf::create($data);
+
+            if (! empty($data['employee_ids'])) {
+                $shelf->employees()->sync($data['employee_ids']);
+            }
+        });
 
         return response()->json([
             'success' => true,
@@ -64,7 +75,13 @@ class ShelfController extends Controller
     {
         $data = $request->validated();
 
-        $shelf->update($data);
+        DB::transaction(function () use ($shelf, $data) {
+            $shelf->update($data);
+
+            if (! empty($data['employee_ids'])) {
+                $shelf->employees()->sync($data['employee_ids']);
+            }
+        });
 
         return response()->json([
             'success' => true,
@@ -76,6 +93,7 @@ class ShelfController extends Controller
     public function destroy(DeleteShelfRequest $request, Shelf $shelf)
     {
         DB::transaction(function () use ($shelf) {
+            $shelf->employees()->sync([]);
             $shelf->products()->sync([]);
             $shelf->delete();
         });

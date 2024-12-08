@@ -17,6 +17,7 @@
                         <th>{{ __('admin.employees.attributes.branch') }}</th>
                         <th>{{ __('admin.employees.attributes.email') }}</th>
                         <th>{{ __('admin.employees.attributes.phone') }}</th>
+                        <th>{{ __('admin.employees.attributes.roles') }}</th>
                         <th>{{ __('admin.employees.attributes.active') }}</th>
                         <th></th>
                     </tr>

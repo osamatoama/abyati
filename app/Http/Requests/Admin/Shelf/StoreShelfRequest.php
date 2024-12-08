@@ -33,6 +33,8 @@ class StoreShelfRequest extends FormRequest
                     ->where('warehouse_id', $this->warehouse_id),
             ],
             'description' => ['nullable', 'string'],
+            'employee_ids' => ['nullable', 'array'],
+            'employee_ids.*' => [Rule::exists('employees', 'id')],
         ];
     }
 
@@ -43,6 +45,7 @@ class StoreShelfRequest extends FormRequest
             'aisle' => __('admin.shelves.attributes.aisle'),
             'name' => __('admin.shelves.attributes.name'),
             'description' => __('admin.shelves.attributes.description'),
+            'employee_ids' => __('admin.shelves.attributes.employee_ids'),
         ];
     }
 }

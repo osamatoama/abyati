@@ -5,6 +5,7 @@
         {data: 'branch', name: 'branch.name', orderable: false, searchable: true},
         {data: 'email', name: 'email', orderable: false, searchable: true},
         {data: 'phone', name: 'phone', orderable: false, searchable: true},
+        {data: 'roles', name: 'roles', orderable: false, searchable: false},
         {data: 'active', name: 'active', orderable: false, searchable: true},
         {data: 'action', name: 'action', orderable: false, searchable: true},
     ], "{{ route('admin.employees.index',['date' => request('date')])}}")
@@ -61,6 +62,7 @@
         editForm.find('[name=branch_id]').val(el.data('branch-id'))
         editForm.find('[name=email]').val(el.data('email'))
         editForm.find('[name=phone]').val(el.data('phone'))
+        editForm.find('[name=roles\\[\\]]').val(el.data('roles')).trigger('change')
         hideFormValidationErrors(editForm)
         openModal(editModal)
     })

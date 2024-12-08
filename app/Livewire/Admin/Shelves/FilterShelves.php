@@ -15,7 +15,7 @@ class FilterShelves extends Component
     #[Locked]
     public array $employees = [];
 
-    #[Url]
+    // #[Url]
     public ?array $warehouse_ids = [];
 
     public function mount()
