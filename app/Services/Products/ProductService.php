@@ -25,6 +25,7 @@ final class ProductService
                     'name' => $productDto->name,
                     'sku' => $productDto->sku,
                     'main_image' => $productDto->mainImage,
+                    'type' => $productDto->type,
                     'status' => $productDto->status,
                     'quantity' => $productDto->quantity,
                     'unlimited_quantity' => $productDto->unlimitedQuantity,
@@ -48,6 +49,7 @@ final class ProductService
                     'name' => $productDto->name,
                     'sku' => $productDto->sku,
                     'main_image' => $productDto->mainImage,
+                    'type' => $productDto->type,
                     'status' => $productDto->status,
                     'quantity' => $productDto->quantity,
                     'unlimited_quantity' => $productDto->unlimitedQuantity,
@@ -68,6 +70,51 @@ final class ProductService
             ),
         );
 
+        if ($product->isGroup() && filled($sallaProduct['consisted_products'] ?? [])) {
+            $this->saveProductGroupItems(
+                product: $product,
+                sallaConsistedProducts: $sallaProduct['consisted_products'],
+                storeId: $storeId,
+            );
+        }
+
+        $this->saveProductCategories(
+            product: $product,
+            sallaProduct: $sallaProduct,
+            storeId: $storeId,
+        );
+
+        foreach ($sallaProduct['branches_quantities'] ?? [] as $branchQuantity) {
+            ProductQuantityService::instance()
+                ->saveSallaProductQuantity(
+                    product: $product,
+                    data: $branchQuantity,
+                );
+        }
+
+        foreach ($sallaProduct['options'] ?? [] as $option) {
+            OptionService::instance()
+                ->saveSallaOption(
+                    sallaOption: $option,
+                    storeId: $storeId,
+                    productId: $product->id,
+                );
+        }
+
+        foreach ($sallaProduct['skus'] ?? [] as $sku) {
+            ProductVariantService::instance()
+                ->saveSallaProductVariant(
+                    sallaSku: $sku,
+                    storeId: $storeId,
+                    productId: $product->id,
+                );
+        }
+
+        return $product;
+    }
+
+    private function saveProductCategories(Product $product, array $sallaProduct, int $storeId): void
+    {
         $existingCategoryRemoteIds = $product->categories->pluck('remote_id')->toArray();
 
         $newCategories = array_filter(
@@ -97,34 +144,73 @@ final class ProductService
         if (filled($deletedRemoteIds)) {
             $product->categories()->detach($deletedRemoteIds);
         }
+    }
 
-        foreach ($sallaProduct['branches_quantities'] ?? [] as $branchQuantity) {
-            ProductQuantityService::instance()
-                ->saveSallaProductQuantity(
-                    product: $product,
-                    data: $branchQuantity,
-                );
+    private function saveProductGroupItems(Product $product, array $sallaConsistedProducts, int $storeId)
+    {
+        $consistedProductsRemoteIds = array_column($sallaConsistedProducts, 'id');
+
+        $existingConsistedProducts = Product::where('store_id', $storeId)
+            ->whereIn('remote_id', $consistedProductsRemoteIds)
+            ->get();
+
+        $currentConsistedProductRemoteIds = $product->groupItems()
+            ->with('product')
+            ->get()
+            ->pluck('product.remote_id')
+            ->toArray();
+
+        $newConsistedProductsRemoteIds = array_diff(
+            $consistedProductsRemoteIds,
+            $existingConsistedProducts->pluck('remote_id')->toArray(),
+        );
+
+        $deletedConsistedProductsRemoteIds = array_diff(
+            $currentConsistedProductRemoteIds,
+            $consistedProductsRemoteIds,
+        );
+
+        $deletedConsistedProducts = filled($deletedConsistedProductsRemoteIds)
+            ? Product::whereIn('remote_id', $deletedConsistedProductsRemoteIds)->get()
+            : null;
+
+        $sallaConsistedProductsCollection = collect($sallaConsistedProducts);
+
+        foreach ($existingConsistedProducts ?? [] as $consistedProduct) {
+            $sallaConsistedProduct = $sallaConsistedProductsCollection
+                ->where('id', $consistedProduct->remote_id)
+                ->first();
+
+            $product->groupItems()->updateOrCreate([
+                'group_id' => $product->id,
+                'product_id' => $consistedProduct->id,
+            ], [
+                'quantity_in_group' => $sallaConsistedProduct['quantity_in_group'] ?? null,
+            ]);
         }
 
-        foreach ($sallaProduct['options'] ?? [] as $option) {
-            OptionService::instance()
-                ->saveSallaOption(
-                    sallaOption: $option,
+        foreach ($newConsistedProductsRemoteIds ?? [] as $newConsistedProductRemoteId) {
+            $sallaConsistedProduct = $sallaConsistedProductsCollection
+                ->where('id', $newConsistedProductRemoteId)
+                ->first();
+
+            $consistedProduct = ProductService::instance()
+                ->saveSallaProduct(
+                    sallaProduct: $sallaConsistedProduct,
                     storeId: $storeId,
-                    productId: $product->id,
                 );
+
+            $product->groupItems()->updateOrCreate([
+                'group_id' => $product->id,
+                'product_id' => $consistedProduct->id,
+            ], [
+                'quantity_in_group' => $sallaConsistedProduct['quantity_in_group'] ?? null,
+            ]);
         }
 
-        foreach ($sallaProduct['skus'] ?? [] as $sku) {
-            ProductVariantService::instance()
-                ->saveSallaProductVariant(
-                    sallaSku: $sku,
-                    storeId: $storeId,
-                    productId: $product->id,
-                );
+        foreach ($deletedConsistedProducts ?? [] as $deletedConsistedProduct) {
+            $product->groupItems()->where('product_id', $deletedConsistedProduct->id)->delete();
         }
-
-        return $product;
     }
 
     public function setStatusDeleted(array $sallaDeletedProduct, int $storeId): ?Product

@@ -34,7 +34,7 @@
                 @if(filled($product->type))
                     <div class="d-flex align-items-center gap-2">
                         <i class="fas fa-list"></i>
-                        <a class="text-muted text-hover-primary" dir="ltr">{{ lang("products.types.{$product->type}") }}</a>
+                        <a class="text-muted text-hover-primary" dir="ltr">{{ lang("admin.products.types.{$product->type}") }}</a>
                     </div>
                 @endif
 
@@ -66,6 +66,15 @@
                     {{ __('admin.products.attributes.variants') }}
                 </a>
             </li>
+
+            @if($product->isGroup())
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#product-details-consisted" aria-selected="true" role="tab">
+                        <i class="fas fa-box-open fs-4 me-2"></i>
+                        {{ __('admin.products.attributes.consisted_products') }}
+                    </a>
+                </li>
+            @endif
         </ul>
 
         <div class="tab-content" id="">
@@ -157,6 +166,67 @@
                     </p>
                 @endif
             </div>
+
+            @if($product->isGroup())
+                <div class="tab-pane fade" id="product-details-consisted" role="tabpanel">
+                    @if($product->groupItems->count())
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>{{ __('admin.products.attributes.id') }}</th>
+                                        <th>{{ __('admin.products.attributes.salla_id') }}</th>
+                                        <th>{{ __('admin.products.attributes.image') }}</th>
+                                        <th>{{ __('admin.products.attributes.name') }}</th>
+                                        <th>{{ __('admin.products.attributes.sku') }}</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach($product->groupItems as $groupItem)
+                                        <tr>
+
+                                            <td>
+                                                {{ $groupItem->product->id }}
+                                            </td>
+                                            <td>
+                                                {{ $groupItem->product->remote_id }}
+                                            </td>
+                                            <td>
+                                                @if(filled($groupItem->product->main_image))
+                                                    <a href="{{ $groupItem->product->main_image }}" target="_blank">
+                                                        <img src="{{ $groupItem->product->main_image }}" alt="{{ $groupItem->product->name }}" width="100" height="100">
+                                                    </a>
+                                                @else
+                                                    -----
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ $groupItem->product->name }}
+
+                                                @if($groupItem->product->status == \App\Enums\ProductStatus::DELETED->value)
+                                                    <div class="mt-1">
+                                                        <span class="badge badge-sm badge-danger">
+                                                            {{ __('globals.deleted') }}
+                                                        </span>
+                                                    </div>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ filled($groupItem->product->sku) ? $groupItem->product->sku : '-----' }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <p class="text-muted">
+                            {{ __('admin.products.messages.no_consisted_products') }}
+                        </p>
+                    @endif
+                </div>
+            @endif
         </div>
     </div>
 </div>
