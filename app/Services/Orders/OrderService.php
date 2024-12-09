@@ -75,6 +75,7 @@ final class OrderService
         dispatch(new PullOrderItemsJob(
             accessToken: $accessToken,
             storeId: $storeId,
+            order: $order,
             data: [
                 'order_id' => $order->id,
                 'order_remote_id' => $order->remote_id,

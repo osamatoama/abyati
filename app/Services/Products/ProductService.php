@@ -13,6 +13,14 @@ final class ProductService
 {
     use HasInstance;
 
+    public function first(ProductDto $productDto): ?Product
+    {
+        return Product::query()
+            ->where('store_id', $productDto->storeId)
+            ->where('remote_id', $productDto->remoteId)
+            ->first();
+    }
+
     public function firstOrCreate(ProductDto $productDto): Product
     {
         return Product::query()
