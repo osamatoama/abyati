@@ -22,10 +22,9 @@ class OrderIndex extends Datatable
                 'employee',
             ])
             ->withCount([
-                'items'
+                'items' => fn($q) => $q->remote(),
             ]);
     }
-
 
     /**
      *

@@ -28,6 +28,13 @@ class SallaPullOrder extends Command
     public function handle()
     {
         $store = Store::findOrFail($this->option('store'));
+        $orderRemoteId = $this->option('order');
+
+        if (empty($orderRemoteId)) {
+            $this->error('Order remote ID is required');
+
+            return;
+        }
 
         $store->load(
             relations: ['user.sallaToken'],

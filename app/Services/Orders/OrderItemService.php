@@ -67,12 +67,16 @@ final class OrderItemService
             throw new \Exception('Product not found');
         }
 
-        $this->updateOrCreate(
+        $item = $this->updateOrCreate(
             orderItemDto: OrderItemDto::fromSalla(
                 sallaOrderItem: $sallaOrderItem,
                 orderId: $order->id,
             ),
         );
+
+        if ($product->isGroup()) {
+            $item->manualComplete();
+        }
 
         if ($product->isGroup() && filled($sallaOrderItem['consisted_products'] ?? [])) {
             $this->decomposeProductGroup(
