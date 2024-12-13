@@ -62,6 +62,7 @@ return [
             'customer_url' => 'Customer URL',
             'with_tax' => 'Tax applied',
             'attached_at' => 'Attached at',
+            'consisted_products' => 'Consisted products',
         ],
 
         'statuses' => [
@@ -84,6 +85,7 @@ return [
         'messages' => [
             'required_at_least_one_status' => 'You should select at least one order status from filters to show quantity results',
             'no_variants' => 'No variants for this product',
+            'no_consisted_products' => 'No consisted products for this product group',
             'unlimited_quantity' => 'Unlimited',
         ],
 

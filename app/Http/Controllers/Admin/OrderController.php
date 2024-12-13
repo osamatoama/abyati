@@ -31,12 +31,9 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $order->load([
-            'items.product' => function ($query) {
-                $query->select('id', 'name', 'sku', 'main_image');
-            },
-            'items.variant' => function ($query) {
-                $query->select('id', 'sku', 'barcode');
-            },
+            'items' => fn ($q) => $q->remote()->withTrashed(),
+            'items.product' => fn ($q) => $q->select('id', 'name', 'sku', 'main_image'),
+            'items.variant' => fn ($q) => $q->select('id', 'sku', 'barcode'),
             'items.variant.optionValues.option',
             // 'histories' => fn($q) => $q->orderBy('date'),
             // 'histories.status' => fn($q) => $q->select('id', 'name'),

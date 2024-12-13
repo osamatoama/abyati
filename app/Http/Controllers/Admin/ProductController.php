@@ -36,6 +36,13 @@ class ProductController extends Controller
             },
         ]);
 
+        if ($product->isGroup()) {
+            $product->load([
+                'groupItems',
+                'groupItems.product',
+            ]);
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'fetched successfully',

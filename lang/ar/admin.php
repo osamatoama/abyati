@@ -62,6 +62,7 @@ return [
             'customer_url' => 'رابط العميل',
             'with_tax' => 'خاضع للضريبة',
             'attached_at' => 'تاريخ الربط',
+            'consisted_products' => 'المنتجات الفرعية',
         ],
 
         'statuses' => [
@@ -84,6 +85,7 @@ return [
         'messages' => [
             'required_at_least_one_status' => 'قم بتحديد حالة طلب واحدة على الأقل من التصفية لإظهار نتائج الكميات',
             'no_variants' => 'لا توجد خيارات لهذا المنتج',
+            'no_consisted_products' => 'لا توجد منتجات فرعية لهذه المجموعة',
             'unlimited_quantity' => 'غير محدودة',
         ],
 

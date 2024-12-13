@@ -15,7 +15,7 @@ class SallaPullProducts extends Command
      *
      * @var string
      */
-    protected $signature = 'salla:pull-products';
+    protected $signature = 'salla:pull-products {--stores=}';
 
     /**
      * The console command description.
@@ -29,7 +29,15 @@ class SallaPullProducts extends Command
      */
     public function handle()
     {
-        $stores = Store::get();
+        $storeIds = $this->option('stores') ?? null;
+
+        $stores = Store::query()
+            ->when(
+                filled($storeIds),
+                fn ($query) => $query->whereIn('id', explode(',', $storeIds)),
+            )
+            ->get();
+
         $jobs = [];
 
         foreach ($stores as $store) {
@@ -43,6 +51,7 @@ class SallaPullProducts extends Command
                 accessToken: $store->user->sallaToken->access_token,
                 storeId: $store->id,
             );
+
             $this->line('Products');
         }
 
