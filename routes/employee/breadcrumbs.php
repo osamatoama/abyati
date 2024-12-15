@@ -68,7 +68,7 @@ Breadcrumbs::for('employee.stocktakings.index', function ($trail) {
 
 Breadcrumbs::for('employee.stocktakings.show', function ($trail, Stocktaking $stocktaking) {
     $trail->parent('employee.stocktakings.index');
-    $trail->push($stocktaking->name, route('employee.stocktakings.show', $stocktaking->id));
+    $trail->push($stocktaking->id, route('employee.stocktakings.show', $stocktaking->id));
 });
 
 //Account

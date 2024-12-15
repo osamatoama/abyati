@@ -1,6 +1,6 @@
 @extends('employee.layouts.master')
 
-@section('title', __('employee.stocktakings.title') . ($shelf ? ' - ' . $shelf->name : ''))
+@section('title', __('employee.stocktakings.title') . ($shelf ? ' - ' . __('employee.shelves.num_#', ['name' => $shelf->name]) : ''))
 
 @section('actions')
     @include('employee.pages.stocktakings.partials.index.actions')

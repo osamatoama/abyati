@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\StocktakingIssueType;
 use App\Enums\OrderCompletionStatus;
 
 return [
@@ -352,6 +353,7 @@ return [
     'stocktakings' => [
         'title' => 'Stocktakings',
         'model' => 'Stocktaking',
+        'num_#' => 'Op :name',
 
         'attributes' => [
             'id' => 'ID',
@@ -367,6 +369,25 @@ return [
 
         'actions' => [
             'create' => 'Stocktake Shelf',
+        ],
+
+        'issues' => [
+            'attributes' => [
+                'product' => 'Product',
+                'type' => 'Issue Type',
+                'employee_note' => 'Employee Note',
+                'resolved' => 'Resolved',
+            ],
+
+            'types' => [
+                StocktakingIssueType::WRONG_SHELF->value => 'Wrong Shelf',
+                StocktakingIssueType::NO_SHELF->value => '',
+                StocktakingIssueType::WRONG_PRICE->value => 'Wrong Price',
+                StocktakingIssueType::WRONG_QUANTITY->value => 'Wrong Quantity',
+                StocktakingIssueType::WRONG_BARCODE->value => 'Wrong Barcode',
+                StocktakingIssueType::MISSING_FROM_SALLA->value => 'Missing From Salla',
+                StocktakingIssueType::OTHER->value => 'Other',
+            ],
         ],
     ],
 ];

@@ -18,6 +18,9 @@ class StocktakingIndex extends Datatable
         return Stocktaking::query()
             // ->filter()
             // ->forEmployee(auth('employee')->id())
+            ->whereHas('shelf', function ($query) {
+                $query->forEmployee(auth('employee')->id());
+            })
             ->when($shelfId, fn ($query) =>
                 $query->forShelf($shelfId)
             )

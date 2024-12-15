@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\StocktakingIssueType;
 use App\Enums\OrderCompletionStatus;
 
 return [
@@ -346,6 +347,7 @@ return [
     'stocktakings' => [
         'title' => 'عمليات الجرد',
         'model' => 'عملية جرد',
+        'num_#' => 'جرد :name',
 
         'attributes' => [
             'id' => 'المعرف',
@@ -361,6 +363,25 @@ return [
 
         'actions' => [
             'create' => 'جرد الرف',
+        ],
+
+        'issues' => [
+            'attributes' => [
+                'product' => 'المنتج',
+                'type' => 'نوع المشكلة',
+                'employee_note' => 'ملاحظة الموظف',
+                'resolved' => 'تم الحل',
+            ],
+
+            'types' => [
+                StocktakingIssueType::WRONG_SHELF->value => 'رف خطأ',
+                StocktakingIssueType::NO_SHELF->value => '',
+                StocktakingIssueType::WRONG_PRICE->value => 'سعر غير صحيح',
+                StocktakingIssueType::WRONG_QUANTITY->value => 'كمية غير صحيحة',
+                StocktakingIssueType::WRONG_BARCODE->value => 'باركود غير صحيح',
+                StocktakingIssueType::MISSING_FROM_SALLA->value => 'غير موجود في سلة',
+                StocktakingIssueType::OTHER->value => 'أخرى',
+            ],
         ],
     ],
 ];

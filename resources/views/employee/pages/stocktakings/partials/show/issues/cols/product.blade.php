@@ -1,0 +1,1 @@
+{{ $issue->product?->name ?? '---' }}

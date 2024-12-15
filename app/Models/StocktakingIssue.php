@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StocktakingIssue extends Model
@@ -40,5 +41,15 @@ class StocktakingIssue extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    /**
+     * Scopes
+     */
+    public function scopeForStocktaking(Builder $query, Stocktaking|string|int $stocktaking): Builder
+    {
+        $stocktakingId = $stocktaking instanceof Stocktaking ? $stocktaking->id : $stocktaking;
+
+        return $query->where('stocktaking_id', $stocktakingId);
     }
 }
