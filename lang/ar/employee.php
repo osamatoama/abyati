@@ -50,6 +50,7 @@ return [
             'variants' => 'الخيارات',
             'variant' => 'الخيارات',
             'quantity' => 'الكمية',
+            'remote_quantity' => 'الكمية في سلة',
             'show_only_bought_variants' => 'إظهار الخيارات التي تم شراؤها فقط',
             'included_order_statuses' => 'حالات الطلب',
             'price' => 'السعر',
@@ -339,6 +340,27 @@ return [
             'should_have_no_relations' => 'لا يمكن إجراء العملية لوجود منتجات أو عمليات جرد تابعة لهذا الرف. قم بإلغاء تفعيل الرف بدلاً من الحذف.',
             'invalid_barcode' => 'الباركود غير صحيح',
             'product_already_attached' => 'المنتج موجود بالفعل في الرف',
+        ],
+    ],
+
+    'stocktakings' => [
+        'title' => 'عمليات الجرد',
+        'model' => 'عملية جرد',
+
+        'attributes' => [
+            'id' => 'المعرف',
+            'employee' => 'الموظف',
+            'shelf' => 'الرف',
+            'warehouse' => 'المستودع',
+            'audited_at' => 'تاريخ الجرد',
+            'products' => 'المنتجات',
+            'products_count' => 'عدد المنتجات',
+            'issues' => 'المشاكل',
+            'issues_count' => 'عدد المشاكل',
+        ],
+
+        'actions' => [
+            'create' => 'جرد الرف',
         ],
     ],
 ];

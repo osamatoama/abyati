@@ -9,6 +9,7 @@ use App\Http\Controllers\Employee\OrderController;
 use App\Http\Controllers\Employee\ShelfController;
 use App\Http\Controllers\Employee\AccountController;
 use App\Http\Controllers\Employee\ProductController;
+use App\Http\Controllers\Employee\StocktakingController;
 
 // Home
 Route::get('/', HomeController::class)->name('home');
@@ -48,6 +49,15 @@ Route::prefix('shelves')
 
         Route::get('/', [ShelfController::class, 'index'])->name('index');
         Route::get('{shelf}', [ShelfController::class, 'show'])->name('show');
+});
+
+// Stocktakings
+Route::prefix('stocktakings')
+    ->as('stocktakings.')
+    ->middleware(HasRole::class . ':' . EmployeeRole::STOCKTAKING->value)
+    ->group(function () {
+        Route::get('/', [StocktakingController::class, 'index'])->name('index');
+        Route::get('{stocktaking}', [StocktakingController::class, 'show'])->name('show');
 });
 
 // Reports

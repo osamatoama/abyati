@@ -50,6 +50,7 @@ return [
             'variants' => 'Variants',
             'variant' => 'Variant',
             'quantity' => 'Quantity',
+            'remote_quantity' => 'Quantity in Salla',
             'show_only_bought_variants' => 'Show only bought variants',
             'included_order_statuses' => 'Included order statuses',
             'price' => 'price',
@@ -345,6 +346,27 @@ return [
             'should_have_no_relations' => 'You cannot perform this action, because this shelf has related products or stocktakings. Deactivate the shelf instead.',
             'invalid_barcode' => 'Invalid barcode',
             'product_already_attached' => 'Product already attached to the shelf',
+        ],
+    ],
+
+    'stocktakings' => [
+        'title' => 'Stocktakings',
+        'model' => 'Stocktaking',
+
+        'attributes' => [
+            'id' => 'ID',
+            'employee' => 'Employee',
+            'shelf' => 'Shelf',
+            'warehouse' => 'Warehouse',
+            'audited_at' => 'Audited At',
+            'products' => 'Products',
+            'products_count' => 'Products Count',
+            'issues' => 'Issues',
+            'issues_count' => 'Issues Count',
+        ],
+
+        'actions' => [
+            'create' => 'Stocktake Shelf',
         ],
     ],
 ];

@@ -79,6 +79,9 @@ class ShelfProductsIndex extends Datatable
             'sku' => function (Product $product) {
                 return view('employee.pages.shelves.partials.show.cols.sku', compact('product'));
             },
+            'quantity' => function (Product $product) {
+                return view('employee.pages.shelves.partials.show.cols.quantity', compact('product'));
+            },
         ];
     }
 
