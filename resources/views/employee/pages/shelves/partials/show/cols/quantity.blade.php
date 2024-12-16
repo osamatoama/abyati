@@ -1,1 +1,1 @@
-{{ $product->quantity }}
+{{ $product->quantities->sum('quantity') }}

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\StocktakingStatus;
 use App\Enums\StocktakingIssueType;
 use App\Enums\OrderCompletionStatus;
 
@@ -354,13 +355,16 @@ return [
         'title' => 'Stocktakings',
         'model' => 'Stocktaking',
         'num_#' => 'Op :name',
+        'process_stocktaking_#' => 'Op #:id',
 
         'attributes' => [
             'id' => 'ID',
             'employee' => 'Employee',
             'shelf' => 'Shelf',
             'warehouse' => 'Warehouse',
-            'audited_at' => 'Audited At',
+            'status' => 'Status',
+            'started_at' => 'Started At',
+            'finished_at' => 'Finished At',
             'products' => 'Products',
             'products_count' => 'Products Count',
             'issues' => 'Issues',
@@ -368,7 +372,20 @@ return [
         ],
 
         'actions' => [
-            'create' => 'Stocktake Shelf',
+            'create' => 'Stocktake',
+            'stocktake_shelf' => 'Stocktake Shelf',
+            'process' => 'Continue Stocktaking',
+            'confirm' => 'Confirm',
+        ],
+
+        'statuses' => [
+            StocktakingStatus::PENDING->value => 'Pending',
+            StocktakingStatus::COMPLETED->value => 'Completed',
+        ],
+
+        'process_statuses' => [
+            'confirmed' => 'Confirmed',
+            'has_issues' => 'Has Issues',
         ],
 
         'issues' => [
@@ -388,6 +405,11 @@ return [
                 StocktakingIssueType::MISSING_FROM_SALLA->value => 'Missing From Salla',
                 StocktakingIssueType::OTHER->value => 'Other',
             ],
+        ],
+
+        'errors' => [
+            'invalid_barcode' => 'Invalid barcode',
+            'product_already_stocktaken' => 'Product already stocktaken',
         ],
     ],
 ];

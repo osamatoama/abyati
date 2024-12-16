@@ -5,10 +5,12 @@
         {data: 'shelf', name: 'shelf', orderable: false, searchable: true},
         @endif
         {data: 'employee', name: 'employee', orderable: false, searchable: true},
-        {data: 'audited_at', name: 'audited_at', orderable: true, searchable: true},
+        {data: 'status', name: 'status', orderable: false, searchable: false},
+        {data: 'started_at', name: 'started_at', orderable: true, searchable: false},
+        {data: 'finished_at', name: 'finished_at', orderable: true, searchable: false},
         {data: 'issues_count', name: 'issues_count', orderable: true, searchable: false},
         {data: 'action', name: 'action', orderable: false, searchable: true},
-    ], $('#results-table').data('url'), '#results-table', [[@if($shelf) 2 @else 3 @endif, 'desc']], {
+    ], $('#results-table').data('url'), '#results-table', [[@if($shelf) 3 @else 4 @endif, 'desc']], {
         pageLength: 10,
         buttons: [],
         createdRow: function (row, data, dataIndex) {

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\StocktakingStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Concerns\BelongsToEmployee;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Stocktaking extends Model
 {
@@ -22,13 +24,16 @@ class Stocktaking extends Model
     protected $fillable = [
         'shelf_id',
         'employee_id',
-        'audited_at',
+        'status',
+        'started_at',
+        'finished_at',
     ];
 
     protected function casts(): array
     {
         return [
-            'audited_at' => 'datetime',
+            'started_at' => 'datetime',
+            'finished_at' => 'datetime',
         ];
     }
 
@@ -48,6 +53,19 @@ class Stocktaking extends Model
         );
     }
 
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(
+                related: Product::class,
+                table: 'stocktaking_product',
+            )
+            ->withPivot([
+                'confirmed',
+                'has_issue',
+            ])
+            ->withTimestamps();
+    }
+
     /**
      * Scopes
      */
@@ -56,5 +74,18 @@ class Stocktaking extends Model
         $shelfId = $shelf instanceof Shelf ? $shelf->id : $shelf;
 
         return $query->where('shelf_id', $shelfId);
+    }
+
+    /**
+     * Methods
+     */
+    public function isPending(): bool
+    {
+        return $this->status === StocktakingStatus::PENDING->value;
+    }
+
+    public function isCompleted(): bool
+    {
+        return $this->status === StocktakingStatus::COMPLETED->value;
     }
 }

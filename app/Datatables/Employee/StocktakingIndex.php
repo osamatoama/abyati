@@ -60,8 +60,14 @@ class StocktakingIndex extends Datatable
             'id' => function (Stocktaking $stocktaking) {
                 return view('employee.pages.stocktakings.partials.index.cols.id', compact('stocktaking'));
             },
-            'audited_at' => function (Stocktaking $stocktaking) {
-                return view('employee.pages.stocktakings.partials.index.cols.audited_at', compact('stocktaking'));
+            'status' => function (Stocktaking $stocktaking) {
+                return view('employee.pages.stocktakings.partials.index.cols.status', compact('stocktaking'));
+            },
+            'started_at' => function (Stocktaking $stocktaking) {
+                return view('employee.pages.stocktakings.partials.index.cols.started_at', compact('stocktaking'));
+            },
+            'finished_at' => function (Stocktaking $stocktaking) {
+                return view('employee.pages.stocktakings.partials.index.cols.finished_at', compact('stocktaking'));
             },
             'issues_count' => function (Stocktaking $stocktaking) {
                 return view('employee.pages.stocktakings.partials.index.cols.issues_count', compact('stocktaking'));

@@ -20,7 +20,9 @@
                             <th>{{ __('employee.stocktakings.attributes.shelf') }}</th>
                             @endif
                             <th>{{ __('employee.stocktakings.attributes.employee') }}</th>
-                            <th>{{ __('employee.stocktakings.attributes.audited_at') }}</th>
+                            <th>{{ __('employee.stocktakings.attributes.status') }}</th>
+                            <th>{{ __('employee.stocktakings.attributes.started_at') }}</th>
+                            <th>{{ __('employee.stocktakings.attributes.finished_at') }}</th>
                             <th>{{ __('employee.stocktakings.attributes.issues_count') }}</th>
                             <th></th>
                         </tr>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\StocktakingStatus;
 use App\Enums\StocktakingIssueType;
 use App\Enums\OrderCompletionStatus;
 
@@ -348,13 +349,16 @@ return [
         'title' => 'عمليات الجرد',
         'model' => 'عملية جرد',
         'num_#' => 'جرد :name',
+        'process_stocktaking_#' => 'جرد #:id',
 
         'attributes' => [
             'id' => 'المعرف',
             'employee' => 'الموظف',
             'shelf' => 'الرف',
             'warehouse' => 'المستودع',
-            'audited_at' => 'تاريخ الجرد',
+            'status' => 'الحالة',
+            'started_at' => 'وقت البدأ',
+            'finished_at' => 'وقت الانتهاء',
             'products' => 'المنتجات',
             'products_count' => 'عدد المنتجات',
             'issues' => 'المشاكل',
@@ -362,7 +366,20 @@ return [
         ],
 
         'actions' => [
-            'create' => 'جرد الرف',
+            'create' => 'بدأ الجرد',
+            'stocktake_shelf' => 'جرد الرف',
+            'process' => 'استئناف الجرد',
+            'confirm' => 'تأكيد',
+        ],
+
+        'statuses' => [
+            StocktakingStatus::PENDING->value => 'جاري المعالجة',
+            StocktakingStatus::COMPLETED->value => 'مكتمل',
+        ],
+
+        'process_statuses' => [
+            'confirmed' => 'تم التأكيد',
+            'has_issues' => 'يوجد مشاكل',
         ],
 
         'issues' => [
@@ -382,6 +399,11 @@ return [
                 StocktakingIssueType::MISSING_FROM_SALLA->value => 'غير موجود في سلة',
                 StocktakingIssueType::OTHER->value => 'أخرى',
             ],
+        ],
+
+        'errors' => [
+            'invalid_barcode' => 'الباركود غير صحيح',
+            'product_already_stocktaken' => 'المنتج تم جرده بالفعل',
         ],
     ],
 ];

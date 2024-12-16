@@ -56,7 +56,9 @@ Route::prefix('stocktakings')
     ->as('stocktakings.')
     ->middleware(HasRole::class . ':' . EmployeeRole::STOCKTAKING->value)
     ->group(function () {
+        Route::get('create', [StocktakingController::class, 'create'])->name('create');
         Route::get('{stocktaking}/issues', [StocktakingController::class, 'issues'])->name('issues');
+        Route::get('{stocktaking}/process', [StocktakingController::class, 'process'])->name('process');
 
         Route::get('/', [StocktakingController::class, 'index'])->name('index');
         Route::get('{stocktaking}', [StocktakingController::class, 'show'])->name('show');

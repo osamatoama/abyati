@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enums\StocktakingStatus;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -16,7 +17,9 @@ return new class extends Migration
 
             $table->foreignId('shelf_id')->constrained();
             $table->foreignId('employee_id')->constrained();
-            $table->dateTime('audited_at')->nullable();
+            $table->string('status')->default(StocktakingStatus::PENDING->value);
+            $table->dateTime('started_at')->nullable();
+            $table->dateTime('finished_at')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
