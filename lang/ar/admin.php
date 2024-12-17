@@ -541,5 +541,22 @@ return [
                 'warehouse_id' => 'المستودع',
             ],
         ],
+
+        'products_with_multiple_shelves' => [
+            'title' => 'منتجات متعددة الرفوف',
+
+            'attributes' => [
+                'product_remote_id' => 'معرف سلة',
+                'product_name' => 'الاسم',
+                'product_image' => 'الصورة',
+                'product_sku' => 'SKU',
+                'shelves' => 'الرفوف',
+                'quantities' => 'الكميات',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'المستودع',
+            ],
+        ],
     ],
 ];

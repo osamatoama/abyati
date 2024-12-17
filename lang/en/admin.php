@@ -541,5 +541,22 @@ return [
                 'warehouse_id' => 'Warehouse',
             ],
         ],
+
+        'products_with_multiple_shelves' => [
+            'title' => 'Products With Multiple Shelves',
+
+            'attributes' => [
+                'product_remote_id' => 'Salla ID',
+                'product_name' => 'Name',
+                'product_image' => 'Image',
+                'product_sku' => 'SKU',
+                'shelves' => 'Shelves',
+                'quantities' => 'Quantities',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'Warehouse',
+            ],
+        ],
     ],
 ];

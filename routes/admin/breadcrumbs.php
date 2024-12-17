@@ -170,6 +170,11 @@ Breadcrumbs::for('admin.reports.products-without-shelves.index', function ($trai
     $trail->push(__('admin.reports.products_without_shelves.title'), route('admin.reports.products-without-shelves.index'));
 });
 
+Breadcrumbs::for('admin.reports.products-with-multiple-shelves.index', function ($trail) {
+    $trail->parent('admin.reports.index');
+    $trail->push(__('admin.reports.products_with_multiple_shelves.title'), route('admin.reports.products-with-multiple-shelves.index'));
+});
+
 // Settings
 Breadcrumbs::for('admin.settings.index', function ($trail) {
     $trail->parent('admin.home');
