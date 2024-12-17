@@ -50,14 +50,49 @@
                                     <strong>{{ __('employee.products.attributes.quantity') }} = </strong>
                                     <span>{{ $scanned_product->quantities->sum('quantity') }}</span>
                                 </li>
+                                <li>
+                                    {{ $scanned_product->quantities->first()->expiry_date?->format('U') }}
+                                </li>
+                                <li class="d-flex align-items-center gap-2">
+                                    <strong>{{ __('employee.products.attributes.expiry_date') }} : </strong>
+                                    <span>
+                                        <input
+                                            type="date" class="form-control form-control-sm"
+                                            value="{{ $scanned_product->quantities->first()->expiry_date?->format('Y-m-d') ?? null }}"
+                                            wire:change="updateExpiryDate($event.target.value)"
+                                        />
+                                    </span>
+                                </li>
                             </ul>
                         </div>
 
-                        <div>
-                            <button class="btn btn-sm btn-success" wire:click="confirm" wire:loading.attr="disabled">
-                                <i class="fas fa-circle-check"></i> {{ __('employee.stocktakings.actions.confirm') }}
-                            </button>
-                        </div>
+                        @if(! $has_issue)
+                            <div>
+                                <button class="btn btn-sm btn-success" wire:click="confirm" wire:loading.attr="disabled">
+                                    <i class="fas fa-circle-check"></i> {{ __('employee.stocktakings.actions.confirm') }}
+                                </button>
+
+                                <button class="btn btn-sm btn-danger" wire:click="hasIssue" wire:loading.attr="disabled">
+                                    <i class="fas fa-exclamation-triangle"></i> {{ __('employee.stocktakings.actions.has_issue') }}
+                                </button>
+                            </div>
+                        @endif
+
+                        @if($has_issue)
+                            <div>
+                                <div>
+                                    <select class="form-control" data-control="select2" data-placeholder="{{ __('employee.stocktakings.issues.select_issue') }}">
+                                        <option value="">{{ __('employee.stocktakings.issues.select_issue') }}</option>
+
+                                        @foreach(\App\Enums\StocktakingIssueType::toSelectArray() as $issueKey => $issueValue)
+                                            <option value="{{ $issueKey }}">{{ $issueValue }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    {{-- <span id="edit-form-roles-error" class="form-input-error text-danger d-none"></span> --}}
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             @endif

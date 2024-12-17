@@ -13,6 +13,11 @@ class ProductQuantity extends Model
         'product_id',
         'branch_id',
         'quantity',
+        'expiry_date',
+    ];
+
+    protected $casts = [
+        'expiry_date' => 'date',
     ];
 
     /**

@@ -20,6 +20,8 @@ class Scan extends Component
 
     public ?Product $scanned_product = null;
 
+    public bool $has_issue = false;
+
     public function boot()
     {
         $this->withValidator(function ($validator) {
@@ -42,7 +44,7 @@ class Scan extends Component
             return;
         }
 
-        $this->reset('scanned_product');
+        $this->reset('scanned_product', 'has_issue');
 
         $this->resetErrorBag();
 
@@ -73,6 +75,18 @@ class Scan extends Component
         $this->dispatch('product-confirmed', [
             'product_id' => $this->scanned_product->id,
         ]);
+    }
+
+    public function hasIssue()
+    {
+        $this->has_issue = true;
+
+        // $this->dispatch('scan-error');
+    }
+
+    public function updateExpiryDate($date)
+    {
+        dd($date);
     }
 
     private function getAvailableBarcodesToScan(): array

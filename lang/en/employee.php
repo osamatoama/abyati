@@ -63,6 +63,7 @@ return [
             'customer_url' => 'Customer URL',
             'with_tax' => 'Tax applied',
             'attached_at' => 'Attached at',
+            'expiry_date' => 'Expiry Date',
         ],
 
         'statuses' => [
@@ -376,6 +377,7 @@ return [
             'stocktake_shelf' => 'Stocktake Shelf',
             'process' => 'Continue Stocktaking',
             'confirm' => 'Confirm',
+            'has_issue' => 'Has Issue',
         ],
 
         'statuses' => [
@@ -389,6 +391,8 @@ return [
         ],
 
         'issues' => [
+            'select_issue' => 'Select Issue',
+
             'attributes' => [
                 'product' => 'Product',
                 'type' => 'Issue Type',
@@ -398,7 +402,7 @@ return [
 
             'types' => [
                 StocktakingIssueType::WRONG_SHELF->value => 'Wrong Shelf',
-                StocktakingIssueType::NO_SHELF->value => '',
+                // StocktakingIssueType::NO_SHELF->value => '',
                 StocktakingIssueType::WRONG_PRICE->value => 'Wrong Price',
                 StocktakingIssueType::WRONG_QUANTITY->value => 'Wrong Quantity',
                 StocktakingIssueType::WRONG_BARCODE->value => 'Wrong Barcode',

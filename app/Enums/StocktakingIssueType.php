@@ -13,7 +13,7 @@ enum StocktakingIssueType: string
      */
     case WRONG_SHELF = 'wrong_shelf';
 
-    case NO_SHELF = 'no_shelf';
+    // case NO_SHELF = 'no_shelf';
 
     case WRONG_PRICE = 'wrong_price';
 

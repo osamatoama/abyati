@@ -63,6 +63,7 @@ return [
             'customer_url' => 'رابط العميل',
             'with_tax' => 'خاضع للضريبة',
             'attached_at' => 'تاريخ الربط',
+            'expiry_date' => 'انتهاء الصلاحية',
         ],
 
         'statuses' => [
@@ -370,6 +371,7 @@ return [
             'stocktake_shelf' => 'جرد الرف',
             'process' => 'استئناف الجرد',
             'confirm' => 'تأكيد',
+            'has_issue' => 'يوجد مشكلة',
         ],
 
         'statuses' => [
@@ -383,6 +385,8 @@ return [
         ],
 
         'issues' => [
+            'select_issue' => 'اختر نوع المشكلة',
+
             'attributes' => [
                 'product' => 'المنتج',
                 'type' => 'نوع المشكلة',
@@ -392,7 +396,7 @@ return [
 
             'types' => [
                 StocktakingIssueType::WRONG_SHELF->value => 'رف خطأ',
-                StocktakingIssueType::NO_SHELF->value => '',
+                // StocktakingIssueType::NO_SHELF->value => '',
                 StocktakingIssueType::WRONG_PRICE->value => 'سعر غير صحيح',
                 StocktakingIssueType::WRONG_QUANTITY->value => 'كمية غير صحيحة',
                 StocktakingIssueType::WRONG_BARCODE->value => 'باركود غير صحيح',
