@@ -180,6 +180,11 @@ Breadcrumbs::for('admin.reports.nearly-expired-products.index', function ($trail
     $trail->push(__('admin.reports.nearly_expired_products.title'), route('admin.reports.nearly-expired-products.index'));
 });
 
+Breadcrumbs::for('admin.reports.out-of-stock-products.index', function ($trail) {
+    $trail->parent('admin.reports.index');
+    $trail->push(__('admin.reports.out_of_stock_products.title'), route('admin.reports.out-of-stock-products.index'));
+});
+
 // Settings
 Breadcrumbs::for('admin.settings.index', function ($trail) {
     $trail->parent('admin.home');

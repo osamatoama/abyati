@@ -576,5 +576,23 @@ return [
                 'warehouse_id' => 'Warehouse',
             ],
         ],
+
+        'out_of_stock_products' => [
+            'title' => 'Out Of Stock Products',
+
+            'attributes' => [
+                'product_remote_id' => 'Salla ID',
+                'product_name' => 'Name',
+                'product_image' => 'Image',
+                'product_sku' => 'SKU',
+                'shelves' => 'Shelves',
+                'quantities' => 'Quantities',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'Warehouse',
+                'employee_id' => 'Employee',
+            ],
+        ],
     ],
 ];

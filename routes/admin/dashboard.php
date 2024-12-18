@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\Reports\ReportController;
 use App\Http\Controllers\Admin\Reports\QuantityIssuesReportController;
+use App\Http\Controllers\Admin\Reports\OutOfStockProductsReportController;
 use App\Http\Controllers\Admin\Reports\EmployeePerformanceReportController;
 use App\Http\Controllers\Admin\Reports\NearlyExpiredProductsReportController;
 use App\Http\Controllers\Admin\Reports\ProductsWithoutShelvesReportController;
@@ -110,6 +111,8 @@ Route::prefix('reports')->as('reports.')->group(function () {
     Route::get('products-with-multiple-shelves', [ProductsWithMultipleShelvesReportController::class, 'index'])->name('products-with-multiple-shelves.index');
 
     Route::get('nearly-expired-products', [NearlyExpiredProductsReportController::class, 'index'])->name('nearly-expired-products.index');
+
+    Route::get('out-of-stock-products', [OutOfStockProductsReportController::class, 'index'])->name('out-of-stock-products.index');
 });
 
 Route::prefix('settings')->as('settings.')->group(function () {

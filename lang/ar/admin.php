@@ -576,5 +576,23 @@ return [
                 'warehouse_id' => 'المستودع',
             ],
         ],
+
+        'out_of_stock_products' => [
+            'title' => 'منتجات منتهية الكمية',
+
+            'attributes' => [
+                'product_remote_id' => 'معرف سلة',
+                'product_name' => 'الاسم',
+                'product_image' => 'الصورة',
+                'product_sku' => 'SKU',
+                'shelves' => 'الرفوف',
+                'quantities' => 'الكميات',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'المستودع',
+                'employee_id' => 'الموظف',
+            ],
+        ],
     ],
 ];
