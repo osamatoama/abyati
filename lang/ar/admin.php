@@ -558,5 +558,23 @@ return [
                 'warehouse_id' => 'المستودع',
             ],
         ],
+
+        'nearly_expired_products' => [
+            'title' => 'منتجات قاربت انتهاء الصلاحية',
+
+            'attributes' => [
+                'product_remote_id' => 'معرف سلة',
+                'product_name' => 'الاسم',
+                'product_image' => 'الصورة',
+                'product_sku' => 'SKU',
+                'shelves' => 'الرفوف',
+                'quantities' => 'الكميات',
+                'expiry_date' => 'انتهاء الصلاحية',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'المستودع',
+            ],
+        ],
     ],
 ];

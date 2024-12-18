@@ -175,6 +175,11 @@ Breadcrumbs::for('admin.reports.products-with-multiple-shelves.index', function 
     $trail->push(__('admin.reports.products_with_multiple_shelves.title'), route('admin.reports.products-with-multiple-shelves.index'));
 });
 
+Breadcrumbs::for('admin.reports.nearly-expired-products.index', function ($trail) {
+    $trail->parent('admin.reports.index');
+    $trail->push(__('admin.reports.nearly_expired_products.title'), route('admin.reports.nearly-expired-products.index'));
+});
+
 // Settings
 Breadcrumbs::for('admin.settings.index', function ($trail) {
     $trail->parent('admin.home');

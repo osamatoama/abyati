@@ -71,4 +71,12 @@ return [
         'title' => 'تقرير المنتجات بدون رفوف',
         'show' => 'عرض',
     ],
+    'products_with_multiple_shelves_report' => [
+        'title' => 'تقرير المنتجات بعدة رفوف',
+        'show' => 'عرض',
+    ],
+    'nearly_expired_products_report' => [
+        'title' => 'تقرير المنتجات القريبة من انتهاء الصلاحية',
+        'show' => 'عرض',
+    ],
 ];
