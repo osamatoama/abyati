@@ -412,6 +412,10 @@ return [
             'product_updated' => 'تم تحديث بيانات المنتج بنجاح',
         ],
 
+        'alerts' => [
+            'update_product' => 'سيتم تعديل بيانات المنتج في سلة والمنصة',
+        ],
+
         'errors' => [
             'invalid_barcode' => 'الباركود غير صحيح',
             'product_already_stocktaken' => 'المنتج تم جرده بالفعل',

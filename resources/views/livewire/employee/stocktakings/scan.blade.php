@@ -18,7 +18,6 @@
             </div>
         </form>
 
-
         @if($scanned_product)
             <div class="row product-image-wrapper mb-3 mb-md-5">
                 <div class="col-6">
@@ -100,7 +99,7 @@
                         @endif
 
                         @if($edit_mode)
-                            <button class="btn btn-sm btn-success" wire:click="updateProduct" wire:loading.attr="disabled">
+                            <button id="save-product-update-btn" class="btn btn-sm btn-success" wire:loading.attr="disabled">
                                 <i class="fas fa-circle-check"></i> {{ __('employee.stocktakings.actions.save_updates') }}
                             </button>
 
@@ -114,7 +113,7 @@
                         </button> --}}
                     </div>
 
-                    @if($has_issue)
+                    {{-- @if($has_issue)
                         <div>
                             <div>
                                 <select class="form-control" data-control="select2" data-placeholder="{{ __('employee.stocktakings.issues.select_issue') }}">
@@ -125,10 +124,10 @@
                                     @endforeach
                                 </select>
 
-                                {{-- <span id="edit-form-roles-error" class="form-input-error text-danger d-none"></span> --}}
+                                <span id="edit-form-roles-error" class="form-input-error text-danger d-none"></span>
                             </div>
                         </div>
-                    @endif
+                    @endif --}}
                 </div>
             </div>
         @endif
@@ -149,5 +148,19 @@
 @script
 <script>
     $('.scan-barcode-input').focus()
+
+    $(document).on('click', '#save-product-update-btn', function() {
+        Swal.fire({
+            title: '{{ __("employee.stocktakings.alerts.update_product") }}',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: getTranslation('cancel'),
+            confirmButtonText: getTranslation('confirm'),
+        }).then(function (result) {
+            if (result.value) {
+                @this.updateProduct()
+            }
+        })
+    })
 </script>
 @endscript

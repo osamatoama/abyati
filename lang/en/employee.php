@@ -418,6 +418,10 @@ return [
             'product_updated' => 'Product info updated successfully',
         ],
 
+        'alerts' => [
+            'update_product' => 'Product info will be updated in Salla and the platform',
+        ],
+
         'errors' => [
             'invalid_barcode' => 'Invalid barcode',
             'product_already_stocktaken' => 'Product already stocktaken',
