@@ -371,6 +371,8 @@ return [
             'stocktake_shelf' => 'جرد الرف',
             'process' => 'استئناف الجرد',
             'confirm' => 'تأكيد',
+            'edit' => 'تعديل',
+            'save_updates' => 'حفظ التعديلات',
             'has_issue' => 'يوجد مشكلة',
         ],
 
@@ -380,6 +382,7 @@ return [
         ],
 
         'process_statuses' => [
+            'pending' => 'قيد التأكيد',
             'confirmed' => 'تم التأكيد',
             'has_issues' => 'يوجد مشاكل',
         ],
@@ -403,6 +406,10 @@ return [
                 StocktakingIssueType::MISSING_FROM_SALLA->value => 'غير موجود في سلة',
                 StocktakingIssueType::OTHER->value => 'أخرى',
             ],
+        ],
+
+        'messages' => [
+            'product_updated' => 'تم تحديث بيانات المنتج بنجاح',
         ],
 
         'errors' => [

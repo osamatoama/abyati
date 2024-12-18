@@ -377,6 +377,8 @@ return [
             'stocktake_shelf' => 'Stocktake Shelf',
             'process' => 'Continue Stocktaking',
             'confirm' => 'Confirm',
+            'edit' => 'Edit',
+            'save_updates' => 'Save Updates',
             'has_issue' => 'Has Issue',
         ],
 
@@ -386,6 +388,7 @@ return [
         ],
 
         'process_statuses' => [
+            'pending' => 'Pending',
             'confirmed' => 'Confirmed',
             'has_issues' => 'Has Issues',
         ],
@@ -409,6 +412,10 @@ return [
                 StocktakingIssueType::MISSING_FROM_SALLA->value => 'Missing From Salla',
                 StocktakingIssueType::OTHER->value => 'Other',
             ],
+        ],
+
+        'messages' => [
+            'product_updated' => 'Product info updated successfully',
         ],
 
         'errors' => [

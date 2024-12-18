@@ -13,13 +13,14 @@ class ProcessStocktaking extends Component
     public Stocktaking $stocktaking;
 
     #[On('product-confirmed')]
-    // #[On('order-item-transferred')]
+    // #[On('product-updated')]
     // #[On('order-scanned')]
     public function render()
     {
+        $pendingProducts = $this->stocktaking->products->filter(fn ($product) => $product->pivot->confirmed == false && $product->pivot->has_issue == false);
         $confirmedProducts = $this->stocktaking->products->filter(fn ($product) => $product->pivot->confirmed == true);
         $issueProducts = $this->stocktaking->products->filter(fn ($product) => $product->pivot->has_issue == true);
 
-        return view('livewire.employee.stocktakings.process-stocktaking', compact('confirmedProducts', 'issueProducts'));
+        return view('livewire.employee.stocktakings.process-stocktaking', compact('pendingProducts', 'confirmedProducts', 'issueProducts'));
     }
 }

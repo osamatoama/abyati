@@ -54,9 +54,9 @@ class StocktakingController extends Controller
                 'started_at' => now(),
             ]);
 
-            // $shelf->products->each(function ($product) use ($stocktaking) {
-            //     $stocktaking->products()->attach($product->id);
-            // });
+            $shelf->products->each(function ($product) use ($stocktaking) {
+                $stocktaking->products()->attach($product->id);
+            });
 
             return $stocktaking;
         });

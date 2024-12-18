@@ -31,6 +31,10 @@
         playVoiceNotification('scanner-beep-notification')
     })
 
+    Livewire.on('product-confirmed', (params) => {
+        $('.scan-barcode-input').focus()
+    })
+
     $(document).on('keydown', '.scan-barcode-input', (e) => {
         if (e.key === "Enter" || e.key === "Tab") {
             e.preventDefault()
@@ -57,8 +61,7 @@
         })
     })
 
-    Livewire.on('order-item-executed', (params) => {
-        closeModal($(`#scan-item-${params[0].order_item_id}-modal`))
+    Livewire.on('product-updated', (params) => {
         successToast(params[0].message)
     })
 
