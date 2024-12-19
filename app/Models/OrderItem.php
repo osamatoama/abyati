@@ -155,7 +155,10 @@ class OrderItem extends Model
     public function scopeDecomposed(Builder $query)
     {
         return $query->whereHas('product', fn($q) =>
-            $q->where('type', '!=', ProductType::GROUP_PRODUCTS->value)
+            $q->where(function($q) {
+                $q->whereNull('type')
+                    ->orWhere('type', '!=', ProductType::GROUP_PRODUCTS->value);
+            })
         );
     }
 
