@@ -149,4 +149,36 @@
             </div>
         </div>
     @endif
+
+    @if($missingBarcodeIssues->count())
+        <div class="mb-5">
+            <div class="card execution-card">
+                <div class="card-header">
+                    <h3 class="card-title">{{ __('employee.stocktakings.process_statuses.missing_barcodes') }} ({{ $missingBarcodeIssues->count() }})</h3>
+                </div>
+
+                <div class="card-body">
+                    <div class="order-products">
+                        <div class="table-responsive">
+                            <table class="table table-row-bordered">
+                                <thead>
+                                    <th class="fw-bold text-nowrap">{{ __('employee.products.attributes.barcode') }}</th>
+                                </thead>
+
+                                <tbody>
+                                    @foreach($missingBarcodeIssues as $issue)
+                                        <tr>
+                                            <td>
+                                                {{ $issue->data['barcode'] ?? '---' }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
