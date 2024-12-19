@@ -62,4 +62,21 @@ final class Products implements Support
             ]),
         );
     }
+
+    /**
+     * @throws SallaMerchantException
+     */
+    public function updateQuantity(string $id, array $data = []): array
+    {
+        return $this->client->post(
+            url: "{$this->service->baseUrl}/products/quantities/bulk",
+            data: [
+                array_merge($data, [
+                    'identifer-type' => 'id',
+                    'identifer' => $id,
+                    'mode' => 'overwrite',
+                ]),
+            ],
+        );
+    }
 }

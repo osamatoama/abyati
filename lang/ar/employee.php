@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\StocktakingStatus;
+use App\Enums\StocktakingIssueType;
 use App\Enums\OrderCompletionStatus;
 
 return [
@@ -50,6 +52,7 @@ return [
             'variants' => 'الخيارات',
             'variant' => 'الخيارات',
             'quantity' => 'الكمية',
+            'remote_quantity' => 'الكمية في سلة',
             'show_only_bought_variants' => 'إظهار الخيارات التي تم شراؤها فقط',
             'included_order_statuses' => 'حالات الطلب',
             'price' => 'السعر',
@@ -60,6 +63,7 @@ return [
             'customer_url' => 'رابط العميل',
             'with_tax' => 'خاضع للضريبة',
             'attached_at' => 'تاريخ الربط',
+            'expiry_date' => 'انتهاء الصلاحية',
         ],
 
         'statuses' => [
@@ -339,6 +343,82 @@ return [
             'should_have_no_relations' => 'لا يمكن إجراء العملية لوجود منتجات أو عمليات جرد تابعة لهذا الرف. قم بإلغاء تفعيل الرف بدلاً من الحذف.',
             'invalid_barcode' => 'الباركود غير صحيح',
             'product_already_attached' => 'المنتج موجود بالفعل في الرف',
+        ],
+    ],
+
+    'stocktakings' => [
+        'title' => 'عمليات الجرد',
+        'model' => 'عملية جرد',
+        'num_#' => 'جرد :name',
+        'process_stocktaking_#' => 'جرد #:id',
+
+        'attributes' => [
+            'id' => 'المعرف',
+            'employee' => 'الموظف',
+            'shelf' => 'الرف',
+            'warehouse' => 'المستودع',
+            'status' => 'الحالة',
+            'started_at' => 'وقت البدأ',
+            'finished_at' => 'وقت الانتهاء',
+            'products' => 'المنتجات',
+            'products_count' => 'عدد المنتجات',
+            'issues' => 'المشاكل',
+            'issues_count' => 'عدد المشاكل',
+        ],
+
+        'actions' => [
+            'create' => 'بدأ الجرد',
+            'stocktake_shelf' => 'جرد الرف',
+            'process' => 'استئناف الجرد',
+            'confirm' => 'تأكيد',
+            'edit' => 'تعديل',
+            'save_updates' => 'حفظ التعديلات',
+            'has_issue' => 'يوجد مشكلة',
+        ],
+
+        'statuses' => [
+            StocktakingStatus::PENDING->value => 'جاري المعالجة',
+            StocktakingStatus::COMPLETED->value => 'مكتمل',
+        ],
+
+        'process_statuses' => [
+            'pending' => 'قيد التأكيد',
+            'confirmed' => 'تم التأكيد',
+            'has_issues' => 'يوجد مشاكل',
+        ],
+
+        'issues' => [
+            'select_issue' => 'اختر نوع المشكلة',
+
+            'attributes' => [
+                'product' => 'المنتج',
+                'type' => 'نوع المشكلة',
+                'employee_note' => 'ملاحظة الموظف',
+                'resolved' => 'تم الحل',
+            ],
+
+            'types' => [
+                StocktakingIssueType::WRONG_SHELF->value => 'رف خطأ',
+                // StocktakingIssueType::NO_SHELF->value => '',
+                StocktakingIssueType::WRONG_PRICE->value => 'سعر غير صحيح',
+                StocktakingIssueType::WRONG_QUANTITY->value => 'كمية غير صحيحة',
+                StocktakingIssueType::WRONG_BARCODE->value => 'باركود غير صحيح',
+                StocktakingIssueType::MISSING_FROM_SALLA->value => 'غير موجود في سلة',
+                StocktakingIssueType::OTHER->value => 'أخرى',
+            ],
+        ],
+
+        'messages' => [
+            'product_updated' => 'تم تحديث بيانات المنتج بنجاح',
+        ],
+
+        'alerts' => [
+            'update_product' => 'سيتم تعديل بيانات المنتج في سلة والمنصة',
+        ],
+
+        'errors' => [
+            'invalid_barcode' => 'الباركود غير صحيح',
+            'product_already_stocktaken' => 'المنتج تم جرده بالفعل',
         ],
     ],
 ];

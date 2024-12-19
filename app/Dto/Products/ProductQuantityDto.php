@@ -11,6 +11,7 @@ final class ProductQuantityDto
         public int  $productId,
         public ?int $branchId,
         public ?int $quantity,
+        public ?string $expiryDate = null,
     )
     {
         //
@@ -27,6 +28,7 @@ final class ProductQuantityDto
             productId: $product->id,
             branchId: $branch?->id,
             quantity: $data['quantity'] ?? null,
+            expiryDate: null,
         );
     }
 }

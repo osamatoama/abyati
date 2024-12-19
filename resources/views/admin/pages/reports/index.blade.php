@@ -68,5 +68,68 @@
                 </a>
             </div>
         @endif
+
+        @if(can('products_with_multiple_shelves_report.show'))
+            <div class="col-md-3">
+                <a href="{{ route('admin.reports.products-with-multiple-shelves.index') }}" class="card hover-elevate-up shadow-sm parent-hover mb-5">
+                    <div class="card-body d-flex align-items-center">
+                        <span class="svg-icon svg-icon-muted svg-icon-2hx">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path opacity="0.3" d="M3 13H10C10.6 13 11 13.4 11 14V21C11 21.6 10.6 22 10 22H3C2.4 22 2 21.6 2 21V14C2 13.4 2.4 13 3 13Z" fill="currentColor"/>
+                                <path d="M7 16H6C5.4 16 5 15.6 5 15V13H8V15C8 15.6 7.6 16 7 16Z" fill="currentColor"/>
+                                <path opacity="0.3" d="M14 13H21C21.6 13 22 13.4 22 14V21C22 21.6 21.6 22 21 22H14C13.4 22 13 21.6 13 21V14C13 13.4 13.4 13 14 13Z" fill="currentColor"/>
+                                <path d="M18 16H17C16.4 16 16 15.6 16 15V13H19V15C19 15.6 18.6 16 18 16Z" fill="currentColor"/>
+                                <path opacity="0.3" d="M3 2H10C10.6 2 11 2.4 11 3V10C11 10.6 10.6 11 10 11H3C2.4 11 2 10.6 2 10V3C2 2.4 2.4 2 3 2Z" fill="currentColor"/>
+                                <path d="M7 5H6C5.4 5 5 4.6 5 4V2H8V4C8 4.6 7.6 5 7 5Z" fill="currentColor"/>
+                                <path opacity="0.3" d="M14 2H21C21.6 2 22 2.4 22 3V10C22 10.6 21.6 11 21 11H14C13.4 11 13 10.6 13 10V3C13 2.4 13.4 2 14 2Z" fill="currentColor"/>
+                                <path d="M18 5H17C16.4 5 16 4.6 16 4V2H19V4C19 4.6 18.6 5 18 5Z" fill="currentColor"/>
+                            </svg>
+                        </span>
+
+                        <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold">
+                            {{ __('admin.reports.products_with_multiple_shelves.title') }}
+                        </span>
+                    </div>
+                </a>
+            </div>
+        @endif
+
+        @if(can('nearly_expired_products_report.show'))
+            <div class="col-md-3">
+                <a href="{{ route('admin.reports.nearly-expired-products.index') }}" class="card hover-elevate-up shadow-sm parent-hover mb-5">
+                    <div class="card-body d-flex align-items-center">
+                        <span class="svg-icon svg-icon-muted svg-icon-2hx">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path opacity="0.3" d="M20.9 12.9C20.3 12.9 19.9 12.5 19.9 11.9C19.9 11.3 20.3 10.9 20.9 10.9H21.8C21.3 6.2 17.6 2.4 12.9 2V2.9C12.9 3.5 12.5 3.9 11.9 3.9C11.3 3.9 10.9 3.5 10.9 2.9V2C6.19999 2.5 2.4 6.2 2 10.9H2.89999C3.49999 10.9 3.89999 11.3 3.89999 11.9C3.89999 12.5 3.49999 12.9 2.89999 12.9H2C2.5 17.6 6.19999 21.4 10.9 21.8V20.9C10.9 20.3 11.3 19.9 11.9 19.9C12.5 19.9 12.9 20.3 12.9 20.9V21.8C17.6 21.3 21.4 17.6 21.8 12.9H20.9Z" fill="currentColor"/>
+                                <path d="M16.9 10.9H13.6C13.4 10.6 13.2 10.4 12.9 10.2V5.90002C12.9 5.30002 12.5 4.90002 11.9 4.90002C11.3 4.90002 10.9 5.30002 10.9 5.90002V10.2C10.6 10.4 10.4 10.6 10.2 10.9H9.89999C9.29999 10.9 8.89999 11.3 8.89999 11.9C8.89999 12.5 9.29999 12.9 9.89999 12.9H10.2C10.4 13.2 10.6 13.4 10.9 13.6V13.9C10.9 14.5 11.3 14.9 11.9 14.9C12.5 14.9 12.9 14.5 12.9 13.9V13.6C13.2 13.4 13.4 13.2 13.6 12.9H16.9C17.5 12.9 17.9 12.5 17.9 11.9C17.9 11.3 17.5 10.9 16.9 10.9Z" fill="currentColor"/>
+                            </svg>
+                        </span>
+
+                        <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold">
+                            {{ __('admin.reports.nearly_expired_products.title') }}
+                        </span>
+                    </div>
+                </a>
+            </div>
+        @endif
+
+        @if(can('out_of_stock_products_report.show'))
+            <div class="col-md-3">
+                <a href="{{ route('admin.reports.out-of-stock-products.index') }}" class="card hover-elevate-up shadow-sm parent-hover mb-5">
+                    <div class="card-body d-flex align-items-center">
+                        <span class="svg-icon svg-icon-muted svg-icon-2hx">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"/>
+                                <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor"/>
+                            </svg>
+                        </span>
+
+                        <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold">
+                            {{ __('admin.reports.out_of_stock_products.title') }}
+                        </span>
+                    </div>
+                </a>
+            </div>
+        @endif
     </div>
 @endsection

@@ -75,6 +75,7 @@ final class OrderService
         dispatch(new PullOrderItemsJob(
             accessToken: $accessToken,
             storeId: $storeId,
+            order: $order,
             data: [
                 'order_id' => $order->id,
                 'order_remote_id' => $order->remote_id,
@@ -134,20 +135,25 @@ final class OrderService
 
         foreach ($sallaOrder['items'] as $item) {
             OrderItemService::instance()
-                ->updateOrCreate(
-                    orderItemDto: OrderItemDto::fromSallaWebhook(
-                        sallaOrderItem: $item,
-                        orderId: $order->id,
-                        productId: ProductService::instance()
-                            ->firstOrCreate(
-                                productDto: ProductDto::fromSallaOrderItemWebhook(
-                                    sallaOrderItemProduct: $item['product'],
-                                    storeId: $storeId,
-                                ),
-                            )
-                            ->id,
-                    ),
+                ->saveSallaOrderItem(
+                    order: $order,
+                    sallaOrderItem: $item,
+                    storeId: $storeId,
                 );
+                // ->updateOrCreate(
+                //     orderItemDto: OrderItemDto::fromSallaWebhook(
+                //         sallaOrderItem: $item,
+                //         orderId: $order->id,
+                //         productId: ProductService::instance()
+                //             ->firstOrCreate(
+                //                 productDto: ProductDto::fromSallaOrderItemWebhook(
+                //                     sallaOrderItemProduct: $item['product'],
+                //                     storeId: $storeId,
+                //                 ),
+                //             )
+                //             ->id,
+                //     ),
+                // );
         }
 
         // BatchService::instance()

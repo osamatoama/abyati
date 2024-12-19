@@ -4,7 +4,6 @@ namespace App\Jobs\Salla\Pull\Shipments;
 
 use Exception;
 use Illuminate\Bus\Queueable;
-use App\Services\Orders\OrderService;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Jobs\Concerns\InteractsWithBatches;

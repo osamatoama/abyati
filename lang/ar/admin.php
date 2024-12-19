@@ -62,6 +62,7 @@ return [
             'customer_url' => 'رابط العميل',
             'with_tax' => 'خاضع للضريبة',
             'attached_at' => 'تاريخ الربط',
+            'consisted_products' => 'المنتجات الفرعية',
         ],
 
         'statuses' => [
@@ -84,6 +85,7 @@ return [
         'messages' => [
             'required_at_least_one_status' => 'قم بتحديد حالة طلب واحدة على الأقل من التصفية لإظهار نتائج الكميات',
             'no_variants' => 'لا توجد خيارات لهذا المنتج',
+            'no_consisted_products' => 'لا توجد منتجات فرعية لهذه المجموعة',
             'unlimited_quantity' => 'غير محدودة',
         ],
 
@@ -537,6 +539,59 @@ return [
 
             'filters' => [
                 'warehouse_id' => 'المستودع',
+            ],
+        ],
+
+        'products_with_multiple_shelves' => [
+            'title' => 'منتجات متعددة الرفوف',
+
+            'attributes' => [
+                'product_remote_id' => 'معرف سلة',
+                'product_name' => 'الاسم',
+                'product_image' => 'الصورة',
+                'product_sku' => 'SKU',
+                'shelves' => 'الرفوف',
+                'quantities' => 'الكميات',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'المستودع',
+            ],
+        ],
+
+        'nearly_expired_products' => [
+            'title' => 'منتجات قاربت انتهاء الصلاحية',
+
+            'attributes' => [
+                'product_remote_id' => 'معرف سلة',
+                'product_name' => 'الاسم',
+                'product_image' => 'الصورة',
+                'product_sku' => 'SKU',
+                'shelves' => 'الرفوف',
+                'quantities' => 'الكميات',
+                'expiry_date' => 'انتهاء الصلاحية',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'المستودع',
+            ],
+        ],
+
+        'out_of_stock_products' => [
+            'title' => 'منتجات منتهية الكمية',
+
+            'attributes' => [
+                'product_remote_id' => 'معرف سلة',
+                'product_name' => 'الاسم',
+                'product_image' => 'الصورة',
+                'product_sku' => 'SKU',
+                'shelves' => 'الرفوف',
+                'quantities' => 'الكميات',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'المستودع',
+                'employee_id' => 'الموظف',
             ],
         ],
     ],

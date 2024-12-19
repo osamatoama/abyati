@@ -62,6 +62,7 @@ return [
             'customer_url' => 'Customer URL',
             'with_tax' => 'Tax applied',
             'attached_at' => 'Attached at',
+            'consisted_products' => 'Consisted products',
         ],
 
         'statuses' => [
@@ -84,6 +85,7 @@ return [
         'messages' => [
             'required_at_least_one_status' => 'You should select at least one order status from filters to show quantity results',
             'no_variants' => 'No variants for this product',
+            'no_consisted_products' => 'No consisted products for this product group',
             'unlimited_quantity' => 'Unlimited',
         ],
 
@@ -537,6 +539,59 @@ return [
 
             'filters' => [
                 'warehouse_id' => 'Warehouse',
+            ],
+        ],
+
+        'products_with_multiple_shelves' => [
+            'title' => 'Products With Multiple Shelves',
+
+            'attributes' => [
+                'product_remote_id' => 'Salla ID',
+                'product_name' => 'Name',
+                'product_image' => 'Image',
+                'product_sku' => 'SKU',
+                'shelves' => 'Shelves',
+                'quantities' => 'Quantities',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'Warehouse',
+            ],
+        ],
+
+        'nearly_expired_products' => [
+            'title' => 'Nearly Expired Products',
+
+            'attributes' => [
+                'product_remote_id' => 'Salla ID',
+                'product_name' => 'Name',
+                'product_image' => 'Image',
+                'product_sku' => 'SKU',
+                'shelves' => 'Shelves',
+                'quantities' => 'Quantities',
+                'expiry_date' => 'Expiry Date',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'Warehouse',
+            ],
+        ],
+
+        'out_of_stock_products' => [
+            'title' => 'Out Of Stock Products',
+
+            'attributes' => [
+                'product_remote_id' => 'Salla ID',
+                'product_name' => 'Name',
+                'product_image' => 'Image',
+                'product_sku' => 'SKU',
+                'shelves' => 'Shelves',
+                'quantities' => 'Quantities',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'Warehouse',
+                'employee_id' => 'Employee',
             ],
         ],
     ],

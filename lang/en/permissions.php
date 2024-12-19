@@ -71,4 +71,12 @@ return [
         'title' => 'Products Without Shelves Report',
         'show' => 'Show',
     ],
+    'products_with_multiple_shelves_report' => [
+        'title' => 'Products With Multiple Shelves Report',
+        'show' => 'Show',
+    ],
+    'nearly_expired_products_report' => [
+        'title' => 'Nearly Expired Products Report',
+        'show' => 'Show',
+    ],
 ];

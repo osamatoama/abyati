@@ -40,6 +40,7 @@
                             <th>{{ __('employee.products.attributes.image') }}</th>
                             <th>{{ __('employee.products.attributes.name') }}</th>
                             <th>{{ __('employee.products.attributes.sku') }}</th>
+                            <th>{{ __('employee.products.attributes.remote_quantity') }}</th>
                             <th>{{ __('employee.products.attributes.attached_at') }}</th>
                             <th></th>
                         </tr>

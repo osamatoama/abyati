@@ -2,6 +2,7 @@
 
 use App\Models\Order;
 use App\Models\Shelf;
+use App\Models\Stocktaking;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
 /**
@@ -57,6 +58,22 @@ Breadcrumbs::for('employee.shelves.index', function ($trail) {
 Breadcrumbs::for('employee.shelves.show', function ($trail, Shelf $shelf) {
     $trail->parent('employee.shelves.index');
     $trail->push($shelf->name, route('employee.shelves.show', $shelf->id));
+});
+
+// Stocktakings
+Breadcrumbs::for('employee.stocktakings.index', function ($trail) {
+    $trail->parent('employee.home');
+    $trail->push(__('employee.stocktakings.title'), route('employee.stocktakings.index'));
+});
+
+Breadcrumbs::for('employee.stocktakings.show', function ($trail, Stocktaking $stocktaking) {
+    $trail->parent('employee.stocktakings.index');
+    $trail->push($stocktaking->id, route('employee.stocktakings.show', $stocktaking->id));
+});
+
+Breadcrumbs::for('employee.stocktakings.process', function ($trail, Stocktaking $stocktaking) {
+    $trail->parent('employee.stocktakings.index');
+    $trail->push($stocktaking->id . '#');
 });
 
 //Account

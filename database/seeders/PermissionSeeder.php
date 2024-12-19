@@ -25,6 +25,8 @@ class PermissionSeeder extends Seeder
             'employee_performance_report' => ['show'],
             'quantity_issues_report' => ['show'],
             'products_without_shelves_report' => ['show'],
+            'products_with_multiple_shelves_report' => ['show'],
+            'nearly_expired_products_report' => ['show'],
         ];
 
         $permissionNames = [];

@@ -15,11 +15,12 @@ class ProcessOrder extends Component
     #[On('order-item-completed')]
     public function render()
     {
-        $executedItems = $this->order->items->filter(fn ($item) => $item->isCompleted() && $item->issue_quantity > 0);
-        // $toExecuteItems = $this->order->items->filter(fn ($item) => ! $item->isCompleted() && ! $item->isQuantityIssues());
-        $quantityIssuesItems = $this->order->items->filter(fn ($item) => $item->isQuantityIssues());
+        // $executedItems = $this->order->items->filter(fn ($item) => $item->isCompleted() && $item->issue_quantity > 0);
+        // $quantityIssuesItems = $this->order->items->filter(fn ($item) => $item->isQuantityIssues());
 
-        // return view('livewire.support.orders.process-order', compact('executedItems', 'toExecuteItems', 'quantityIssuesItems',));
-        return view('livewire.support.orders.process-order', compact('executedItems', 'quantityIssuesItems',));
+        $executedItems = $this->order->decomposedItems->filter(fn ($item) => $item->isCompleted() && $item->issue_quantity > 0);
+        $quantityIssuesItems = $this->order->decomposedItems->filter(fn ($item) => $item->isQuantityIssues());
+
+        return view('livewire.support.orders.process-order', compact('executedItems', 'quantityIssuesItems'));
     }
 }

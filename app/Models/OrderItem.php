@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ProductType;
 use App\Models\Concerns\HasJson;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\OrderItemCompletionStatus;
@@ -146,6 +147,18 @@ class OrderItem extends Model
     /**
      * Scopes
      */
+    public function scopeRemote(Builder $query)
+    {
+        return $query->whereNotNull('remote_id');
+    }
+
+    public function scopeDecomposed(Builder $query)
+    {
+        return $query->whereHas('product', fn($q) =>
+            $q->where('type', '!=', ProductType::GROUP_PRODUCTS->value)
+        );
+    }
+
     public function scopePending(Builder $query)
     {
         return $query->where('completion_status', OrderItemCompletionStatus::PENDING);
@@ -231,5 +244,62 @@ class OrderItem extends Model
         $this->update([
             'completion_status' => OrderItemCompletionStatus::COMPLETED,
         ]);
+    }
+
+    public function manualComplete(): void
+    {
+        $this->update([
+            'executed_quantity' => $this->quantity,
+            'issue_quantity' => 0,
+            'completion_status' => OrderItemCompletionStatus::COMPLETED,
+        ]);
+    }
+
+    public function isPartOfProductGroup(): bool
+    {
+        return empty($this->remote_id);
+    }
+
+    public function getGroupProduct(): ?Product
+    {
+        if (! $this->isPartOfProductGroup()) {
+            return null;
+        }
+
+        $siblingsProductIds = $this->order->items
+            ->whereNotNull('remote_id')
+            ->pluck('product_id')
+            ->toArray();
+
+        return $this->product
+            ->partOfGroups()
+            ->whereIn('group_id', $siblingsProductIds)
+            ->first()
+            ?->group;
+    }
+
+    public function getGroupProductItem(): ?OrderItem
+    {
+        if (! $this->isPartOfProductGroup()) {
+            return null;
+        }
+
+        $siblingsProductIds = $this->order->items
+            ->whereNotNull('remote_id')
+            ->pluck('product_id')
+            ->toArray();
+
+        $groupProductId = $this->product
+            ->partOfGroups()
+            ->whereIn('group_id', $siblingsProductIds)
+            ->first();
+
+        if (! $groupProductId) {
+            return null;
+        }
+
+        return $this->order->items
+            ->where('product_id', $groupProductId->group_id)
+            ->first();
     }
 }
