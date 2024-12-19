@@ -17,6 +17,7 @@ Route::get('/', HomeController::class)->name('home');
 // Products
 Route::prefix('products')->as('products.')->group(function () {
     Route::get('select', [ProductController::class, 'select'])->name('select');
+    Route::get('{product}/barcode', [ProductController::class, 'barcode'])->name('barcode');
 });
 
 // Orders

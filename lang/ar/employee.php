@@ -374,6 +374,7 @@ return [
             'edit' => 'تعديل',
             'save_updates' => 'حفظ التعديلات',
             'has_issue' => 'يوجد مشكلة',
+            'print_barcode' => 'طباعة الباركود',
         ],
 
         'statuses' => [

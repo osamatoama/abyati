@@ -116,6 +116,7 @@
                                     <th class="fw-bold text-nowrap">{{ __('employee.products.attributes.barcode') }}</th>
                                     <th class="fw-bold text-nowrap">{{ __('employee.products.attributes.price') }}</th>
                                     <th class="fw-bold text-nowrap">{{ __('employee.products.attributes.quantity') }}</th>
+                                    <th></th>
                                 </thead>
 
                                 <tbody>

@@ -380,6 +380,7 @@ return [
             'edit' => 'Edit',
             'save_updates' => 'Save Updates',
             'has_issue' => 'Has Issue',
+            'print_barcode' => 'Print Barcode',
         ],
 
         'statuses' => [

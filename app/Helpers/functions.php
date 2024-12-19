@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
-use Milon\Barcode\Facades\DNS1DFacade;
+// use Milon\Barcode\Facades\DNS1DFacade;
 
 if (! function_exists('formatCurrency')) {
     function formatCurrency($amount, $currency = 'SAR')
@@ -352,26 +352,56 @@ if (! function_exists('settings')) {
     }
 }
 
-if (! function_exists('generateBarcode')) {
-    function generateBarcode($barcode)
+// if (! function_exists('generateBarcode')) {
+//     function generateBarcode($barcode)
+//     {
+//         return DNS1DFacade::getBarcodeSVG(code: $barcode, type: 'PHARMA2T', showCode: true);
+//     }
+// }
+
+if (! function_exists('generateHtmlBarcode')) {
+    function generateHtmlBarcode($barcode, $width = 200, $height = 30)
     {
-        return DNS1DFacade::getBarcodeSVG($barcode, 'PHARMA2T', 3, 33);
-        // $d = new DNS2D();
-        // $d->setStorPath(public_path('barcodes/'));
-        // $barcodeData = $d->getBarcodePNG($ticketNumber, "PDF417");
+        $barcode = (new Picqer\Barcode\Types\TypeCode128())->getBarcode($barcode);
 
-        // // Decode the base64 data and save it as a PNG file
-        // $image = base64_decode($barcodeData);
+        $renderer = new Picqer\Barcode\Renderers\HtmlRenderer();
 
-        // // Define the path to save the image
-        // $path = public_path('barcodes/'.$ticketNumber.'.png');
+        return $renderer->render(
+            barcode: $barcode,
+            width: $width,
+            height: $height,
+        );
+    }
+}
 
-        // // Ensure the directory exists
-        // if (!file_exists(dirname($path))) {
-        //     mkdir(dirname($path), 0755, true);
-        // }
+if (! function_exists('generateSvgBarcode')) {
+    function generateSvgBarcode($barcode, $inline = true, $width = 200, $height = 30)
+    {
+        $barcode = (new Picqer\Barcode\Types\TypeCode128())->getBarcode($barcode);
 
-        // // Save the image
-        // file_put_contents($path, $image);
+        $renderer = new Picqer\Barcode\Renderers\SvgRenderer();
+        $renderer->setSvgType($inline ? $renderer::TYPE_SVG_INLINE : $renderer::TYPE_SVG_STANDALONE);
+
+        return $renderer->render(
+            barcode: $barcode,
+            width: $width,
+            height: $height,
+        );
+    }
+}
+
+if (! function_exists('generatePngBarcode')) {
+    function generatePngBarcode($barcode, $width = 200, $height = 30)
+    {
+        $barcode = (new Picqer\Barcode\Types\TypeCode128())->getBarcode($barcode);
+
+        $renderer = new Picqer\Barcode\Renderers\PngRenderer();
+        $renderer->useGd();
+
+        return $renderer->render(
+            barcode: $barcode,
+            width: $width,
+            height: $height,
+        );
     }
 }

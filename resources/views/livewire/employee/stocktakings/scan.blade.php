@@ -96,6 +96,10 @@
                             <button class="btn btn-sm btn-primary" wire:click="$set('edit_mode', true)" wire:loading.attr="disabled">
                                 <i class="fas fa-pen-to-square"></i> {{ __('employee.stocktakings.actions.edit') }}
                             </button>
+
+                            <a href="{{ route('employee.products.barcode', $scanned_product->id) }}" target="_blank" class="btn btn-sm btn-info">
+                                <i class="fas fa-barcode"></i> {{ __('employee.stocktakings.actions.print_barcode') }}
+                            </a>
                         @endif
 
                         @if($edit_mode)
