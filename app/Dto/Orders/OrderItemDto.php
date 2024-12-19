@@ -2,6 +2,7 @@
 
 namespace App\Dto\Orders;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\OptionValue;
 use Illuminate\Support\Arr;
@@ -10,7 +11,7 @@ use App\Models\ProductVariant;
 final class OrderItemDto
 {
     public function __construct(
-        public string  $remoteId,
+        public ?string $remoteId,
         public int     $orderId,
         public int     $productId,
         public ?int    $variantId = null,
@@ -67,6 +68,19 @@ final class OrderItemDto
             name: $sallaOrderItem['name'] ?? null,
             quantity: $sallaOrderItem['quantity'] ?? 0,
             amounts: $sallaOrderItem['amounts'] ?? null,
+        );
+    }
+
+    public static function fromSallaDecomposedProductGroup(Order $order, array $sallaConsistedProduct, Product $consistedProduct, int $groupQuantity = 1): self
+    {
+        return new self(
+            remoteId: null,
+            orderId: $order->id,
+            productId: $consistedProduct->id,
+            variantId: null,
+            name: $consistedProduct->name,
+            quantity: $groupQuantity * ($sallaConsistedProduct['quantity_in_group'] ?? 0),
+            amounts: [],
         );
     }
 }

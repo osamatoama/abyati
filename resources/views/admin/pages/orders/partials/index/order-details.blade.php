@@ -104,7 +104,7 @@
                     </thead>
 
                     <tbody>
-                        @foreach($order->itemsWithTrashed as $item)
+                        @foreach($order->items as $item)
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center mb-1 p-1">

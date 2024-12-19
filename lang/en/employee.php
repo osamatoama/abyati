@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\StocktakingStatus;
+use App\Enums\StocktakingIssueType;
 use App\Enums\OrderCompletionStatus;
 
 return [
@@ -50,6 +52,7 @@ return [
             'variants' => 'Variants',
             'variant' => 'Variant',
             'quantity' => 'Quantity',
+            'remote_quantity' => 'Quantity in Salla',
             'show_only_bought_variants' => 'Show only bought variants',
             'included_order_statuses' => 'Included order statuses',
             'price' => 'price',
@@ -60,6 +63,7 @@ return [
             'customer_url' => 'Customer URL',
             'with_tax' => 'Tax applied',
             'attached_at' => 'Attached at',
+            'expiry_date' => 'Expiry Date',
         ],
 
         'statuses' => [
@@ -345,6 +349,82 @@ return [
             'should_have_no_relations' => 'You cannot perform this action, because this shelf has related products or stocktakings. Deactivate the shelf instead.',
             'invalid_barcode' => 'Invalid barcode',
             'product_already_attached' => 'Product already attached to the shelf',
+        ],
+    ],
+
+    'stocktakings' => [
+        'title' => 'Stocktakings',
+        'model' => 'Stocktaking',
+        'num_#' => 'Op :name',
+        'process_stocktaking_#' => 'Op #:id',
+
+        'attributes' => [
+            'id' => 'ID',
+            'employee' => 'Employee',
+            'shelf' => 'Shelf',
+            'warehouse' => 'Warehouse',
+            'status' => 'Status',
+            'started_at' => 'Started At',
+            'finished_at' => 'Finished At',
+            'products' => 'Products',
+            'products_count' => 'Products Count',
+            'issues' => 'Issues',
+            'issues_count' => 'Issues Count',
+        ],
+
+        'actions' => [
+            'create' => 'Stocktake',
+            'stocktake_shelf' => 'Stocktake Shelf',
+            'process' => 'Continue Stocktaking',
+            'confirm' => 'Confirm',
+            'edit' => 'Edit',
+            'save_updates' => 'Save Updates',
+            'has_issue' => 'Has Issue',
+        ],
+
+        'statuses' => [
+            StocktakingStatus::PENDING->value => 'Pending',
+            StocktakingStatus::COMPLETED->value => 'Completed',
+        ],
+
+        'process_statuses' => [
+            'pending' => 'Pending',
+            'confirmed' => 'Confirmed',
+            'has_issues' => 'Has Issues',
+        ],
+
+        'issues' => [
+            'select_issue' => 'Select Issue',
+
+            'attributes' => [
+                'product' => 'Product',
+                'type' => 'Issue Type',
+                'employee_note' => 'Employee Note',
+                'resolved' => 'Resolved',
+            ],
+
+            'types' => [
+                StocktakingIssueType::WRONG_SHELF->value => 'Wrong Shelf',
+                // StocktakingIssueType::NO_SHELF->value => '',
+                StocktakingIssueType::WRONG_PRICE->value => 'Wrong Price',
+                StocktakingIssueType::WRONG_QUANTITY->value => 'Wrong Quantity',
+                StocktakingIssueType::WRONG_BARCODE->value => 'Wrong Barcode',
+                StocktakingIssueType::MISSING_FROM_SALLA->value => 'Missing From Salla',
+                StocktakingIssueType::OTHER->value => 'Other',
+            ],
+        ],
+
+        'messages' => [
+            'product_updated' => 'Product info updated successfully',
+        ],
+
+        'alerts' => [
+            'update_product' => 'Product info will be updated in Salla and the platform',
+        ],
+
+        'errors' => [
+            'invalid_barcode' => 'Invalid barcode',
+            'product_already_stocktaken' => 'Product already stocktaken',
         ],
     ],
 ];

@@ -3,15 +3,16 @@
 namespace App\Jobs\Salla\Pull\OrderItems;
 
 use Exception;
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use App\Dto\Orders\OrderItemDto;
 use Illuminate\Queue\SerializesModels;
+use App\Jobs\Concerns\HandleExceptions;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Services\Orders\OrderItemService;
 use App\Jobs\Concerns\InteractsWithBatches;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Jobs\Concerns\HandleExceptions;
 use App\Services\Salla\Merchant\SallaMerchantService;
 use App\Services\Salla\Merchant\SallaMerchantException;
 
@@ -25,6 +26,7 @@ class PullOrderItemsJob implements ShouldQueue
     public function __construct(
         public readonly string $accessToken,
         public readonly int $storeId,
+        public readonly Order $order,
         public readonly array $data,
     ) {
         $this->maxAttempts = 5;
@@ -59,12 +61,17 @@ class PullOrderItemsJob implements ShouldQueue
         try {
             foreach ($response['data'] ?? [] as $item) {
                 OrderItemService::instance()
-                    ->updateOrCreate(
-                        orderItemDto: OrderItemDto::fromSalla(
-                            sallaOrderItem: $item,
-                            orderId: $this->data['order_id'],
-                        ),
+                    ->saveSallaOrderItem(
+                        order: $this->order,
+                        sallaOrderItem: $item,
+                        storeId: $this->storeId,
                     );
+                    // ->updateOrCreate(
+                    //     orderItemDto: OrderItemDto::fromSalla(
+                    //         sallaOrderItem: $item,
+                    //         orderId: $this->data['order_id'],
+                    //     ),
+                    // );
             }
         } catch (Exception $exception) {
             $this->handleException(

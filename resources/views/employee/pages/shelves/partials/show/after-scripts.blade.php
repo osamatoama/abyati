@@ -6,9 +6,10 @@
         {data: 'image', name: 'image', orderable: false, searchable: false},
         {data: 'name', name: 'name', orderable: false, searchable: true},
         {data: 'sku', name: 'sku', orderable: false, searchable: true},
+        {data: 'quantity', name: 'quantity', orderable: true, searchable: false},
         {data: 'attached_at', name: 'attached_at', orderable: true, searchable: true},
         {data: 'action', name: 'action', orderable: false, searchable: false},
-    ], $('#shelf-products-table').data('url'), '#shelf-products-table', [[6, 'desc']], {
+    ], $('#shelf-products-table').data('url'), '#shelf-products-table', [[7, 'desc']], {
         buttons: [],
         createdRow: function (row, data, dataIndex) {
             $(row).addClass('product-row cursor-pointer')

@@ -31,9 +31,12 @@ class ShelfProductsIndex extends Datatable
                     ->where('product_shelf.shelf_id', $this->shelf->id)
                     ->limit(1),
             ])
-            ->whereHas('shelves', function ($query) {
-                $query->where('shelves.id', $this->shelf->id);
-            });
+            ->whereHas('shelves', fn ($query) =>
+                $query->where('shelves.id', $this->shelf->id)
+            )
+            ->with([
+                'quantities' => fn($q) => $q->where('branch_id', $this->shelf->branch_id),
+            ]);
     }
 
     /**
@@ -78,6 +81,9 @@ class ShelfProductsIndex extends Datatable
             },
             'sku' => function (Product $product) {
                 return view('employee.pages.shelves.partials.show.cols.sku', compact('product'));
+            },
+            'quantity' => function (Product $product) {
+                return view('employee.pages.shelves.partials.show.cols.quantity', compact('product'));
             },
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ProductType;
 use App\Models\Concerns\Filterable;
 use App\Models\Filters\ProductFilter;
 use App\Models\Concerns\BelongsToStore;
@@ -26,6 +27,7 @@ class Product extends Model
         'store_id',
         'name',
         'sku',
+        'type',
         'main_image',
         'status',
         'quantity',
@@ -98,5 +100,23 @@ class Product extends Model
     public function quantities(): HasMany
     {
         return $this->hasMany(ProductQuantity::class);
+    }
+
+    public function groupItems()
+    {
+        return $this->hasMany(ProductGroup::class, 'group_id');
+    }
+
+    public function partOfGroups()
+    {
+        return $this->hasMany(ProductGroup::class, 'product_id');
+    }
+
+    /**
+     * Methods
+     */
+    public function isGroup()
+    {
+        return $this->type === ProductType::GROUP_PRODUCTS->value;
     }
 }

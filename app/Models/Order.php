@@ -85,10 +85,9 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    public function itemsWithTrashed(): HasMany
+    public function decomposedItems(): HasMany
     {
-        return $this->hasMany(OrderItem::class)
-            ->withTrashed();
+        return $this->hasMany(OrderItem::class)->decomposed();
     }
 
     public function executions(): HasMany

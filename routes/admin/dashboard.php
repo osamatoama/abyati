@@ -15,8 +15,11 @@ use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\Reports\ReportController;
 use App\Http\Controllers\Admin\Reports\QuantityIssuesReportController;
+use App\Http\Controllers\Admin\Reports\OutOfStockProductsReportController;
 use App\Http\Controllers\Admin\Reports\EmployeePerformanceReportController;
+use App\Http\Controllers\Admin\Reports\NearlyExpiredProductsReportController;
 use App\Http\Controllers\Admin\Reports\ProductsWithoutShelvesReportController;
+use App\Http\Controllers\Admin\Reports\ProductsWithMultipleShelvesReportController;
 
 // use App\Http\Controllers\Admin\SettingController;
 // use App\Http\Controllers\Admin\Settings\DomainSettingController;
@@ -104,6 +107,12 @@ Route::prefix('reports')->as('reports.')->group(function () {
     Route::get('quantity-issues', [QuantityIssuesReportController::class, 'index'])->name('quantity-issues.index');
 
     Route::get('products-without-shelves', [ProductsWithoutShelvesReportController::class, 'index'])->name('products-without-shelves.index');
+
+    Route::get('products-with-multiple-shelves', [ProductsWithMultipleShelvesReportController::class, 'index'])->name('products-with-multiple-shelves.index');
+
+    Route::get('nearly-expired-products', [NearlyExpiredProductsReportController::class, 'index'])->name('nearly-expired-products.index');
+
+    Route::get('out-of-stock-products', [OutOfStockProductsReportController::class, 'index'])->name('out-of-stock-products.index');
 });
 
 Route::prefix('settings')->as('settings.')->group(function () {

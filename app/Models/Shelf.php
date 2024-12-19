@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\StocktakingStatus;
 use App\Observers\ShelfObserver;
 use App\Models\Concerns\Filterable;
 use App\Models\Filters\ShelfFilter;
@@ -67,6 +68,11 @@ class Shelf extends Model
             ->withTimestamps();
     }
 
+    public function stocktakings()
+    {
+        return $this->hasMany(Stocktaking::class);
+    }
+
     /**
      * Scopes
      */
@@ -85,5 +91,15 @@ class Shelf extends Model
         return Attribute::make(
             get: fn() => filled($this->description) ? $this->description : $this->name,
         );
+    }
+
+    /**
+     * Methods
+     */
+    public function hasPendingStocktaking(): bool
+    {
+        return $this->stocktakings()
+            ->where('status', StocktakingStatus::PENDING->value)
+            ->exists();
     }
 }

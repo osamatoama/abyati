@@ -76,12 +76,24 @@
                                                 <td>
                                                     <img src="{{ $product->main_image }}" alt="{{ $product->name }}" class="img-fluid" style="max-width: 50px;">
                                                 </td>
-                                                <td>{{ $product->name }}</td>
                                                 <td>
+                                                    <div class="d-flex flex-column gap-2 align-items-center">
+                                                        @forelse ($item->product->shelves as $shelf)
+                                                            <span class="badge badge-secondary">{{ $shelf->descriptive_name }}</span>
+                                                        @empty
+                                                            ---
+                                                        @endforelse
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="product-name">
+                                                        {{ $product->name }}
+                                                    </div>
+
                                                     @if($variant?->optionValues?->isNotEmpty())
-                                                        {{ $variant->optionValues->map(fn($optionValue) => $optionValue->option->name . ': ' . $optionValue->name)->implode(' - ') }}
-                                                    @else
-                                                        ---
+                                                        <div class="product-variant">
+                                                            {{ $variant->optionValues->map(fn($optionValue) => $optionValue->option->name . ': ' . $optionValue->name)->implode(' - ') }}
+                                                        </div>
                                                     @endif
                                                 </td>
                                                 <td colspan="3">
