@@ -3,8 +3,8 @@
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Store;
-use App\Models\Support;
 use App\Models\Setting;
+use App\Models\Support;
 use App\Models\Employee;
 use App\Models\OrderItem;
 use Illuminate\Support\Arr;
@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Milon\Barcode\Facades\DNS1DFacade;
 
 if (! function_exists('formatCurrency')) {
     function formatCurrency($amount, $currency = 'SAR')
@@ -348,5 +349,29 @@ if (! function_exists('settings')) {
         );
 
         return $settings;
+    }
+}
+
+if (! function_exists('generateBarcode')) {
+    function generateBarcode($barcode)
+    {
+        return DNS1DFacade::getBarcodeSVG($barcode, 'PHARMA2T', 3, 33);
+        // $d = new DNS2D();
+        // $d->setStorPath(public_path('barcodes/'));
+        // $barcodeData = $d->getBarcodePNG($ticketNumber, "PDF417");
+
+        // // Decode the base64 data and save it as a PNG file
+        // $image = base64_decode($barcodeData);
+
+        // // Define the path to save the image
+        // $path = public_path('barcodes/'.$ticketNumber.'.png');
+
+        // // Ensure the directory exists
+        // if (!file_exists(dirname($path))) {
+        //     mkdir(dirname($path), 0755, true);
+        // }
+
+        // // Save the image
+        // file_put_contents($path, $image);
     }
 }
