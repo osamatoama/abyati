@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Stocktaking;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Locked;
+use Illuminate\Support\Facades\DB;
 use App\Enums\StocktakingIssueType;
 use Illuminate\Support\Facades\Validator;
 use App\Services\Stocktakings\ConfirmProduct;
@@ -211,6 +212,37 @@ class Scan extends Component
         ]);
 
         $this->resetErrorBag();
+
+        $this->reset(
+            'scanned_barcode',
+            'scanned_product',
+            'scanned_product_quantity',
+            'scanned_product_expiry_date',
+            'has_issue',
+            'edit_mode',
+            'barcode_not_exists',
+            'barcode_not_in_shelf',
+        );
+    }
+
+    public function attachToShelf()
+    {
+        $product = Product::where('sku', $this->scanned_barcode)->first();
+
+        if (! $product) {
+            return;
+        }
+
+        $this->resetErrorBag();
+
+        DB::transaction(function () use ($product) {
+            $this->stocktaking->shelf->products()->syncWithoutDetaching($product->id);
+            $this->stocktaking->products()->syncWithoutDetaching($product->id);
+        });
+
+        $this->dispatch('product-attached-to-shelf', [
+            'product_id' => $product->id,
+        ]);
 
         $this->reset(
             'scanned_barcode',

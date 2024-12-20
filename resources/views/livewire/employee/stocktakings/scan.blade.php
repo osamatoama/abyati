@@ -18,7 +18,6 @@
             </div>
         </form>
 
-
         <div class="row product-image-wrapper mb-3 mb-md-5">
             @if($scanned_product)
                 <div class="col-6">
@@ -119,6 +118,12 @@
                     @if(! $scanned_product && $barcode_not_exists)
                         <button  class="btn btn-sm btn-warning" wire:click="transferNotExistsToSupport" wire:loading.attr="disabled">
                             <i class="fas fa-reply"></i> {{ __('employee.stocktakings.actions.transfer_to_support') }}
+                        </button>
+                    @endif
+
+                    @if($barcode_not_in_shelf)
+                        <button  class="btn btn-sm btn-success" wire:click="attachToShelf" wire:loading.attr="disabled">
+                            <i class="fas fa-plus"></i> {{ __('employee.stocktakings.actions.attach_to_shelf') }}
                         </button>
                     @endif
 

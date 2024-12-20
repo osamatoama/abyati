@@ -2,11 +2,11 @@
 
 namespace App\Livewire\Employee\Stocktakings;
 
-use App\Enums\StocktakingIssueType;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Models\Stocktaking;
 use Livewire\Attributes\Locked;
+use App\Enums\StocktakingIssueType;
 
 class ProcessStocktaking extends Component
 {
@@ -15,6 +15,7 @@ class ProcessStocktaking extends Component
 
     #[On('product-confirmed')]
     #[On('product-transferred-to-support')]
+    #[On('product-attached-to-shelf')]
     public function render()
     {
         $pendingProducts = $this->stocktaking->products->filter(fn ($product) => $product->pivot->confirmed == false && $product->pivot->has_issue == false);

@@ -382,6 +382,7 @@ return [
             'has_issue' => 'Has Issue',
             'print_barcode' => 'Print Barcode',
             'transfer_to_support' => 'Transfer to support',
+            'attach_to_shelf' => 'Attach to Shelf',
         ],
 
         'statuses' => [

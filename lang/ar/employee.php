@@ -376,6 +376,7 @@ return [
             'has_issue' => 'يوجد مشكلة',
             'print_barcode' => 'طباعة الباركود',
             'transfer_to_support' => 'تحويل للدعم',
+            'attach_to_shelf' => 'إضافة للرف',
         ],
 
         'statuses' => [
