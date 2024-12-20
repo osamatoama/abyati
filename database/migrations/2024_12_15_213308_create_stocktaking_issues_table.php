@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('stocktaking_id')->constrained();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->nullable()->constrained();
             $table->string('type');
             $table->text('employee_note')->nullable();
             $table->boolean('resolved')->default(false);

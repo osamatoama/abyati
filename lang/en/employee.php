@@ -380,6 +380,9 @@ return [
             'edit' => 'Edit',
             'save_updates' => 'Save Updates',
             'has_issue' => 'Has Issue',
+            'print_barcode' => 'Print Barcode',
+            'transfer_to_support' => 'Transfer to support',
+            'attach_to_shelf' => 'Attach to Shelf',
         ],
 
         'statuses' => [
@@ -391,6 +394,7 @@ return [
             'pending' => 'Pending',
             'confirmed' => 'Confirmed',
             'has_issues' => 'Has Issues',
+            'missing_barcodes' => 'Missing barcodes from store',
         ],
 
         'issues' => [
@@ -423,6 +427,8 @@ return [
         ],
 
         'errors' => [
+            'barcode_not_exists' => 'Barcode not exists in the store',
+            'barcode_not_exists_in_shelf' => 'Barcode not exists in this shelf',
             'invalid_barcode' => 'Invalid barcode',
             'product_already_stocktaken' => 'Product already stocktaken',
         ],
