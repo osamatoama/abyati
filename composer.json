@@ -11,6 +11,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "maatwebsite/excel": "^3.1",
+        "picqer/php-barcode-generator": "^3.2",
         "pusher/pusher-php-server": "^7.2",
         "salla/ouath2-merchant": "^2.0",
         "spatie/laravel-backup": "^9.0",

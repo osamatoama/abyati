@@ -28,4 +28,22 @@ class ProductController extends Controller
             'data'    => $products,
         ], 200);
     }
+
+    public function barcode(Product $product)
+    {
+        // return generateSvgBarcode(
+        //     barcode: $product->sku,
+        //     inline: false,
+        //     width: 200,
+        //     height: 100,
+        // );
+
+        $barcodePng = generatePngBarcode(
+            barcode: $product->sku,
+            width: 200,
+            height: 100,
+        );
+
+        return response($barcodePng)->header('Content-Type', 'image/png');
+    }
 }
