@@ -45,6 +45,12 @@ class OutOfStockProductsIndex extends Datatable
                 $q->when(request('warehouse_id'), fn ($q) =>
                         $q->where('warehouse_id', request('warehouse_id'))
                     )
+                    ->when(request('aisle'), fn ($q) =>
+                        $q->where('aisle', request('aisle'))
+                    )
+                    ->when(request('shelf_id'), fn ($q) =>
+                        $q->where('shelves.id', request('shelf_id'))
+                    )
                     ->when(request('employee_id'), fn ($q) =>
                         $q->whereHas('employees', fn ($q) =>
                             $q->where('employees.id', request('employee_id'))
