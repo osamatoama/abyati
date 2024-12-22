@@ -592,6 +592,8 @@ return [
             'filters' => [
                 'warehouse_id' => 'Warehouse',
                 'employee_id' => 'Employee',
+                'aisle' => 'Aisle',
+                'shelf' => 'Shelf',
             ],
         ],
     ],

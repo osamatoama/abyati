@@ -135,7 +135,7 @@
     axios.defaults.headers.common['X-CSRF-Token'] = $('meta[name="_token"]').attr('content')
 </script>
 <script src="{{ assetCustom('assets/main.js') }}?version=1.0.34"></script>
-<script src="{{ assetCustom('assets/helpers.js') }}?version=1.0.35"></script>
+<script src="{{ assetCustom('assets/helpers.js') }}?version=1.0.36"></script>
 
 @include('employee.layouts.partials.notifications')
 

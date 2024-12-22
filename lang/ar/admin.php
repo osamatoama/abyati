@@ -592,6 +592,8 @@ return [
             'filters' => [
                 'warehouse_id' => 'المستودع',
                 'employee_id' => 'الموظف',
+                'aisle' => 'الممر',
+                'shelf' => 'الرف',
             ],
         ],
     ],
