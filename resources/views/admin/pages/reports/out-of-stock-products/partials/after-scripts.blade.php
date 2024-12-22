@@ -10,10 +10,17 @@
         '#results-table',
         [[0, 'desc']],
         {
-            buttons: [],
+            buttons: [
+                {
+                    text: '---',
+                    className: 'results-table-custom-count btn-sm disabled',
+                },
+            ],
             drawCallback: function(settings) {
                 enableTooltips()
-            },
+                const totalRows = this.api().page.info().recordsTotal
+                $('.results-table-custom-count').text(`${totalRows} ` + ' ' + getTranslation('product'))
+            }
         }
     );
 

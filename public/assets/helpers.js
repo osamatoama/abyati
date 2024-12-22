@@ -228,5 +228,9 @@ const helpers = {
             en: "Back to menu",
             ar: "العودة للقائمة",
         },
+        product: {
+            en: "product",
+            ar: "منتج",
+        },
     },
 }
