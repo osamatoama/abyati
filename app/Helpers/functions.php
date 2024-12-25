@@ -3,8 +3,8 @@
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Store;
-use App\Models\Support;
 use App\Models\Setting;
+use App\Models\Support;
 use App\Models\Employee;
 use App\Models\OrderItem;
 use Illuminate\Support\Arr;
@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+// use Milon\Barcode\Facades\DNS1DFacade;
 
 if (! function_exists('formatCurrency')) {
     function formatCurrency($amount, $currency = 'SAR')
@@ -348,5 +349,59 @@ if (! function_exists('settings')) {
         );
 
         return $settings;
+    }
+}
+
+// if (! function_exists('generateBarcode')) {
+//     function generateBarcode($barcode)
+//     {
+//         return DNS1DFacade::getBarcodeSVG(code: $barcode, type: 'PHARMA2T', showCode: true);
+//     }
+// }
+
+if (! function_exists('generateHtmlBarcode')) {
+    function generateHtmlBarcode($barcode, $width = 200, $height = 30)
+    {
+        $barcode = (new Picqer\Barcode\Types\TypeCode128())->getBarcode($barcode);
+
+        $renderer = new Picqer\Barcode\Renderers\HtmlRenderer();
+
+        return $renderer->render(
+            barcode: $barcode,
+            width: $width,
+            height: $height,
+        );
+    }
+}
+
+if (! function_exists('generateSvgBarcode')) {
+    function generateSvgBarcode($barcode, $inline = true, $width = 200, $height = 30)
+    {
+        $barcode = (new Picqer\Barcode\Types\TypeCode128())->getBarcode($barcode);
+
+        $renderer = new Picqer\Barcode\Renderers\SvgRenderer();
+        $renderer->setSvgType($inline ? $renderer::TYPE_SVG_INLINE : $renderer::TYPE_SVG_STANDALONE);
+
+        return $renderer->render(
+            barcode: $barcode,
+            width: $width,
+            height: $height,
+        );
+    }
+}
+
+if (! function_exists('generatePngBarcode')) {
+    function generatePngBarcode($barcode, $width = 200, $height = 30)
+    {
+        $barcode = (new Picqer\Barcode\Types\TypeCode128())->getBarcode($barcode);
+
+        $renderer = new Picqer\Barcode\Renderers\PngRenderer();
+        $renderer->useGd();
+
+        return $renderer->render(
+            barcode: $barcode,
+            width: $width,
+            height: $height,
+        );
     }
 }

@@ -2,15 +2,16 @@
 
 namespace App\Livewire\Employee\Stocktakings;
 
-use App\Models\Shelf;
-use App\Models\Branch;
 use App\Models\Product;
 use Livewire\Component;
-use App\Models\Warehouse;
 use App\Models\Stocktaking;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Locked;
+use Illuminate\Support\Facades\DB;
+use App\Enums\StocktakingIssueType;
+use Illuminate\Support\Facades\Validator;
 use App\Services\Stocktakings\ConfirmProduct;
+use Illuminate\Validation\ValidationException;
 use App\Services\Products\Actions\UpdateProductQuantity;
 use App\Services\Products\Actions\UpdateProductExpiryDate;
 
@@ -37,12 +38,12 @@ class Scan extends Component
 
     public bool $has_issue = false;
 
+    public bool $barcode_not_exists = false;
+
+    public bool $barcode_not_in_shelf = false;
+
     public function boot()
     {
-        // $this->shelf = $this->stocktaking->shelf;
-        // $this->warehouse = $this->shelf->warehouse;
-        // $this->branch = $this->warehouse->branch;
-
         $this->withValidator(function ($validator) {
             if ($validator->fails()) {
                 $this->dispatch('scan-error');
@@ -71,11 +72,32 @@ class Scan extends Component
             'scanned_product_expiry_date',
             'has_issue',
             'edit_mode',
+            'barcode_not_exists',
+            'barcode_not_in_shelf',
         );
 
         $this->resetErrorBag();
 
-        $this->validate();
+        $validator = Validator::make(
+            data: $this->all(),
+            rules: $this->rules(),
+            messages: $this->messages(),
+            attributes: $this->validationAttributes(),
+        );
+
+        if ($validator->fails()) {
+            $failed = $validator->failed();
+
+            if (isset($failed['scanned_barcode']['Exists'])) {
+                $this->barcode_not_exists = true;
+            }
+
+            if (isset($failed['scanned_barcode']['In'])) {
+                $this->barcode_not_in_shelf = true;
+            }
+
+            throw ValidationException::withMessages($validator->errors()->toArray());
+        }
 
         $product = $this->stocktaking
             ->shelf
@@ -112,6 +134,8 @@ class Scan extends Component
             'scanned_product_expiry_date',
             'has_issue',
             'edit_mode',
+            'barcode_not_exists',
+            'barcode_not_in_shelf',
         );
 
         $this->dispatch('product-confirmed', [
@@ -174,6 +198,64 @@ class Scan extends Component
         ]);
     }
 
+    public function transferNotExistsToSupport()
+    {
+        $this->stocktaking->issues()->create([
+            'type' => StocktakingIssueType::MISSING_FROM_SALLA->value,
+            'data' => [
+                'barcode' => $this->scanned_barcode,
+            ],
+        ]);
+
+        $this->dispatch('product-transferred-to-support', [
+            'barcode' => $this->scanned_barcode,
+        ]);
+
+        $this->resetErrorBag();
+
+        $this->reset(
+            'scanned_barcode',
+            'scanned_product',
+            'scanned_product_quantity',
+            'scanned_product_expiry_date',
+            'has_issue',
+            'edit_mode',
+            'barcode_not_exists',
+            'barcode_not_in_shelf',
+        );
+    }
+
+    public function attachToShelf()
+    {
+        $product = Product::where('sku', $this->scanned_barcode)->first();
+
+        if (! $product) {
+            return;
+        }
+
+        $this->resetErrorBag();
+
+        DB::transaction(function () use ($product) {
+            $this->stocktaking->shelf->products()->syncWithoutDetaching($product->id);
+            $this->stocktaking->products()->syncWithoutDetaching($product->id);
+        });
+
+        $this->dispatch('product-attached-to-shelf', [
+            'product_id' => $product->id,
+        ]);
+
+        $this->reset(
+            'scanned_barcode',
+            'scanned_product',
+            'scanned_product_quantity',
+            'scanned_product_expiry_date',
+            'has_issue',
+            'edit_mode',
+            'barcode_not_exists',
+            'barcode_not_in_shelf',
+        );
+    }
+
     private function getAvailableBarcodesToScan(): array
     {
         return $this->stocktaking
@@ -187,7 +269,9 @@ class Scan extends Component
     {
         return [
             'scanned_barcode' => [
+                'bail',
                 'required',
+                Rule::exists('products', 'sku'),
                 Rule::in($this->getAvailableBarcodesToScan()),
             ],
         ];
@@ -203,7 +287,8 @@ class Scan extends Component
     protected function messages()
     {
         return [
-            'scanned_barcode.in' => __('employee.stocktakings.errors.invalid_barcode'),
+            'scanned_barcode.exists' => __('employee.stocktakings.errors.barcode_not_exists'),
+            'scanned_barcode.in' => __('employee.stocktakings.errors.barcode_not_exists_in_shelf'),
         ];
     }
 }

@@ -18,13 +18,15 @@
             </div>
         </form>
 
-        @if($scanned_product)
-            <div class="row product-image-wrapper mb-3 mb-md-5">
+        <div class="row product-image-wrapper mb-3 mb-md-5">
+            @if($scanned_product)
                 <div class="col-6">
                     <img src="{{ $scanned_product->main_image }}" class="img-fluid">
                 </div>
+            @endif
 
-                <div class="col-6">
+            <div class="col-6">
+                @if($scanned_product)
                     <div>
                         <div class="product-name">
                             {{ $scanned_product->name }}
@@ -86,51 +88,51 @@
                             </ul>
                         </div>
                     @endif
+                @endif
 
-                    <div class="scan-actions">
-                        @if(! $edit_mode)
-                            <button class="btn btn-sm btn-success" wire:click="confirm" wire:loading.attr="disabled">
-                                <i class="fas fa-circle-check"></i> {{ __('employee.stocktakings.actions.confirm') }}
-                            </button>
+                <div class="scan-actions">
+                    @if($scanned_product && ! $edit_mode)
+                        <button class="btn btn-sm btn-success" wire:click="confirm" wire:loading.attr="disabled">
+                            <i class="fas fa-circle-check"></i> {{ __('employee.stocktakings.actions.confirm') }}
+                        </button>
 
-                            <button class="btn btn-sm btn-primary" wire:click="$set('edit_mode', true)" wire:loading.attr="disabled">
-                                <i class="fas fa-pen-to-square"></i> {{ __('employee.stocktakings.actions.edit') }}
-                            </button>
-                        @endif
+                        <button class="btn btn-sm btn-primary" wire:click="$set('edit_mode', true)" wire:loading.attr="disabled">
+                            <i class="fas fa-pen-to-square"></i> {{ __('employee.stocktakings.actions.edit') }}
+                        </button>
 
-                        @if($edit_mode)
-                            <button id="save-product-update-btn" class="btn btn-sm btn-success" wire:loading.attr="disabled">
-                                <i class="fas fa-circle-check"></i> {{ __('employee.stocktakings.actions.save_updates') }}
-                            </button>
+                        <a href="{{ route('employee.products.barcode', $scanned_product->id) }}" target="_blank" class="btn btn-sm btn-info">
+                            <i class="fas fa-barcode"></i> {{ __('employee.stocktakings.actions.print_barcode') }}
+                        </a>
+                    @endif
 
-                            <button class="btn btn-sm btn-danger" wire:click="$set('edit_mode', false)" wire:loading.attr="disabled">
-                                <i class="fas fa-ban"></i> {{ __('globals.discard') }}
-                            </button>
-                        @endif
+                    @if($scanned_product && $edit_mode)
+                        <button id="save-product-update-btn" class="btn btn-sm btn-success" wire:loading.attr="disabled">
+                            <i class="fas fa-circle-check"></i> {{ __('employee.stocktakings.actions.save_updates') }}
+                        </button>
 
-                        {{-- <button class="btn btn-sm btn-danger" wire:click="hasIssue" wire:loading.attr="disabled">
-                            <i class="fas fa-exclamation-triangle"></i> {{ __('employee.stocktakings.actions.has_issue') }}
-                        </button> --}}
-                    </div>
+                        <button class="btn btn-sm btn-danger" wire:click="$set('edit_mode', false)" wire:loading.attr="disabled">
+                            <i class="fas fa-ban"></i> {{ __('globals.discard') }}
+                        </button>
+                    @endif
 
-                    {{-- @if($has_issue)
-                        <div>
-                            <div>
-                                <select class="form-control" data-control="select2" data-placeholder="{{ __('employee.stocktakings.issues.select_issue') }}">
-                                    <option value="">{{ __('employee.stocktakings.issues.select_issue') }}</option>
+                    @if(! $scanned_product && $barcode_not_exists)
+                        <button  class="btn btn-sm btn-warning" wire:click="transferNotExistsToSupport" wire:loading.attr="disabled">
+                            <i class="fas fa-reply"></i> {{ __('employee.stocktakings.actions.transfer_to_support') }}
+                        </button>
+                    @endif
 
-                                    @foreach(\App\Enums\StocktakingIssueType::toSelectArray() as $issueKey => $issueValue)
-                                        <option value="{{ $issueKey }}">{{ $issueValue }}</option>
-                                    @endforeach
-                                </select>
+                    @if($barcode_not_in_shelf)
+                        <button  class="btn btn-sm btn-success" wire:click="attachToShelf" wire:loading.attr="disabled">
+                            <i class="fas fa-plus"></i> {{ __('employee.stocktakings.actions.attach_to_shelf') }}
+                        </button>
+                    @endif
 
-                                <span id="edit-form-roles-error" class="form-input-error text-danger d-none"></span>
-                            </div>
-                        </div>
-                    @endif --}}
+                    {{-- <button class="btn btn-sm btn-danger" wire:click="hasIssue" wire:loading.attr="disabled">
+                        <i class="fas fa-exclamation-triangle"></i> {{ __('employee.stocktakings.actions.has_issue') }}
+                    </button> --}}
                 </div>
             </div>
-        @endif
+        </div>
 
         {{-- <div class="d-flex justify-content-end"> --}}
         <div class="d-none justify-content-end">

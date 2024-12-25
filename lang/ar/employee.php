@@ -374,6 +374,9 @@ return [
             'edit' => 'تعديل',
             'save_updates' => 'حفظ التعديلات',
             'has_issue' => 'يوجد مشكلة',
+            'print_barcode' => 'طباعة الباركود',
+            'transfer_to_support' => 'تحويل للدعم',
+            'attach_to_shelf' => 'إضافة للرف',
         ],
 
         'statuses' => [
@@ -385,6 +388,7 @@ return [
             'pending' => 'قيد التأكيد',
             'confirmed' => 'تم التأكيد',
             'has_issues' => 'يوجد مشاكل',
+            'missing_barcodes' => 'باركودات غير موجودة في المتجر',
         ],
 
         'issues' => [
@@ -417,6 +421,8 @@ return [
         ],
 
         'errors' => [
+            'barcode_not_exists' => 'الباركود غير موجود في المتجر',
+            'barcode_not_exists_in_shelf' => 'الباركود غير موجود في هذا الرف',
             'invalid_barcode' => 'الباركود غير صحيح',
             'product_already_stocktaken' => 'المنتج تم جرده بالفعل',
         ],

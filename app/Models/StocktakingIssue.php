@@ -21,12 +21,14 @@ class StocktakingIssue extends Model
         'type',
         'employee_note',
         'resolved',
+        'data',
     ];
 
     protected function casts(): array
     {
         return [
             'resolved' => 'boolean',
+            'data' => 'array',
         ];
     }
 
