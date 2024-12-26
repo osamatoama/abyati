@@ -9,9 +9,9 @@ class EmployeeSecretLoginController extends Controller
 {
     public function __invoke(Employee $employee)
     {
-        if (config('app.staging') !== 'testing') {
-            abort(404);
-        }
+        // if (config('app.staging') !== 'testing') {
+        //     abort(404);
+        // }
 
         auth('web')->logout();
         auth('employee')->logout();

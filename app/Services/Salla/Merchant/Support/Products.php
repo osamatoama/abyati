@@ -73,9 +73,9 @@ final class Products implements Support
             data: [
                 'products' => [
                     array_merge($data, [
-                    'identifer-type' => 'id',
-                    'identifer' => $id,
-                    'mode' => 'overwrite',
+                        'identifer-type' => 'id',
+                        'identifer' => $id,
+                        'mode' => 'overwrite',
                     ]),
                 ],
             ],
