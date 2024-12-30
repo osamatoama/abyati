@@ -71,11 +71,13 @@ final class Products implements Support
         return $this->client->post(
             url: "{$this->service->baseUrl}/products/quantities/bulk",
             data: [
-                array_merge($data, [
-                    'identifer-type' => 'id',
-                    'identifer' => $id,
-                    'mode' => 'overwrite',
-                ]),
+                'products' => [
+                    array_merge($data, [
+                        'identifer-type' => 'id',
+                        'identifer' => $id,
+                        'mode' => 'overwrite',
+                    ]),
+                ],
             ],
         );
     }

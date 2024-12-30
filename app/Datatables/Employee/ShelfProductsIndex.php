@@ -35,7 +35,7 @@ class ShelfProductsIndex extends Datatable
                 $query->where('shelves.id', $this->shelf->id)
             )
             ->with([
-                'quantities' => fn($q) => $q->where('branch_id', $this->shelf->branch_id),
+                'quantities' => fn($q) => $q->where('branch_id', $this->shelf->warehouse->branch_id),
             ]);
     }
 
