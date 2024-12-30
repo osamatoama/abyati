@@ -11,6 +11,8 @@ use App\Services\Products\ProductService;
 use App\Jobs\Concerns\InteractsWithBatches;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\Services\Salla\Merchant\SallaMerchantService;
+use App\Services\Salla\Merchant\SallaMerchantException;
 
 class PullProductJob implements ShouldQueue
 {
@@ -22,7 +24,8 @@ class PullProductJob implements ShouldQueue
     public function __construct(
         public readonly string $accessToken,
         public readonly int $storeId,
-        public readonly array $data,
+        public readonly int $remoteId,
+        public readonly bool $markAsSynced = false,
     ) {
         $this->maxAttempts = 1;
     }
@@ -33,11 +36,39 @@ class PullProductJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            ProductService::instance()
+            try {
+                $response = SallaMerchantService::withToken(
+                        accessToken: $this->accessToken,
+                    )
+                    ->products()
+                    ->details(
+                        id: $this->remoteId,
+                    );
+            } catch (SallaMerchantException $exception) {
+                $this->handleException(
+                    exception: SallaMerchantException::withLines(
+                        exception: $exception,
+                        lines: [
+                            'Exception while pulling product details from salla',
+                            "Store: {$this->storeId}",
+                            "Product: {$this->remoteId}",
+                        ],
+                    ),
+                );
+
+                return;
+            }
+
+            $product = ProductService::instance()
                 ->saveSallaProduct(
-                    sallaProduct: $this->data,
+                    sallaProduct: $response['data'],
                     storeId: $this->storeId,
                 );
+
+            if ($this->markAsSynced) {
+                $product->markAsSynced();
+            }
+
         } catch (Exception $exception) {
             $this->handleException(
                 exception: $exception,

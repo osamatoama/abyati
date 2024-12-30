@@ -21,7 +21,7 @@ final class BatchService
     public function createPendingBatch(
         ShouldQueue|array $jobs,
         BatchName $batchName,
-        int $storeId,
+        string $storeId,
         QueueName $queueName = QueueName::DEFAULT,
         ?Closure $finallyCallback = null,
         bool $deleteWhenFinished = true,
@@ -34,7 +34,8 @@ final class BatchService
                 storeId: $storeId,
             ),
         )->onQueue(
-            queue: app()->isProduction() ? $queueName->value : QueueName::DEFAULT->value,
+            // queue: app()->isProduction() ? $queueName->value : QueueName::DEFAULT->value,
+            queue: $queueName->value,
         );
 
         if ($finallyCallback !== null || $deleteWhenFinished) {
@@ -56,7 +57,7 @@ final class BatchService
         return $pendingBatch;
     }
 
-    protected function generateBatchName(BatchName $batchName, int $storeId): string
+    protected function generateBatchName(BatchName $batchName, string $storeId): string
     {
         return "{$batchName->value}:{$storeId}";
     }

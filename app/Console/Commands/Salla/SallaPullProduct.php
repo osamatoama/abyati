@@ -4,7 +4,7 @@ namespace App\Console\Commands\Salla;
 
 use App\Models\Store;
 use Illuminate\Console\Command;
-use App\Jobs\Salla\Pull\Products\PullProductJob;
+use App\Jobs\Salla\Pull\Products\SaveProductJob;
 use App\Services\Salla\Merchant\SallaMerchantService;
 use App\Services\Salla\Merchant\SallaMerchantException;
 
@@ -56,7 +56,7 @@ class SallaPullProduct extends Command
             return;
         }
 
-        PullProductJob::dispatch(
+        SaveProductJob::dispatch(
             accessToken: $store->user->sallaToken->access_token,
             storeId: $store->id,
             data: $response['data'],

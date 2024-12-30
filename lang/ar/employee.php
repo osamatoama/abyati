@@ -64,6 +64,7 @@ return [
             'with_tax' => 'خاضع للضريبة',
             'attached_at' => 'تاريخ الربط',
             'expiry_date' => 'انتهاء الصلاحية',
+            'synced' => 'تمت المزامنة',
         ],
 
         'statuses' => [
@@ -311,6 +312,7 @@ return [
             'edit' => 'تعديل الرف',
             'attach_product' => 'إضافة منتج للرف',
             'detach_product' => 'إزالة المنتج',
+            'sync_products' => 'مزامنة المنتجات',
             'import' => 'استيراد',
             'import_products' => 'استيراد المنتجات',
             'download_warehouse_template' => 'تحميل نموذج المستودع',

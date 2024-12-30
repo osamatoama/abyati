@@ -36,6 +36,7 @@ class TruncateJobs extends Command
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
         DB::table('jobs')->truncate();
+        DB::table('job_batches')->truncate();
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }

@@ -60,6 +60,11 @@ Breadcrumbs::for('employee.shelves.show', function ($trail, Shelf $shelf) {
     $trail->push($shelf->name, route('employee.shelves.show', $shelf->id));
 });
 
+Breadcrumbs::for('employee.shelves.products.sync', function ($trail, Shelf $shelf) {
+    $trail->parent('employee.shelves.show', $shelf);
+    $trail->push(__('employee.shelves.actions.sync_products'), route('employee.shelves.products.sync', $shelf->id));
+});
+
 // Stocktakings
 Breadcrumbs::for('employee.stocktakings.index', function ($trail) {
     $trail->parent('employee.home');
