@@ -4,8 +4,8 @@ namespace App\Services\Salla\Merchant\Support;
 
 use App\Services\Salla\Merchant\Client;
 use App\Services\Salla\Merchant\Contracts\Support;
-use App\Services\Salla\Merchant\SallaMerchantException;
 use App\Services\Salla\Merchant\SallaMerchantService;
+use App\Services\Salla\Merchant\SallaMerchantException;
 
 final class Products implements Support
 {
@@ -17,13 +17,13 @@ final class Products implements Support
     /**
      * @throws SallaMerchantException
      */
-    public function get(int $page = 1): array
+    public function get(int $page = 1, array $filters = []): array
     {
         return $this->client->get(
             url: "{$this->service->baseUrl}/products",
-            query: [
+            query: array_merge($filters, [
                 'page' => $page,
-            ],
+            ]),
         );
     }
 

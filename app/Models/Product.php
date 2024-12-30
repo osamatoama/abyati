@@ -36,6 +36,8 @@ class Product extends Model
         'sale_price',
         'regular_price',
         'currency',
+        'should_sync',
+        'synced',
     ];
 
     protected $casts = [
@@ -46,6 +48,8 @@ class Product extends Model
         'price' => 'decimal:2',
         'sale_price' => 'decimal:2',
         'regular_price' => 'decimal:2',
+        'should_sync' => 'boolean',
+        'synced' => 'boolean',
     ];
 
     protected $filter = ProductFilter::class;
@@ -118,5 +122,13 @@ class Product extends Model
     public function isGroup()
     {
         return $this->type === ProductType::GROUP_PRODUCTS->value;
+    }
+
+    public function markAsSynced()
+    {
+        $this->update([
+            'should_sync' => false,
+            'synced' => true,
+        ]);
     }
 }

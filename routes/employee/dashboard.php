@@ -42,6 +42,7 @@ Route::prefix('shelves')
     ->group(function () {
         Route::get('select', [ShelfController::class, 'select'])->name('select');
         Route::get('select-ailses', [ShelfController::class, 'selectAisles'])->name('select.aisles');
+        Route::get('{shelf}/sync-products', [ShelfController::class, 'syncProducts'])->name('products.sync');
         Route::get('{shelf}/products', [ShelfController::class, 'products'])->name('products');
         Route::post('{shelf}/products/attach', [ShelfController::class, 'attachProduct'])->name('products.attach');
         Route::put('{shelf}/products/bulk-detach', [ShelfController::class, 'bulkDetachProducts'])->name('products.bulk_detach');
