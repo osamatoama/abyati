@@ -22,7 +22,8 @@ final class ChainService
         return Bus::chain(
             jobs: $jobs,
         )->onQueue(
-            queue: app()->isProduction() ? $queueName->value : QueueName::DEFAULT->value,
+            // queue: app()->isProduction() ? $queueName->value : QueueName::DEFAULT->value,
+            queue: $queueName->value,
         );
     }
 }

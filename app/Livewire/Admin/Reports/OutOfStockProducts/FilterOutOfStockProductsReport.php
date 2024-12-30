@@ -24,20 +24,24 @@ class FilterOutOfStockProductsReport extends Component
     #[Locked]
     public array $shelves = [];
 
-    #[Url]
-    public ?int $warehouse_id = null;
+    #[Url(except: '')]
+    public ?string $warehouse_id = '';
 
-    #[Url]
-    public ?int $employee_id = null;
+    #[Url(except: '')]
+    public ?string $employee_id = '';
 
-    #[Url]
-    public ?string $aisle = null;
+    #[Url(except: '')]
+    public ?string $aisle = '';
 
-    #[Url]
-    public ?int $shelf_id = null;
+    #[Url(except: '')]
+    public ?string $shelf_id = '';
 
     public function mount()
     {
+        if (filled($this->getFilters())) {
+            $this->apply();
+        }
+
         $this->warehouses = Warehouse::active()->pluck('name', 'id')->toArray();
         $this->employees = Employee::role(EmployeeRole::STOCKTAKING)->pluck('name', 'id')->toArray();
 
@@ -67,6 +71,11 @@ class FilterOutOfStockProductsReport extends Component
             ->when($this->aisle, function ($q) {
                 return $q->where('aisle', $this->aisle);
             })
+            ->when($this->employee_id, function ($q) {
+                return $q->whereHas('employees', function ($q) {
+                    $q->where('employees.id', $this->employee_id);
+                });
+            })
             ->pluck('name', 'id')
             ->toArray();
 
@@ -76,9 +85,18 @@ class FilterOutOfStockProductsReport extends Component
     public function updated($property)
     {
         if ($property == 'warehouse_id') {
-            $this->employee_id = null;
-            $this->aisle = null;
-            $this->shelf_id = null;
+            $this->employee_id = '';
+            $this->aisle = '';
+            $this->shelf_id = '';
+        }
+
+        if ($property == 'employee_id') {
+            $this->aisle = '';
+            $this->shelf_id = '';
+        }
+
+        if ($property == 'aisle') {
+            $this->shelf_id = '';
         }
 
         $this->apply();
@@ -87,10 +105,6 @@ class FilterOutOfStockProductsReport extends Component
     public function apply()
     {
         $this->validate();
-
-        if ($this->shelf_id && empty($this->aisle)) {
-            $this->aisle = Shelf::find($this->shelf_id)->aisle;
-        }
 
         $this->dispatch('report-filters-applied', [
             'filters' => $this->getFilters(),

@@ -19,7 +19,7 @@ trait InteractsWithBatches
     protected function createBatch(
         ShouldQueue|array $jobs,
         BatchName $batchName,
-        int $storeId,
+        string $storeId,
         QueueName $queueName = QueueName::DEFAULT,
         ?Closure $finallyCallback = null,
         bool $deleteWhenFinished = true,
@@ -42,7 +42,7 @@ trait InteractsWithBatches
     protected function addOrCreateBatch(
         ShouldQueue|array $jobs,
         BatchName $batchName,
-        int $storeId,
+        string $storeId,
         QueueName $queueName = QueueName::DEFAULT,
         ?Closure $finallyCallback = null,
         bool $deleteWhenFinished = true,

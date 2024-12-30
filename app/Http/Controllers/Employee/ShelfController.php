@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Employee;
 
 use App\Models\Shelf;
 use App\Models\Product;
+use App\Models\JobBatch;
 use App\Models\Warehouse;
+use App\Enums\Queues\BatchName;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Datatables\Employee\ShelfIndex;
 use App\Datatables\Employee\ShelfProductsIndex;
+use App\Datatables\Employee\ShelfSyncProductsIndex;
+use App\Jobs\Salla\Pull\Products\PullShelfProductsJob;
 use App\Http\Requests\Employee\Shelf\AttachProductRequest;
 use App\Http\Requests\Employee\Shelf\BulkDetachProductsRequest;
 use App\Http\Requests\Employee\Shelf\BulkTransferProductsRequest;
@@ -35,11 +39,41 @@ class ShelfController extends Controller
 
     public function products(Shelf $shelf)
     {
+        abort_unless($shelf->employees->contains('id', auth('employee')->id()), 403);
+
         if (! request()->expectsJson()) {
             abort(403);
         }
 
         return app(ShelfProductsIndex::class, ['shelf' => $shelf])->render();
+    }
+
+    public function syncProducts(Shelf $shelf)
+    {
+        abort_unless($shelf->employees->contains('id', auth('employee')->id()), 403);
+
+        if (request()->expectsJson()) {
+            return app(ShelfSyncProductsIndex::class, ['shelf' => $shelf])->render();
+        }
+
+        $syncBatch = JobBatch::query()
+            ->where('name', BatchName::SALLA_PULL_PRODUCTS->value . ':' . 'shelf.' . $shelf->id)
+            ->first();
+
+        if (! $syncBatch) {
+            $shelf->products()->update([
+                'should_sync' => true,
+                'synced' => false,
+            ]);
+
+            dispatch(new PullShelfProductsJob(
+                accessToken: $shelf->warehouse->branch->store->user->sallaToken->access_token,
+                storeId: $shelf->warehouse->branch->store_id,
+                shelf: $shelf,
+            ));
+        }
+
+        return view('employee.pages.shelves.sync', compact('shelf'));
     }
 
     public function attachProduct(Shelf $shelf, AttachProductRequest $request)

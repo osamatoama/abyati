@@ -64,6 +64,7 @@ return [
             'with_tax' => 'Tax applied',
             'attached_at' => 'Attached at',
             'expiry_date' => 'Expiry Date',
+            'synced' => 'Synced',
         ],
 
         'statuses' => [
@@ -317,6 +318,7 @@ return [
             'edit' => 'Edit Shelf',
             'attach_product' => 'Attach Product',
             'detach_product' => 'Detach Product',
+            'sync_products' => 'Sync Products',
             'import' => 'Import',
             'import_products' => 'Import Products',
             'download_warehouse_template' => 'Download Warehouse Template',

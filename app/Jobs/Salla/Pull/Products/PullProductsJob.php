@@ -2,17 +2,18 @@
 
 namespace App\Jobs\Salla\Pull\Products;
 
-use App\Enums\Queues\BatchName;
-use App\Jobs\Concerns\InteractsWithBatches;
-use App\Jobs\Concerns\HandleExceptions;
-use App\Services\Salla\Merchant\SallaMerchantException;
-use App\Services\Salla\Merchant\SallaMerchantService;
 use Exception;
 use Illuminate\Bus\Queueable;
+use App\Enums\Queues\BatchName;
+use App\Enums\Queues\QueueName;
+use Illuminate\Queue\SerializesModels;
+use App\Jobs\Concerns\HandleExceptions;
+use Illuminate\Queue\InteractsWithQueue;
+use App\Jobs\Concerns\InteractsWithBatches;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use App\Services\Salla\Merchant\SallaMerchantService;
+use App\Services\Salla\Merchant\SallaMerchantException;
 
 class PullProductsJob implements ShouldQueue
 {
@@ -24,6 +25,7 @@ class PullProductsJob implements ShouldQueue
     public function __construct(
         public readonly string $accessToken,
         public readonly int $storeId,
+        public readonly int $page = 1,
     ) {
         $this->maxAttempts = 5;
     }
@@ -34,12 +36,14 @@ class PullProductsJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            $service = SallaMerchantService::withToken(
-                accessToken: $this->accessToken,
-            );
-
             try {
-                $response = $service->products()->get();
+                $response = SallaMerchantService::withToken(
+                        accessToken: $this->accessToken,
+                    )
+                    ->products()
+                    ->get(
+                        page: $this->page,
+                    );
             } catch (SallaMerchantException $exception) {
                 $this->handleException(
                     exception: SallaMerchantException::withLines(
@@ -55,23 +59,34 @@ class PullProductsJob implements ShouldQueue
             }
 
             $jobs = [];
-            for ($page = 1, $totalPages = $response['pagination']['totalPages']; $page <= $totalPages; $page++) {
-                $jobs[] = new PullProductsPerPageJob(
+
+            foreach ($response['data'] as $product) {
+                $jobs[] = new SaveProductJob(
                     accessToken: $this->accessToken,
                     storeId: $this->storeId,
-                    page: $page,
-                    response: $page === 1 ? $response : null,
+                    data: $product,
                 );
             }
 
-            // $this->addOrCreateBatch(
-            //     jobs: $jobs,
-            //     batchName: BatchName::SALLA_PULL_PRODUCTS,
-            //     storeId: $this->storeId,
-            // );
+            $this->addOrCreateBatch(
+                jobs: $jobs,
+                batchName: BatchName::SALLA_PULL_PRODUCTS,
+                queueName: QueueName::PULL,
+                storeId: $this->storeId,
+            );
 
-            foreach ($jobs as $job) {
-                $this->prependToChain($job);
+            $chainedJobs = [];
+
+            if (! empty($response['pagination']['links']['next'])) {
+                $chainedJobs[] = new self(
+                    accessToken: $this->accessToken,
+                    storeId: $this->storeId,
+                    page: $this->page + 1,
+                );
+            }
+
+            foreach ($chainedJobs as $job) {
+                $this->appendToChain($job);
             }
         } catch (Exception $exception) {
             $this->handleException(
