@@ -70,8 +70,21 @@
                             <span class="menu-icon">
                                 <i class="fa-solid fa-warehouse fs-2"></i>
                             </span>
-                                <span class="menu-title">
-                            {{ __('employee.shelves.title') }}
+                            <span class="menu-title">
+                                {{ __('employee.shelves.title') }}
+                            </span>
+                        </a>
+                    </div>
+                @endif
+
+                @if(auth()->user()->hasRole(\App\Enums\EmployeeRole::STOCKTAKING))
+                    <div class="menu-item">
+                        <a @class(['menu-link', 'active' => request()->routeIs('employee.reports.*')]) href="{{ route('employee.reports.index') }}">
+                            <span class="menu-icon">
+                                <i class="fa-solid fa-file-lines fs-2"></i>
+                            </span>
+                            <span class="menu-title">
+                                {{ __('employee.reports.title') }}
                             </span>
                         </a>
                     </div>

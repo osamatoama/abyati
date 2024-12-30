@@ -10,6 +10,8 @@ use App\Http\Controllers\Employee\ShelfController;
 use App\Http\Controllers\Employee\AccountController;
 use App\Http\Controllers\Employee\ProductController;
 use App\Http\Controllers\Employee\StocktakingController;
+use App\Http\Controllers\Employee\Reports\ReportController;
+use App\Http\Controllers\Employee\Reports\OutOfStockProductsReportController;
 
 // Home
 Route::get('/', HomeController::class)->name('home');
@@ -68,7 +70,9 @@ Route::prefix('stocktakings')
 
 // Reports
 Route::prefix('reports')->as('reports.')->group(function () {
-    //
+    Route::get('/', [ReportController::class, 'index'])->name('index');
+
+    Route::get('out-of-stock-products', [OutOfStockProductsReportController::class, 'index'])->name('out-of-stock-products.index');
 });
 
 Route::get('account', [AccountController::class, 'index'])->name('account.index');
