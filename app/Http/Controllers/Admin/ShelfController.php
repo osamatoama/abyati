@@ -59,9 +59,7 @@ class ShelfController extends Controller
         DB::transaction(function () use ($data) {
             $shelf = Shelf::create($data);
 
-            if (! empty($data['employee_ids'])) {
-                $shelf->employees()->sync($data['employee_ids']);
-            }
+            $shelf->employees()->sync(! empty($data['employee_ids']) ? $data['employee_ids'] : []);
         });
 
         return response()->json([
@@ -78,9 +76,7 @@ class ShelfController extends Controller
         DB::transaction(function () use ($shelf, $data) {
             $shelf->update($data);
 
-            if (! empty($data['employee_ids'])) {
-                $shelf->employees()->sync($data['employee_ids']);
-            }
+            $shelf->employees()->sync(! empty($data['employee_ids']) ? $data['employee_ids'] : []);
         });
 
         return response()->json([

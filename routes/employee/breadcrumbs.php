@@ -93,6 +93,11 @@ Breadcrumbs::for('employee.reports.index', function ($trail) {
     $trail->push(__('employee.reports.title'), route('employee.reports.index'));
 });
 
+Breadcrumbs::for('employee.reports.out-of-stock-products.index', function ($trail) {
+    $trail->parent('employee.reports.index');
+    $trail->push(__('employee.reports.out_of_stock_products.title'), route('employee.reports.out-of-stock-products.index'));
+});
+
 // Test
 Breadcrumbs::for('employee.test', function ($trail) {
     $trail->parent('employee.home');
