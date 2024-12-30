@@ -435,4 +435,111 @@ return [
             'product_already_stocktaken' => 'Product already stocktaken',
         ],
     ],
+
+    'reports' => [
+        'title' => 'Reports',
+        'results' => 'Results',
+
+        'employee_performance' => [
+            'title' => 'Employee Performance',
+
+            'attributes' => [
+                'order_number' => 'Order Number',
+                'started_at' => 'Started At',
+                'completed_at' => 'Completed At',
+                'duration' => 'Duration',
+                'duration_minutes' => 'Duration (Minutes)',
+            ],
+
+            'filters' => [
+                'employee_id' => 'Employee',
+            ],
+        ],
+
+        'quantity_issues' => [
+            'title' => 'Quantity Issues',
+
+            'attributes' => [
+                'product_remote_id' => 'Product ID',
+                'product_name' => 'Product Name',
+                'product_image' => 'Image',
+                'issues_count' => 'Issues Count',
+            ],
+
+            'filters' => [
+
+            ],
+        ],
+
+        'products_without_shelves' => [
+            'title' => 'Products Without Shelves',
+
+            'attributes' => [
+                'product_remote_id' => 'Salla ID',
+                'product_name' => 'Name',
+                'product_image' => 'Image',
+                'product_sku' => 'SKU',
+                'quantities' => 'Quantities',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'Warehouse',
+            ],
+        ],
+
+        'products_with_multiple_shelves' => [
+            'title' => 'Products With Multiple Shelves',
+
+            'attributes' => [
+                'product_remote_id' => 'Salla ID',
+                'product_name' => 'Name',
+                'product_image' => 'Image',
+                'product_sku' => 'SKU',
+                'shelves' => 'Shelves',
+                'quantities' => 'Quantities',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'Warehouse',
+            ],
+        ],
+
+        'nearly_expired_products' => [
+            'title' => 'Nearly Expired Products',
+
+            'attributes' => [
+                'product_remote_id' => 'Salla ID',
+                'product_name' => 'Name',
+                'product_image' => 'Image',
+                'product_sku' => 'SKU',
+                'shelves' => 'Shelves',
+                'quantities' => 'Quantities',
+                'expiry_date' => 'Expiry Date',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'Warehouse',
+            ],
+        ],
+
+        'out_of_stock_products' => [
+            'title' => 'Out Of Stock Products',
+
+            'attributes' => [
+                'product_remote_id' => 'Salla ID',
+                'product_name' => 'Name',
+                'product_image' => 'Image',
+                'product_sku' => 'SKU',
+                'shelves' => 'Shelves',
+                'quantities' => 'Quantities',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'Warehouse',
+                'employee_id' => 'Employee',
+                'aisle' => 'Aisle',
+                'shelf' => 'Shelf',
+            ],
+        ],
+    ],
 ];

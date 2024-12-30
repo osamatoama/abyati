@@ -429,4 +429,111 @@ return [
             'product_already_stocktaken' => 'المنتج تم جرده بالفعل',
         ],
     ],
+
+    'reports' => [
+        'title' => 'التقارير',
+        'results' => 'النتائج',
+
+        'employee_performance' => [
+            'title' => 'أداء الموظفين',
+
+            'attributes' => [
+                'order_number' => 'رقم الطلب',
+                'started_at' => 'بدأ في',
+                'completed_at' => 'اكتمل في',
+                'duration' => 'مدة التنفيذ',
+                'duration_minutes' => 'مدة التنفيذ (دقائق)',
+            ],
+
+            'filters' => [
+                'employee_id' => 'الموظف',
+            ],
+        ],
+
+        'quantity_issues' => [
+            'title' => 'مشاكل الكميات',
+
+            'attributes' => [
+                'product_remote_id' => 'معرف المنتج',
+                'product_name' => 'اسم المنتج',
+                'product_image' => 'الصورة',
+                'issues_count' => 'عدد المشاكل',
+            ],
+
+            'filters' => [
+
+            ],
+        ],
+
+        'products_without_shelves' => [
+            'title' => 'منتجات بدون رفوف',
+
+            'attributes' => [
+                'product_remote_id' => 'معرف سلة',
+                'product_name' => 'الاسم',
+                'product_image' => 'الصورة',
+                'product_sku' => 'SKU',
+                'quantities' => 'الكميات',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'المستودع',
+            ],
+        ],
+
+        'products_with_multiple_shelves' => [
+            'title' => 'منتجات متعددة الرفوف',
+
+            'attributes' => [
+                'product_remote_id' => 'معرف سلة',
+                'product_name' => 'الاسم',
+                'product_image' => 'الصورة',
+                'product_sku' => 'SKU',
+                'shelves' => 'الرفوف',
+                'quantities' => 'الكميات',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'المستودع',
+            ],
+        ],
+
+        'nearly_expired_products' => [
+            'title' => 'منتجات قاربت انتهاء الصلاحية',
+
+            'attributes' => [
+                'product_remote_id' => 'معرف سلة',
+                'product_name' => 'الاسم',
+                'product_image' => 'الصورة',
+                'product_sku' => 'SKU',
+                'shelves' => 'الرفوف',
+                'quantities' => 'الكميات',
+                'expiry_date' => 'انتهاء الصلاحية',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'المستودع',
+            ],
+        ],
+
+        'out_of_stock_products' => [
+            'title' => 'منتجات منتهية الكمية',
+
+            'attributes' => [
+                'product_remote_id' => 'معرف سلة',
+                'product_name' => 'الاسم',
+                'product_image' => 'الصورة',
+                'product_sku' => 'SKU',
+                'shelves' => 'الرفوف',
+                'quantities' => 'الكميات',
+            ],
+
+            'filters' => [
+                'warehouse_id' => 'المستودع',
+                'employee_id' => 'الموظف',
+                'aisle' => 'الممر',
+                'shelf' => 'الرف',
+            ],
+        ],
+    ],
 ];
