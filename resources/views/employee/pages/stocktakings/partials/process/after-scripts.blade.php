@@ -47,7 +47,7 @@
         playVoiceNotification('scanner-beep-notification')
     })
 
-    Livewire.on('order-executed', (params) => {
+    Livewire.on('stocktaking-executed', (params) => {
         Swal.fire({
             title: params[0].message,
             icon: 'success',

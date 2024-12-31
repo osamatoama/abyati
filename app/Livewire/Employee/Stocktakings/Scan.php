@@ -128,6 +128,13 @@ class Scan extends Component
 
         $scannedProductId = $this->scanned_product->id;
 
+        if ($this->stocktaking->isExecuted()) {
+            $this->dispatch('stocktaking-executed', [
+                'message' => __('employee.stocktakings.messages.stocktaking_executed'),
+                'redirect_url' => route('employee.stocktakings.index', ['shelf_id' => $this->stocktaking->shelf_id]),
+            ]);
+        }
+
         $this->reset(
             'scanned_barcode',
             'scanned_product',

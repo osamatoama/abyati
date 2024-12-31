@@ -24,6 +24,10 @@ class ConfirmProduct
             'has_issue' => false,
         ]]);
 
+        (new SyncStocktakingStatusWithProducts(
+            stocktaking: $this->stocktaking
+        ))->execute();
+
         $this->dispatchEvents();
     }
 

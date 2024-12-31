@@ -416,6 +416,7 @@ return [
 
         'messages' => [
             'product_updated' => 'تم تحديث بيانات المنتج بنجاح',
+            'stocktaking_executed' => 'تم إتمام جرد الرف بنجاح',
         ],
 
         'alerts' => [

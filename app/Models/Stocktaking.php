@@ -79,6 +79,13 @@ class Stocktaking extends Model
     /**
      * Methods
      */
+    public function isExecuted(): bool
+    {
+        return $this->products->every(fn(Product $product) =>
+            $product->pivot->confirmed || $product->pivot->has_issue
+        );
+    }
+
     public function isPending(): bool
     {
         return $this->status === StocktakingStatus::PENDING->value;
@@ -87,5 +94,20 @@ class Stocktaking extends Model
     public function isCompleted(): bool
     {
         return $this->status === StocktakingStatus::COMPLETED->value;
+    }
+
+    public function setAsPending(): void
+    {
+        $this->update([
+            'status' => StocktakingStatus::PENDING,
+        ]);
+    }
+
+    public function setAsCompleted(): void
+    {
+        $this->update([
+            'status' => StocktakingStatus::COMPLETED,
+            'finished_at' => now(),
+        ]);
     }
 }

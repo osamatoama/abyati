@@ -422,6 +422,7 @@ return [
 
         'messages' => [
             'product_updated' => 'Product info updated successfully',
+            'stocktaking_executed' => 'Shelf stocktaking executed successfully',
         ],
 
         'alerts' => [
