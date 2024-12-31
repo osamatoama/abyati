@@ -17,9 +17,7 @@ class SyncStocktakingStatusWithProducts
     public function execute()
     {
         if ($this->stocktaking->isExecuted()) {
-            DB::transaction(function () {
-                $this->stocktaking->setAsCompleted();
-            });
+            $this->stocktaking->setAsCompleted();
 
             $this->dispatchCompletionEvents();
         }
