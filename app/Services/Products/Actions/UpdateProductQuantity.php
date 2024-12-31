@@ -4,7 +4,7 @@ namespace App\Services\Products\Actions;
 
 use App\Models\Branch;
 use App\Models\Product;
-use App\Jobs\Salla\Push\Products\UpdateProductQuantityJob;
+use App\Services\Products\Salla\Push\SallaUpdateProductQuantity;
 
 class UpdateProductQuantity
 {
@@ -33,12 +33,12 @@ class UpdateProductQuantity
 
     private function remoteUpdate()
     {
-        UpdateProductQuantityJob::dispatch(
+        (new SallaUpdateProductQuantity(
             token: $this->product->store->user->sallaToken,
             store: $this->product->store,
             product: $this->product,
             branch: $this->branch,
-        );
+        ))->handle();
     }
 
     private function dispatchEvents()

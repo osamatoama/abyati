@@ -48,17 +48,25 @@
                                     <strong>{{ __('employee.products.attributes.shelf') }} :</strong>
                                     <span>{{ $scanned_product->shelves->pluck('name')->implode(' , ') }}</span>
                                 </li>
-                                <li class="d-flex align-items-center gap-2 mb-1">
-                                    <strong>{{ __('employee.products.attributes.quantity') }} : </strong>
-                                    <span>
-                                        <input type="number" class="form-control form-control-sm" wire:model="scanned_product_quantity" />
-                                    </span>
+                                <li class="mb-1">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <strong>{{ __('employee.products.attributes.quantity') }} : </strong>
+                                        <span>
+                                            <input type="number" class="form-control form-control-sm @error('scanned_product_quantity') is-invalid @enderror" wire:model="scanned_product_quantity" />
+                                        </span>
+                                    </div>
+
+                                    @error('scanned_product_quantity') <span class="form-input-error text-danger">{{ $message }}</span> @enderror
                                 </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <strong>{{ __('employee.products.attributes.expiry_date') }} : </strong>
-                                    <span>
-                                        <input type="date" class="form-control form-control-sm" wire:model="scanned_product_expiry_date" />
-                                    </span>
+                                <li>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <strong>{{ __('employee.products.attributes.expiry_date') }} : </strong>
+                                        <span>
+                                            <input type="date" class="form-control form-control-sm @error('scanned_product_expiry_date') is-invalid @enderror" wire:model="scanned_product_expiry_date" />
+                                        </span>
+                                    </div>
+
+                                    @error('scanned_product_expiry_date') <span class="form-input-error text-danger">{{ $message }}</span> @enderror
                                 </li>
                             </ul>
                         </div>

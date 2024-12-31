@@ -14,6 +14,7 @@ use App\Services\Stocktakings\ConfirmProduct;
 use Illuminate\Validation\ValidationException;
 use App\Services\Products\Actions\UpdateProductQuantity;
 use App\Services\Products\Actions\UpdateProductExpiryDate;
+use App\Exceptions\Salla\FailedToUpdateProductQuantityException;
 
 class Scan extends Component
 {
@@ -186,14 +187,24 @@ class Scan extends Component
             return;
         }
 
-        (new UpdateProductQuantity(
-            product: $this->scanned_product,
-            branch: $this->stocktaking->shelf->warehouse->branch,
-            quantity: $quantity,
-            remoteUpdate: true,
-        ))->execute();
+        try {
 
-        $this->dispatch('product-expiry-date-updated', [
+            (new UpdateProductQuantity(
+                product: $this->scanned_product,
+                branch: $this->stocktaking->shelf->warehouse->branch,
+                quantity: $quantity,
+                remoteUpdate: true,
+            ))->execute();
+
+        } catch (\Throwable $th) {
+            throw ValidationException::withMessages([
+                'scanned_product_quantity' => $th instanceof FailedToUpdateProductQuantityException
+                    ? $th->getMessage()
+                    : __('globals.errors.something_went_wrong'),
+            ]);
+        }
+
+        $this->dispatch('product-quantity-updated', [
             'product_id' => $this->scanned_product->id,
         ]);
     }

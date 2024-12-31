@@ -433,6 +433,8 @@ return [
             'barcode_not_exists_in_shelf' => 'Barcode not exists in this shelf',
             'invalid_barcode' => 'Invalid barcode',
             'product_already_stocktaken' => 'Product already stocktaken',
+            'cannot_update_salla_quantity_in_this_env' => 'Cannot update quantity in Salla in this environment',
+            'failed_to_update_salla_quantity' => 'Failed to update quantity in Salla',
         ],
     ],
 

@@ -39,8 +39,6 @@ class UpdateProductQuantityJob implements ShouldQueue
     public function handle(): void
     {
         if (env('ENABLE_REMOTE_UPDATE', false) == false) {
-            logger()->error('Remote update is disabled for this environment');
-
             return;
         }
 

@@ -427,6 +427,8 @@ return [
             'barcode_not_exists_in_shelf' => 'الباركود غير موجود في هذا الرف',
             'invalid_barcode' => 'الباركود غير صحيح',
             'product_already_stocktaken' => 'المنتج تم جرده بالفعل',
+            'cannot_update_salla_quantity_in_this_env' => 'لا يمكن تحديث الكمية في سلة في هذه البيئة',
+            'failed_to_update_salla_quantity' => 'فشل تحديث الكمية في سلة',
         ],
     ],
 
